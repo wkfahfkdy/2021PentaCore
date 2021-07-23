@@ -8,7 +8,7 @@
   			<setting name="mapUnderscoreToCamelCase" value="ture"/>
   		</settings>
   		<!-- Alias 설정 -->
-  		<typeAliases>
+  		<!-- <typeAliases>
   			<typeAlias type=""/>
-  		</typeAliases>
+  		</typeAliases> -->
   </configuration>
