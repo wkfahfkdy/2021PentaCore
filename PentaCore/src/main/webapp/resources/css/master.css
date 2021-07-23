@@ -1,0 +1,40 @@
+/* --------------------------------------
+=========================================
+Trans Aero - Responsive Logistic Html Template
+Version: 1.0 (Initial Release)
+Designed By: Vadzim Liashkevich
+=========================================
+
+ 
+ /*-- IMPORT GOOGLE WEB FONTS --*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Lato:400,300,700);
+
+ /*-- BOOTSTRAP --*/
+@import url('bootstrap.min.css');
+
+ /*-- FONT AWESOME --*/
+@import url('font-awesome.min.css');
+
+ /*-- FLATICONS --*/
+@import url('../fonts/flaticon/flaticon.css');
+
+ /*-- SLIDER PRO --*/
+@import url('../assets/slider-pro/css/slider-pro.min.css');
+
+ /*-- ANIMATE CSS --*/
+@import url('animate.css');
+
+ /*-- OWL CAROUSEL --*/
+@import url('../assets/owl-carousel/owl.carousel.css');
+@import url('../assets/owl-carousel/owl.theme.css');
+
+ /*-- MAIN STYLES --*/
+@import url('theme.min.css');
+
+ /*-- RESPONSIVE FIXES --*/
+@import url('responsive.css');
+
+ /*-- COLOR SCHEMES --*/
+/*@import url('red.css');*/
+/*@import url('green.css');*/
+/*@import url('blue.css');*/

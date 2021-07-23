@@ -1,0 +1,470 @@
+@color-primary: #00c0e2;
+@color-primary-light: #5fd3e8; 
+@color-primary-light-1: #e3ebf0; 
+@color-background: #fff;
+@font-color-primary: #3e4f59;
+
+a{  
+    color: @color-primary;
+}
+
+.color-primary{
+    color:  @color-primary !important;
+}
+
+.with-square{ 
+    &:before{
+        background-color: @color-primary;
+    }
+}
+
+.my-btn{
+    &-primary{
+         border:  1px solid @color-primary;
+         background-color: @color-primary;
+         &:hover{
+            color: @color-primary;
+        }
+    }
+}
+
+.btn-primary{
+	background-color: @color-primary;
+	border-color: @color-primary;
+	&.disabled{
+		background-color: @color-primary-light;
+	}
+}
+
+input[type="text"], input[type="password"], textarea{
+    background-color: @color-primary-light;
+}
+
+.pagination {
+	.active{
+		a{
+			background-color: @color-primary;
+			border-color: @color-primary;
+			&:hover, &:focus{
+				background-color: @color-primary;
+				border-color: @color-primary;
+			}
+		}
+	}
+}
+
+.breadcrumb{
+	&>li{
+		&>a{
+			&:hover, &:focus{
+				color: @color-primary;
+			}
+		}
+	}
+	&>.active{
+		color: @color-primary;
+	}
+}
+
+.my-blockquote{
+	background-color: @color-primary-light-1;
+	&-quote {
+		div {
+			background-color: @color-primary;
+		}
+	}
+}
+
+.media{ 
+	&-body{
+		&-top{
+			.media-info{
+				.media-date{
+					color: @color-primary;
+				}
+			}
+			.media-reply{
+				.my-btn-default{
+					color: @color-primary;
+					border-color: @color-primary;
+					.my-btn-bg-top, .my-btn-bg-bottom{
+						background-color: @color-primary;
+					}
+					&:hover{
+						border-color: @color-primary;
+					}
+				}
+			}
+		}
+	}
+}
+	
+.cssload-whirlpool,
+.cssload-whirlpool::before,
+.cssload-whirlpool::after {
+	border-left-color: @color-primary;
+}
+
+.top-bar{
+	background-color: @color-primary;
+}
+
+.main-menu {
+    .navbar-nav{
+        &>li{
+            &>a{
+                &:hover, &:focus{
+                     color: @color-primary;
+                }
+                &.active{
+                     color: @color-primary;
+                }
+            }
+        }
+        &>li.active{
+            &>a{
+                color: @color-primary;
+            }
+        }
+    }
+    .dropdown-menu {
+        background-color: @color-primary;
+        &>li{
+            &>a{
+                &:hover, &:focus{
+                     color: @color-primary;
+                }
+                &.active{
+                     color: @color-primary;
+                }
+            }
+        }
+        &>li.active{
+            &>a{
+                color: @color-primary;
+            }
+        }
+        &:after{
+        	border-bottom-color: @color-primary;
+        }
+    }
+}
+
+.main-slider{
+    .my-btn-default{
+		border-color: @color-primary;
+		.my-btn-bg-top, .my-btn-bg-bottom{
+			background-color: @color-primary;
+		}
+    }
+}
+
+.service-mark{
+    background-color: @color-primary;
+    .my-btn-default{
+        .my-btn-bg-top, .my-btn-bg-bottom{
+             background-color: @color-primary;
+         }
+    }
+    &-border-top{
+        background-color: @color-primary;
+    }
+    &-border-right{
+        background-color: @color-primary;
+    }
+    &-border-bottom{
+        background-color: @color-primary;
+    }
+    &-border-left{
+        background-color: @color-primary;
+    }
+}
+
+.section-bg-right{
+    background-color: @color-primary;
+}
+
+.get-quote {
+	background-color: @color-primary;
+}
+
+.home-review{
+    &-carousel{
+		&-quote {
+			div{
+				background-color: @color-primary;
+			}
+		}
+	}
+}
+
+.stat-item{
+    &-icon{
+        background-color: @color-primary;
+    }
+    &-mark{
+        background-color: @color-primary;
+    }
+}
+
+.home-blog-item{
+    &-desc{
+        &-info{
+            .comments-icon{
+               color: @color-primary;
+            }
+        }
+    }
+    &-mark{
+		background-color: @color-primary;
+        .home-blog-item-date{
+            background-color: @color-primary;
+        }
+        .home-blog-item-desc{ 
+            background-color: @color-primary;
+        }
+    }
+}
+
+.home-subscribe{
+    background-color: @color-primary;
+    &-form{
+        &-button{
+            .my-btn-primary{
+                background-color: @color-primary-light;
+            }
+        }
+    }
+}
+
+.bottom{
+    .color-primary{
+        a{
+            color: @color-primary;
+        }
+    }
+}
+
+.service-menu{
+	&>li{
+		&>a{
+			&:hover, &:focus{
+				background-color: @color-primary;
+			}
+		}
+	}
+	&>li.active{
+		&>a{
+			background-color: @color-primary;
+		}
+	}
+}
+
+.service-detail{
+	.service-related{
+		h3{
+			a{
+				&:hover, &:focus{
+					color: @color-primary;
+				}
+			}
+		}
+	}
+}
+
+.about-text{
+	h2{
+		&:before{
+			color: @color-primary;
+		}
+	}
+}
+
+.team-item{
+	&-image{
+		&-overlay{
+			background-color: @color-primary;
+		}
+	}
+	&:hover{
+		.team-item-name{
+			color: @color-primary;
+		}
+	}
+}
+
+.blog-item{
+	&-info{
+		.author-icon{
+			color: @color-primary;
+		}
+		.date-icon{
+			color: @color-primary;
+		}
+	}
+	&-title{
+		h3{
+			&:before{
+				background-color: @color-primary;
+			}
+		}
+	}
+    &-mark{
+        .blog-item-date{
+            background-color: @color-primary;
+        }
+    }
+}
+
+.blog-right-bar{
+	&-item{
+		&:before{
+			background-color: @color-primary;
+		}
+	}
+	input{
+		background-color: @color-background;
+		border: 1px solid #eee;
+		width: 100%;
+	}
+	::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+		color: @font-color-primary; 
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	   color: @font-color-primary;
+	   opacity:  1;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	   color: @font-color-primary;
+	   opacity:  1;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	   color: @font-color-primary;
+	}
+}
+
+.recent-post{
+	&-date{
+		.date-icon{
+			color: @color-primary;
+		}
+	}
+}
+
+.blog-categories{
+	li{
+		a{
+			&:hover, &:focus{
+				color: @color-primary;
+			}
+		}
+	}
+	li.active{
+		a{
+			color: @color-primary;
+		}
+	}
+}
+
+.blog-tags{
+	a{
+		&.active{
+			background-color: @color-primary;
+		}
+		&:hover, &:focus{
+			background-color: @color-primary;
+		}
+	}
+}
+
+.single-post{
+    &-date{
+        background-color: @color-primary;
+    }
+	&-info{
+		.author-icon{
+			color: @color-primary;
+		}
+		.date-icon{
+			color: @color-primary;
+		}
+	}
+	&-title{
+		h3{
+			&:before{
+				background-color: @color-primary;
+			}
+		}
+	}
+	&-author{
+		&-info{
+			&-socials{
+				.my-btn-default{
+					.my-btn-bg-top, .my-btn-bg-bottom{
+						 background-color: @color-primary;
+					 }
+					 &:hover{
+						border-color: @color-primary;
+					}
+				}
+			}
+		}
+	}
+	&-comments{
+		h3{
+			&:before{
+				background-color: @color-primary;
+			}
+		}
+	}
+	&-leave-comment{
+		h3{
+			&:before{
+				background-color: @color-primary;
+			}
+		}
+	}
+}
+
+.contacts-info{
+	&-title{
+		background-color: @color-primary;
+	}
+}
+
+.contact-details{
+	background-color: @color-primary;
+}
+
+.contact-detail{ 
+	&-mark{
+		.contact-detail-icon{
+			color: @color-primary;
+		}
+		.contact-detail-title{
+			h3{
+				&:before{
+					background-color: @color-primary;
+				}
+			}
+		}
+	}
+}
+
+.slide-menu {
+	.close-menu {
+		&:hover{
+			color: @color-primary;
+		}
+	}
+	.left-menu{
+		&>li{
+			&>a {
+				&:hover, &:focus{
+					color: @color-primary;
+				}
+			}
+		}
+	}
+
+}
