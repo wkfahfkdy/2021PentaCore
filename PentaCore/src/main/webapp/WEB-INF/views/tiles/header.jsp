@@ -164,7 +164,7 @@
 							<a data-toggle="dropdown" href="#">Home</a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
-									<a href=#>Home 1</a>
+									<a onclick="location.href='storageList'">Home 1</a>
 								</li>
 								<li class="active">
 									<a href="#">Home 2</a>

@@ -5,10 +5,10 @@
   <configuration>
   		<!-- 카멜케이스 ture = first_name >> firstName 으로 변경 -->
   		<settings>
-  			<setting name="mapUnderscoreToCamelCase" value="ture"/>
+  			<setting name="mapUnderscoreToCamelCase" value="false"/>
   		</settings>
   		<!-- Alias 설정 -->
-  		<!-- <typeAliases>
-  			<typeAlias type=""/>
-  		</typeAliases> -->
+  		<typeAliases>
+  			<typeAlias type="com.yedam.storage.storage.vo.StorageVO" alias="StorageVO"/>
+  		</typeAliases>
   </configuration>

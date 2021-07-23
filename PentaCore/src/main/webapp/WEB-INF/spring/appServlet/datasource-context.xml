@@ -13,7 +13,7 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@192.169.0.100:1521:xe" />
+			value="jdbc:oracle:thin:@192.168.0.100:1521:xe" />
 		<property name="username" value="myStorage" />
 		<property name="password" value="myStorage" />
 	</bean>
@@ -25,7 +25,7 @@
 		<property name="configLocation"
 			value="classpath:mapper/mybatis-config.xml" />
 		<property name="mapperLocations"
-			value="classpath*:com/yedam/storage/**/*map.xml" />
+			value="classpath*:com/yedam/storage/**/*-map.xml" />
 	</bean>
 
 	<bean id="sqlSession"
