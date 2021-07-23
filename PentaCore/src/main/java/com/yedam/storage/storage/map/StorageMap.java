@@ -1,4 +1,4 @@
-package com.yedam.storage.storage.service;
+package com.yedam.storage.storage.map;
 
 import java.util.List;
 import com.yedam.storage.storage.vo.StorageVO;
