@@ -10,10 +10,12 @@ tmp/
 *.swp
 *~.nib
 local.properties
-pom.properties
 .settings/
 .loadpath
 .recommenders
+
+# Target build folder
+/target/
 
 # External tool builders
 .externalToolBuilders/
