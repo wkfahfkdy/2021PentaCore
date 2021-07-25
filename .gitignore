@@ -15,7 +15,7 @@ local.properties
 .recommenders
 
 # Target build folder
-target/
+/target/
 
 # External tool builders
 .externalToolBuilders/
