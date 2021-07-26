@@ -120,3 +120,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,eclipse
+PentaCore/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
