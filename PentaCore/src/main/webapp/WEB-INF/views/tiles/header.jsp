@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 	<!-- =========================
      PRE LOADER       
 	============================== -->
@@ -90,6 +84,10 @@
 								</li>
 								<li>
 									<a href="#">FAQ</a>
+								</li>
+								<li>
+									<!-- API 테스트 용 -->
+									<a href="calendarTest.do">CalendarTest</a>
 								</li>
 							</ul>
 						</li> 
@@ -195,8 +193,3 @@
 	<!-- =========================
 	   END BLACK OVERLAY
 	============================== -->
-     
-     
-	 
-</body>
-</html>

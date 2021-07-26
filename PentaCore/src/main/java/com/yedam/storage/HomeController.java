@@ -16,4 +16,10 @@ public class HomeController {
 		return "common/section";
 	}
 	
+	
+	@RequestMapping("calendarTest.do")
+	public String calendarTest() {
+		
+		return "test/calendar";
+	}
 }
