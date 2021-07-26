@@ -5,6 +5,7 @@
 		select * 
 		from notice
 		where store_code = 'ST002'
+		order by notice_num desc
 	</select>
 	<select id="usedStorageList" resultType="com.yedam.storage.mypage.vo.MyPageVO">
 		select u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
@@ -13,6 +14,8 @@
 		on (s.storage_code = o.storage_code)
 		join use_storage u
 		on (u.offer_code = o.offer_code)
+		join store t
+		on(u.store_code = t.store_code)
 		where u.member_id = 'user10'
 	</select>
 </mapper>
