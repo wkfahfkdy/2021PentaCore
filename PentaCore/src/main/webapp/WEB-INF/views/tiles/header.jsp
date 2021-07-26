@@ -92,6 +92,12 @@
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li >
+							<a class="latest" href="#">MYPAGE </a>
+						</li>
+												
+						<li class="main-menu-separator"></li>
+						<!-- === top menu item === -->
+						<li >
 							<a class="latest" href="#">LOGIN</a>
 						</li>
 					</ul>
