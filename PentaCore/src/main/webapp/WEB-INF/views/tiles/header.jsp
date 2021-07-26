@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 	<!-- =========================
      PRE LOADER       
 	============================== -->
@@ -42,12 +36,6 @@
 				 
 				<!-- === TOP SEARCH === -->
 				 
-				<div class="main-search-input" id="main-search-input">
-					<form>
-						<input type="text" id="main-search" name="main-search" placeholder="Try and type enter..." />
-					</form>
-				</div>
-	
 				
 				<div class="show-menu-control">
 					<!-- === top search button show === -->
@@ -70,7 +58,7 @@
 						
 						<!-- === top menu item === -->
 						<li>
-							<a href="#">셀프견적</a>
+							<a onclick="location.href='selfOffer'">셀프견적</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
@@ -90,6 +78,10 @@
 								</li>
 								<li>
 									<a href="#">FAQ</a>
+								</li>
+								<li>
+									<!-- API 테스트 용 -->
+									<a href="calendarTest.do">CalendarTest</a>
 								</li>
 							</ul>
 						</li> 
@@ -195,8 +187,3 @@
 	<!-- =========================
 	   END BLACK OVERLAY
 	============================== -->
-     
-     
-	 
-</body>
-</html>

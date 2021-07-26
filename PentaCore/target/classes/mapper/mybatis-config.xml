@@ -10,5 +10,7 @@
   		<!-- Alias 설정 -->
   		<typeAliases>
   			<typeAlias type="com.yedam.storage.storage.vo.StorageVO" alias="StorageVO"/>
+  			<typeAlias type="com.yedam.storage.division.vo.DivisionVO" alias="DivisionVO"/>
+  			<typeAlias type="com.yedam.storage.product.vo.ProductVO" alias="ProductVO"/>
   		</typeAliases>
   </configuration>
