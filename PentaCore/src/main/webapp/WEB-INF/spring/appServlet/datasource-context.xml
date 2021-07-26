@@ -14,8 +14,8 @@
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
 			value="jdbc:oracle:thin:@localhost:1521:xe" />
-		<property name="username" value="myStorage" />
-		<property name="password" value="myStorage" />
+		<property name="username" value="mystorage" />
+		<property name="password" value="mystorage" />
 	</bean>
 
 	<!-- MyBatis -->

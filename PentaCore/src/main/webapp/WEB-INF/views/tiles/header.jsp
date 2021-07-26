@@ -23,76 +23,6 @@
 	
 	
 	<!-- =========================
-		TOP BAR
-	============================== -->
-	<div class="top-bar">
-		<div class="container">
-				
-				<!-- === TOP BAR SOCIAL ICONS === -->
-				
-				<div class="top-bar-social">
-					<a href="#"><div class="my-btn my-btn-primary">
-						<div class="my-btn-bg-top"></div>
-						<div class="my-btn-bg-bottom"></div>
-						<div class="my-btn-text">
-							<i class="fa fa-twitter"></i>
-						</div>
-					</div></a>
-					<a href="#"><div class="my-btn my-btn-primary">
-						<div class="my-btn-bg-top"></div>
-						<div class="my-btn-bg-bottom"></div>
-						<div class="my-btn-text">
-							<i class="fa fa-facebook"></i>
-						</div>
-					</div></a>
-					<a href="#"><div class="my-btn my-btn-primary">
-						<div class="my-btn-bg-top"></div>
-						<div class="my-btn-bg-bottom"></div>
-						<div class="my-btn-text">
-							<i class="fa fa-google-plus"></i>
-						</div>
-					</div></a>
-					<a href="#"><div class="my-btn my-btn-primary">
-						<div class="my-btn-bg-top"></div>
-						<div class="my-btn-bg-bottom"></div>
-						<div class="my-btn-text">
-							<i class="fa fa-pinterest-p"></i>
-						</div>
-					</div></a>
-					<a href="#"><div class="my-btn my-btn-primary">
-						<div class="my-btn-bg-top"></div>
-						<div class="my-btn-bg-bottom"></div>
-						<div class="my-btn-text">
-							<i class="fa fa-instagram"></i>
-						</div>
-					</div></a>
-				</div>
-				
-				<!-- === TOP BAR PHONE === -->
-				
-				<div class="top-bar-phone">
-					<div class="top-bar-phone-icon">
-						<i class="fa fa-phone"></i>
-					</div>
-					+900 123 45 67
-				</div>
-				
-				<!-- === TOP BAR E-MAIL === -->
-				
-				<div class="top-bar-mail">
-					<div class="top-bar-mail-icon">
-						<i class="fa fa-envelope"></i>
-					</div>
-					info@domain.com
-				</div>
-			
-		</div>
-	</div>	
-	<!-- =========================
-		END TOP BAR
-	============================== -->
-	
-	<!-- =========================
 		TOP MAIN NAVBAR
 	============================== -->
 	<div class="main-navbar main-navbar-2">
@@ -117,29 +47,7 @@
 						<input type="text" id="main-search" name="main-search" placeholder="Try and type enter..." />
 					</form>
 				</div>
-				 
-				<div class="search-control">
-					<!-- === top search button show === -->
-					<a id="show-search" class="show-search latest" href="#">
-						<div class="my-btn my-btn-grey">
-                            <div class="my-btn-bg-top"></div>
-                            <div class="my-btn-bg-bottom"></div>
-                            <div class="my-btn-text">
-                                <i class="fa fa-search"></i>
-                            </div>
-						</div>
-					</a>
-					<!-- === top search button close === -->
-					<a id="close-search" class="close-search latest" href="#">
-						<div class="my-btn my-btn-grey">
-							<div class="my-btn-bg-top"></div>
-							<div class="my-btn-bg-bottom"></div>
-							<div class="my-btn-text">
-								<i class="fa fa-close"></i>
-							</div>
-						</div>
-					</a>
-				</div>
+	
 				
 				<div class="show-menu-control">
 					<!-- === top search button show === -->
@@ -159,86 +67,135 @@
 				<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu">
 					<ul class="nav navbar-nav">
 											
-						<!-- === top menu item === -->
-						<li class="active dropdown">
-							<a data-toggle="dropdown" href="#">Home</a>
-							<ul class="dropdown-menu" role="menu">
-								<li>
-									<a onclick="location.href='storageList'">Home 1</a>
-								</li>
-								<li class="active">
-									<a href="#">Home 2</a>
-								</li>
-							</ul>
-						</li>
-						<li class="main-menu-separator"></li>
-						<!-- === top menu item === -->
-						<li class="dropdown">
-							<a data-toggle="dropdown" href="#">Service</a>
-							<ul class="dropdown-menu" role="menu">
-								<li>
-									<a href="#">Service 1</a>
-								</li>
-								<li>
-									<a href="#">Service 2</a>
-								</li>
-								<li>
-									<a href="#">Service Details</a>
-								</li>
-							</ul>
-						</li>
-						<li class="main-menu-separator"></li>
+						
 						<!-- === top menu item === -->
 						<li>
-							<a href="#">About us</a>
+							<a href="#">셀프견적</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li class="dropdown">
-							<a data-toggle="dropdown" href="#">Elements</a>
-							<ul class="dropdown-menu" role="menu">
-								<li>
-									<a href="#">Typography</a>
-								</li>
-								<li>
-									<a href="#">Buttons</a>
-								</li>
-								<li>
-									<a href="#">Progress Bars</a>
-								</li>
-								<li>
-									<a href="#">Alerts</a>
-								</li>
-							</ul>
+							<a data-toggle="dropdown" href="#">마이스토리지 안내</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li class="dropdown">
-							<a data-toggle="dropdown" href="#">Blog</a>
+							<a data-toggle="dropdown" href="#">고객센터</a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
-									<a href="#">Blog items</a>
+									<a href="#">이용후기</a>
 								</li>
 								<li>
-									<a href="#">Single Post</a>
+									<a href="#">1:1문의</a>
+								</li>
+								<li>
+									<a href="#">FAQ</a>
 								</li>
 							</ul>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li >
-							<a class="latest" href="#">Contacts</a>
+							<a class="latest" href="#">LOGIN</a>
 						</li>
 					</ul>
 				</div>
 
-			</div>
+			</div>`
 		</div>
 	</div>
 	 
 	 <!-- =========================
 		END TOP MAIN NAVBAR
 	============================== -->
+	
+		
+	<!-- =========================
+	   SLIDE MENU
+	============================== -->
+	<aside id="slide-menu" class="slide-menu">
+		
+		<!-- === CLOSE MENU BUTON === -->	
+		<div class="close-menu" id="close-menu">
+			<i class="fa fa-close"></i>
+		</div>
+		
+		<!-- === SLIDE MENU === -->	
+		<ul id="left-menu" class="left-menu">
+			
+			<!-- === SLIDE MENU ITEM === -->	
+			<li> 
+				<a href="#">Home <i class="fa fa-plus arrow"></i></a>
+				
+				<!-- === slide menu child === -->	
+				<ul class="slide-menu-child">
+					<li><a href="index.html">Home 1</a></li>
+					<li><a href="02_home.html">Home 2</a></li>
+				</ul>
+			</li>
+			
+			<!-- === SLIDE MENU ITEM === -->	
+			<li> 
+				<a href="#">Service <i class="fa fa-plus arrow"></i></a>
+				
+				<!-- === slide menu child === -->	
+				<ul class="slide-menu-child">
+					<li><a href="03_services.html">Service 1</a></li>
+					<li><a href="04_services.html">Service 2</a></li>
+					<li><a href="05_service_detail.html">Service Details</a></li>
+				</ul>
+			</li>
+			
+			<!-- === SLIDE MENU ITEM === -->	
+			<li> 
+				<a href="06_about.html">About us</a>
+			</li>
+			
+			<!-- === SLIDE MENU ITEM === -->	
+			<li> 
+				<a href="#">Elements <i class="fa fa-plus arrow"></i></a>
+				
+				<!-- === slide menu child === -->	
+				<ul class="slide-menu-child">
+					<li><a href="07_typography.html">Typography</a></li>
+					<li><a href="08_buttons.html">Buttons</a></li>
+					<li><a href="09_progress.html">Progress Bars</a></li>
+					<li><a href="10_alerts.html">Alerts</a></li>
+				</ul>
+			</li>
+			
+			<!-- === SLIDE MENU ITEM === -->	
+			<li>
+				<a href="#">Blog <i class="fa fa-plus arrow"></i></a>
+				
+				<!-- === slide menu child === -->	
+				<ul class="slide-menu-child">
+					<li><a href="11_blog.html">Blog items</a></li>
+					<li><a href="12_blog_detail.html">Single Post</a></li>
+				</ul>
+			</li>
+			
+			<!-- === SLIDE MENU ITEM === -->	
+			<li>
+				<a href="13_contacts.html">Contacts</a>
+			</li>
+			
+		</ul>
+		
+	</aside>
+	<!-- =========================
+	   END SLIDE MENU
+	============================== -->
+
+	
+	<!-- =========================
+	   BLACK OVERLAY
+	============================== -->
+	<div class="black-overlay" id="black-overlay"></div>
+	<!-- =========================
+	   END BLACK OVERLAY
+	============================== -->
+     
      
 	 
 </body>

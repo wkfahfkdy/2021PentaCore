@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<!-- SITE TITLE -->
 	<title>미니창고 MyStorage</title>
 	
@@ -14,7 +15,7 @@
 	============================== -->
 	<!-- JQUERY -->
 	<script src="${pageContext.request.contextPath }/resources/js/jquery-1.11.3.min.js"></script>
-	<!-- STYLES FILE -->
+	<!-- STYLES FILE -->	
 	<!-- BOOTSTRAP -->
 	<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 	<link href="${pageContext.request.contextPath }/resources/css/master.css" rel="stylesheet">
