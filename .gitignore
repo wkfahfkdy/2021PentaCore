@@ -9,8 +9,8 @@ tmp/
 *.bak
 *.swp
 *~.nib
-local.properties
 pom.properties
+local.properties
 .settings/
 .loadpath
 .recommenders
