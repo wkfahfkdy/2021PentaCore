@@ -27,10 +27,10 @@
 				 
 				<div class="logo" id="main-logo">
 					<div class="logo-image">
-						<img src="resources/img/logo_dark.png" alt="" />
+						<img src="resources/img/logo.png" alt="" />
 					</div>
 					<div class="logo-text">
-						Trans <span class="color-primary">Aero</span>
+						MY <span class="color-primary">STORAGE</span>
 					</div>
 				</div>
 				 
@@ -88,7 +88,7 @@
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li >
-							<a class="latest" href="#">MYPAGE </a>
+							<a href="myPageInfo">MYPAGE</a>
 						</li>
 												
 						<li class="main-menu-separator"></li>
@@ -99,7 +99,7 @@
 					</ul>
 				</div>
 
-			</div>`
+			</div>
 		</div>
 	</div>
 	 
