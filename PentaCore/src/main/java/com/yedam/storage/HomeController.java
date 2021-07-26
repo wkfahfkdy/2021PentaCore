@@ -33,6 +33,8 @@ public class HomeController {
 	public String calendarTest() {
 		
 		return "test/calendar";
+	}
+	
 	@RequestMapping("selfOffer")
 	public String selfOfferPage(Model model) {
 		// 물품 카테고리 출력

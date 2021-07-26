@@ -1,4 +1,4 @@
-package com.yedam.storage.mypage.vo;
+package com.yedam.mypage.vo;
 
 import java.util.Date;
 

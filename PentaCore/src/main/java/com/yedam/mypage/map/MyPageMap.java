@@ -1,8 +1,8 @@
-package com.yedam.storage.mypage.map;
+package com.yedam.mypage.map;
 
 import java.util.List;
 
-import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.mypage.vo.MyPageVO;
 
 public interface MyPageMap {
 	public List<MyPageVO> noticeSelectList();
