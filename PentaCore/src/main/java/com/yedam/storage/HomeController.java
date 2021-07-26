@@ -29,10 +29,16 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("calendarTest.do")
+	@RequestMapping("calendarTest")
 	public String calendarTest() {
 		
 		return "test/calendar";
+	}
+	
+	@RequestMapping("kakaoMapTest")
+	public String kakaoMapTest() {
+		
+		return "test/kakaoMapTest";
 	}
 	
 	@RequestMapping("selfOffer")
