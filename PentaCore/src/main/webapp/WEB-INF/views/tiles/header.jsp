@@ -36,12 +36,6 @@
 				 
 				<!-- === TOP SEARCH === -->
 				 
-				<div class="main-search-input" id="main-search-input">
-					<form>
-						<input type="text" id="main-search" name="main-search" placeholder="Try and type enter..." />
-					</form>
-				</div>
-	
 				
 				<div class="show-menu-control">
 					<!-- === top search button show === -->
