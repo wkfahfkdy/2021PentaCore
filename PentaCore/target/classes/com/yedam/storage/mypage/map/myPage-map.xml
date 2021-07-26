@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.mypage.map.myPage-map">
+	<select id="noticeSelectList" resultType="com.yedam.storage.mypage.vo.MyPageVO">
+		select * 
+		from notice
+		where store_code = 'ST002'
+	</select>
+	<select id="usedStorageList" resultType="com.yedam.storage.mypage.vo.MyPageVO">
+		select u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
+				o.offer_wash, o.offer_premium
+		from storage s join offer o
+		on (s.storage_code = o.storage_code)
+		join use_storage u
+		on (u.offer_code = o.offer_code)
+		where u.member_id = 'user10'
+	</select>
+</mapper>
