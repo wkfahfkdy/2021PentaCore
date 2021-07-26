@@ -12,8 +12,8 @@ public class MyPageController {
 	@Autowired
 	private MyPageService MyPageDAO;
 	
-	@RequestMapping("/myPageInfo")
-	public String myPageInfo(Model model) {
+	@RequestMapping("myPageInfo")
+	public String myPageInfo(Model model) {	// Mypage 첫화면
 		model.addAttribute("noticeList", MyPageDAO.noticeSelectList());
 		model.addAttribute("usingInfo", MyPageDAO.usedStorageList());
 		return "myPage/myPageInfo";
