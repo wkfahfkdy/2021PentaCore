@@ -1,5 +1,7 @@
 package com.yedam.storage.product.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
 	private SqlSessionTemplate map;
 
 	@Override
-	public ProductVO selectProduct(DivisionVO vo) {
-		return map.selectOne("selectProduct", vo);
+	public List<ProductVO> selectProduct(DivisionVO vo) {
+		return map.selectList("selectProduct", vo);
 	}
 	
 }
