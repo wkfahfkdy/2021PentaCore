@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.storage.product.map.product-map">
+	<!-- 셀프견적 물품별 이름 조회 + 이미지 출력 -->
+	<select id="selectProduct" resultType="ProductVO" parameterType="DivisionVO">
+		SELECT P.PRODUCT_IMAGE, P.PRODUCT_NAME
+		FROM DIVISION D , PRODUCT P
+		WHERE D.DIVISION_CODE = P.DIVISION_CODE
+		AND D.DIVISION_CODE = #{division_code}
+	</select>
+</mapper>

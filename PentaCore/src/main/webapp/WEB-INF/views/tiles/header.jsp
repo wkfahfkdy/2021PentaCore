@@ -64,7 +64,7 @@
 						
 						<!-- === top menu item === -->
 						<li>
-							<a href="#">셀프견적</a>
+							<a onclick="location.href='selfOffer'">셀프견적</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
