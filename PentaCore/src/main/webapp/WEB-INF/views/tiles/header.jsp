@@ -81,7 +81,11 @@
 								</li>
 								<li>
 									<!-- API 테스트 용 -->
-									<a href="calendarTest.do">CalendarTest</a>
+									<a href="calendarTest">CalendarTest</a>
+								</li>
+								<li>
+									<!-- API 테스트 용 -->
+									<a href="kakaoMapTest">KakaoMapTest</a>
 								</li>
 							</ul>
 						</li> 

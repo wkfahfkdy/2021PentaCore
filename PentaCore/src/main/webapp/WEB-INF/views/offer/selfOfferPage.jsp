@@ -8,23 +8,29 @@
 <title>셀프견적</title>
 <script type="text/javascript">
 	// 카테고리 별 물품 이미지와 이름 출력하는 function 코드 날려서 그 division코드에 맞는 물품 리스트 출력
-	function divisionCode(code){
-		console.log(code);
-		var division_code = code;
-		$.ajax({
-			url :'productList',
-			type:'get',
-			data: {
-				'division_code' : division_code
-			},
-			success: function(result){
-				console.log(result.product_name);
-			},
-			error: function(err){
-				console.log(err);
-			}
-		})
-	}
+		function divisionCode(code) {
+			console.log(code);
+			var division_code = code;
+			$.ajax({
+				url : 'productList',
+				type : 'post',
+				dataType : 'json',
+				data : {
+					'division_code' : division_code
+				},
+				success : function(result) {
+					$('#service').children().remove(); // 지우고 다시 리스트 출력
+						for(var i = 0; i < result.length; i++){
+							console.log(result[i].product_name);
+							$('#service').append('<li>' + result[i].product_name + "</li>");
+						}
+						
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+		}
 </script>
 <style>
 .def-section {
@@ -74,15 +80,25 @@ input[type='text'] {
 	border-radius: 3px;
 	overflow: hidden;
 }
-.productList > li{
+
+.productList>li>button {
 	background: #e1e1e1;
 	display: inline-block;
-    width: 33%;
-    font-size: 16px;
-    color: #666;
-    text-align: center;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+	width: 40%;
+	font-size: 16px;
+	color: #666;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+.productList>ul {
+	width: 5%;
+}
+
+.service {
+	float : left;
+	
 }
 </style>
 </head>
@@ -179,15 +195,25 @@ input[type='text'] {
 		<div class="def-section services-1">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="width: 50%;">
+
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"
+						style="width: 50%; margin: 50px auto;">
 						<ul class="nav productList">
 							<c:forEach items="${divisionList }" var="division">
-								<input type="hidden" name="FDF" value="${division.division_code }">
-								<li><a id="productList" onclick="divisionCode('${division.division_code}')">${division.division_name }</a></li>
+								<input type="hidden" name="FDF"
+									value="${division.division_code }">
+								<li><input type="button" id="btn"
+									class="btn btn-primary btn-lg"
+									onclick="divisionCode('${division.division_code}')"
+									value="${division.division_name }"></li>
 							</c:forEach>
 						</ul>
 					</div>
-						<h3 id="productName"></h3>
+
+					<!-- 물품 리스트 -->
+					<div align="center">
+						<ul class="service" id="service"></ul>
+					</div>
 				</div>
 			</div>
 		</div>

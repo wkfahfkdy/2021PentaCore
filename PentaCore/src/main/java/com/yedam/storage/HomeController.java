@@ -1,5 +1,6 @@
 package com.yedam.storage;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.division.service.DivisionService;
 import com.yedam.storage.division.vo.DivisionVO;
@@ -29,10 +31,16 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("calendarTest.do")
+	@RequestMapping("calendarTest")
 	public String calendarTest() {
 		
 		return "test/calendar";
+	}
+	
+	@RequestMapping("kakaoMapTest")
+	public String kakaoMapTest() {
+		
+		return "test/kakaoMapTest";
 	}
 	
 	@RequestMapping("selfOffer")
@@ -41,13 +49,15 @@ public class HomeController {
 		model.addAttribute("divisionList", divisionDAO.divisionSelectList());
 		return "offer/selfOfferPage";
 	}
+	
+	// Division_code 받아서 물품별 이미지 + 이름 나오는 method
 	@RequestMapping("productList")
-	public String productList(Model model) {
+	@ResponseBody
+	public List<ProductVO> productList(Model model, HttpServletRequest req) {
 		DivisionVO vo = new DivisionVO();
-		HttpServletRequest req = null;
 		String data = req.getParameter("division_code");
+		System.out.println(data);
 		vo.setDivision_code(data);
-		model.addAttribute("productList", productDAO.selectProduct(vo));
-		return selfOfferPage(model);
+		return productDAO.selectProduct(vo);
 	}
 }
