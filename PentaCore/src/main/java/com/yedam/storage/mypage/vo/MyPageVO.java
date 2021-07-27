@@ -62,4 +62,9 @@ public class MyPageVO {
 	private String question_file;
 	private Date use_start;
 	private Date use_end;
+	private String storage_name;
+	private String store_name;
+	private int storage_width;
+	private int storage_height;
+	private int storage_vertical;
 }

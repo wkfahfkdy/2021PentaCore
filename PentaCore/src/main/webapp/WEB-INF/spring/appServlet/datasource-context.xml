@@ -17,6 +17,16 @@
 		<property name="username" value="myStorage" />
 		<property name="password" value="myStorage" />
 	</bean>
+	<bean id="dataSourceSpied"
+		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSource" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="SQL:::" />
+			</bean>
+		</property>
+	</bean>
 
 	<!-- MyBatis -->
 	<bean id="sqlSessionFactory"
