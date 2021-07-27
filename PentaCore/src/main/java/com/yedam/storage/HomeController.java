@@ -16,6 +16,7 @@ import com.yedam.storage.division.service.DivisionService;
 import com.yedam.storage.division.vo.DivisionVO;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.product.vo.ProductVO;
+import com.yedam.storage.storage.service.StorageService;
 
 @Controller
 public class HomeController {
@@ -24,6 +25,8 @@ public class HomeController {
 	private DivisionService divisionDAO;
 	@Autowired
 	private ProductService productDAO;
+	@Autowired
+	private StorageService storageDAO;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -47,6 +50,8 @@ public class HomeController {
 	public String selfOfferPage(Model model) {
 		// 물품 카테고리 출력
 		model.addAttribute("divisionList", divisionDAO.divisionSelectList());
+		// 스토리지 정보 출력
+		model.addAttribute("storageList", storageDAO.storageSelectList());
 		return "offer/selfOfferPage";
 	}
 	
