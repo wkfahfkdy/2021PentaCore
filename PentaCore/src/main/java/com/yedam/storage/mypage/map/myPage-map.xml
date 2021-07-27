@@ -18,4 +18,14 @@
 		on(u.store_code = t.store_code)
 		where u.member_id = #{member_id}
 	</select>
+	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
+		select store_code
+		from use_storage
+		where member_id = #{member_id}
+	</select>
+	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
+		select *
+		from offer
+		where member_id = #{member_id}
+	</select>
 </mapper>

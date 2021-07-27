@@ -26,4 +26,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.selectList("usedStorageList",vo);
 	}
 
+	@Override
+	public MyPageVO useStorage(MyPageVO vo) {
+		// 사용자가 이용 중인 스토리지가 있는지 체크
+		return sqlSession.selectOne("useStorage", vo);
+	}
+
+	@Override
+	public List<MyPageVO> offerSelectList(MyPageVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -23,18 +23,31 @@ public class MyPageController {
 		String id = "user10";
 		vo.setMember_id(id);
 		
-		String msg = null;
+	
+		String notice = null;
+		String useService = null;
 		
-		if(vo.getStore_code() != null) {
+		if(s_code != null) {
 			model.addAttribute("noticeSelectList", MyPageDAO.noticeSelectList(vo));
 			model.addAttribute("usedStorageList", MyPageDAO.usedStorageList(vo));
 		}
 		else {
-			msg = "아직 이용 중인 지점이 없습니다.";
-			model.addAttribute("notUsedStore", msg);
+			notice = "아직 이용 중인 지점이 없습니다.";
+			useService = "아직 이용 중인 보관 서비스가 없습니다.";
+			model.addAttribute("notice", notice);
+			model.addAttribute("useService", useService);
 		}
-		
-	
 		return "myPage/myPageInfo";
+	}
+	
+	@RequestMapping("offerList")
+	public String offerList(Model model, MyPageVO vo) {
+		//Test data
+		String id = "user10";
+		vo.setMember_id(id);
+		
+		model.addAttribute("offerSelectList",MyPageDAO.offerSelectList(vo));
+		
+		return "myPage/offerList";
 	}
 }
