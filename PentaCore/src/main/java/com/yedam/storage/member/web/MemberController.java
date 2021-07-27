@@ -21,33 +21,39 @@ public class MemberController {
 	@Autowired
 	private MemberServiceImpl memberDAO;
 	
-	/*
-	@RequestMapping("/userLoginIdCheck.do")
+	
+	@RequestMapping("memberLoginIdCheck")
 	@ResponseBody
 	public String userLoginIdCheck(MemberVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 			
 			
-			MemberVO rvo = memberDAO.memberLoginCheck(vo);
+			MemberVO rvo = memberDAO.memberloginCheck(vo);
 			
-			String id ;
-			String userBirth = rvo.getClass();
-			String userBirthYear = userBirth.substring(0, 4);
-			String userBirthMonth = userBirth.substring(5,7);
-			String userBirthDay = userBirth.substring(8,10);
+			String Id = rvo.getMember_id();
+			String member_birth = rvo.getMember_birth();
+			String memberBirthYear = member_birth.substring(0, 4);
+			String memberBirthMonth = member_birth.substring(5,7);
+			String memberBirthDay = member_birth.substring(8,10);
 			
 			HttpSession session = request.getSession();
 	        if(rvo != null) {
-	        session.setAttribute("loginUserVO", rvo);
-	        session.setAttribute("loginUserId", id);
+	        session.setAttribute("loginMemberVO", rvo);
+	        session.setAttribute("loginMemberId", Id);
 	        
-	        //my page 표시용
-	        session.setAttribute("loginUserVOBirth", userBirthYear+"년 " + userBirthMonth+"월 " + userBirthDay +"일 ");
-	        } 
+	        //년 월 일 표시
+	        session.setAttribute("loginMemberBirth", memberBirthYear+"년 " + memberBirthMonth+"월 " + memberBirthDay +"일 ");
+	        }
 	        
-	        
-	        
-	        return id;
+	        return Id;
 	}
-	*/
+	
+	@RequestMapping("memberLoginForm")
+	public String userLoginForm(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String referer = request.getHeader("Referer");
+        session.setAttribute("redirectURI", referer);
+        
+		return "member/memberLoginForm";
+	}
 	
 }

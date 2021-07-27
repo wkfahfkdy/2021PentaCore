@@ -98,7 +98,7 @@
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li >
-							<a class="latest" href="#">LOGIN</a>
+							<a class="latest" href="memberLoginForm">LOGIN</a>
 						</li>
 					</ul>
 				</div>

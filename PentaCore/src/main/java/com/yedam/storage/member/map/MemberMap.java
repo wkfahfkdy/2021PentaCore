@@ -8,9 +8,9 @@ public interface MemberMap {
 	
 	public ArrayList<MemberVO> selectMemberList();
 	
-	public MemberVO memberLoginCheck(MemberVO vo);
+	public MemberVO memberloginCheck(MemberVO vo);
+	
 	public MemberVO selectMember();
-	public MemberVO loginCheck();
 	public int insertMember();
 	public int updateMember();
 	public int deleteMember();
