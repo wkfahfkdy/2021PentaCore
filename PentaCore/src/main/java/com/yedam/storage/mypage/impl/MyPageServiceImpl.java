@@ -15,15 +15,15 @@ public class MyPageServiceImpl implements MyPageService {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<MyPageVO> noticeSelectList() {
+	public List<MyPageVO> noticeSelectList(MyPageVO vo) {
 		// 공지사항에 노출 될 정보
-		return sqlSession.selectList("noticeList");
+		return sqlSession.selectList("noticeSelectList",vo);
 	}
 
 	@Override
-	public List<MyPageVO> usedStorageList() {
+	public List<MyPageVO> usedStorageList(MyPageVO vo) {
 		// 마이페이지 이용 중인 서비스에 노출될 정보
-		return sqlSession.selectList("usingInfo");
+		return sqlSession.selectList("usedStorageList",vo);
 	}
 
 }

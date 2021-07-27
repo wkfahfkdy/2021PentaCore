@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.mypage.map.myPage-map">
-	<select id="noticeSelectList" resultType="com.yedam.storage.mypage.vo.MyPageVO">
+	<select id="noticeSelectList" resultType="MyPageVO" parameterType="MyPageVO">
 		select * 
 		from notice
-		where store_code = 'ST002'
+		where store_code = #{store_code}
 		order by notice_num desc
 	</select>
-	<select id="usedStorageList" resultType="com.yedam.storage.mypage.vo.MyPageVO">
+	<select id="usedStorageList" resultType="MyPageVO" parameterType="MyPageVO">
 		select u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
 				o.offer_wash, o.offer_premium
 		from storage s join offer o
@@ -16,6 +16,6 @@
 		on (u.offer_code = o.offer_code)
 		join store t
 		on(u.store_code = t.store_code)
-		where u.member_id = 'user10'
+		where u.member_id = #{member_id}
 	</select>
 </mapper>
