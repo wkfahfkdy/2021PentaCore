@@ -6,31 +6,58 @@
 <head>
 <meta charset="UTF-8">
 <title>셀프견적</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css"
+	rel="stylesheet" />
+<script>
+	// bxSlider 이미지
+	$(document).ready(function() {
+		$('.bxslider').bxSlider({
+			controls : true, // prev/next 버튼 노출 여부
+		});
+
+	});
+</script>
 <script type="text/javascript">
 	// 카테고리 별 물품 이미지와 이름 출력하는 function 코드 날려서 그 division코드에 맞는 물품 리스트 출력
-		function divisionCode(code) {
-			console.log(code);
-			var division_code = code;
-			$.ajax({
-				url : 'productList',
-				type : 'post',
-				dataType : 'json',
-				data : {
-					'division_code' : division_code
-				},
-				success : function(result) {
-					$('#service').children().remove(); // 지우고 다시 리스트 출력
-						for(var i = 0; i < result.length; i++){
-							console.log(result[i].product_name);
-							$('#service').append('<li>' + result[i].product_name + "</li>");
+	function divisionCode(code) {
+		console.log(code);
+		var division_code = code;
+		$
+				.ajax({
+					url : 'productList',
+					type : 'post',
+					dataType : 'json',
+					data : {
+						'division_code' : division_code
+					},
+					success : function(result) {
+						$('#service').children().remove(); // 지우고 다시 리스트 출력
+						for (var i = 0; i < result.length; i++) {
+							$('#service')
+									.append(
+											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '	"><p class="name" id="productName">'
+													+ result[i].product_name
+													+ '</p>'
+													+ '</h5><input id="productCount" type="number" name="count"></li>');
+							var product_name = $('#productName').val();
+							console.log(product_name);
 						}
 						
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			});
-		}
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				});
+
+	}
+	function getCountValue() {
+		var product_count = document.getElementById('productCount').value;
+		
+		console.log(product_count);
+	}
 </script>
 <style>
 .def-section {
@@ -39,9 +66,18 @@
 	position: relative;
 }
 
-.navbar-nav>li {
+.navbar-nav>li>.offerLabel {
 	margin-left: 30px;
 	margin-top: 10px;
+}
+
+.divisionBtnliTag>.name {
+	padding: 0;
+	text-align: center;
+	left: 0;
+	bottom: 15px;
+	width: 100%;
+	color: #666;
 }
 
 .offerLabel {
@@ -81,10 +117,10 @@ input[type='text'] {
 	overflow: hidden;
 }
 
-.productList>li>button {
+.divisionBtn>li>button {
 	background: #e1e1e1;
 	display: inline-block;
-	width: 40%;
+	width: 30%;
 	font-size: 16px;
 	color: #666;
 	text-align: center;
@@ -92,13 +128,36 @@ input[type='text'] {
 	border-right: 1px solid #ccc;
 }
 
-.productList>ul {
-	width: 5%;
+.divisionBtn>ul, .divisionBtnliTag {
+	margin-left: 2%;
+	list-style-type: none;
+	float: left;
+	list-style-type: none
+}
+
+.divisionBtnliTag>img {
+	line-height: 2.5;
 }
 
 .service {
-	float : left;
-	
+	float: left;
+	display: inline-block;
+}
+
+input[type='number'] {
+	width: 150px;
+	color: #666;
+	padding: 5px 5px;
+	border: 1px solid #e1e1e1;
+	text-align: center;
+	font-family: Montserrat;
+	background: #fff;
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.home-clients-carousel-item {
+	width: 100%;
 }
 </style>
 </head>
@@ -195,29 +254,47 @@ input[type='text'] {
 		<div class="def-section services-1">
 			<div class="container">
 				<div class="row">
-
+					<!-- 카테고리 별 물품 리스트 나오는 Tag -->
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"
-						style="width: 50%; margin: 50px auto;">
-						<ul class="nav productList">
+						style="width: 50%;">
+						<ul class="nav divisionBtn">
 							<c:forEach items="${divisionList }" var="division">
 								<input type="hidden" name="FDF"
 									value="${division.division_code }">
-								<li><input type="button" id="btn"
-									class="btn btn-primary btn-lg"
+								<li class="divisionBtnliTag"><input type="button" id="btn"
+									style="display: inline-block;" class="btn btn-primary btn-lg"
 									onclick="divisionCode('${division.division_code}')"
 									value="${division.division_name }"></li>
 							</c:forEach>
 						</ul>
+						<!-- AJAX 처리 후 Append 되는 물품 리스트 -->
+						<ul class="nav divisionBtn" id="service">
+						</ul>
 					</div>
-
-					<!-- 물품 리스트 -->
-					<div align="center">
-						<ul class="service" id="service"></ul>
+					<!-- End Storage Tag -->
+					<!-- 스토리지 출력 Tag -->
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<div class="home-clients">
+							<!-- === 스토리지 정보 forEach === -->
+							<ul class="bxslider">
+								<c:forEach items="${storageList }" var="storage">
+									<li>
+										<h4 align="center">${storage.storage_name }</h4> <img
+										alt="${storage.storage_name }"
+										src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}">
+										<h6 align="center">${storage.storage_content }</h6>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+						<!-- End Storage Tag -->
+						<input type="button" onclick="getCountValue()" value="저장"
+							class="btn btn-primary btn-lg">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+
 </body>
 </html>
