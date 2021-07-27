@@ -9,6 +9,7 @@ public class CenterVO {
 	private String faq_title;
 	private String faq_content;
 	
+	// 1대1 문의
 	private int question_num;
 	private int question_parents;
 	private String question_content;
