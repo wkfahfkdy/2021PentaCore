@@ -1,4 +1,4 @@
-package com.yedam;
+package com.yedam.storage;
 
 import java.util.List;
 import java.util.Locale;
