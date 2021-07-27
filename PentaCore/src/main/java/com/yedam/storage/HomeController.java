@@ -2,6 +2,7 @@ package com.yedam.storage;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +17,8 @@ import com.yedam.storage.division.service.DivisionService;
 import com.yedam.storage.division.vo.DivisionVO;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.product.vo.ProductVO;
+import com.yedam.storage.store.service.StoreService;
+import com.yedam.storage.store.vo.StoreVO;
 
 @Controller
 public class HomeController {
@@ -24,23 +27,35 @@ public class HomeController {
 	private DivisionService divisionDAO;
 	@Autowired
 	private ProductService productDAO;
+	@Autowired
+	private StoreService storeDAO;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "common/section";
 	}
 	
-	
+	// 캘린더 API TEST
 	@RequestMapping("calendarTest")
 	public String calendarTest() {
 		
 		return "test/calendar";
 	}
 	
+	// 카카오 지도 API TEST 이동
 	@RequestMapping("kakaoMapTest")
 	public String kakaoMapTest() {
 		
 		return "test/kakaoMapTest";
+	}
+	
+	// 카카오 지도 API TEST - DATA
+	@RequestMapping("storeAddr")
+	@ResponseBody
+	public List<StoreVO> StoreAddr() {
+		// Store - 지점명, 지점주소 (StoreConlloer)
+		List<StoreVO> list = storeDAO.SelectStoreAddr();
+		return list;
 	}
 	
 	@RequestMapping("selfOffer")
