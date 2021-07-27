@@ -16,7 +16,7 @@ private String member_addr;
 private String member_tel;
 private String member_email;
 private String member_birth;
-private String member_enable;
+private String member_disable;
 -->
 
 <script>
@@ -61,19 +61,6 @@ private String member_enable;
 	onunload="">
 
 
-	<!-- =========================
-     PRE LOADER       
-	============================== -->
-
-	<!-- =========================
-     END PRE LOADER       
-	============================== -->
-
-
-
-	<!-- =========================
-		END TOP MAIN NAVBAR
-	============================== -->
 
 						<!--로그인 화면-->
 							<div>
