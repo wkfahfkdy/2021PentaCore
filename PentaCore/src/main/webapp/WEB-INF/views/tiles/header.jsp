@@ -77,7 +77,7 @@
 									<a href="#">1:1문의</a>
 								</li>
 								<li>
-									<a href="#">FAQ</a>
+									<a href="faqList">FAQ</a>
 								</li>
 								<li>
 									<!-- API 테스트 용 -->
