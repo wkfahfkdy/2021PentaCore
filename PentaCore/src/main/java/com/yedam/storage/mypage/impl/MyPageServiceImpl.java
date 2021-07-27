@@ -1,4 +1,4 @@
-package com.yedam.mypage.impl;
+package com.yedam.storage.mypage.impl;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.yedam.mypage.service.MyPageService;
-import com.yedam.mypage.vo.MyPageVO;
+import com.yedam.storage.mypage.service.MyPageService;
+import com.yedam.storage.mypage.vo.MyPageVO;
 
 @Repository("mypageDAO")
 public class MyPageServiceImpl implements MyPageService {

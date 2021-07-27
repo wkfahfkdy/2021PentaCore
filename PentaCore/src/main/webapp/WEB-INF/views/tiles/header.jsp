@@ -63,7 +63,7 @@
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
 						<li class="dropdown">
-							<a data-toggle="dropdown" href="#">마이스토리지 안내</a>
+							<a data-toggle="dropdown" href="myPageInfo">마이스토리지 안내</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->

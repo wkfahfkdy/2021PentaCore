@@ -1,11 +1,11 @@
-package com.yedam.mypage.web;
+package com.yedam.storage.mypage.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yedam.mypage.service.MyPageService;
+import com.yedam.storage.mypage.service.MyPageService;
 
 @Controller
 public class MyPageController {
