@@ -22,42 +22,56 @@
 </script>
 <script type="text/javascript">
 	// 카테고리 별 물품 이미지와 이름 출력하는 function 코드 날려서 그 division코드에 맞는 물품 리스트 출력
-	function divisionCode(code) {
+	/* function divisionCode(code) {
 		console.log(code);
 		var division_code = code;
-		$
-				.ajax({
-					url : 'productList',
+		
+		$.ajax({
+					url : '',
 					type : 'post',
 					dataType : 'json',
-					data : {
-						'division_code' : division_code
-					},
 					success : function(result) {
-						$('#service').children().remove(); // 지우고 다시 리스트 출력
 						for (var i = 0; i < result.length; i++) {
-							$('#service')
+							$('#productList')
 									.append(
-											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '	"><p class="name" id="productName">'
-													+ result[i].product_name
-													+ '</p>'
+											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
+													+ '<input type="text" class="name" id="productName" value="'+result[i].product_name+'"><br>'
 													+ '</h5><input id="productCount" type="number" name="count"></li>');
-							var product_name = $('#productName').val();
-							console.log(product_name);
 						}
-						
 					},
 					error : function(err) {
 						console.log(err);
 					}
 				});
+	}  */
+	// 페이지 로딩 후 Product List 다 가져오기
+	$(document).ready(function(){
+		$.ajax({
+			url : 'productList',
+			type : 'post',
+			dataType : 'json',
+			success : function(result) {
+				for (var i = 0; i < result.length; i++) {
+					var division_code ='#'+ result[i].division_code;
+					$(division_code).append(
+										'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
+												+ '<input type="text" class="name" id="productName" value="'+result[i].product_name+'"><br>'
+												+ '</h5><input id="productCount" type="number" name="count"></li>');
+						//arr = [result[i].product_name];
+				}
+				$('.do').hide();
+				$('#DI001').show();
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+		$('#divisionBtn').click(function() {
+			var division_code = $('#divisionBtn').val();
+			console.log(division_code);
+		})
+	})
 
-	}
-	function getCountValue() {
-		var product_count = document.getElementById('productCount').value;
-		
-		console.log(product_count);
-	}
 </script>
 <style>
 .def-section {
@@ -69,6 +83,11 @@
 .navbar-nav>li>.offerLabel {
 	margin-left: 30px;
 	margin-top: 10px;
+}
+
+#productName{
+	width: 150px;
+	margin : 0;
 }
 
 .divisionBtnliTag>.name {
@@ -259,17 +278,21 @@ input[type='number'] {
 						style="width: 50%;">
 						<ul class="nav divisionBtn">
 							<c:forEach items="${divisionList }" var="division">
-								<input type="hidden" name="FDF"
+								<input type="hidden" id="divisionCode" name="division_code"
 									value="${division.division_code }">
-								<li class="divisionBtnliTag"><input type="button" id="btn"
+								<li class="divisionBtnliTag"><input type="button" id="divisionBtn"
 									style="display: inline-block;" class="btn btn-primary btn-lg"
-									onclick="divisionCode('${division.division_code}')"
-									value="${division.division_name }"></li>
+									value="${division.division_code }"></li>
 							</c:forEach>
 						</ul>
 						<!-- AJAX 처리 후 Append 되는 물품 리스트 -->
-						<ul class="nav divisionBtn" id="service">
-						</ul>
+						<c:forEach items="${divisionList }" var="division">
+							<ul class="nav divisionBtn do" id="${division.division_code }">
+								
+							</ul>
+						</c:forEach>
+						<input type="button" id="insertBtn" value="저장"
+							class="btn btn-primary btn-lg">
 					</div>
 					<!-- End Storage Tag -->
 					<!-- 스토리지 출력 Tag -->
@@ -288,8 +311,6 @@ input[type='number'] {
 							</ul>
 						</div>
 						<!-- End Storage Tag -->
-						<input type="button" onclick="getCountValue()" value="저장"
-							class="btn btn-primary btn-lg">
 					</div>
 				</div>
 			</div>

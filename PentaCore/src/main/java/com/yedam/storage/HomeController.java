@@ -30,6 +30,7 @@ public class HomeController {
 	private ProductService productDAO;
 	@Autowired
 	private StoreService storeDAO;
+	@Autowired
 	private StorageService storageDAO;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
@@ -72,11 +73,7 @@ public class HomeController {
 	// Division_code 받아서 물품별 이미지 + 이름 나오는 method
 	@RequestMapping("productList")
 	@ResponseBody
-	public List<ProductVO> productList(Model model, HttpServletRequest req) {
-		DivisionVO vo = new DivisionVO();
-		String data = req.getParameter("division_code");
-		System.out.println(data);
-		vo.setDivision_code(data);
+	public List<ProductVO> productList(Model model, DivisionVO vo) {
 		return productDAO.selectProduct(vo);
 	}
 }
