@@ -23,6 +23,6 @@ private String member_addr;
 private String member_tel;
 private String member_email;
 private String member_birth;
-private String member_enable;
+private String member_disable;
 
 }
