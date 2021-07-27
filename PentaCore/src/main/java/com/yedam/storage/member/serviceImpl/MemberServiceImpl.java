@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public MemberVO memberLoginCheck(MemberVO vo) {
+	public MemberVO memberloginCheck(MemberVO vo) {
 		return sqlSession.selectOne("loginCheck",vo);
 	}
 
