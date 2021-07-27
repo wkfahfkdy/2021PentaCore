@@ -42,7 +42,7 @@
 		var geocoder = new kakao.maps.services.Geocoder();
 		
 		$.ajax({
-			url:'storeAddr',
+			url:'storeAddr',	// HomeController > 나중에 위치 변경
 			dataType:'json',
 			success:function(data){
 				// TOAST GRID
@@ -65,7 +65,7 @@
 						} 
 					],
 					
-					// 무한 스크롤 - BodyHeight 보이는 것보다 조금 더 많은 양의 perPage로 잘라야 스크롤이 생겨서 그때부터 적용됨. 그냥 페이징처리할땐 BodyHeight 필요없을듯
+					// 무한 스크롤 - 그냥 페이징처리할땐 BodyHeight 필요없음
 					bodyHeight: 200,
 					pageOptions: {
 						// 무한 스크롤 혹은 페이징 처리 시 기능 사용한다는 옵션
