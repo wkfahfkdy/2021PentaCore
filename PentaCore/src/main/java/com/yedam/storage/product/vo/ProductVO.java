@@ -22,4 +22,5 @@ public class ProductVO {
 	private int product_volume;
 	private String division_code;
 	private String product_image;
+	private String division_name;
 }

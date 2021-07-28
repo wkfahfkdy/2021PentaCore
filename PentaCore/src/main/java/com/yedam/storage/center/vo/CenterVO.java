@@ -1,5 +1,7 @@
 package com.yedam.storage.center.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +18,6 @@ public class CenterVO {
 	private String question_file;
 	private String store_code;
 	private String member_id;
+	private Date question_date;
+	private int question_group;
 }

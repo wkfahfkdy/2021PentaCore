@@ -29,10 +29,10 @@ public class SendEmail extends HttpServlet {
 			throws ServletException, IOException {
 
 //사용자에게 보낼 메시지를 기입합니다.
-		String host = "database-1.cujgaabefr8x.ap-northeast-2.rds.amazonaws.com/lib/";
+		String host = "http://localhost:8085/storage/home";
 		String from = "wjsgudals6@gmail.com";
 		String to = request.getParameter("email");
-		String subject = "예담도서관 회원가입을 위한 코드 확인 메일입니다.";
+		String subject = "My Storage 회원가입을 위한 코드 확인 메일입니다.";
 		String code = new SHA256().getSHA256(to);
 		String content = "입력하실 코드는 " + code + " 입니다.";
 
