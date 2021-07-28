@@ -264,7 +264,7 @@ input[type='number'] {
                   </div>
                </div>
             </div>
-         </div>
+         </div> 
       </div>
       </div>
    </section>
