@@ -109,7 +109,7 @@
 		});
 		
 		// Grid 컬럼 클릭 시 모달로 견적서 조회 요청
-		offerGrid.on('click', function(ev) {
+		offerGrid.on('dblclick', function(ev) {
 			var target = ev;
 			
 			var myOffer = offerGrid.getValue(ev.rowKey,'offer_code');
@@ -173,8 +173,8 @@
 				row += '<td>' + wash + '</td></tr>';
 				row += '<tr><td></td><td>' + "*세탁 서비스는 할인에서 제외됩니다." + '</td></tr>';
 				row += '<tr><td>' + "예상 월 이용금액" + '</td>';
-				row += '<td style="padding-bottom:0.8em;">' + price + '</td></tr>';
-				row += '<tr style="border-bottom: 1px lightgray solid;"><td>' + "예상 첫달 이용금액" + '</td>';
+				row += '<td>' + price + '</td></tr>';
+				row += '<tr style="border-bottom: 1px lightgray solid;"><td style="padding-bottom:0.8em;">' + "예상 첫달 이용금액" + '</td>';
 				row += '<td style="padding-bottom:0.8em;">' + totalPrice + '</td></tr>';
 				tbl.append(row);
 				
@@ -182,8 +182,8 @@
 				var row2 = '<tr>';
 				row2 += '<td colspan="2" style="padding-top:0.8em; width: 100%;">' + storeName + '</td></tr>';
 				row2 += '<tr><td rowspan="8" style="width: 50%;">' + "여기엔 매장지도" + '</td>';
-				row2 += '<td style="width: 50%;">' + "네비게이션" + '</td><tr>';
-				row2+= '<td>' + navi + '</td></tr>';
+				row2 += '<td style="width: 50%;">' + "네비게이션" + '</td></tr>';
+				row2 += '<tr><td>' + navi + '</td></tr>';
 				row2 += '<tr><td>' + "BUS" + '</td></tr>';
 				row2 += '<tr><td>' + bus + '</td></tr>';
 				row2 += '<tr><td>' + "SUBWAY" + '</td></tr>';
