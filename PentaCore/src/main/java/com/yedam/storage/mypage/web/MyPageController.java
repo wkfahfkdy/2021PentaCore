@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.mypage.service.MyPageService;
@@ -53,14 +55,11 @@ public class MyPageController {
 		return "myPage/offerList";
 	}
 	
-	@RequestMapping("myOffer")
+	@RequestMapping(value="myOffer/{offer_code}", method=RequestMethod.GET)
 	@ResponseBody
-	public String myOfferSelect(Model model, MyPageVO vo){	// modal창에 보낼 data
-		String offerCode = null;
-		offerCode="OF003";
-		vo.setOffer_code(offerCode);
+	public MyPageVO myOfferSelect(@PathVariable String offer_code, Model model, MyPageVO vo){	// modal창에 보낼 data
+		vo.setOffer_code(offer_code);
 		
-		model.addAttribute("myOfferSelect", MyPageDAO.myOfferSelect(vo));
-		return "myPage/offerList";
+		return MyPageDAO.myOfferSelect(vo);
 	}
 }

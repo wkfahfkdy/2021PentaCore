@@ -26,6 +26,10 @@
         top: 10px;
         right: 10px;
     }
+    
+    .modal-body{
+    	font-size: 10pt;
+    }
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -36,85 +40,11 @@
 			<h3>견적서 내역 조회</h3>
 		</div>
 		<div id="offerGrid" align="center"></div>
-		<div id="my_offer">
-		    <table border="1">
-		    	<tr>
-		    		<th>사이즈</th>
-		    		<td>${myOfferSelect.storage_name }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>이용기간</th>
-		    		<td>${myOfferSelect.offer_start } ~ ${myOfferSelect.offer_date }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>이용지점</th>
-		    		<td>${myOfferSelect.store_name }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>렌탈용품</th>
-		    		<td>${myOfferSelect.offer_rental }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>보관용품</th>
-		    		<td>${myOfferSelect.offer_product }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>쿠폰/할인</th>
-		    		<td>${myOfferSelect.coupon_code }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>픽업서비스</th>
-		    		<td>${myOfferSelect.pickup }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>프리미엄 서비스</th>
-		    		<td>${myOfferSelect.offer_premium }</td>
-		    	</tr>
-		    	<tr>
-		    		<th>세탁서비스</th>
-		    		<c:choose>
-		    			<c:when test="${!empty myOfferSelect.laundry_product }">
-		    				<td>${myOfferSelect.pickup }</td>
-		    			</c:when>
-		    			<c:otherwise>
-		    				<td>N</td>
-		    			</c:otherwise>
-		    		</c:choose>
-		    	</tr>
-		    	<tr>
-		    		<th>월 이용금액</th>
-		    		<td>${myOfferSelect.price }</td>
-		    	</tr>
-		    	<tr>
-		    		<th colspan="2">${myOfferSelect.store_name }</th>
-		    	</tr>
-		    	<tr>
-		    		<td rowspan="8">여기는 지도</td>
-		    		<th>네비게이션</th>
-		    	</tr>
-		    	<tr>
-		    		<td>주소</td>
-		    	</tr>
-		    	<tr>
-		    		<th>BUS</th>
-		    	</tr>
-		    	<tr>
-		    		<td>버스정보</td>
-		    	</tr>
-		    	<tr>
-		    		<th>SUBWAY</th>
-		    	</tr>
-		    	<tr>
-		    		<td>지하철정보</td>
-		    	</tr>
-		    	<tr>
-		    		<th>CONTACT US</th>
-		    	</tr>
-		    	<tr>
-		    		<td>매장연락처</td>
-		    	</tr>
-		    </table>
+		<div id="my_offer" align="center">
 		    <a class="modal_close_btn">닫기</a>
+		    <div class="modal-body">
+			    Hello!
+		    </div>
 		</div>
 	</div>
 <script>
@@ -177,7 +107,7 @@
 			}
 		});
 		
-		// Grid 컬럼 클릭 시 모달로 견적서 조회
+		// Grid 컬럼 클릭 시 모달로 견적서 조회 요청
 		offerGrid.on('click', function(ev) {
 			var target = ev;
 			
@@ -185,15 +115,80 @@
 			console.log(myOffer);
 			
 			$.ajax({
-				url: 'myOffer',
+				url: 'myOffer/'+myOffer,
 				type: 'GET',
-				data: myOffer,
+				dataType: 'json',
 				success: function(result) {
 					console.log(result);
-					modal('my_offer');
+					showOffer(result);
+				},
+				error: function(xhr,status, msg) {
+					alert("상태값 : "+status+" Http 에러메시지 : "+msg);
 				}
 			})
 			
+			function showOffer(data) {
+				modal('my_offer');
+
+				var storageSize = data.storage_name;
+				var useStart = data.offer_start;
+				var useEnd = data.offer_date;
+				var storeName = data.store_name;
+				var rental = data.offer_rental;
+				var prod = data.offer_product;
+				var coupon = data.coupon_name;
+				var pickup = data.offer_pickup;
+				var premium = data.offer_premium;
+				var wash = data.laundry_product;
+				var price = data.storage_price;
+				var totalPrice = data.total_price;
+				var navi = data.store_addr;
+				var bus = data.store_bus;
+				var subway = data.store_subway;
+				var sMail = data.store_mail;
+				var sTel = data.store_tel;
+				var tbl =$('<table />');
+				var title = '견적서 상세내역';
+				
+				var row = '<tr>';
+				row += '<td>' + '사이즈' + '</td>';
+				row += '<td>' + storageSize + '</td></tr>';
+				row += '<tr><td>' + "이용기간" + '</td>';
+				row += '<td>' + useStart + " ~ " + useEnd + '</td></tr>';
+				row += '<tr><td>' + "이용지점" + '</td>';
+				row += '<td>' + storeName + '</td></tr>';
+				row += '<tr><td>' + "렌탈용품" + '</td>';
+				row += '<td>' + rental + '</td></tr>';
+				row += '<tr><td>' + "보관용품" + '</td>';
+				row += '<td>' + prod + '</td></tr>';
+				row += '<tr><td>' + "쿠폰/할인" + '</td>';
+				row += '<td>' + coupon + '</td></tr>';
+				row += '<tr><td>' + "픽업 서비스" + '</td>';
+				row += '<td>' + pickup + '</td></tr>';
+				row += '<tr><td>' + "프리미엄 서비스" + '</td>';
+				row += '<td>' + premium + '</td></tr>';
+				row += '<tr><td>' + "세탁 서비스" + '</td>';
+				row += '<td>' + wash + '</td></tr>';
+				row += '<tr><td></td><td>' + "*세탁 서비스는 할인에서 제외됩니다." + '</td></tr>';
+				row += '<tr><td>' + "예상 월 이용금액" + '</td>';
+				row += '<td>' + price + '</td></tr>';
+				row += '<tr><td>' + "예상 첫달 이용금액" + '</td>';
+				row += '<td>' + totalPrice + '</td></tr>';
+				row += '<tr><td colspan="2">' + storeName + '</td></tr>';
+				row += '<tr><td rowspan="8">' + "여기엔 매장지도" + '</td>';
+				row += '<td>' + "네비게이션" + '</td><tr>';
+				row += '<td>' + navi + '</td></tr>';
+				row += '<tr><td>' + "BUS" + '</td></tr>';
+				row += '<tr><td>' + bus + '</td></tr>';
+				row += '<tr><td>' + "SUBWAY" + '</td></tr>';
+				row += '<tr><td>' + subway + '</td></tr>';
+				row += '<tr><td>' + "CONTACT" + '</td></tr>';
+				row += '<tr><td>' + sMail + '<br>' + sTel + '</td></tr>';
+					
+				tbl.append(row);
+				$(".modal-body").append(title);
+				$(".modal-body").append(tbl);
+			}
 						
 			function modal(id) {
 			    var zIndex = 9999;
