@@ -1,5 +1,7 @@
 package com.yedam.storage.member.serviceImpl;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO idCheck(@Param("p") String id) {
 		return sqlSession.selectOne("idCheck",id);
+	}
+	
+	@Override
+	public int memberInsert(HashMap<String,Object> hash) {
+		return sqlSession.insert("memberInsert",hash);
 	}
 
 }

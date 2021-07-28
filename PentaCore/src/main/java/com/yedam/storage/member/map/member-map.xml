@@ -18,7 +18,7 @@ private String member_disable;
 </select>
 	
 	
-<insert id="memberJoin" parameterType="hashmap" >
+<insert id="memberInsert" parameterType="hashmap" >
 		insert into member values(#{member_id},#{member_pwd},#{member_name},#{member_addr},#{member_tel},#{member_email},#{member_birth},'N')
 </insert>	
 
@@ -34,6 +34,7 @@ private String member_disable;
 <select id="idCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
 		select * from member where member_id = #{p}
 </select>	
+
 	
 	
 	<!--
