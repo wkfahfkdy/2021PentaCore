@@ -7,6 +7,10 @@
 td {
   width: 150px;
 }
+select {
+  width: 6em;
+}
+
 input {
   width: 150px;
 }
@@ -47,7 +51,7 @@ $(function() {
 						alert('등록가능한 이메일입니다.');
 						$('#sendEmail').val('checked');
 						$('#emailCode').focus();
-						//중복확인 통과후 인증코드 메일보내는 ajax
+						//이메일 중복확인 통과후 인증코드 메일보내는 ajax
 						$.ajax({
 							url : 'sendEmail.do',
 							data : {
@@ -92,7 +96,7 @@ $(function() {
 				return;
 			}
 			$.ajax({
-				url:'userIdCheck.do',
+				url:'memberIdCheck',
 				data: {id: $('#member_id').val()},
 				type: 'post',
 				success: function(data){
@@ -122,9 +126,7 @@ $(function() {
 //주소입력
 function findAddr(){
 	new daum.Postcode({
-        oncomplete: function(data) {
-        	
-        	console.log(data);
+        oncomplete: function(data) {        	
         	
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
             // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
@@ -148,17 +150,17 @@ function findAddr(){
 	//휴대폰 번호입력 ajax
 	$(function() {
 		$('#sendSMS').click(function() { // 클릭하면 인증 번호 보내기
-			var tel = $('#user_Phone').val(); // 인증번호를 보낼 사용자가 입력한 tel
+			var tel = $('#member_tel').val(); // 인증번호를 보낼 사용자가 입력한 tel
 
 			if (tel == "") {
 				alert('휴대폰번호를 입력하세요.');
-				$('#user_Phone').focus();
+				$('#member_tel').focus();
 				return false;
 			}
 			
 			//휴대폰번호 중복확인 ajax
 			$.ajax({
-				url : 'samePhoneCheck.do',
+				url : 'samePhoneCheck',
 				data : {
 					tel : tel
 				},
@@ -166,8 +168,8 @@ function findAddr(){
 				success : function(data) {
 					if (data > 0) {
 						alert('등록된 휴대폰번호가 존재합니다. 새로운 휴대폰번호를 입력하세요');
-						$('#user_Phone').val('');
-						$('#user_Phone').focus();
+						$('#member_tel').val('');
+						$('#member_tel').focus();
 					} else {
 						alert('등록가능한 휴대폰번호입니다.');
 						$('#sendSMS').val('checked');
@@ -176,7 +178,7 @@ function findAddr(){
 						//사용가능한 휴대폰일때 인증번호 전송 ajax
 						if (tel != "") {
 							$.ajax({
-								url : 'sendSMS.do',
+								url : 'sendSMS',
 								data : {
 									tel : tel
 								},
@@ -245,16 +247,20 @@ function findAddr(){
 			frm.member_detailedAddr.focus();
 			return false;
 		}
+		/*
 		if (frm.checkEmail.value == "unChecked") {
 			alert("이메일을 인증 하세요");
 			frm.emailCode.focus();
 			return false;
-		}  
+		}
+		*/
+		/*
 		if (frm.checkSMS.value == "unChecked") {
 			alert("문자 인증을 하세요");
 			frm.smsKey.focus();
 			return false;
 		}    
+		*/
 		frm.submit();
 		alert("정상적으로 회원가입 되었습니다");
 	}
@@ -266,7 +272,7 @@ function findAddr(){
 			<div align="center">
 					<h2><b>회원가입</b></h2>
 			<br>
-			<form id="frm" action="userJoin" method="post">
+			<form id="frm" action="memberJoin" method="post">
 			<table style="border:1; border-collapse:collapse;">
 					<tr>
 						<th width="150">아이디</th>
@@ -298,34 +304,32 @@ function findAddr(){
 					
 					<tr>
 						<th width="150">생년월일</th>
-							<td width="200">
-							<select  class="custom-select"
+							<td width="100" colspan="2" >
+							<select class="custom-select"
 								name="member_BirthYear" id="member_BirthYear" >
-										<option selected>Year</option>
+										<option selected>----</option>
 										<% for (int i=2021; i>1900; i--) { %>
 											<option value= "<%=i%>"><%=i%></option>
 											<% } %>
-							</select>
-							</td>
+							</select><b>년</b> &nbsp;&nbsp;&nbsp;
 							
-							<td width="200">
+							
 						<select class="custom-select" name="member_BirthMonth" id= "member_BirthMonth">
-								<option selected>Month</option>
+								<option selected>--</option>
 										<% for (int i=1; i<=12; i++) { %>
 											<option value= "<%=i%>"><%=i%></option>
 											<% } %>
-						</select>
+						</select><b>월</b> &nbsp;&nbsp;&nbsp;
 						
-						<td width="200">
+						
 						<select class="custom-select" name="member_BirthDay" id="member_BirthDay">
-								<option selected>Day</option>
+								<option selected>--</option>
 								<% for (int i=1; i<=31; i++) { %>
 											<option value= "<%=i%>"><%=i%></option>
 											<% } %>
-						</select>
+						</select><b>일</b>
 						</td>
 					</tr>
-					
 
 					<tr>
 						<th>이메일</th>
@@ -349,7 +353,7 @@ function findAddr(){
 					<tr><td colspan="2">&nbsp;</td></tr>
 					
 					<tr>
-						<th width="150">전화번호</th>
+						<th width="150">휴대폰 번호</th>
 						<td width="350" colspan="2"><input class="form-control" type="text" id="member_tel"
 							name="member_tel" placeholder ="'-'없이 숫자만 입력" >
 						</td>
@@ -371,19 +375,19 @@ function findAddr(){
 						<th width="150">주소
 						</th>
 						<td width="300">
-						<input class="form-control" id="member_post" type="text" name="userAddressZip" placeholder="Zip Code" readonly onclick="findAddr()">
+						<input class="form-control" id="member_post" type="text" name="memberAddressZip" placeholder="Zip Code" readonly onclick="findAddr()">
 						</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>
-  						<input class="form-control" id="member_addr" type="text" name="userAddress" placeholder="Address" readonly>
+  						<input class="form-control" id="member_addr" type="text" name="memberAddress" placeholder="Address" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>
- 						<input class="form-control" id="member_detailedAddr" type="text" placeholder="Detailed Address" name="userAddressDetail">
+ 						<input class="form-control" id="member_detailedAddr" type="text" placeholder="Detailed Address" name="memberAddressDetail">
 						</td>
 					</tr>
 			</table>

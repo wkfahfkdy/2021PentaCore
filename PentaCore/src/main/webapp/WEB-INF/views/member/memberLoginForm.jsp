@@ -63,7 +63,8 @@ private String member_disable;
 
 
 						<!--로그인 화면-->
-							<div>
+						<div align="center">
+							<div align="center">
 								<h2>
 									<b>로그인</b>
 								</h2>
@@ -87,6 +88,7 @@ private String member_disable;
 									<br> <br>
 								</div>
 							</form>
+							</div>
 </body>
 </html>
 
