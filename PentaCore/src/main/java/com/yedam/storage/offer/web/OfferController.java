@@ -25,7 +25,7 @@ public class OfferController {
 	@RequestMapping("productList")
 	@ResponseBody
 	public List<ProductVO> productList(Model model) {
-		return productDAO.selectProductList();
+		return productDAO.selectProductList(); 
 	}
 	// Division_code 받아서 물품별 이미지 + 이름 Ajax처리
 	@RequestMapping(value = "productList/{division_code}", method = RequestMethod.GET)

@@ -23,10 +23,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		pageInit();
-
-		$('#egss').click(function() {
-			console.log($('#test').val());
-		})
 	});
 	// 페이지 로딩 후 Product List 다 가져오기
 	function pageInit() {
@@ -63,12 +59,23 @@
 		$('.do').hide();
 		$('#' + division_code).show();
 	}
+	
 	// 카테고리 별 물건들 담는 button 
 	function intoProduct(product_code) {
 		var product_count = $('#productCount'+product_code).val();
 		var product_name = $('#productName'+product_code).val();
-		console.log(product_code + ' ' +  product_name + ' ' + product_count);
-		$('#intoProductList').append('<input type="text" value="물품명 : '+product_name+' / 갯수 : '+product_count+'개">');
+		// 물품 최소한 하나 있을때 append
+		if(product_count > 0) {
+			// offer Table 의 offer_product
+			$('#intoProductList').append(product_name + ' ' +product_count + '개 , ');
+			console.log($('#intoProductList').html());
+			var items = $('#intoProductList').html();
+			$('#offer_product').val(items);
+			console.log(offer_product);
+		} else{
+			alert("갯수를 기입해주세요!");
+		}
+		
 	}
 </script>
 <style>
@@ -290,8 +297,10 @@ input[type='number'] {
 								<!-- Append ProductList -->
 							</ul>
 						</c:forEach>
-						<div id="intoProductList">
+						<div id="productListDIV">
 							<!-- 담기 눌렀을때 담는 곳 -->
+							<h4 id="intoProductList"></h4>
+							<input type="hidden" name="offer_product" id="offer_product">
 						</div>
 					</div>
 					<!-- End Storage Tag -->
