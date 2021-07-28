@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- resources 아래에 css 등이 있어서 security 적용 안함 -->
+	<security:http pattern="/resources/**" security="none"/>
+	<security:http>
+		<!-- 우선 모든 주소를 모든 사람들에게 허용하고, 프로젝트 마지막 쯤에 각 페이지 인가 설정 -->
+		<security:intercept-url pattern="/**" access="permitAll()"/>
+		
+		<!--  
+			default-target-url = 로그인 후 이동 페이지 /home = common/section.jsp
+			login-page = 로그인이 일어나는 페이지 /memberLoginForm = member/memberLoginForm.jsp
+			username-parameter = 로그인 페이지에서 얻는 값
+			password-parameter = 상동
+			login-processing-url = 로그인 페이지에서 입력 후 실행되는 것
+			
+			추가 설정은 프로젝트 어느 정도 진행된 후에 일괄 적용 예정
+		-->
+		<security:form-login
+					default-target-url="/home" 
+					login-page="/memberLoginForm"
+					
+					username-parameter="member_id"
+					password-parameter="member_pwd"
+					login-processing-url="/memberLoginIdCheck"
+		
+		/>
+		<!-- 로그아웃 만들어야함 -->
+		
+		
+		<!-- 홈페이지 해킹방지? 그런 기능 -->
+		<security:csrf disabled="true"/>
+	</security:http>
+	
+	<!-- 인증 과정 -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<!-- 
+				datasource-context.xml의 dataSource 참조
+				id_all_check = member table과 employees table을 union한 view
+							   이 안에서 member table의 모든 값은 'ROLE_USER'를 가지게 해두고
+							   employees table의 모든 값은 'ROLE_ADMIN'을 가지게 해두었음
+			-->
+			<security:jdbc-user-service data-source-ref="dataSource"
+										users-by-username-query
+										="select member_id, '{noop}' || member_pwd, 1
+										  from id_all_check
+										  where member_id = ?"
+										authorities-by-username-query
+										="select member_id, role_name
+										  from id_all_check
+										  where member_id = ?"
+			/>
+			<!-- {noop} 뺄 때 bcrypt 추가할 것 -->
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+</beans>

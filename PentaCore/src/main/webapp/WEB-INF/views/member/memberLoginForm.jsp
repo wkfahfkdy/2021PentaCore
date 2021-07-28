@@ -33,17 +33,8 @@ private String member_disable;
 			frm.member_pwd.focus();
 			return false;
 		}
-	
-		$.ajax({
-			url : 'memberLoginIdCheck',
-			data : $('#frm').serialize(),
-			type : 'post',
-			success : function(member) {
-			},
-			error : function(err) {
-				alert("해당하는 회원정보가 없습니다. 다시 시도해주세요.");
-			}
-		});
+		
+		frmMember.submit();
 	}
 	
 
@@ -69,7 +60,7 @@ private String member_disable;
 								</h2>
 								<br>
 							</div>
-							<form id="frm" action="loginCheck()" method="post">
+							<form name="frmMember" id="frm" action="memberLoginIdCheck" method="post">
 								<input type="text" id="member_id" name="member_id"
 									placeholder="ID" value=""> 
 								<input type="password" id="member_pwd" name="member_pwd" 
