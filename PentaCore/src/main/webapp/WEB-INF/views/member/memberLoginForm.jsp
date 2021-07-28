@@ -54,6 +54,7 @@ private String member_disable;
 
 
 						<!--로그인 화면-->
+						<div align="center">
 							<div>
 								<h2>
 									<b>로그인</b>
@@ -70,14 +71,23 @@ private String member_disable;
 									<br>
 									<button class="btn btn-light" type="button"
 										onclick="loginCheck()"
-										style="width: 185px; background: #89ba10; color: white;">로그인</button>
-									<button class="btn btn-light" type="button"
+										style="width: 370px; background: #89ba10; color: white;">로그인</button>
+									<!-- <button class="btn btn-light" type="button"
 										onclick="location.href='memberJoinForm'"
-										style="width: 185px; background: #89ba10; color: white;">회원가입</button>
+										style="width: 185px; background: #89ba10; color: white;">회원가입</button> -->
+									<br> <br>
+									<br> <br>
+								
+									<span onclick="location.href=''">아이디 찾기 | </span> 
+									<span onclick="location.href='offerList'">비밀번호 찾기 | </span> 
+									<span onclick="location.href=''">회원가입 </span>
+									
+									
 									<br> <br>
 									<br> <br>
 								</div>
 							</form>
+						</div>
 </body>
 </html>
 
