@@ -2,6 +2,8 @@ package com.yedam.storage.mypage.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.*;
 
 @Data
@@ -9,6 +11,7 @@ public class MyPageVO {
 	private int notice_num;
 	private String notice_title;
 	private String notice_content;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date notice_date;
 	private String store_code;
 	private String offer_code;
@@ -20,7 +23,9 @@ public class MyPageVO {
 	private int laundry_count;
 	private String offer_rental;
 	private String offer_premium;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date offer_start;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date offer_date;
 	private String offer_pickup;
 	private String coupon_code;
@@ -36,19 +41,24 @@ public class MyPageVO {
 	private String convey_before;
 	private String convey_after;
 	private String convey_file;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date apply_start;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date apply_end;
 	private String apply_time;
 	private String apply_whether;
 	private String use_num;
 	private String tour_code;
 	private String tour_tel;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date tour_date;
 	private String tour_time;
 	private String tour_complete;
 	private String coupon_name;
 	private float coupon_discount;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date coupon_start;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date coupon_end;
 	private String member_pwd;
 	private String member_addr;
@@ -60,11 +70,20 @@ public class MyPageVO {
 	private int question_parents;
 	private String question_content;
 	private String question_file;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date use_start;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date use_end;
 	private String storage_name;
 	private String store_name;
 	private int storage_width;
 	private int storage_height;
 	private int storage_vertical;
+	private int total_price;
+	private int storage_price;
+	private String Store_addr;
+	private String store_tel;
+	private String store_bus;
+	private String store_subway;
+	private String store_email;
 }
