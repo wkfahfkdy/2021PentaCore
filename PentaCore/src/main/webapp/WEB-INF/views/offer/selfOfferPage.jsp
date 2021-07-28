@@ -21,57 +21,48 @@
 	});
 </script>
 <script type="text/javascript">
-	// 카테고리 별 물품 이미지와 이름 출력하는 function 코드 날려서 그 division코드에 맞는 물품 리스트 출력
-	/* function divisionCode(code) {
-		console.log(code);
-		var division_code = code;
-		
-		$.ajax({
-					url : '',
-					type : 'post',
-					dataType : 'json',
-					success : function(result) {
-						for (var i = 0; i < result.length; i++) {
-							$('#productList')
-									.append(
-											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
-													+ '<input type="text" class="name" id="productName" value="'+result[i].product_name+'"><br>'
-													+ '</h5><input id="productCount" type="number" name="count"></li>');
-						}
-					},
-					error : function(err) {
-						console.log(err);
-					}
-				});
-	}  */
-	// 페이지 로딩 후 Product List 다 가져오기
 	$(document).ready(function(){
+		pageInit();
+		
+		$('#egss').click(function(){
+			console.log($('#test').val());
+		})
+	});
+	// 페이지 로딩 후 Product List 다 가져오기
+	function pageInit(){
 		$.ajax({
 			url : 'productList',
-			type : 'post',
 			dataType : 'json',
+			type: 'GET',
 			success : function(result) {
 				for (var i = 0; i < result.length; i++) {
 					var division_code ='#'+ result[i].division_code;
+					// 결과값 다 Append 시키고
 					$(division_code).append(
 										'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
-												+ '<input type="text" class="name" id="productName" value="'+result[i].product_name+'"><br>'
-												+ '</h5><input id="productCount" type="number" name="count"></li>');
-						//arr = [result[i].product_name];
+												+ '<input type="text" name="offer_product" class="name" id="productName" value="'+result[i].product_name+'"><br>'
+												+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count"><br>'
+												+ '<input type="button" onclick="intoProduct(\''+result[i].product_code+'\')" value="담기" class="btn btn-primary btn-lg"></li>');
+					
 				}
 				$('.do').hide();
-				$('#DI001').show();
+				$('#DI001').show(); // 로딩 후 DI001 인 것만 보여주고 나머지는 Hide
 			},
 			error : function(err) {
 				console.log(err);
 			}
 		});
-		$('#divisionBtn').click(function() {
-			var division_code = $('#divisionBtn').val();
-			console.log(division_code);
-		})
-	})
-
+	}
+	// 각 버튼별 Division_code 받아서 결과 Append
+	function test(code){
+		var division_code = code;
+		$('.do').hide();
+		$('#' + division_code).show();
+	}
+	
+	function intoProduct(product_code){
+		console.log(product_code);
+	}
 </script>
 <style>
 .def-section {
@@ -86,6 +77,7 @@
 }
 
 #productName{
+	border: 0;
 	width: 150px;
 	margin : 0;
 }
@@ -278,21 +270,20 @@ input[type='number'] {
 						style="width: 50%;">
 						<ul class="nav divisionBtn">
 							<c:forEach items="${divisionList }" var="division">
-								<input type="hidden" id="divisionCode" name="division_code"
-									value="${division.division_code }">
-								<li class="divisionBtnliTag"><input type="button" id="divisionBtn"
-									style="display: inline-block;" class="btn btn-primary btn-lg"
-									value="${division.division_code }"></li>
+								<li class="divisionBtnliTag">
+									<input type="button" id="divisionBtn" style="display: inline-block;" class="btn btn-primary btn-lg" onclick="test('${division.division_code}')"
+									 value="${division.division_name }"></li>
 							</c:forEach>
 						</ul>
 						<!-- AJAX 처리 후 Append 되는 물품 리스트 -->
 						<c:forEach items="${divisionList }" var="division">
 							<ul class="nav divisionBtn do" id="${division.division_code }">
-								
+							<!-- Append ProductList -->
 							</ul>
 						</c:forEach>
-						<input type="button" id="insertBtn" value="저장"
-							class="btn btn-primary btn-lg">
+						<div id="intoProductList">
+							<!-- 담기 눌렀을때 담는 곳 -->
+						</div>
 					</div>
 					<!-- End Storage Tag -->
 					<!-- 스토리지 출력 Tag -->
@@ -302,6 +293,7 @@ input[type='number'] {
 							<ul class="bxslider">
 								<c:forEach items="${storageList }" var="storage">
 									<li>
+										<input type="hidden" value="${storage.storage_volume }" id="storageVolumn">
 										<h4 align="center">${storage.storage_name }</h4> <img
 										alt="${storage.storage_name }"
 										src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}">
