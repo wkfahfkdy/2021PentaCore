@@ -7,6 +7,7 @@
 		where store_code = #{store_code}
 		order by notice_num desc
 	</select>
+	
 	<select id="usedStorageList" resultType="MyPageVO" parameterType="MyPageVO">
 		select u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
 				o.offer_wash, o.offer_premium
@@ -17,5 +18,27 @@
 		join store t
 		on(u.store_code = t.store_code)
 		where u.member_id = #{member_id}
+	</select>
+	
+	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
+		select store_code
+		from use_storage
+		where member_id = #{member_id}
+	</select>
+	
+	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
+		select o.*, s.store_name
+		from offer o, store s
+		where o.store_code = s.store_code
+    	and member_id = #{member_id}
+	</select>
+	
+	<select id="myOfferSelect" resultType="MyPageVO" parameterType="MyPageVO">
+		select o.*, s.store_name, t.storage_name
+		from offer o join store s
+		on (o.store_code = s.store_code)
+		join storage t
+		on (o.storage_code = t.storage_code)
+		where offer_code = #{offer_code}
 	</select>
 </mapper>

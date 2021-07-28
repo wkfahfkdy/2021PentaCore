@@ -1,9 +1,12 @@
 package com.yedam.storage.mypage.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.mypage.service.MyPageService;
 import com.yedam.storage.mypage.vo.MyPageVO;
@@ -23,18 +26,41 @@ public class MyPageController {
 		String id = "user10";
 		vo.setMember_id(id);
 		
-		String msg = null;
+	
+		String notice = null;
+		String useService = null;
 		
-		if(vo.getStore_code() != null) {
+		if(s_code != null) {
 			model.addAttribute("noticeSelectList", MyPageDAO.noticeSelectList(vo));
 			model.addAttribute("usedStorageList", MyPageDAO.usedStorageList(vo));
 		}
 		else {
-			msg = "아직 이용 중인 지점이 없습니다.";
-			model.addAttribute("notUsedStore", msg);
+			notice = "아직 이용 중인 지점이 없습니다.";
+			useService = "아직 이용 중인 보관 서비스가 없습니다.";
+			model.addAttribute("notice", notice);
+			model.addAttribute("useService", useService);
 		}
-		
-	
 		return "myPage/myPageInfo";
+	}
+	
+	@RequestMapping("offerList")
+	public String offerList(Model model, MyPageVO vo) {
+		//Test data
+		String id = "user10";
+		vo.setMember_id(id);
+		
+		model.addAttribute("offerSelectList",MyPageDAO.offerSelectList(vo));
+		return "myPage/offerList";
+	}
+	
+	@RequestMapping("myOffer")
+	@ResponseBody
+	public String myOfferSelect(Model model, MyPageVO vo){	// modal창에 보낼 data
+		String offerCode = null;
+		offerCode="OF003";
+		vo.setOffer_code(offerCode);
+		
+		model.addAttribute("myOfferSelect", MyPageDAO.myOfferSelect(vo));
+		return "myPage/offerList";
 	}
 }

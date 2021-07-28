@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.user.map.MemberMap">
+<mapper namespace="com.yedam.storage.member.map.member-map">
+
+<!--  
+private String member_id;
+private String member_pwd;
+private String member_name;
+private String member_addr;
+private String member_tel;
+private String member_email;
+private String member_birth;
+private String member_disable;
+-->
 
 <select id="loginCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd} and member_disable = 'N'
 </select>
 	
 	
-	
-	
-	
+<insert id="memberJoin" parameterType="hashmap" >
+		insert into member values(#{member_id},#{member_pwd},#{member_name},#{member_addr},#{member_tel},#{member_email},#{member_birth},'N')
+</insert>	
 
 	
-	
-	
-	<!--  
-	<insert id="userJoin" parameterType="hashmap" >
-		insert into users values(#{user_Id},#{user_Name},#{user_Pw},'준회원',#{user_Gender},#{user_Birth},#{user_Phone},#{user_Addr},#{user_Email},null)
-	</insert>
-	
-	
-	<select id="emailCheck" parameterType="string" resultType="com.yd.lib.users.vo.UsersVO" >
-		select * from users where user_email = #{p}
-	</select>
-	
-	<select id="telCheck" parameterType="string" resultType="com.yd.lib.users.vo.UsersVO" >
-		select * from users where user_phone = #{p}
-	</select>
-	
-	<select id="idCheck" parameterType="string" resultType="com.yd.lib.users.vo.UsersVO" >
-		select * from users where user_id = #{p}
-	</select>
+<select id="emailCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
+		select * from member where member_email = #{p}
+</select>
 
-
+<select id="telCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
+		select * from member where member_tel = #{p}
+	</select>
+	
+<select id="idCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
+		select * from member where member_id = #{p}
+</select>	
+	
+	
+	<!--
+	  
 	<update id="userPwUpdate" parameterType="hashmap">
 		update users set user_pw=#{user_Pw} where user_id=#{user_Id}
 	</update>
@@ -48,8 +53,6 @@
 	<update id="userAddrUpdate" parameterType="hashmap">
 		update users set user_Addr=#{user_Addr} where user_Id=#{user_Id}
 	</update>
-	
-	
 	
 	
 	<select id="userLoanList" parameterType="string" resultType="com.yd.lib.users.vo.UserLoanInfoVO">

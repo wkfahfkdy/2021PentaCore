@@ -118,74 +118,84 @@
 					</table>
 				</c:when>
 				<c:otherwise>
-					${notUsedStore }
+					${notice }
 				</c:otherwise>
 			</c:choose>
 			</div>
 			<div class="func-btns">
 				<div class="btns-range">
-					<button class="btns">나의 견적서</button>
-					<button class="btns">물품운송<br>신청조회</button>
-					<button class="btns">투어예약<br>신청조회</button>
+					<button class="btns" onclick="location.href='offerList'">나의 견적서</button>
+					<button class="btns" onclick="location.href='#'">물품운송<br>신청조회</button>
+					<button class="btns" onclick="location.href='#'">투어예약<br>신청조회</button>
 				</div>
 				<br>
 				<div class="btns-range">
-					<button class="btns">회원정보<br>수정</button>
-					<button class="btns">1:1문의내역</button>
-					<button class="btns">Coupon & Events</button>
+					<button class="btns" onclick="location.href='#'">회원정보<br>수정</button>
+					<button class="btns" onclick="location.href='#'">1:1문의내역</button>
+					<button class="btns" onclick="location.href='#'">Coupon & Events</button>
 				</div>
 			</div>
 		</div>
 		<div class="using-service">
-			<c:forEach items="${usedStorageList }" var="useInfo">
-				<div class="using-storage">
-					<table>
-						<tr>
-							<td rowspan="5" style="width: 20%; padding: 5px;"></td>
-							<td style=" width: 60%;"><h4>사용기간 : 
-							<fmt:formatDate value="${useInfo.use_start }" type="date" dateStyle="full" />~
-							<fmt:formatDate value="${useInfo.use_end }" type="date" dateStyle="full"/> </h4></td>
-							<td rowspan="5" style="width: 20%; text-align: center"><button class="review-btn">Review</button></td>
-						<tr>
-						<tr>
-							<td style="padding: 5px;">${useInfo.store_name } ${useInfo.info_num } ${useInfo.storage_name } ${useInfo.storage_width }*${useInfo.storage_height }*${useInfo.storage_vertical } 이용중 </td>
-						</tr>
-						<tr>
-							<td style="padding: 5px;">
-								이용 중인 물품 : ${useInfo.offer_product }
-							</td>
-						</tr>
-						<tr>
-							<td style="padding: 5px;">
-								이용 중인 서비스 : 
-								<c:choose>
-									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'N' }">
-										이용 중인 서비스가 없습니다.
-									</c:when>
-									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'Y' }">
-										프리미엄 보관 서비스 이용 중입니다.
-									</c:when>
-									<c:when test="${useInfo.offer_wash eq 'Y' and useInfo.offer_premium eq 'N' }">
-										세탁 서비스 이용 중입니다.
-									</c:when>
-									<c:otherwise>
-										프리미엄 서비스, 세탁 서비스 이용 중입니다.
-									</c:otherwise>
-								</c:choose>
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="premium-service">
-					<div>
-						<h4>Premium Service</h4>
-					</div>
-					<div>
-						<a href="#" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
-						<a href="#" style="font-size: 13pt">세탁 물품 처리 현황</a>
-					</div>
-				</div>
-			</c:forEach>
+			<c:choose>
+				<c:when test="${!empty usedStorageList }">
+					<c:forEach items="${usedStorageList }" var="useInfo">
+						<div class="using-storage">
+							<table>
+								<tr>
+									<td rowspan="5" style="width: 20%; padding: 5px;"></td>
+									<td style=" width: 60%;"><h4>사용기간 :&nbsp;&nbsp;
+										<fmt:formatDate value="${useInfo.use_start }" type="date" pattern="yyyy년 MM월 dd일" />&nbsp;~&nbsp;
+										<fmt:formatDate value="${useInfo.use_end }" type="date" pattern="yyyy년 MM월 dd일"/> </h4>
+									</td>
+									<td rowspan="5" style="width: 20%; text-align: center">
+										<button class="review-btn" onclick="location.href='#'">Review</button>
+									</td>
+								<tr>
+								<tr>
+									<td style="padding: 5px;">${useInfo.store_name } ${useInfo.info_num } ${useInfo.storage_name } ${useInfo.storage_width }*${useInfo.storage_height }*${useInfo.storage_vertical } 이용중 </td>
+								</tr>
+								<tr>
+									<td style="padding: 5px;">
+										이용 중인 물품 : ${useInfo.offer_product }
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 5px;">
+										이용 중인 서비스 : 
+										<c:choose>
+											<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'N' }">
+												이용 중인 서비스가 없습니다.
+											</c:when>
+											<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'Y' }">
+												프리미엄 보관 서비스 이용 중입니다.
+											</c:when>
+											<c:when test="${useInfo.offer_wash eq 'Y' and useInfo.offer_premium eq 'N' }">
+												세탁 서비스 이용 중입니다.
+											</c:when>
+											<c:otherwise>
+												프리미엄 서비스, 세탁 서비스 이용 중입니다.
+											</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="premium-service">
+							<div>
+								<h4>Premium Service</h4>
+							</div>
+							<div>
+								<a href="#" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
+								<a href="#" style="font-size: 13pt">세탁 물품 처리 현황</a>
+							</div>
+						</div>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					${useService }
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </body>

@@ -24,7 +24,7 @@ public class CenterServiceImpl implements CenterService {
 	@Override
 	public List<CenterVO> inquirySelectList() {
 		// 1:1문의 조회
-		return null;
+		return sqlSession.selectList("inquirySelectList");
 	}
 
 	@Override
@@ -42,6 +42,30 @@ public class CenterServiceImpl implements CenterService {
 	@Override
 	public int inquiryDelete() {
 		// 1:1문의 삭제
+		return 0;
+	}
+
+	@Override
+	public List<CenterVO> replyList() {
+		// 리플 조회
+		return null;
+	}
+
+	@Override
+	public int replyInsert() {
+		// 리플 등록
+		return 0;
+	}
+
+	@Override
+	public int replyUpdate() {
+		// 리플 수정
+		return 0;
+	}
+
+	@Override
+	public int replyDelete() {
+		// 리플 삭제
 		return 0;
 	}
 	

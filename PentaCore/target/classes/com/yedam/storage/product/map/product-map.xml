@@ -6,6 +6,5 @@
 		SELECT P.*
 		FROM DIVISION D , PRODUCT P
 		WHERE D.DIVISION_CODE = P.DIVISION_CODE
-		AND D.DIVISION_CODE = #{division_code}
 	</select>
 </mapper>

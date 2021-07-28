@@ -27,9 +27,10 @@
 				 
 				<div class="logo" id="main-logo">
 					<div class="logo-image">
-						<img src="resources/img/logo.png" alt="" />
+						<img src="resources/img/logo.png" alt="" 
+							onclick="location.href='home'"/>
 					</div>
-					<div class="logo-text">
+					<div class="logo-text" onclick="location.href='home'">
 						MY <span class="color-primary">STORAGE</span>
 					</div>
 				</div>
@@ -74,7 +75,7 @@
 									<a href="#">이용후기</a>
 								</li>
 								<li>
-									<a href="#">1:1문의</a>
+									<a href="iqList">1:1문의</a>
 								</li>
 								<li>
 									<a href="faqList">FAQ</a>
