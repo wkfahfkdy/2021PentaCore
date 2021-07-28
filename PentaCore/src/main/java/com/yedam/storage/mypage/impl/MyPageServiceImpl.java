@@ -34,7 +34,13 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public List<MyPageVO> offerSelectList(MyPageVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+		// 견적서 내역 조회
+		return sqlSession.selectList("offerSelectList", vo);
+	}
+
+	@Override
+	public MyPageVO myOfferSelect(MyPageVO vo) {
+		// 견적서 상세 조회
+		return sqlSession.selectOne("myOfferSelect", vo);
 	}
 }

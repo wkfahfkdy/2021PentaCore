@@ -14,4 +14,6 @@ public interface MyPageService {
 	
 	// 견적서 리스트 조회
 	public List<MyPageVO> offerSelectList(MyPageVO vo);
+	// 견적서 상세 조회
+	public MyPageVO myOfferSelect(MyPageVO vo);
 }

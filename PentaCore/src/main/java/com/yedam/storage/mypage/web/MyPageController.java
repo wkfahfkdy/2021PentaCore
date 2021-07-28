@@ -1,9 +1,12 @@
 package com.yedam.storage.mypage.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.mypage.service.MyPageService;
 import com.yedam.storage.mypage.vo.MyPageVO;
@@ -47,7 +50,17 @@ public class MyPageController {
 		vo.setMember_id(id);
 		
 		model.addAttribute("offerSelectList",MyPageDAO.offerSelectList(vo));
+		return "myPage/offerList";
+	}
+	
+	@RequestMapping("myOffer")
+	@ResponseBody
+	public String myOfferSelect(Model model, MyPageVO vo){	// modal창에 보낼 data
+		String offerCode = null;
+		offerCode="OF003";
+		vo.setOffer_code(offerCode);
 		
+		model.addAttribute("myOfferSelect", MyPageDAO.myOfferSelect(vo));
 		return "myPage/offerList";
 	}
 }
