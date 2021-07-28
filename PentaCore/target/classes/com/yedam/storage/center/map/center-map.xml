@@ -9,8 +9,14 @@
 	<!-- 1:1 문의 -->
 	<select id="inquirySelectList" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
-		order by question_group desc, question_parents asc
+		ORDER BY question_group DESC, question_parents ASC
 	</select>
+	
+	<!-- 1:1 문의작성 -->
+	<insert id="inquiryInsert">
+		INSERT INTO question(question_num, question_parents, question_content, store_code, member_id, question_date, question_group)
+		VALUES(question_seq.nextval, 1, #{question_content},'CS', #{member_id}, sysdate, question_seq.nextval)
+	</insert>
 
 
 </mapper>

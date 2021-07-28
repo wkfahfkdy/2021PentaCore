@@ -11,7 +11,7 @@ public interface CenterService {
 	
 	//1:1
 	public List<CenterVO> inquirySelectList();
-	public int inquiryInsert();
+	public int inquiryInsert(CenterVO vo);
 	public int inquiryUpdate();
 	public int inquiryDelete();	
 	

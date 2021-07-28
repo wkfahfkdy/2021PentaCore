@@ -28,9 +28,9 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public int inquiryInsert() {
+	public int inquiryInsert(CenterVO vo) {
 		// 1:1문의 작성
-		return 0;
+		return sqlSession.insert("inquiryInsert");
 	}
 
 	@Override

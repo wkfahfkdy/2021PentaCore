@@ -1,11 +1,13 @@
 package com.yedam.storage.center.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.storage.center.service.CenterService;
+import com.yedam.storage.center.vo.CenterVO;
 
 @Controller
 public class CenterController {
@@ -31,5 +33,14 @@ public class CenterController {
 		return "inquiry/iqList";
 	}
 	
+	// 1:1문의 
+	@RequestMapping("inquiryInsert")
+	public String inquiryInsert(CenterVO vo) {
+		
+		// 값 보내기
+		CenterDAO.inquiryInsert(vo);
+		
+		return "Redirect:inquiry/iqList";
+	}
 	
 }
