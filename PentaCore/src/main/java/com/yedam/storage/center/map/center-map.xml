@@ -8,10 +8,8 @@
 
 	<!-- 1:1 문의 -->
 	<select id="inquirySelectList" resultType="com.yedam.storage.center.vo.CenterVO">
-		SELECT * 
-		FROM question
-		START WITH question_parents = 0
-		CONNECT BY PRIOR question_num = question_parents
+		SELECT * FROM question
+		order by question_group desc, question_parents asc
 	</select>
 
 
