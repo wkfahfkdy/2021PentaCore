@@ -53,4 +53,9 @@
 		on (a.store_code = s.store_code)
 		where member_id = #{member_id}
 	</select>
+	
+	<select id="storeList" resultType="MyPageVO">
+		select store_code, store_name 
+		from store
+	</select>
 </mapper>

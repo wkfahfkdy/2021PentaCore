@@ -18,4 +18,6 @@ public interface MyPageMap {
 	
 	// 물품 운송 신청내역 조회
 	public List<MyPageVO> conveyListAll(MyPageVO vo);
+	// 스토어 정보 : 신청form select option에서 사용.
+	public List<MyPageVO>storeList(MyPageVO vo);
 }

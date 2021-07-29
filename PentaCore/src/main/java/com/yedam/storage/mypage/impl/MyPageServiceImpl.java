@@ -49,4 +49,10 @@ public class MyPageServiceImpl implements MyPageService {
 		// 운송 신청 내역 조회
 		return sqlSession.selectList("conveyListAll", vo);
 	}
+
+	@Override
+	public List<MyPageVO> storeList(MyPageVO vo) {
+		// 지점 이름, 코드 조회
+		return sqlSession.selectList("storeList", vo);
+	}
 }

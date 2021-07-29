@@ -74,6 +74,7 @@ public class MyPageController {
 		vo.setMember_id(id);
 		
 		model.addAttribute("conveyListAll", MyPageDAO.conveyListAll(vo));
+		model.addAttribute("storeList", MyPageDAO.storeList(vo));
 		
 		return "myPage/conveyCheck";
 	}
