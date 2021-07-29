@@ -11,18 +11,34 @@
 <link
    href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css"
    rel="stylesheet" />
-<script>
-   // bxSlider 이미지
-   $(document).ready(function() {
-      $('.bxslider').bxSlider({
-         controls : true, // prev/next 버튼 노출 여부
-      });
+<!-- 이 예제에서는 필요한 js, css 를 링크걸어 사용 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
-   });
-</script>
 <script type="text/javascript">
+	let slider;
 	$(document).ready(function() {
 		pageInit();
+		slider = new Swiper('.swiper-container',{
+			spaceBetween : 30, // 슬라이드간 간격
+			// ★동적로딩 설정
+			lazy : {
+				loadPrevNext : true // 이전, 다음 이미지는 미리 로딩
+			},
+			effect : 'cube',
+			autoHeight : false,
+			// 페이징 설정
+			pagination : {
+				el : '.swiper-pagination',
+				clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+			},
+			// 네비게이션 설정
+			navigation : {
+				nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+			},
+			
+		});
 	});
 	// 페이지 로딩 후 Product List 다 가져오기
 	function pageInit() {
@@ -38,9 +54,11 @@
 							$(division_code)
 									.append(
 											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
+														// 물품 별 이름 input text
 													+ '<input type="text" name="offer_product" class="productName" id="productName'+result[i].product_code+'" value="'+result[i].product_name+'"><br>'
-													+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count"><br>'
-													+ '<input type="button" onclick="intoProduct(\''
+													+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count"><br>' // 물품 별 갯수
+													+ '<input type="hidden" id="productVolume'+result[i].product_code+'" value="'+result[i].product_volume+'">' // 물품별 부피 hidden
+													+ '<input type="button" onclick="intoProduct(\'' // 담기 버튼 Onclick
 													+ result[i].product_code
 													+ '\')" value="담기" class="btn btn-primary btn-lg"></li>');
 
@@ -59,11 +77,38 @@
 		$('.do').hide();
 		$('#' + division_code).show();
 	}
-	
+	let totalVolume = 0;
 	// 카테고리 별 물건들 담는 button 
 	function intoProduct(product_code) {
-		var product_count = $('#productCount'+product_code).val();
-		var product_name = $('#productName'+product_code).val();
+		
+		var product_count = $('#productCount'+product_code).val(); // 물품별 갯수 count
+		var product_name = $('#productName'+product_code).val(); // 물품별 이름
+		var product_volume = $('#productVolume' + product_code).val(); // 물품별 부피
+		
+		// 스토리지 코드 들고오기
+		var list = new Array();
+		var volume = new Array();
+			<c:forEach items="${storageList}" var="storage">
+				list.push("${storage.storage_code}");
+				volume.push("${storage.storage_volume}");
+			</c:forEach>
+		// 결과값 길이 만큼 for 해서 각 Index 별 부피 출력
+		// 각 스토리지 hidden value 읽어오고
+		console.log($('#storageVolumn'+list[0]).val());
+		var eachVolume = product_volume * product_count;
+		console.log('물품 부피 : '+ eachVolume);
+		var ImageIndex = $('#testImage').parent().data("index");
+		totalVolume = eachVolume + totalVolume;
+		
+		console.log(totalVolume);
+		console.log(ImageIndex);
+		if($('#storageVolumn'+list[0]).val() < totalVolume){
+			// 슬림의 볼륨이 오바 되면 이미지 이동 후 input hidden 스토리지 value 변경
+			$("#storageVolumn"+list[0]).removeClass('active');
+		    $(this).addClass('active');
+			slider.slideTo($(this).data("id")*1 + 1, 1000);
+		}// end if
+		
 		// 물품 최소한 하나 있을때 append
 		if(product_count > 0) {
 			// offer Table 의 offer_product
@@ -72,9 +117,9 @@
 			var items = $('#intoProductList').html();
 			$('#offer_product').val(items);
 			console.log(offer_product);
-		} else{
+			}else{
 			alert("갯수를 기입해주세요!");
-		}
+			}
 		
 	}
 </script>
@@ -307,21 +352,27 @@ input[type='number'] {
 					<!-- 스토리지 출력 Tag -->
 					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<div class="home-clients">
-							<!-- === 스토리지 정보 forEach === -->
-							<ul class="bxslider">
-								<c:forEach items="${storageList }" var="storage">
-									<li><input type="hidden"
-										value="${storage.storage_volume }" id="storageVolumn">
-										<h4 align="center">${storage.storage_name }</h4> <img
-										alt="${storage.storage_name }"
-										src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}">
-										<h6 align="center">${storage.storage_content }</h6></li>
-								</c:forEach>
-							</ul>
-						</div>
+							<div class="swiper-container">
+								<div class="swiper-wrapper">
+								<!-- === 스토리지 정보 forEach === -->
+									<c:forEach items="${storageList }" var="storage" varStatus="status">
+										<div class="swiper-slide" data-index="${storage.storage_code }" data-id="${status.index }">
+											<img data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage">
+											<input type="hidden" value="${storage.storage_volume }" id="storageVolumn${storage.storage_code }">
+											<h4 align="center">${storage.storage_name }</h4> 
+											<h6 align="center">${storage.storage_content }</h6>
+										</div>
+									</c:forEach>
+								</div>
+								<!-- 네비게이션 버튼 -->
+								<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+								<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+								<!-- 페이징 -->
+								<div class="swiper-pagination"></div>
+							</div>
 						<!-- End Storage Tag -->
+						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
