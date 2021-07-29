@@ -8,6 +8,7 @@
 	<!-- resources 아래에 css 등이 있어서 security 적용 안함 -->
 	<security:http pattern="/resources/**" security="none"/>
 	<security:http>
+	
 		<!-- 우선 모든 주소를 모든 사람들에게 허용하고, 프로젝트 마지막 쯤에 각 페이지 인가 설정 -->
 		<security:intercept-url pattern="/**" access="permitAll()"/>
 		
@@ -21,7 +22,7 @@
 			추가 설정은 프로젝트 어느 정도 진행된 후에 일괄 적용 예정
 		-->
 		<security:form-login
-					default-target-url="/home" 
+					default-target-url="/loginTrue" 
 					login-page="/memberLoginForm"
 					
 					username-parameter="member_id"
