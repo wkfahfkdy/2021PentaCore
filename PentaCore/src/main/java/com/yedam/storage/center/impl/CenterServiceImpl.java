@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.yedam.storage.center.service.CenterService;
 import com.yedam.storage.center.vo.CenterVO;
+import com.yedam.storage.paging.paging;
 
 @Repository("centerDAO")
 public class CenterServiceImpl implements CenterService {
@@ -22,10 +23,23 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public List<CenterVO> inquirySelectList() {
+	public List<paging> inquirySelectList() {
 		// 1:1문의 조회
 		return sqlSession.selectList("inquirySelectList");
 	}
+	
+	@Override
+	public List<paging> inquiryPaging(CenterVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int tableCnt() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 	@Override
 	public List<CenterVO> replyList() {
@@ -57,5 +71,6 @@ public class CenterServiceImpl implements CenterService {
 		// 리플 삭제
 		return 0;
 	}
-	
+
+
 }

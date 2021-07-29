@@ -20,4 +20,10 @@ public class CenterVO {
 	private String member_id;
 	private Date question_date;
 	private int question_group;
+	
+	//paging Btn index 
+	private int firstRecordIndex;
+	private int lastRecordIndex;
+	private int totalCnt;
+	
 }
