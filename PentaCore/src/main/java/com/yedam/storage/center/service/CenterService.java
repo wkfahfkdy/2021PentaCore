@@ -11,14 +11,12 @@ public interface CenterService {
 	
 	//1:1
 	public List<CenterVO> inquirySelectList();
-	public int inquiryInsert();
-	public int inquiryUpdate();
+	public int inquiryInsert(CenterVO vo);
 	public int inquiryDelete();	
 	
 	//댓글
 	public List<CenterVO> replyList();
 	public int replyInsert();
-	public int replyUpdate();
 	public int replyDelete();
 
 }

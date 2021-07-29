@@ -28,15 +28,15 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public int inquiryInsert() {
-		// 1:1문의 작성
-		return 0;
+	public List<CenterVO> replyList() {
+		// 내가쓴글조회
+		return sqlSession.selectList("replyList");
 	}
-
+	
 	@Override
-	public int inquiryUpdate() {
-		// 1:1문의 수정
-		return 0;
+	public int inquiryInsert(CenterVO vo) {
+		// 1:1문의 작성
+		return sqlSession.insert("inquiryInsert", vo);
 	}
 
 	@Override
@@ -45,21 +45,10 @@ public class CenterServiceImpl implements CenterService {
 		return 0;
 	}
 
-	@Override
-	public List<CenterVO> replyList() {
-		// 리플 조회
-		return null;
-	}
 
 	@Override
 	public int replyInsert() {
 		// 리플 등록
-		return 0;
-	}
-
-	@Override
-	public int replyUpdate() {
-		// 리플 수정
 		return 0;
 	}
 
