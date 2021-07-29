@@ -21,47 +21,61 @@
 	});
 </script>
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		pageInit();
-		
-		$('#egss').click(function(){
-			console.log($('#test').val());
-		})
 	});
 	// 페이지 로딩 후 Product List 다 가져오기
-	function pageInit(){
-		$.ajax({
-			url : 'productList',
-			dataType : 'json',
-			type: 'GET',
-			success : function(result) {
-				for (var i = 0; i < result.length; i++) {
-					var division_code ='#'+ result[i].division_code;
-					// 결과값 다 Append 시키고
-					$(division_code).append(
-										'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
-												+ '<input type="text" name="offer_product" class="name" id="productName" value="'+result[i].product_name+'"><br>'
-												+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count"><br>'
-												+ '<input type="button" onclick="intoProduct(\''+result[i].product_code+'\')" value="담기" class="btn btn-primary btn-lg"></li>');
-					
-				}
-				$('.do').hide();
-				$('#DI001').show(); // 로딩 후 DI001 인 것만 보여주고 나머지는 Hide
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});
+	function pageInit() {
+		$
+				.ajax({
+					url : 'productList',
+					dataType : 'json',
+					type : 'GET',
+					success : function(result) {
+						for (var i = 0; i < result.length; i++) {
+							var division_code = '#' + result[i].division_code;
+							// 결과값 다 Append 시키고
+							$(division_code)
+									.append(
+											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
+													+ '<input type="text" name="offer_product" class="productName" id="productName'+result[i].product_code+'" value="'+result[i].product_name+'"><br>'
+													+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count"><br>'
+													+ '<input type="button" onclick="intoProduct(\''
+													+ result[i].product_code
+													+ '\')" value="담기" class="btn btn-primary btn-lg"></li>');
+
+						}
+						$('.do').hide();
+						$('#DI001').show(); // 로딩 후 DI001 인 것만 보여주고 나머지는 Hide
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				});
 	}
 	// 각 버튼별 Division_code 받아서 결과 Append
-	function test(code){
+	function test(code) {
 		var division_code = code;
 		$('.do').hide();
 		$('#' + division_code).show();
 	}
 	
-	function intoProduct(product_code){
-		console.log(product_code);
+	// 카테고리 별 물건들 담는 button 
+	function intoProduct(product_code) {
+		var product_count = $('#productCount'+product_code).val();
+		var product_name = $('#productName'+product_code).val();
+		// 물품 최소한 하나 있을때 append
+		if(product_count > 0) {
+			// offer Table 의 offer_product
+			$('#intoProductList').append(product_name + ' ' +product_count + '개 , ');
+			console.log($('#intoProductList').html());
+			var items = $('#intoProductList').html();
+			$('#offer_product').val(items);
+			console.log(offer_product);
+		} else{
+			alert("갯수를 기입해주세요!");
+		}
+		
 	}
 </script>
 <style>
@@ -76,10 +90,10 @@
 	margin-top: 10px;
 }
 
-#productName{
+.divisionBtnliTag>.productName {
 	border: 0;
 	width: 150px;
-	margin : 0;
+	margin: 0;
 }
 
 .divisionBtnliTag>.name {
@@ -270,19 +284,23 @@ input[type='number'] {
 						style="width: 50%;">
 						<ul class="nav divisionBtn">
 							<c:forEach items="${divisionList }" var="division">
-								<li class="divisionBtnliTag">
-									<input type="button" id="divisionBtn" style="display: inline-block;" class="btn btn-primary btn-lg" onclick="test('${division.division_code}')"
-									 value="${division.division_name }"></li>
+								<li class="divisionBtnliTag"><input type="button"
+									id="divisionBtn" style="display: inline-block;"
+									class="btn btn-primary btn-lg"
+									onclick="test('${division.division_code}')"
+									value="${division.division_name }"></li>
 							</c:forEach>
 						</ul>
 						<!-- AJAX 처리 후 Append 되는 물품 리스트 -->
 						<c:forEach items="${divisionList }" var="division">
 							<ul class="nav divisionBtn do" id="${division.division_code }">
-							<!-- Append ProductList -->
+								<!-- Append ProductList -->
 							</ul>
 						</c:forEach>
-						<div id="intoProductList">
+						<div id="productListDIV">
 							<!-- 담기 눌렀을때 담는 곳 -->
+							<h4 id="intoProductList"></h4>
+							<input type="hidden" name="offer_product" id="offer_product">
 						</div>
 					</div>
 					<!-- End Storage Tag -->
@@ -292,13 +310,12 @@ input[type='number'] {
 							<!-- === 스토리지 정보 forEach === -->
 							<ul class="bxslider">
 								<c:forEach items="${storageList }" var="storage">
-									<li>
-										<input type="hidden" value="${storage.storage_volume }" id="storageVolumn">
+									<li><input type="hidden"
+										value="${storage.storage_volume }" id="storageVolumn">
 										<h4 align="center">${storage.storage_name }</h4> <img
 										alt="${storage.storage_name }"
 										src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}">
-										<h6 align="center">${storage.storage_content }</h6>
-									</li>
+										<h6 align="center">${storage.storage_content }</h6></li>
 								</c:forEach>
 							</ul>
 						</div>
