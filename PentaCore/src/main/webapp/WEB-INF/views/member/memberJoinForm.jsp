@@ -207,7 +207,7 @@ function findAddr(){
 	function formCheck() {
 		if (frm.member_id.value == "") {
 			alert("아이디를 입력하세요.");
-			frm.user_Id.focus();
+			frm.member_id.focus();
 			return false;
 		}
 		if (frm.idCheck.value == 'UnChecked') {
@@ -216,13 +216,13 @@ function findAddr(){
 		}
 		if (frm.member_pwd.value == "") {
 			alert("비밀번호를 입력하세요.");
-			frm.user_Pw.focus();
+			frm.member_pwd.focus();
 			return false;
 		}
 
 		if (frm.member_pwd.value != frm.member_pwd2.value) {
 			alert("비밀번호를 재확인하세요.");
-			frm.user_Pw2.focus();
+			frm.member_pwd2.focus();
 			return false;
 		}
 		if (frm.member_name.value == "") {
@@ -334,7 +334,7 @@ function findAddr(){
 					<tr>
 						<th>이메일</th>
 						<td width="350" colspan="2">
- 						<input class="form-control" type="text" id="member_email" name="member_email" value="">
+ 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" value="">
  						</td>
  						<td>
  						<button class="btn btn-light" type="button" id="sendEmail" value="unChecked">인증코드 전송</button>

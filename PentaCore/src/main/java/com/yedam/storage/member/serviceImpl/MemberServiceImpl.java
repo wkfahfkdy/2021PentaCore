@@ -17,12 +17,20 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSession sqlSession;
 	
 	
+	//로그인
 	@Override
 	public MemberVO loginCheck(MemberVO vo) {
 		return sqlSession.selectOne("loginCheck",vo);
 	}
+	
+	//로그인(비밀번호 찾기)
+	public MemberVO pwEmailCheck(MemberVO vo) {
+		return sqlSession.selectOne("pwEmailCheck",vo);		
+	}
+	
+	
 
-
+	//회원가입
 	@Override
 	public MemberVO emailCheck(@Param("p") String email) {
 		return sqlSession.selectOne("emailCheck",email) ;
@@ -45,8 +53,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	public MemberVO pwEmailCheck(MemberVO vo) {
-		return sqlSession.selectOne("pwEmailCheck",vo);		
-	}
+	
 
 }

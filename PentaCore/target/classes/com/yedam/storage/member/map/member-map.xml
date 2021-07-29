@@ -13,11 +13,18 @@ private String member_birth;
 private String member_disable;
 -->
 
+<!-- 로그인 -->
 <select id="loginCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd} and member_disable = 'N'
 </select>
 	
-	
+<!-- 로그인(비밀번호 찾기)  -->	
+<select id="pwEmailCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
+		select * from member where member_name = #{member_name} and member_email = #{member_email} and member_disable = 'N'
+</select>
+
+
+<!-- 회원가입 -->	
 <insert id="memberInsert" parameterType="hashmap" >
 		insert into member values(#{member_id},#{member_pwd},#{member_name},#{member_addr},#{member_tel},#{member_email},#{member_birth},'N')
 </insert>	
