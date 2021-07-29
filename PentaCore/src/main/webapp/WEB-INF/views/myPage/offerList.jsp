@@ -15,7 +15,7 @@
 	#my_offer {
         display: none;
         width: 60%;
-        padding: 30px 60px;
+        padding: 30px 50px;
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
@@ -27,7 +27,7 @@
         right: 10px;
     }
     
-    .modal-body{
+    #my_offer .modal-body{
     	font-size: 10pt;
     }
 </style>
@@ -45,6 +45,7 @@
 		    <div class="modal-body">
 			    Hello!
 		    </div>
+		    <div class="modal-storeInfo"></div>
 		</div>
 	</div>
 <script>
@@ -108,7 +109,7 @@
 		});
 		
 		// Grid 컬럼 클릭 시 모달로 견적서 조회 요청
-		offerGrid.on('click', function(ev) {
+		offerGrid.on('dblclick', function(ev) {
 			var target = ev;
 			
 			var myOffer = offerGrid.getValue(ev.rowKey,'offer_code');
@@ -145,14 +146,15 @@
 				var navi = data.store_addr;
 				var bus = data.store_bus;
 				var subway = data.store_subway;
-				var sMail = data.store_mail;
+				var sMail = data.store_email;
 				var sTel = data.store_tel;
-				var tbl =$('<table />');
+
 				var title = '견적서 상세내역';
 				
+				var tbl =$('<table />');
 				var row = '<tr>';
-				row += '<td>' + '사이즈' + '</td>';
-				row += '<td>' + storageSize + '</td></tr>';
+				row += '<td style="width: 30%;">' + '사이즈' + '</td>';
+				row += '<td style="width: 70%;">' + storageSize + '</td></tr>';
 				row += '<tr><td>' + "이용기간" + '</td>';
 				row += '<td>' + useStart + " ~ " + useEnd + '</td></tr>';
 				row += '<tr><td>' + "이용지점" + '</td>';
@@ -172,22 +174,28 @@
 				row += '<tr><td></td><td>' + "*세탁 서비스는 할인에서 제외됩니다." + '</td></tr>';
 				row += '<tr><td>' + "예상 월 이용금액" + '</td>';
 				row += '<td>' + price + '</td></tr>';
-				row += '<tr><td>' + "예상 첫달 이용금액" + '</td>';
-				row += '<td>' + totalPrice + '</td></tr>';
-				row += '<tr><td colspan="2">' + storeName + '</td></tr>';
-				row += '<tr><td rowspan="8">' + "여기엔 매장지도" + '</td>';
-				row += '<td>' + "네비게이션" + '</td><tr>';
-				row += '<td>' + navi + '</td></tr>';
-				row += '<tr><td>' + "BUS" + '</td></tr>';
-				row += '<tr><td>' + bus + '</td></tr>';
-				row += '<tr><td>' + "SUBWAY" + '</td></tr>';
-				row += '<tr><td>' + subway + '</td></tr>';
-				row += '<tr><td>' + "CONTACT" + '</td></tr>';
-				row += '<tr><td>' + sMail + '<br>' + sTel + '</td></tr>';
-					
+				row += '<tr style="border-bottom: 1px lightgray solid;"><td style="padding-bottom:0.8em;">' + "예상 첫달 이용금액" + '</td>';
+				row += '<td style="padding-bottom:0.8em;">' + totalPrice + '</td></tr>';
 				tbl.append(row);
+				
+				var tbl2 = $('<table />');
+				var row2 = '<tr>';
+				row2 += '<td colspan="2" style="padding-top:0.8em; width: 100%;">' + storeName + '</td></tr>';
+				row2 += '<tr><td rowspan="8" style="width: 50%;">' + "여기엔 매장지도" + '</td>';
+				row2 += '<td style="width: 50%;">' + "네비게이션" + '</td></tr>';
+				row2 += '<tr><td>' + navi + '</td></tr>';
+				row2 += '<tr><td>' + "BUS" + '</td></tr>';
+				row2 += '<tr><td>' + bus + '</td></tr>';
+				row2 += '<tr><td>' + "SUBWAY" + '</td></tr>';
+				row2 += '<tr><td>' + subway + '</td></tr>';
+				row2 += '<tr><td>' + "CONTACT" + '</td></tr>';
+				row2 += '<tr><td>' + sMail + '<br>' + sTel + '</td></tr>';
+				tbl2.append(row2);
+				
+				
 				$(".modal-body").append(title);
 				$(".modal-body").append(tbl);
+				$(".modal-body").append(tbl2);
 			}
 						
 			function modal(id) {
