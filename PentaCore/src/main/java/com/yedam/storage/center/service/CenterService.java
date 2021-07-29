@@ -20,7 +20,7 @@ public interface CenterService {
 	public int tableCnt();
 	
 	//댓글
-	public List<CenterVO> replyList();
+	public List<CenterVO> replyList(CenterVO vo);
 	public int replyInsert();
 	public int replyDelete();
 

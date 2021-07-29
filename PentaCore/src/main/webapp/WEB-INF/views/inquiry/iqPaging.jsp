@@ -37,12 +37,10 @@
 	
 	<!-- === TABLE DEFAULT === -->
 	
-	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left; border: ">
+	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left; ">
 		<table class="table">
-			<thead>
-			</thead>
 		<tbody>
-		<c:forEach items="${inquirySelectList }" var="vo">
+		<c:forEach items="${bolist }" var="vo">
 			<tr>
 				<c:choose>
 					<c:when test="${vo.question_parents eq '1'}">
@@ -62,20 +60,21 @@
 				</c:choose>
 			</tr>					
 		</c:forEach>
-		</table>
+		</table>		
+		<!-- 페이징 -->
+		<div align="center">
+			<jsp:include page="paging.jsp" flush ="true">
+				<jsp:param value="${paging.firstPageNo }" name="firstPageNo"/>
+				<jsp:param value="${paging.prevPageNo }" name="prevPageNo"/>
+				<jsp:param value="${paging.startPageNo }" name="startPageNo"/>
+				<jsp:param value="${paging.pageNo }" name="pageNo"/>
+				<jsp:param value="${paging.endPageNo }" name="endPageNo"/>
+				<jsp:param value="${paging.nextPageNo }" name="nextPageNo"/>
+				<jsp:param value="${paging.finalPageNo }" name="finalPageNo"/>
+			</jsp:include>
+		</div>
 	</div>
 	
-	<div align="center">
-		<jsp:include page="paging.jsp" flush = "true">
-			<jsp:param value="${paging.firstPageNo }" name="firstPageNo"/>
-			<jsp:param value="${paging.prevPageNo }" name="prevPageNo"/>
-			<jsp:param value="${paging.startPageNo }" name="startPageNo"/>
-			<jsp:param value="${paging.pageNo }" name="pageNo"/>
-			<jsp:param value="${paging.endPageNo }" name="endPageNo"/>
-			<jsp:param value="${paging.nextPageNo }" name="nextPageNo"/>
-			<jsp:param value="${paging.finalPageNo }" name="finalPageNo"/>
-		</jsp:include>
-	</div>
 	
 	
 	<!-- === 입력하는곳 === -->

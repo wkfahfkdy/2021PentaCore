@@ -42,7 +42,7 @@ public class CenterController {
 	}
 	
 	// paging
-	@RequestMapping("inquiryPaging")
+	@RequestMapping("iqPaging")
 	public String inquiryPaging(Model model, HttpServletRequest request) {
 		
 		String page = request.getParameter("page");
@@ -57,11 +57,11 @@ public class CenterController {
 		CenterVO vo = new CenterVO();
 		vo.setFirstRecordIndex(1+(ipage-1)*10);
 		vo.setLastRecordIndex(10*ipage);
-		vo.setTotalCnt(CenterDAO.tableCnt());
+		vo.setTotalCnt(CenterDAO.inquirySelectList().size());
 		
 		list = CenterDAO.inquiryPaging(vo);
 		total = CenterDAO.inquirySelectList();
-		
+
 		paging paging = new paging();
 		paging.setPageNo(ipage);
 		paging.setPageSize(10);
@@ -71,7 +71,6 @@ public class CenterController {
 		model.addAttribute("paging", paging);
 		
 		return "inquiry/iqPaging";
-		
 	}
 	
 	
@@ -82,7 +81,9 @@ public class CenterController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		vo.setMember_id(userDetails.getUsername());
 		
-		model.addAttribute("replyList", CenterDAO.replyList());
+		System.out.println(vo);
+		
+		model.addAttribute("replyList", CenterDAO.replyList(vo));
 		
 		return "inquiry/replyList";
 	}
@@ -97,7 +98,7 @@ public class CenterController {
 		
 		CenterDAO.inquiryInsert(vo);
 		
-		return "redirect:iqList";
+		return "redirect:iqPaging";
 	}
 	
 }
