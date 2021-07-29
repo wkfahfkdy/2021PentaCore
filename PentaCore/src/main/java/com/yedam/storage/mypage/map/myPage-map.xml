@@ -44,4 +44,13 @@
 		on (o.COUPON_CODE = c.coupon_code)
 		where offer_code = #{offer_code}
 	</select>
+	
+	<select id="conveyListAll" resultType="MyPageVO" parameterType="MyPageVO">
+		select c.*, a.apply_product, a.store_code, a.apply_start, s.store_name 
+		from convey_list c join convey_apply a
+		on (c.apply_code = a.apply_code)
+		join store s
+		on (a.store_code = s.store_code)
+		where member_id = #{member_id}
+	</select>
 </mapper>

@@ -125,7 +125,7 @@
 			<div class="func-btns">
 				<div class="btns-range">
 					<button class="btns" onclick="location.href='offerList'">나의 견적서</button>
-					<button class="btns" onclick="location.href='#'">물품운송<br>신청조회</button>
+					<button class="btns" onclick="location.href='conveyList'">물품운송<br>신청조회</button>
 					<button class="btns" onclick="location.href='#'">투어예약<br>신청조회</button>
 				</div>
 				<br>

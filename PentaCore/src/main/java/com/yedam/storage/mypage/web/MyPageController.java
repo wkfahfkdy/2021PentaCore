@@ -18,8 +18,9 @@ public class MyPageController {
 	@Autowired
 	private MyPageService MyPageDAO;
 	
+	// Mypage 첫화면
 	@RequestMapping("myPageInfo")
-	public String myPageInfo(Model model, MyPageVO vo) {	// Mypage 첫화면
+	public String myPageInfo(Model model, MyPageVO vo) {	
 		
 		//test용 data
 		String s_code = "ST002";
@@ -45,6 +46,7 @@ public class MyPageController {
 		return "myPage/myPageInfo";
 	}
 	
+	//	견적서 조회 페이지
 	@RequestMapping("offerList")
 	public String offerList(Model model, MyPageVO vo) {
 		//Test data
@@ -55,11 +57,24 @@ public class MyPageController {
 		return "myPage/offerList";
 	}
 	
+	// modal창에 보낼 data
 	@RequestMapping(value="myOffer/{offer_code}", method=RequestMethod.GET)
 	@ResponseBody
-	public MyPageVO myOfferSelect(@PathVariable String offer_code, Model model, MyPageVO vo){	// modal창에 보낼 data
+	public MyPageVO myOfferSelect(@PathVariable String offer_code, Model model, MyPageVO vo){	
 		vo.setOffer_code(offer_code);
 		
 		return MyPageDAO.myOfferSelect(vo);
+	}
+	
+	//	물품 운송 신청 및 내역 페이지
+	@RequestMapping("conveyList")
+	public String conveyList(Model model, MyPageVO vo) {
+		//test data
+		String id = "user10";
+		vo.setMember_id(id);
+		
+		model.addAttribute("conveyListAll", MyPageDAO.conveyListAll(vo));
+		
+		return "myPage/conveyCheck";
 	}
 }

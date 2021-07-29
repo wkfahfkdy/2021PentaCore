@@ -15,4 +15,7 @@ public interface MyPageMap {
 	public List<MyPageVO> offerSelectList(MyPageVO vo);
 	// 견적서 상세 조회
 	public List<MyPageVO> myOfferSelect(MyPageVO vo);
+	
+	// 물품 운송 신청내역 조회
+	public List<MyPageVO> conveyListAll(MyPageVO vo);
 }
