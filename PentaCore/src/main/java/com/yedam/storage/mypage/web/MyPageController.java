@@ -62,7 +62,6 @@ public class MyPageController {
 	@ResponseBody
 	public MyPageVO myOfferSelect(@PathVariable String offer_code, Model model, MyPageVO vo){	
 		vo.setOffer_code(offer_code);
-		
 		return MyPageDAO.myOfferSelect(vo);
 	}
 	
@@ -74,8 +73,31 @@ public class MyPageController {
 		vo.setMember_id(id);
 		
 		model.addAttribute("conveyListAll", MyPageDAO.conveyListAll(vo));
-		model.addAttribute("storeList", MyPageDAO.storeList(vo));
-		
 		return "myPage/conveyCheck";
+	}
+	
+	// 운송 신청 상세 modal로 보낼 data
+	@RequestMapping(value="myConvey/{apply_code}", method=RequestMethod.GET)
+	@ResponseBody
+	public MyPageVO myConveySelect(@PathVariable String apply_code, Model model, MyPageVO vo) {
+		vo.setApply_code(apply_code);
+		return MyPageDAO.myConveySelect(vo);
+	}
+	
+	// 운송 신청 취소
+	@RequestMapping(value = "cancelConvey/{apply_code}", method=RequestMethod.POST)
+	@ResponseBody
+	public int conveyDelete(@PathVariable String apply_code, MyPageVO vo) {
+		vo.setApply_addr(apply_code);
+		
+		return 0;
+	}
+	
+	// 지점명, 지점주소
+	@RequestMapping("storeInfo")
+	@ResponseBody
+	public List<MyPageVO> StoreAddr() {
+		List<MyPageVO> list = MyPageDAO.storeInfoSelect();
+		return list;
 	}
 }

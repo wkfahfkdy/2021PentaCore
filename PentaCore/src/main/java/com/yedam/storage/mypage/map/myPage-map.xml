@@ -46,16 +46,22 @@
 	</select>
 	
 	<select id="conveyListAll" resultType="MyPageVO" parameterType="MyPageVO">
-		select c.*, a.apply_product, a.store_code, a.apply_start, s.store_name 
-		from convey_list c join convey_apply a
-		on (c.apply_code = a.apply_code)
-		join store s
-		on (a.store_code = s.store_code)
-		where member_id = #{member_id}
+		select a.apply_code, a.apply_product, a.apply_start, a.apply_whether, s.store_name 
+		from convey_apply a, store s
+		where a.store_code = s.store_code and member_id = #{member_id}
 	</select>
 	
-	<select id="storeList" resultType="MyPageVO">
-		select store_code, store_name 
-		from store
+	<select id="myConveySelect" resultType="MyPageVO" parameterType="MyPageVO">
+		select a.*, s.store_name, u.info_num 
+		from convey_apply a join store s
+		on (a.store_code = s.store_code) 
+		join use_storage u
+		on (a.use_num = u.use_num)
+		where apply_code = #{apply_code}
+	</select>
+	
+	<select id="storeInfoSelect" resultType="MyPageVO">
+		select 	store_name, store_addr
+		from 	store
 	</select>
 </mapper>

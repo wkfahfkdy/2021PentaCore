@@ -38,6 +38,7 @@ public class MyPageVO {
 	private String info_num;
 	private String apply_code;
 	private String apply_product;
+	private String apply_addr;
 	private String convey_memo;
 	private String convey_driver;
 	private String convey_before;
