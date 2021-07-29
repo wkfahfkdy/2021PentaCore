@@ -44,4 +44,9 @@ public class MemberServiceImpl implements MemberService {
 		return sqlSession.insert("memberInsert",hash);
 	}
 
+
+	public MemberVO pwEmailCheck(MemberVO vo) {
+		return sqlSession.selectOne("pwEmailCheck",vo);		
+	}
+
 }
