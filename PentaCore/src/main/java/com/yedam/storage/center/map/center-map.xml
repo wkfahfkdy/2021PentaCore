@@ -12,8 +12,21 @@
 		ORDER BY question_group DESC, question_parents ASC
 	</select>
 	
+	<!-- paging -->
+	<select id="inquiryPaging" parameterType="com.yedam.storage.center.vo.CenterVO" resultType="com.yedam.storage.center.vo.CenterVO">
+		SELECT *
+		FROM (
+			SELECT ROW_NUMBER() OVER(ORDER by question_group DESC, question_parents ASC) AS
+			row_num , a.*
+			FROM question a
+		)
+		WHERE row_num BETWEEN #{firstRecordIndex} AND #{lastRecordIndex}
+	</select>
+	
+	
+	
 	<!-- 내가쓴글 조회 -->
-	<select id="replyList" resultType="com.yedam.storage.center.vo.CenterVO">
+	<select id="replyList" parameterType="com.yedam.storage.center.vo.CenterVO" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
 		WHERE question_group in (select question_group from question where member_id = #{member_id})
 		ORDER BY question_group desc, question_parents asc

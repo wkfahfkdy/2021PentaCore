@@ -80,7 +80,7 @@
 									<a href="#">이용후기</a>
 								</li>
 								<li>
-									<a href="iqList">1:1문의</a>
+									<a href="iqPaging">1:1문의</a>
 								</li>
 								<li>
 									<a href="faqList">FAQ</a>

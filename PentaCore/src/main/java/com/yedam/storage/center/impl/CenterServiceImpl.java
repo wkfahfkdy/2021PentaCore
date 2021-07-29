@@ -30,8 +30,8 @@ public class CenterServiceImpl implements CenterService {
 	
 	@Override
 	public List<paging> inquiryPaging(CenterVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+		// 1:1문의 페이징
+		return sqlSession.selectList("inquiryPaging", vo);
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public class CenterServiceImpl implements CenterService {
 
 
 	@Override
-	public List<CenterVO> replyList() {
+	public List<CenterVO> replyList(CenterVO vo) {
 		// 내가쓴글조회
-		return sqlSession.selectList("replyList");
+		return sqlSession.selectList("replyList", vo);
 	}
 	
 	@Override

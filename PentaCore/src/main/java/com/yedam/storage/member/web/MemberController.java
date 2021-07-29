@@ -63,6 +63,31 @@ public class MemberController {
 	}
 	
 	
+
+	// ------------------------------- 로그인 화면 아이디 찾기 Modal ------------------------------ //
+	
+	
+	
+	// ------------------------------- 패스워드 찾기 Modal ------------------------------ //
+	@RequestMapping("pwModalEmailCheck")
+	@ResponseBody
+	public int pwModalEmailCheck(MemberVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		MemberVO rvo = memberDAO.pwEmailCheck(vo);
+		
+		
+		int cnt = 0;
+		if (memberDAO.pwEmailCheck(vo) != null) {
+			session.setAttribute("pwModalEmail", rvo.getMember_email());
+			cnt = 1;
+		}
+		
+		
+		return cnt;
+	}
+	
+	
 	// ------------------------------- 회원가입 ------------------------------ //
 	
 	//회원가입 화면 이동
@@ -194,16 +219,8 @@ public class MemberController {
 		return "member/memberLoginForm";
 	}
 	
-	// ------------------------------- 아이디 찾기 ------------------------------ //
-	@RequestMapping("pwModalEmailCheck")
-	@ResponseBody
-	public void pwModalEmailCheck(MemberVO vo) {
-		
-		System.out.println(vo.getMember_name());
-		
-		//memberDAO.pwEmailCheck(vo);
-		
-	}
+	
+	
 	
 	// ------------------------------- 정보수정 ------------------------------ //
 	

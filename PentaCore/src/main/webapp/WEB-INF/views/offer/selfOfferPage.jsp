@@ -16,6 +16,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 <script type="text/javascript">
+	// Swiper API 변수
 	let slider;
 	$(document).ready(function() {
 		pageInit();
@@ -53,14 +54,17 @@
 							// 결과값 다 Append 시키고
 							$(division_code)
 									.append(
-											'<li class="divisionBtnliTag"><img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '"><br>'
-														// 물품 별 이름 input text
-													+ '<input type="text" name="offer_product" class="productName" id="productName'+result[i].product_code+'" value="'+result[i].product_name+'"><br>'
-													+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count"><br>' // 물품 별 갯수
-													+ '<input type="hidden" id="productVolume'+result[i].product_code+'" value="'+result[i].product_volume+'">' // 물품별 부피 hidden
-													+ '<input type="button" onclick="intoProduct(\'' // 담기 버튼 Onclick
-													+ result[i].product_code
-													+ '\')" value="담기" class="btn btn-primary btn-lg"></li>');
+											'<li class="divisionBtnliTag">'
+												// 물품 별 이미지 
+											+'<img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '" onclick="intoProduct(\''+result[i].product_code+'\')"><br>'
+												// 물품 별 이름 input text
+											+ '<input type="text" name="offer_product" class="productName" id="productName'+result[i].product_code+'" value="'+result[i].product_name+'"><br>'
+											+ '</h5><input id="productCount'+result[i].product_code+'" type="number" name="count" value="0" readonly><br>' // 물품 별 갯수
+											+ '<input type="hidden" id="productVolume'+result[i].product_code+'" value="'+result[i].product_volume+'">' // 물품별 부피 hidden
+											/* + '<input type="button" onclick="intoProduct(\'' // 담기 버튼 Onclick
+											+ result[i].product_code 
+											+ '\')" value="담기" class="btn btn-primary btn-lg">*/
+											+ '</li>');
 
 						}
 						$('.do').hide();
@@ -77,13 +81,23 @@
 		$('.do').hide();
 		$('#' + division_code).show();
 	}
+	
+	// 총 물품의 부피를 담는 변수
 	let totalVolume = 0;
+	let product_count;
+	// 총 보관물품 (offer_product)
+	let productArrayList = new Array();
+	
 	// 카테고리 별 물건들 담는 button 
 	function intoProduct(product_code) {
 		
-		var product_count = $('#productCount'+product_code).val(); // 물품별 갯수 count
+		product_count = parseInt($('#productCount'+product_code).val()); // 물품별 갯수 count
+		product_count = product_count + 1;
+		$('#productCount'+product_code).attr('value', product_count);
 		var product_name = $('#productName'+product_code).val(); // 물품별 이름
 		var product_volume = $('#productVolume' + product_code).val(); // 물품별 부피
+		
+		console.log("asdf : " + product_count);
 		
 		// 스토리지 코드 들고오기
 		var list = new Array();
@@ -92,36 +106,45 @@
 				list.push("${storage.storage_code}");
 				volume.push("${storage.storage_volume}");
 			</c:forEach>
-		// 결과값 길이 만큼 for 해서 각 Index 별 부피 출력
-		// 각 스토리지 hidden value 읽어오고
-		console.log($('#storageVolumn'+list[0]).val());
+			
+		// 담아진 또 다른 물품을 담는 변수
 		var eachVolume = product_volume * product_count;
-		console.log('물품 부피 : '+ eachVolume);
-		var ImageIndex = $('#testImage').parent().data("index");
+		// 원래 있었던 물품과 담긴 물품의 총 부피를 담는 변수 
 		totalVolume = eachVolume + totalVolume;
-		
-		console.log(totalVolume);
-		console.log(ImageIndex);
-		if($('#storageVolumn'+list[0]).val() < totalVolume){
-			// 슬림의 볼륨이 오바 되면 이미지 이동 후 input hidden 스토리지 value 변경
-			$("#storageVolumn"+list[0]).removeClass('active');
-		    $(this).addClass('active');
-			slider.slideTo($(this).data("id")*1 + 1, 1000);
-		}// end if
-		
-		// 물품 최소한 하나 있을때 append
-		if(product_count > 0) {
-			// offer Table 의 offer_product
-			$('#intoProductList').append(product_name + ' ' +product_count + '개 , ');
-			console.log($('#intoProductList').html());
-			var items = $('#intoProductList').html();
-			$('#offer_product').val(items);
-			console.log(offer_product);
-			}else{
-			alert("갯수를 기입해주세요!");
+		// 배열 물품 리스트
+		var resetList = "";
+		// 배열의 value값 변수에 담기
+		productArrayList[product_name] = product_name + ' ' + product_count +'개';
+		for(insertProductList in productArrayList){
+			resetList += productArrayList[insertProductList] + ","
+		}
+		console.log(resetList);
+
+		for(var i = 0; i < list.length; i++){
+			// 슬림의 볼륨이 오바 되면 이미지 이동 후 input hidden 스토리지 value 변경 (이미지가 넘어가는 조건)
+			if($('#storageVolumn'+list[i]).val() < totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 + i+1, 1000);
 			}
+		};
+		var getProductList = new Array();
+		<c:forEach items="${getProductList}" var="productList">
+			getProductList.push("${productList.product_name}")
+		</c:forEach>
+		// 물품 최소한 하나 있을때 append (수정해야됩니당)
+		//for(var i = 0; i < getProductList.length; i++){
+		 if(product_count > 0) {
+				// offer Table 의 offer_product
+				$('#hiddenProductList').attr('value', product_name + ' ' +product_count + '개 , ');
+				console.log($('#intoProductList').val());
+				var items = $('#intoProductList').val();
+				$('#offer_product').val(items);
+				console.log(offer_product);
+			}
+		//}
+		/* $('.swiper-wrapper').append('<h4>' + product_name + '</h4>'); */
 		
 	}
+	
 </script>
 <style>
 .def-section {
@@ -344,7 +367,7 @@ input[type='number'] {
 						</c:forEach>
 						<div id="productListDIV">
 							<!-- 담기 눌렀을때 담는 곳 -->
-							<h4 id="intoProductList"></h4>
+							<input type="hidden" id="hiddenProductList">
 							<input type="hidden" name="offer_product" id="offer_product">
 						</div>
 					</div>
@@ -357,10 +380,10 @@ input[type='number'] {
 								<!-- === 스토리지 정보 forEach === -->
 									<c:forEach items="${storageList }" var="storage" varStatus="status">
 										<div class="swiper-slide" data-index="${storage.storage_code }" data-id="${status.index }">
-											<img data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage">
-											<input type="hidden" value="${storage.storage_volume }" id="storageVolumn${storage.storage_code }">
 											<h4 align="center">${storage.storage_name }</h4> 
 											<h6 align="center">${storage.storage_content }</h6>
+											<img data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage">
+											<input type="hidden" value="${storage.storage_volume }" id="storageVolumn${storage.storage_code }">
 										</div>
 									</c:forEach>
 								</div>
