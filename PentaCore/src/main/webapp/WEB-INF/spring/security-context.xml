@@ -31,7 +31,10 @@
 		
 		/>
 		<!-- 로그아웃 만들어야함 -->
-		
+		<security:logout
+			logout-url="/logout"
+			logout-success-url="/home"
+			delete-cookies="member_id"/>
 		
 		<!-- 홈페이지 해킹방지? 그런 기능 -->
 		<security:csrf disabled="true"/>

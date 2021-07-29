@@ -15,7 +15,8 @@
 	<!-- 내가쓴글 조회 -->
 	<select id="replyList" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
-		WHERE member_id = 'user1'
+		WHERE question_group in (select question_group from question where member_id = #{member_id})
+		ORDER BY question_group desc, question_parents asc
 	</select>
 	
 	<!-- 1:1 문의작성 -->

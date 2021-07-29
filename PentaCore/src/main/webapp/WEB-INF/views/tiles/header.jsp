@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<form id="logout" action="/logout" method="POST">
+	<!-- <input name="${_csrf.parameterName }" type="hidden" value="${_csrf.token}" /> -->
+</form>
 
 	<!-- =========================
      PRE LOADER       
@@ -91,16 +96,30 @@
 							</ul>
 						</li> 
 						<li class="main-menu-separator"></li>
-						<!-- === top menu item === -->
-						<li >
-							<a href="myPageInfo">MYPAGE</a>
-						</li>
-												
-						<li class="main-menu-separator"></li>
-						<!-- === top menu item === -->
-						<li >
-							<a class="latest" href="memberLoginForm">LOGIN</a>
-						</li>
+						
+						
+						<!-- LOGIN 안됐을때 -->
+						<sec:authorize access="isAnonymous()"> 
+							<li >
+								<a class="latest" href="memberLoginForm">LOGIN</a>
+							</li>
+						</sec:authorize>
+						
+						<!-- LOGIN 했을때 -->
+						<sec:authorize access="isAuthenticated()">
+							<li>
+								<a href="myPageInfo">MYPAGE</a>
+							</li>
+							
+							<li class="main-menu-separator"></li>
+							
+							<li >
+								<sec:authorize access="isAuthenticated()">
+									<a href="home" onclick="document.getElementById('logout').submit();">LOGOUT</a>
+								</sec:authorize>
+							</li>
+						</sec:authorize>
+						
 					</ul>
 				</div>
 
