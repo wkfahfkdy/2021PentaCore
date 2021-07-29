@@ -169,11 +169,88 @@ private String member_disable;
 	
 
 </script>
-<script>
 
+
+<!-- =================================== 아아디 찾기 모달 ======================================== -->
+<script>
+$(function() {
+	$('#member_email_input').click(function() {		
+		
+		//이름 공백확인
+		if($('#member_name').val() == "") {
+			alert('이름을 입력해주세요.');
+			$('#member_name').focus();
+		 	return false;
+		}
+	});
+});
+
+</script>
+<script>
+$(function() {
+		$('#sendEmail').click(function() {
+		
+		//이메일 공백확인
+		if($('#member_email').val() == "") {
+			alert('이메일을 입력하세요.');
+			$('#member_email').focus();
+		 	return false;
+		}
+		//email 중복확인 ajax
+		$.ajax({
+			url : 'sameEmailCheck',
+			data : {email : $('#member_email').val() },
+			type : 'post',
+			success : function(data) {
+				if (data > 0) {
+					alert('유효한 이메일입니다.');
+					$('#member_email').focus();
+				} else {
+					alert('가입한 내역이 없습니다. 이름과 이메일을 확인해주세요.');	
+					$('#sendEmail').val('checked');
+					$('#emailCode').focus();
+					//이메일 중복확인 통과후 인증코드 메일보내는 ajax
+					$.ajax({
+						url : 'sendEmail.do',
+						data : {
+							email : $('#member_email').val()
+						},
+						type : 'post',
+						success : function(code) {
+							alert('메일이 전송되었습니다.');
+							$('#checkEmail').click(function() { // 성공해서 이메일에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
+								if ($('#emailCode').val() == code) { // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
+									alert('인증되었습니다');
+									frm.checkEmail.value = 'checked';
+								} else {
+									alert('인증번호가 틀립니다');
+								}
+							})
+						},
+						error : function(err) {
+							alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+						}
+					});
+				}
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});
+	});
+	
+	
+	
+});
+
+</script>
+
+
+<!-- =================================== 비밀번호 찾기 모달 ======================================== -->
+<script>
 //비밀번호 찾기 모달(이름입력 확인)
 $(function() {
-	$('#member_email2').click.(function() {
+	$('#member_email_input2').click(function() {		
 		
 		//이름 공백확인
 		if($('#member_name2').val() == "") {
@@ -181,12 +258,14 @@ $(function() {
 			$('#member_name2').focus();
 		 	return false;
 		}
-	}
+	});
+});
+</script>
 
-
+<script>
 //비밀번호 찾기 모달(이메일 확인)
 $(function() {
-	$('#checkEmail').click.(function() {
+	$('#checkEmail2').click(function() {
 		
 		//이메일 공백확인
 		if($('#member_email2').val() == "") {
@@ -195,7 +274,7 @@ $(function() {
 		 	return false;
 		}
 		
-		$.ajax {(
+		$.ajax ({
 				url : 'pwModalEmailCheck',  
 				data: {
 					member_name : $('#member_name2').val(),
@@ -203,12 +282,19 @@ $(function() {
 					},
 				type: 'post',
 				success: function(success) {
+					/* session에 비밀번호 찾는 사용자의 이메일 변수로저장 (pwModalEmail)  */
+					if(success > 0) {
 					alert('유효한 이메일입니다.');
+					$('#member_tel').focus();
+					} else {
+					alert('가입한 내역이 없습니다. 이름과 이메일을 확인해주세요.');				
+					$('#member_name2').focus();
+					}
 				},
 				error : function(err) {
 					alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 				}
-		)};
+		});
 	});
 });
 
@@ -219,11 +305,11 @@ $(function() {
 	//휴대폰 번호입력 ajax
 	$(function() {
 		$('#sendSMS').click(function() { // 클릭하면 인증 번호 보내기
-			var tel = $('#user_Phone').val(); // 인증번호를 보낼 사용자가 입력한 tel
+			var tel = $('#member_tel').val(); // 인증번호를 보낼 사용자가 입력한 tel
 
 			if (tel == "") {
 				alert('휴대폰번호를 입력하세요.');
-				$('#user_Phone').focus();
+				$('#member_tel').focus();
 				return false;
 			}
 
@@ -236,11 +322,10 @@ $(function() {
 				type : 'post',
 				success : function(data) {
 					if (data < 0) {
-						alert('등록된 휴대폰번호가 존재하지 않습니다.');
-						$('#user_Phone').val('');
-						$('#user_Phone').focus();
+						alert('등록되지 않은 휴대폰번호입니다.');
+						$('#member_tel').val('');
+						$('#member_tel').focus();
 					} else {
-						alert('사용가능한 휴대폰번호입니다!');
 						$('#sendSMS').val('checked');
 						$('#smsKey').focus();
 
@@ -257,7 +342,7 @@ $(function() {
 									$('#checkSMS').click(function() { // 성공해서 sendSMS에서 값을 건네받은 경우에, 인증번호 버튼을 클릭 시 값을 검사
 										if ($('#smsKey').val() == code) { // 사용자의 입력값과 sendSMS에서 받은 값이 일치하는 경우
 											alert('인증되었습니다');
-											frm.checkSMS.value = 'checked';
+											pwModal.checkSMS.value = 'checked';
 										} else {
 											alert('인증번호가 틀립니다');
 										}
@@ -275,23 +360,54 @@ $(function() {
 	});
 
 
+</script>
+
+
+<script>
+function pwModalFormCheck() {
+		if (pwModal.member_name.value == "") {
+			alert("이름을 입력하세요.");
+			pwModal.member_name.focus();
+			return false;
+		}
+		if (pwModal.member_email.value == "") {
+			alert("이메일을 입력하세요.");
+			return false;
+		}
+		if (pwModal.member_tel.value == "") {
+			alert("휴대폰번호를 입력하세요.");
+			return false;
+		}
+		/*
+		if (pwModal.checkSMS.value == "unChecked") {
+			alert("문자 인증을 하세요");
+			pwModal.smsKey.focus();
+			return false;
+		}    
+		*/
+}
+</script>
+
+
+
+
 
 <script>
 /* 보안위해 로그인 후 다시 로그인 화면으로 못돌아가게 하기  */
  window.history.forward();
  function noBack(){window.history.forward();}
+
 </script>
 
 
 
 </head>
 <!--로그인 후 다시 로그인 화면으로 못돌아가게 하기 -->
-<body onload="noBack();" onpageshow="if(event.persisted) noBack();"
-	onunload="">
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 
 
 
-						<!--로그인 화면-->
+						<!-- =================================== 로그인 Form ======================================== -->
 						<div align="center">
 							<div>
 								<h2>
@@ -319,47 +435,73 @@ $(function() {
 							</form>
 									<span onclick="document.getElementById('id01').style.display='block'" style="width:auto;">아이디 찾기 | </span> 
 									<span onclick="document.getElementById('pw01').style.display='block'">비밀번호 찾기 | </span> 
-									<span onclick="location.href=''">회원가입 </span>
+									<span onclick="location.href='memberJoinForm'">회원가입 </span>
 									<br> <br>
 									<br> <br>
 						</div>
 						
-						
-						
-						<!--  
-						<div id="id01" class="modal">
-
-				        <form class="modal-content animate" action="/action_page.php" method="post">
+						<!-- =================================== 아아디 찾기 모달 ======================================== -->
+						<div id="id01" class="modal" align ="center">
+				        <form id="idModal" class="modal-content animate" action="/action_page.php" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('id01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>
-				                <>
+				                <h3>아이디 찾기</h3>
+				                <h5>회원정보에 등록한 이메일로 인증</h5>
 				            </div>
+				            <br><br>
 				
-				            <div class="container">
-				                <label for="uname"><b>Email</b></label>
-				                <input type="text" placeholder="Enter Username" name="uname" required>
-				
-				                <label for="psw"><b>Password</b></label>
-				                <input type="password" placeholder="Enter Password" name="psw" required>
-				
-				                <button type="submit">Login</button>
-				                <label>
-				                    <input type="checkbox" checked="checked" name="remember"> Remember me
-				                </label>
+				            <div align="center">
+				            <table style="border:1; border-collapse:collapse;">
+				            
+				            <tr>
+							<th width="100">이름</th>
+							<td width="100">
+							<input class="form-control" type="text" id="member_name"
+								name="member_name"></td>
+							<td></td>
+							</tr>
+							
+							<tr>
+							<th width="100">이메일</th>
+							<td id="member_email_input"  width="300" >
+	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" value="">
+	 						</td>
+	 						<td>
+	 						<button class="btn btn-light" type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
+							</td>
+	 						</tr>
+	 						
+	 						<tr>
+	 						<th></th>
+	 						<td width="300">
+	 						<input class="form-control" type="text" placeholder="이메일 인증코드" id="emailCode" value="">
+	 						</td>
+	 						<td>
+	 						<button class="btn btn-light" type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
+							</td>
+							</tr>
+				            </table>
+				            
+				            <br><br><br>
+				            
 				            </div>
+				            <div style = "margin-top :'20px';">
+							<button class="btn-confirm" onclick="idModalFormCheck()">아이디 찾기</button>
+							</div>
 				
-				            <div class="container" style="background-color:#f1f1f1">
-				                <button type="button" onclick="document.getElementById('id01').style.display='none'"
-				                    class="cancelbtn">Cancel</button>
-				                <span class="psw">Forgot <a href="#">password?</a></span>
-				            </div>
+				            <br><br>
+				            
+				            <button type="button" onclick="document.getElementById('id01').style.display='none'"
+				               class="cancelbtn">Cancel</button>
+				            
 				        </form>
-				    </div>
-				    -->
+					</div>
+						
 				    
-				    <div id="pw01" class="modal">
-						<div align="center">
+				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
+				   
+				    <div id="pw01" class="modal" align ="center">
 				        <form id="pwModal" class="modal-content animate" action="/action_page.php" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
@@ -380,12 +522,12 @@ $(function() {
 							</tr>
 							<tr>
 							<th width="100">이메일</th>
-							<td width="350" colspan="2">
-	 						<input class="form-control" type="text" id="member_email2" name="member_email2" value="">
+							<td id="member_email_input2"  width="350" colspan="2">
+	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email2" name="member_email2" value="">
 	 						</td>
 	 						<td>
 	 						<button class="btn btn-light" 
-	 						type="button" value="unChecked" onclick="" id="checkEmail" name="checkEmail">이메일 확인</button>
+	 						type="button" value="unChecked" id="checkEmail2" name="checkEmail2">이메일 확인</button>
 							</td>
 	 						</tr>
 	 						
@@ -414,7 +556,7 @@ $(function() {
 				            <br><br>
 				            </div>
 				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm">비밀번호 찾기</a></button>
+							<button class="btn-confirm" onclick="pwModalFormCheck()">비밀번호 찾기</button>
 							</div>
 				
 				            <br><br>
@@ -423,9 +565,8 @@ $(function() {
 				               class="cancelbtn">Cancel</button>
 				            
 				        </form>
-				    </div>
-</div>
-				    
+					</div>
+		    
 <script>
 /* 모달창 띄우기 */
         var modal = document.getElementById('id01');
