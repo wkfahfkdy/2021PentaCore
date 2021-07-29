@@ -77,7 +77,7 @@ private String member_disable;
 										style="width: 185px; background: #89ba10; color: white;">회원가입</button> -->
 									<br> <br>
 									<br> <br>
-								
+									
 									<span onclick="location.href=''">아이디 찾기 | </span> 
 									<span onclick="location.href='offerList'">비밀번호 찾기 | </span> 
 									<span onclick="location.href=''">회원가입 </span>
