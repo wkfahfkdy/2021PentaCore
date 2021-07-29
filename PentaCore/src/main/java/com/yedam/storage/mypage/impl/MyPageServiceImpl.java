@@ -43,4 +43,10 @@ public class MyPageServiceImpl implements MyPageService {
 		// 견적서 상세 조회
 		return sqlSession.selectOne("myOfferSelect", vo);
 	}
+
+	@Override
+	public List<MyPageVO> conveyListAll(MyPageVO vo) {
+		// 운송 신청 내역 조회
+		return sqlSession.selectList("conveyListAll", vo);
+	}
 }

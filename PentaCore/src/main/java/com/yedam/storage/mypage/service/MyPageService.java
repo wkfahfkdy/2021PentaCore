@@ -16,4 +16,7 @@ public interface MyPageService {
 	public List<MyPageVO> offerSelectList(MyPageVO vo);
 	// 견적서 상세 조회
 	public MyPageVO myOfferSelect(MyPageVO vo);
+	
+	// 물품 운송 신청 조회
+	public List<MyPageVO> conveyListAll(MyPageVO vo);
 }
