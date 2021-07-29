@@ -25,7 +25,7 @@
 <body>
 	<div class="title-group" style="margin-top: 70px;">
 		<h2> 1:1 문의 </h2>
-		<div class="subtitle with-square">댓글로 빠르게 문의하세요!</div>
+		<div class="subtitle with-square">답변을 확인하세요!</div>
 	</div>
 	
 	<div style="clear:both; width: 100%; height: 20px;"></div>
@@ -37,7 +37,7 @@
 			<thead>
 			</thead>
 		<tbody>
-		<c:forEach items="${inquirySelectList }" var="vo">
+		<c:forEach items="${replyList }" var="vo">
 			<tr>
 				<c:choose>
 					<c:when test="${vo.question_parents eq '1'}">
@@ -72,7 +72,7 @@
 		</div>
 		<div class="btns-row" style="text-align: right;">
 			<button type = "button" class="btn btn-default btn-lg" onclick = "formCheck()">문의</button>
-			<a href="replyList" class="btn btn-primary btn-lg" style="margin-left: 10px;">내가쓴글보기</a> 
+			<a href="iqList" class="btn btn-primary btn-lg" style="margin-left: 10px;">전체문의보기</a> 
 		</div>
 	</div>		
 	<div style="clear:both; width: 100%; height: 70px;"></div>

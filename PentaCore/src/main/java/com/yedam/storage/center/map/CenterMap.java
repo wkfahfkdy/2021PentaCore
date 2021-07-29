@@ -12,7 +12,9 @@ public interface CenterMap {
 	// 1:1
 	public List<CenterVO> inquirySelectList();
 	public int inquiryInsert();
-	public int inquiryUpdate();
-	public int inquiryDelete();	
+	public int inquiryDelete();
+	public List<CenterVO> replyList();
+	public int replyInsert();
+	public int replyDelete();
 
 }

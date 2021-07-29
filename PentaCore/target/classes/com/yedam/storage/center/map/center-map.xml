@@ -9,8 +9,20 @@
 	<!-- 1:1 문의 -->
 	<select id="inquirySelectList" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
-		order by question_group desc, question_parents asc
+		ORDER BY question_group DESC, question_parents ASC
 	</select>
+	
+	<!-- 내가쓴글 조회 -->
+	<select id="replyList" resultType="com.yedam.storage.center.vo.CenterVO">
+		SELECT * FROM question
+		WHERE member_id = 'user1'
+	</select>
+	
+	<!-- 1:1 문의작성 -->
+	<insert id="inquiryInsert" parameterType="com.yedam.storage.center.vo.CenterVO">
+		INSERT INTO question
+		VALUES(question_seq.nextval, 1, #{question_content},null,'CS', #{member_id}, sysdate, question_seq.nextval)
+	</insert>
 
 
 </mapper>

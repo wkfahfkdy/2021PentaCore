@@ -12,11 +12,11 @@
 		select u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
 				o.offer_wash, o.offer_premium
 		from storage s join offer o
-		on (s.storage_name = o.storage_name)
+		on (s.storage_code = o.storage_code)
 		join use_storage u
 		on (u.offer_code = o.offer_code)
 		join store t
-		on(u.store_name = t.store_name)
+		on(u.store_code = t.store_code)
 		where u.member_id = #{member_id}
 	</select>
 	
@@ -29,13 +29,19 @@
 	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
 		select o.*, s.store_name
 		from offer o, store s
-		where o.store_name = s.store_name
+		where o.store_code = s.store_code
     	and member_id = #{member_id}
 	</select>
 	
 	<select id="myOfferSelect" resultType="MyPageVO" parameterType="MyPageVO">
-		select * 
-		from offer 
+		select o.*, (o.offer_price*c.coupon_discount) as total_price, s.store_name, s.store_tel,s.STORE_ADDR, s.STORE_BUS, s.STORE_EMAIL,s.STORE_SUBWAY, t.storage_name, 
+        t.STORAGE_PRICE, c.coupon_name
+		from offer o join store s
+		on (o.store_code = s.store_code)
+		join storage t
+		on (o.storage_code = t.storage_code)
+		join coupon c
+		on (o.COUPON_CODE = c.coupon_code)
 		where offer_code = #{offer_code}
 	</select>
 </mapper>

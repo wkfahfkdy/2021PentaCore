@@ -65,6 +65,6 @@ public class HomeController {
 		model.addAttribute("storageList", storageDAO.storageSelectList());
 		model.addAttribute("getProductList", productDAO.selectProductList());
 		return "offer/selfOfferPage";
-	}
+	} 
 	
 }
