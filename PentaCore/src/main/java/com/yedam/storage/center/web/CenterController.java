@@ -1,6 +1,8 @@
 package com.yedam.storage.center.web;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,14 +35,30 @@ public class CenterController {
 		return "inquiry/iqList";
 	}
 	
+	// 내가쓴글 조회
+	@RequestMapping("replyList")
+	public String replyList(Model model) {
+		
+		model.addAttribute("replyList", CenterDAO.replyList());
+		
+		return "inquiry/replyList";
+	}
+	
 	// 1:1문의 
 	@RequestMapping("inquiryInsert")
-	public String inquiryInsert(CenterVO vo) {
+	public String inquiryInsert(HttpServletRequest req, CenterVO vo) {
 		
-		// 값 보내기
+		//HttpSession session = req.getSession();
+		
+		//String userId = (String) session.getAttribute("loginMemberId");
+		vo.setMember_id("user1");
+		
+		//System.out.println(vo.getMember_id());
+		//System.out.println(vo.getQuestion_content());
+		
 		CenterDAO.inquiryInsert(vo);
 		
-		return "Redirect:inquiry/iqList";
+		return "redirect:iqList";
 	}
 	
 }
