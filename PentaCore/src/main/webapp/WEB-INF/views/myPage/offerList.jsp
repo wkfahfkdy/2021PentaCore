@@ -42,9 +42,7 @@
 		<div id="offerGrid" align="center"></div>
 		<div id="my_offer" align="center">
 		    <a class="modal_close_btn">닫기</a>
-		    <div class="modal-body">
-			    Hello!
-		    </div>
+		    <div class="modal-body"></div>
 		    <div class="modal-storeInfo"></div>
 		</div>
 	</div>

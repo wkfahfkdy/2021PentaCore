@@ -18,4 +18,10 @@ public interface MyPageMap {
 	
 	// 물품 운송 신청내역 조회
 	public List<MyPageVO> conveyListAll(MyPageVO vo);
+	// 운송 신청서 상세
+	public MyPageVO myConveySelect(MyPageVO vo);
+	// 지도 api 사용 위해 지점명, 지점 주소 조회
+	public List<MyPageVO> storeInfoSelect();
+	// 운송 신청 취소
+	public int conveyDelete(MyPageVO vo);
 }
