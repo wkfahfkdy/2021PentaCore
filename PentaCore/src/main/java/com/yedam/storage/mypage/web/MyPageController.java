@@ -2,6 +2,9 @@ package com.yedam.storage.mypage.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +23,14 @@ public class MyPageController {
 	
 	// Mypage 첫화면
 	@RequestMapping("myPageInfo")
-	public String myPageInfo(Model model, MyPageVO vo) {	
+	public String myPageInfo(HttpServletRequest req, Model model, MyPageVO vo) {	
+		HttpSession session = req.getSession();
 		
-		//test용 data
-		String s_code = "ST002";
+		String s_code = (String) session.getAttribute("loginStore");
 		vo.setStore_code(s_code);
 
-		String id = "user10";
+		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
-		
 	
 		String notice = null;
 		String useService = null;
@@ -48,9 +50,10 @@ public class MyPageController {
 	
 	//	견적서 조회 페이지
 	@RequestMapping("offerList")
-	public String offerList(Model model, MyPageVO vo) {
-		//Test data
-		String id = "user10";
+	public String offerList(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
 		
 		model.addAttribute("offerSelectList",MyPageDAO.offerSelectList(vo));
@@ -67,12 +70,14 @@ public class MyPageController {
 	
 	//	물품 운송 신청 및 내역 페이지
 	@RequestMapping("conveyList")
-	public String conveyList(Model model, MyPageVO vo) {
-		//test data
-		String id = "user10";
+	public String conveyList(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+
+		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
 		
 		model.addAttribute("conveyListAll", MyPageDAO.conveyListAll(vo));
+		model.addAttribute("useStore", MyPageDAO.useStore(vo));
 		return "myPage/conveyCheck";
 	}
 	
@@ -99,5 +104,27 @@ public class MyPageController {
 	public List<MyPageVO> StoreAddr() {
 		List<MyPageVO> list = MyPageDAO.storeInfoSelect();
 		return list;
+	}
+	
+	// 운송 신청 등록
+	@RequestMapping("registConvey")
+	public void conveyInsert(HttpServletRequest req, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		String useStore = (String) session.getAttribute("loginStore");
+		String uStore = vo.getStore_code();
+		System.out.println(useStore);
+		System.out.println(uStore);
+		
+		if(useStore != null && uStore != "") {
+			vo.setStore_code(uStore);
+		} else if(useStore != null && uStore == "") {
+			vo.setStore_code(useStore);
+		} else {
+			vo.setStore_code(uStore);
+		}
+		System.out.println("값 체크 : "+ vo.toString());
 	}
 }

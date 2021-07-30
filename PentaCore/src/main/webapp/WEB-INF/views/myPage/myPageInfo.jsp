@@ -92,7 +92,7 @@
 <body>
 	<div class="wrap">
 		<div>
-			<h2>김이담 님:)</h2>
+			<h2>${loginName } 님:)</h2>
 		</div><br>
 		<div class="notice-btns">
 			<div class="notice">

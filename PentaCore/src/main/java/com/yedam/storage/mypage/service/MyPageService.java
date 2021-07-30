@@ -8,6 +8,9 @@ public interface MyPageService {
 	// 사용자가 이용 중인 스토리지가 있는지 검증
 	public MyPageVO useStorage(MyPageVO vo);
 	
+	// 고객이 이용 중인 스토어 이름, 스토리지 번호 가져오기
+	public MyPageVO useStore(MyPageVO vo);
+	
 	// 마이페이지 첫화면
 	public List<MyPageVO> noticeSelectList(MyPageVO vo);
 	public List<MyPageVO> usedStorageList(MyPageVO vo);
