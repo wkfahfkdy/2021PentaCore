@@ -20,4 +20,10 @@ public interface MyPageMap {
 	public List<MyPageVO> conveyListAll(MyPageVO vo);
 	// 스토어 정보 : 신청form select option에서 사용.
 	public List<MyPageVO>storeList(MyPageVO vo);
+	// 운송 신청서 상세
+	public MyPageVO myConveySelect(MyPageVO vo);
+	// 지도 api 사용 위해 지점명, 지점 주소 조회
+	public List<MyPageVO> storeInfoSelect();
+	// 운송 신청 취소
+	public int conveyDelete(MyPageVO vo);
 }
