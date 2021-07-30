@@ -24,8 +24,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	//로그인(비밀번호 찾기)
-	public MemberVO pwEmailCheck(MemberVO vo) {
-		return sqlSession.selectOne("pwEmailCheck",vo);		
+	public MemberVO modalEmailCheck(MemberVO vo) {
+		return sqlSession.selectOne("modalEmailCheck",vo);		
 	}
 	
 	

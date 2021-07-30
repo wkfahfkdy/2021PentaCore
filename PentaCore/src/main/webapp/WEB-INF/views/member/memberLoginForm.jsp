@@ -198,17 +198,22 @@ $(function() {
 		}
 		//email 중복확인 ajax
 		$.ajax({
-			url : 'sameEmailCheck',
-			data : {email : $('#member_email').val() },
+			url : 'modalEmailCheck',
+			data : {
+				member_name : $('#member_name').val(),
+				member_email : $('#member_email').val() },
 			type : 'post',
 			success : function(data) {
-				if (data > 0) {
+				if (data < 0) {
+					alert('가입한 내역이 없습니다. 이름과 이메일을 확인해주세요.');	
+					
+				} else {
+					
 					alert('유효한 이메일입니다.');
 					$('#member_email').focus();
-				} else {
-					alert('가입한 내역이 없습니다. 이름과 이메일을 확인해주세요.');	
 					$('#sendEmail').val('checked');
 					$('#emailCode').focus();
+					
 					//이메일 중복확인 통과후 인증코드 메일보내는 ajax
 					$.ajax({
 						url : 'sendEmail.do',
@@ -245,6 +250,33 @@ $(function() {
 
 </script>
 
+<script>
+$(function() {
+	$('#findId').click(function() {
+		if (idModal.member_name.value == "") {
+			alert("이름을 입력하세요.");
+			idModal.member_name.focus();
+			return false;
+		}
+		if (idModal.member_email.value == "") {
+			alert("이메일을 입력하세요.");
+			return false;
+		}
+		/*
+		if (idModal.checkEmail.value == "unChecked") {
+			alert("이메일을 인증 하세요");
+			idModal.emailCode.focus();
+			return false;
+		}
+		*/
+		modal.style.display = "none";
+		document.getElementById('idShow').style.display='block'
+		return false;
+	});	
+});
+</script>
+
+
 
 <!-- =================================== 비밀번호 찾기 모달 ======================================== -->
 <script>
@@ -275,7 +307,7 @@ $(function() {
 		}
 		
 		$.ajax ({
-				url : 'pwModalEmailCheck',  
+				url : 'modalEmailCheck',  
 				data: {
 					member_name : $('#member_name2').val(),
 					member_email : $('#member_email2').val()
@@ -364,20 +396,28 @@ $(function() {
 
 
 <script>
-function pwModalFormCheck() {
-		if (pwModal.member_name.value == "") {
+$(function() {
+	$('#findPw').click(function() {
+		if (pwModal.member_name2.value == "") {
 			alert("이름을 입력하세요.");
 			pwModal.member_name.focus();
 			return false;
 		}
-		if (pwModal.member_email.value == "") {
+		if (pwModal.member_email2.value == "") {
 			alert("이메일을 입력하세요.");
+			return false;
+		}
+		
+		if (frm.checkEmail2.value == "unChecked") {
+			alert("이메일을 인증 하세요");
+			frm.checkEmail2.focus();
 			return false;
 		}
 		if (pwModal.member_tel.value == "") {
 			alert("휴대폰번호를 입력하세요.");
 			return false;
 		}
+		
 		/*
 		if (pwModal.checkSMS.value == "unChecked") {
 			alert("문자 인증을 하세요");
@@ -385,10 +425,12 @@ function pwModalFormCheck() {
 			return false;
 		}    
 		*/
-}
+		
+	});
+});
 </script>
 
-
+<!-- =================================== 비밀번호 찾기 모달 END======================================== -->
 
 
 
@@ -404,6 +446,7 @@ function pwModalFormCheck() {
 </head>
 <!--로그인 후 다시 로그인 화면으로 못돌아가게 하기 -->
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+
 
 
 
@@ -434,7 +477,7 @@ function pwModalFormCheck() {
 								</div>
 							</form>
 									<span onclick="document.getElementById('id01').style.display='block'" style="width:auto;">아이디 찾기 | </span> 
-									<span onclick="document.getElementById('pw01').style.display='block'">비밀번호 찾기 | </span> 
+									<span onclick="document.getElementById('pw01').style.display='block'" style="width:auto;">비밀번호 찾기 | </span> 
 									<span onclick="location.href='memberJoinForm'">회원가입 </span>
 									<br> <br>
 									<br> <br>
@@ -442,7 +485,7 @@ function pwModalFormCheck() {
 						
 						<!-- =================================== 아아디 찾기 모달 ======================================== -->
 						<div id="id01" class="modal" align ="center">
-				        <form id="idModal" class="modal-content animate" action="/action_page.php" method="post">
+				        <form id="idModal"  name="idModal" class="modal-content animate" action="" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('id01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>
@@ -487,7 +530,7 @@ function pwModalFormCheck() {
 				            
 				            </div>
 				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm" onclick="idModalFormCheck()">아이디 찾기</button>
+							<button class="btn-confirm" id="findId" >아이디 찾기</button>
 							</div>
 				
 				            <br><br>
@@ -497,12 +540,51 @@ function pwModalFormCheck() {
 				            
 				        </form>
 					</div>
-						
+				
+					<!-- =================================== 아아디 보여주기 ======================================== -->
+					
+					<div id="idShow" class="modal" align ="center">
+				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">
+				            <div class="imgcontainer">
+				                <span onclick="document.getElementById('idShow').style.display='none'" class="close"
+				                    title="Close Modal">&times;</span>
+				                <h3>아이디 찾기</h3>
+				                <br>
+				                <h5>회원님의 아이디는 아래와 같습니다.</h5>
+				            </div>
+				            <br><br>
+				
+				            <div align="center">
+				            <table style="border:1; border-collapse:collapse;">
+				            
+							<tr>
+							<th width="150">기존 이메일</th>
+							<td width="300" colspan="2"><span class="input-group-text"
+										id="inputGroup-sizing-sm"> ${modalId} </span></td>
+							</tr>
+							
+				            </table>
+				            
+				            <!--
+				            <br><br><br>  
+				            </div>
+				            <div style = "margin-top :'20px';">
+							<button class="btn-confirm" id="findId" >아이디 찾기</button>
+							</div>
+							-->
+				
+				            <br><br>
+				            
+				            <button type="button" onclick="document.getElementById('idShow').style.display='none'"
+				               class="cancelbtn">Cancel</button>
+				            </div>
+				        </form>
+					</div>
 				    
 				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
 				   
 				    <div id="pw01" class="modal" align ="center">
-				        <form id="pwModal" class="modal-content animate" action="/action_page.php" method="post">
+				        <form id="pwModal" name="pwModal" class="modal-content animate" action="/action_page.php" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>
@@ -556,7 +638,7 @@ function pwModalFormCheck() {
 				            <br><br>
 				            </div>
 				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm" onclick="pwModalFormCheck()">비밀번호 찾기</button>
+							<button class="btn-confirm" id="findPw">비밀번호 찾기</button>
 							</div>
 				
 				            <br><br>
@@ -574,10 +656,11 @@ function pwModalFormCheck() {
         // 모달창 화면 밖 클릭시 모달창 닫기
         window.onclick = function (event) {
             console.log(event.target);
-            if (event.target == modal || event.target == modal2) {
+           //모달창 밖의 화면 클릭시 모달화면이 닫히는 코드. *사용자가 실수로 창을 끄기 쉬워 막아놓음.
+           /*  if (event.target == modal || event.target == modal2) {
                 modal.style.display = "none";
-                modal2.style.display = "none";
-            }
+                 modal2.style.display = "none"; 
+            }*/
         }
 </script>
 

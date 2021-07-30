@@ -62,30 +62,35 @@ public class MemberController {
 	        return Id;
 	}
 	
+	// ------------------------------- 로그인 화면 아이디/비밀번호 찾기 Modal ------------------------------ //
 	
+	@RequestMapping("modalEmailCheck")
+	@ResponseBody
+	public int modalEmailCheck(MemberVO vo, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		MemberVO rvo = memberDAO.modalEmailCheck(vo);
+		
+		
+		int cnt = 0;
+		if (memberDAO.modalEmailCheck(vo) != null) {
+			session.setAttribute("modalId", rvo.getMember_id());
+			cnt = 1;
+		}
+		
+		System.out.println(session.getAttribute("modalId"));
+		
+		return cnt;
+	}
+	//
 
 	// ------------------------------- 로그인 화면 아이디 찾기 Modal ------------------------------ //
 	
 	
 	
 	// ------------------------------- 패스워드 찾기 Modal ------------------------------ //
-	@RequestMapping("pwModalEmailCheck")
-	@ResponseBody
-	public int pwModalEmailCheck(MemberVO vo, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		MemberVO rvo = memberDAO.pwEmailCheck(vo);
-		
-		
-		int cnt = 0;
-		if (memberDAO.pwEmailCheck(vo) != null) {
-			session.setAttribute("pwModalEmail", rvo.getMember_email());
-			cnt = 1;
-		}
-		
-		
-		return cnt;
-	}
+	
+	
 	
 	
 	// ------------------------------- 회원가입 ------------------------------ //
