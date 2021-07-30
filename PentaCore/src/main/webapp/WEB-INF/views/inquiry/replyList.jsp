@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-
+	// 문의작성
 	function formCheck() {
 		if(frm.question_content.value == "") {
 			alert("문의 댓글을 남겨주세요!");
@@ -19,6 +19,23 @@
 		
 		frm.submit();		
 	}
+	
+	// 문의삭제
+	function inquiryDelete(question_num) {
+		
+		$.ajax({
+			url : 'inquiryDelete',
+			data : {question_num : question_num},
+			type : 'POST',
+			success : function(resp){
+				location.href = "replyList";
+			},
+			error : function(err){
+				console.log(err)
+			}
+		});
+	}
+	
 	
 </script>
 </head>
@@ -32,7 +49,7 @@
 	
 	<!-- === TABLE DEFAULT === -->
 	
-	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left; border: ">
+	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left;">
 		<table class="table">
 			<thead>
 			</thead>
@@ -44,6 +61,11 @@
 						<td>${vo.question_content }</td>
 						<td style="text-align: right;">
 							<fmt:formatDate value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" />
+						</td>
+						<td onclick = "inquiryDelete('{vo.question_num}')">
+							<input type ="hidden" id = "question_num" value="${question_num}" />
+							<button style = "width: 5px; height: 6px; text-align: center;" 
+								type = "button" class=""> <a>x</a> </button>
 						</td>
 					</c:when>
 					<c:otherwise >
@@ -72,7 +94,7 @@
 		</div>
 		<div class="btns-row" style="text-align: right;">
 			<button type = "button" class="btn btn-default btn-lg" onclick = "formCheck()">문의</button>
-			<a href="iqList" class="btn btn-primary btn-lg" style="margin-left: 10px;">전체문의보기</a> 
+			<a href="iqPaging" class="btn btn-primary btn-lg" style="margin-left: 10px;">전체문의보기</a> 
 		</div>
 	</div>		
 	<div style="clear:both; width: 100%; height: 70px;"></div>

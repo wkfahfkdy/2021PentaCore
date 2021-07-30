@@ -14,7 +14,7 @@ public interface CenterMap {
 	public List<paging> inquirySelectList();
 	public List<paging> inquiryPaging(CenterVO vo);
 	public int inquiryInsert(CenterVO vo);
-	public int inquiryDelete();	
+	public int inquiryDelete(CenterVO vo);	
 	
 	//paging
 	public int tableCnt();
