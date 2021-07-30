@@ -45,9 +45,9 @@ public class MyPageVO {
 	private String convey_after;
 	private String convey_file;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-	private Date apply_start;
+	private java.sql.Date apply_start;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-	private Date apply_end;
+	private java.sql.Date apply_end;
 	private String apply_time;
 	private String apply_whether;
 	private String use_num;

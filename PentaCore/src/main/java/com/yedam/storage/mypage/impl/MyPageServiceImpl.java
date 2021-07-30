@@ -33,6 +33,12 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
+	public MyPageVO useStore(MyPageVO vo) {
+		// 사용자가 이용 중인 지점 이름
+		return sqlSession.selectOne("useStore", vo);
+	}
+	
+	@Override
 	public List<MyPageVO> offerSelectList(MyPageVO vo) {
 		// 견적서 내역 조회
 		return sqlSession.selectList("offerSelectList", vo);
@@ -73,5 +79,6 @@ public class MyPageServiceImpl implements MyPageService {
 		// 운송 신청 등록
 		return 0;
 	}
+
 
 }

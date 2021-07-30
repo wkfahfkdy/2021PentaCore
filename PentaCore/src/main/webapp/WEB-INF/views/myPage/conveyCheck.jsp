@@ -151,6 +151,12 @@
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<script>
+	function formCheck() {
+		alert("운송 신청이 완료되었습니다.");
+		frm.submit;
+	}
+</script>
 </head>
 <body>
 	<div class="wrap">
@@ -170,20 +176,40 @@
 		<div class="convey-Reg">
 			<div align="left">
 				<h4>물품 운송 신청하기</h4><br>
-				<p class="comment">*보관이사를 선택 하실 경우, 더욱 자세한 상담을 위해 마이스토리지에서 고객님께 연락을 드립니다.</p>
+				<p class="comment">*보관이사를 선택 하실 경우, 더욱 자세한 상담을 위해 마이스토리지에서 고객님께 연락을 드립니다.<br>
+					기존 이용 고객 중 보관이사를 신청하시는 경우 보관 희망 물품의 부피에 따라 상담 후 이용 스토리지 사이즈가 변경될 수 있습니다.</p>
 			</div>
-			<form id="frm" action="" method="post">
+			<form id="frm" action="registConvey" method="post">
 				<div class="convey-form">
 					<div class="form-memtitle">
-						<div class="title">이름</div>
+						<div class="title">신청자 이름</div>
+						<div class="title">이용 중인 지점</div>
 						<div class="title">이용 스토리지 번호</div>
-						<div class="title" style="line-height: 8em;">픽업 희망 주소</div>
-						<div class="title" style="line-height: 8em;">운송 물품 정보</div>
+						<div class="title">픽업 희망 주소</div>
+						<div class="title">운송 물품 정보</div>
 					</div>
 					<div class="form-memdata">
-						<div class="mem-data"><input type="text" id="member_name" name="member_name" value="" /></div>
-						<div class="mem-data"><input type="text" id="use_num" name="use_num" value="" /></div>
-						<div class="mem-data" style="font-size: 9pt; color: #00c0e2;">*현재 스토리지를 이용하시는 고객님의 경우,<br>이용 중인 스토리지 번호를 입력해주세요.</div>
+						<div class="mem-data">${loginName }</div>
+						<div class="mem-data" style="line-height: 2.5em;">
+							<c:choose>
+								<c:when test="${!empty loginStore }">
+									${useStore.store_name }
+								</c:when>
+								<c:otherwise>
+									<b>이용 중인 지점이 없습니다.</b>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="mem-data">
+							<c:choose>
+								<c:when test="${!empty useStore.info_num }">
+									${useStore.info_num }
+								</c:when>
+								<c:otherwise>
+									이용 중인 스토리지가 없습니다.
+								</c:otherwise>
+							</c:choose>
+						</div>
 						<div class="mem-data"><input type="text" id="apply_addr" name="apply_addr" value="" /></div>
 						<div class="mem-data"><input type="text" id="apply_product" name="apply_product" value="" /></div>
 					</div>
@@ -203,10 +229,12 @@
 						</select></div>
 					</div>
 				</div>
+				<div style="text-align: left; color: red; font-size: 9pt; margin: 0.8em 0em 0.4em;">*지점 선택의 경우 이용 중인 지점이 없으신 고객이시거나, 이용 지점을 기존과 다른 곳으로 원하시는 경우에만 선택해주세요.</div>
 				<div class="store-pick">
 					<div class="store-list">
-						<h4 align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
-						<button type="button" id="choice-btn" style="font-size: 9pt; font-weight: normal;">지점선택</button></h4>
+						<h4 id= "choice-store" align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
+						<button type="button" id="choice-btn" style="font-size: 9pt; font-weight: normal;">지점선택</button>
+						</h4>
 						<div id="storeGrid"></div>
 					</div>
 					<div class="store-mAp">
@@ -215,8 +243,8 @@
 					</div>
 				</div>
 				<div style="padding: 20px;">
-					<input type="hidden" name="store_addr" id="apply" value="" />
-					<input class="apply-btn" type="submit" value="신청하기" >
+					<input type="hidden" name="store_code" id="apply" value="" />
+					<button class="apply-btn" type="button" onclick="alertRegi()">신청하기</button>
 				</div>
 			</form>
 		</div>
@@ -253,7 +281,7 @@ $(document).ready(function() {
 			align: 'center',
 		},
 		{
-			header: '이용 지점',
+			header: '이용 희망 지점',
 			name: 'store_name',
 			align: 'center',
 		},
@@ -263,12 +291,12 @@ $(document).ready(function() {
 			align: 'center',
 		},
 		{
-			header: '운송희망일',
+			header: '운송 희망일',
 			name: 'convey_date',
 			align: 'center',
 		},
 		{
-			header: '보관이사여부',
+			header: '보관이사 여부',
 			name: 'archive_director',
 			align: 'center',
 		}
@@ -478,6 +506,7 @@ $(document).ready(function() {
 				// 클릭 시 console에 지점 주소 출력
 				var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
 				var s_code = recruitGrid.getValue(ev.rowKey,'store_code');
+				var s_name = "";
 				//console.log(contents);
 				
 			 	// 주소로 좌표를 검색합니다
@@ -509,6 +538,8 @@ $(document).ready(function() {
 			 	$('#choice-btn').on('click', function() {
 			 		console.log($('#apply').attr('value'));
 		 			$("#apply").attr('value',s_code);
+		 			s_name = recruitGrid.getValue(ev.rowKey,'store_name');
+		 			$("#choice-store").append(' : '+ s_name);
 		 			console.log($('#apply').attr('value'));
 				})
 			  
