@@ -61,7 +61,13 @@
 	</select>
 	
 	<select id="storeInfoSelect" resultType="MyPageVO">
-		select 	store_name, store_addr
+		select 	store_name, store_addr, store_code
 		from 	store
+		where store_code like 'ST%'
 	</select>
+	
+	<insert id="conveyInsert" parameterType="MyPageVO">
+		insert into convey_apply
+		values()
+	</insert>
 </mapper>

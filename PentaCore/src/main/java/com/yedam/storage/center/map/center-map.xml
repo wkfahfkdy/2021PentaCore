@@ -37,6 +37,12 @@
 		INSERT INTO question
 		VALUES(question_seq.nextval, 1, #{question_content},null,'CS', #{member_id}, sysdate, question_seq.nextval)
 	</insert>
+	
+	<!-- 문의삭제 -->
+	<delete id="inquiryDelete">
+		DELETE FROM question
+		WHERE question_num = #{question_num}
+	</delete>
 
 
 </mapper>

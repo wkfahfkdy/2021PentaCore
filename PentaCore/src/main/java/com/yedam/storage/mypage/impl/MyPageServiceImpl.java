@@ -56,16 +56,22 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.selectOne("myConveySelect", vo);
 	}
 
-	@Override
-	public int conveyDelete(MyPageVO vo) {
-		// 운송 신청 취소
-		return sqlSession.delete("conveyDelete", vo);
-	}
+//	@Override
+//	public int conveyDelete(MyPageVO vo) {
+//		// 운송 신청 취소
+//		return sqlSession.delete("conveyDelete", vo);
+//	}
 
 	@Override
 	public List<MyPageVO> storeInfoSelect() {
 		// 지도api 사용 위한 지점명, 지점주소 조회
 		return sqlSession.selectList("storeInfoSelect");
+	}
+
+	@Override
+	public int conveyInsert(MyPageVO vo) {
+		// 운송 신청 등록
+		return 0;
 	}
 
 }

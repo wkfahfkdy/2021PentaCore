@@ -75,8 +75,6 @@
 		</div>
 	</div>
 	
-	
-	
 	<!-- === 입력하는곳 === -->
 	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left;  ">
 		<div style="float: left; width: 70%"> 

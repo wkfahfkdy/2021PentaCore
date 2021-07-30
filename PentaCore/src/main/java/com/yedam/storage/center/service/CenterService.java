@@ -11,13 +11,10 @@ public interface CenterService {
 	public List<CenterVO> faqSelectList();
 	
 	//1:1
-	public List<paging> inquirySelectList();
+	public List<paging> inquirySelectList(CenterVO vo);
 	public List<paging> inquiryPaging(CenterVO vo);
 	public int inquiryInsert(CenterVO vo);
-	public int inquiryDelete();	
-	
-	//paging
-	public int tableCnt();
+	public int inquiryDelete(CenterVO vo);	
 	
 	//댓글
 	public List<CenterVO> replyList(CenterVO vo);
