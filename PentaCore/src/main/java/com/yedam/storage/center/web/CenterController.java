@@ -2,6 +2,7 @@ package com.yedam.storage.center.web;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -90,7 +91,7 @@ public class CenterController {
 	}
 	
 	
-	// 1:1문의 
+	// 문의작성
 	@RequestMapping("inquiryInsert")
 	public String inquiryInsert(CenterVO vo) {
 		
@@ -105,11 +106,12 @@ public class CenterController {
 	// 문의삭제
 	@RequestMapping("inquiryDelete")
 	public String inquiryDelete(HttpServletRequest req, CenterVO vo) {
-		
+
 		String question_num = req.getParameter("question_num");
 		vo.setQuestion_num(Integer.parseInt(question_num));
 		
 		CenterDAO.inquiryDelete(vo);
+		System.out.println(vo);
 		
 		return "redirect:replyList";
 	}
