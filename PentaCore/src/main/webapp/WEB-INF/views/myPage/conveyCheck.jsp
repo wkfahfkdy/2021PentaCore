@@ -142,7 +142,6 @@
     
     #choice-btn, .apply-btn {
     	background-color: #00c0e2;
-		border-color: #00c0e2;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -177,13 +176,14 @@
 				<div class="convey-form">
 					<div class="form-memtitle">
 						<div class="title">이름</div>
-						<div class="title">연락처</div>
-						<div class="title">픽업 희망 주소</div>
-						<div class="title">운송 물품 정보</div>
+						<div class="title">이용 스토리지 번호</div>
+						<div class="title" style="line-height: 8em;">픽업 희망 주소</div>
+						<div class="title" style="line-height: 8em;">운송 물품 정보</div>
 					</div>
 					<div class="form-memdata">
 						<div class="mem-data"><input type="text" id="member_name" name="member_name" value="" /></div>
-						<div class="mem-data"><input type="text" id="member_tel" name="member_tel" value="" /></div>
+						<div class="mem-data"><input type="text" id="use_num" name="use_num" value="" /></div>
+						<div class="mem-data" style="font-size: 9pt; color: #00c0e2;">*현재 스토리지를 이용하시는 고객님의 경우,<br>이용 중인 스토리지 번호를 입력해주세요.</div>
 						<div class="mem-data"><input type="text" id="apply_addr" name="apply_addr" value="" /></div>
 						<div class="mem-data"><input type="text" id="apply_product" name="apply_product" value="" /></div>
 					</div>

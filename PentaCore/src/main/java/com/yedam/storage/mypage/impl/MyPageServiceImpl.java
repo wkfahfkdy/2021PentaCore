@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.yedam.storage.mypage.service.MyPageService;
 import com.yedam.storage.mypage.vo.MyPageVO;
 
-@Repository("mypageDAO")
+@Service("mypageDAO")
 public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
