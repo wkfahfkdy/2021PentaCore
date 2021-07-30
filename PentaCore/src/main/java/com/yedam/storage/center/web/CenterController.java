@@ -34,9 +34,12 @@ public class CenterController {
 	
 	// 1:1문의 리스트 조회
 	@RequestMapping("iqList") 
-	public String inquirySelectList(Model model) {
+	public String inquirySelectList(CenterVO vo, Model model) {
 		
-		model.addAttribute("inquirySelectList", CenterDAO.inquirySelectList());
+		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		vo.setMember_id(userDetails.getUsername());
+		
+		model.addAttribute("inquirySelectList", CenterDAO.inquirySelectList(vo));
 		
 		return "inquiry/iqList";
 	}
@@ -57,10 +60,10 @@ public class CenterController {
 		CenterVO vo = new CenterVO();
 		vo.setFirstRecordIndex(1+(ipage-1)*10);
 		vo.setLastRecordIndex(10*ipage);
-		vo.setTotalCnt(CenterDAO.inquirySelectList().size());
+		vo.setTotalCnt(CenterDAO.inquirySelectList(vo).size());
 		
 		list = CenterDAO.inquiryPaging(vo);
-		total = CenterDAO.inquirySelectList();
+		total = CenterDAO.inquirySelectList(vo);
 
 		paging paging = new paging();
 		paging.setPageNo(ipage);
@@ -81,8 +84,6 @@ public class CenterController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		vo.setMember_id(userDetails.getUsername());
 		
-		System.out.println(vo);
-		
 		model.addAttribute("replyList", CenterDAO.replyList(vo));
 		
 		return "inquiry/replyList";
@@ -91,7 +92,7 @@ public class CenterController {
 	
 	// 1:1문의 
 	@RequestMapping("inquiryInsert")
-	public String inquiryInsert(HttpServletRequest req, CenterVO vo) {
+	public String inquiryInsert(CenterVO vo) {
 		
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		vo.setMember_id(userDetails.getUsername());
@@ -99,6 +100,18 @@ public class CenterController {
 		CenterDAO.inquiryInsert(vo);
 		
 		return "redirect:iqPaging";
+	}
+	
+	// 문의삭제
+	@RequestMapping("inquiryDelete")
+	public String inquiryDelete(HttpServletRequest req, CenterVO vo) {
+		
+		String question_num = req.getParameter("question_num");
+		vo.setQuestion_num(Integer.parseInt(question_num));
+		
+		CenterDAO.inquiryDelete(vo);
+		
+		return "redirect:replyList";
 	}
 	
 }

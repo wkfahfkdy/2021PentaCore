@@ -23,9 +23,9 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public List<paging> inquirySelectList() {
+	public List<paging> inquirySelectList(CenterVO vo) {
 		// 1:1문의 조회
-		return sqlSession.selectList("inquirySelectList");
+		return sqlSession.selectList("inquirySelectList", vo);
 	}
 	
 	@Override
@@ -33,13 +33,6 @@ public class CenterServiceImpl implements CenterService {
 		// 1:1문의 페이징
 		return sqlSession.selectList("inquiryPaging", vo);
 	}
-
-	@Override
-	public int tableCnt() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 
 	@Override
 	public List<CenterVO> replyList(CenterVO vo) {
@@ -54,9 +47,9 @@ public class CenterServiceImpl implements CenterService {
 	}
 
 	@Override
-	public int inquiryDelete() {
+	public int inquiryDelete(CenterVO vo) {
 		// 1:1문의 삭제
-		return 0;
+		return sqlSession.delete("inquiryDelete", vo);
 	}
 
 
