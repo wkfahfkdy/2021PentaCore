@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.yedam.storage.center.service.CenterService;
 import com.yedam.storage.center.vo.CenterVO;
 import com.yedam.storage.paging.paging;
 
-@Repository("centerDAO")
+@Service("centerDAO")
 public class CenterServiceImpl implements CenterService {
 	
 	@Autowired

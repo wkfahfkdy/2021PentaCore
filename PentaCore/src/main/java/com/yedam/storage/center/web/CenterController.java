@@ -2,7 +2,6 @@ package com.yedam.storage.center.web;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +44,7 @@ public class CenterController {
 		return "inquiry/iqList";
 	}
 	
-	// paging
+	// User paging
 	@RequestMapping("iqPaging")
 	public String inquiryPaging(Model model, HttpServletRequest request) {
 		
@@ -77,6 +76,37 @@ public class CenterController {
 		return "inquiry/iqPaging";
 	}
 	
+	// Admin paging
+	@RequestMapping("iqAdmin")
+	public String iqAdmin(Model model, HttpServletRequest request) {
+		
+		String page = request.getParameter("page");
+		
+		List<paging> list = new ArrayList<>();
+		List<paging> total = new ArrayList<>();
+		
+		if (page == null) page = "1";
+		
+		int ipage = Integer.parseInt(page);
+
+		CenterVO vo = new CenterVO();
+		vo.setFirstRecordIndex(1+(ipage-1)*10);
+		vo.setLastRecordIndex(10*ipage);
+		vo.setTotalCnt(CenterDAO.inquirySelectList(vo).size());
+		
+		list = CenterDAO.inquiryPaging(vo);
+		total = CenterDAO.inquirySelectList(vo);
+
+		paging paging = new paging();
+		paging.setPageNo(ipage);
+		paging.setPageSize(10);
+		paging.setTotalCount(total.size());
+		
+		model.addAttribute("bolist", list);
+		model.addAttribute("paging", paging);
+		
+		return "inquiry/iqAdmin";
+	}
 	
 	// 내가쓴글 조회
 	@RequestMapping("replyList")

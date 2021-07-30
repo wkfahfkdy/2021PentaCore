@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <form id="logout" action="/logout" method="POST">
 	<!-- <input name="${_csrf.parameterName }" type="hidden" value="${_csrf.token}" /> -->
@@ -75,13 +76,13 @@
 									<a href="#">회사소개</a>
 								</li>
 								<li>
-									<a href="#">이용안내</a>
+									<a href="infofUse">이용안내</a>
 								</li>
 								<li>
 									<a href="#">스토리지투어예약</a>
 								</li>
 								<li>
-									<a href="#">안심보관이사</a>
+									<a href="keep">안심보관이사</a>
 								</li>
 							</ul>
 						</li> 
