@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.storage.product.map.product-map">
+<mapper namespace="com.yedam.storage.product.map.ProductMap">
 	<!-- 셀프견적 물품별 이름 조회 + 이미지 출력 -->
 	<select id="selectProductList" resultType="ProductVO">
 		SELECT P.*
