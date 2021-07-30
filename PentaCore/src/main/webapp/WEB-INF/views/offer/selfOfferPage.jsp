@@ -200,11 +200,12 @@
 			if(product_del > 0){
 				$('#hiddenOfferProduct').val(delProduct);
 				$('#hiddenOfferPrice').val(storage_price);
-			} else if (product_del = 0){
+			} else if (product_del == 0){
 				delete productArrayList[product_name];
+				$('#hiddenOfferProduct').val(delProduct);
+				$('#hiddenOfferPrice').val(storage_price);
 				$('#hiddenOfferPrice').removeAttr("value");
 			}
-			
 			
 			console.log('총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val() );
 	};
