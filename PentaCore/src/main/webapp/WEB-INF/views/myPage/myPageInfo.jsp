@@ -130,7 +130,7 @@
 				</div>
 				<br>
 				<div class="btns-range">
-					<button class="btns" onclick="location.href='#'">회원정보<br>수정</button>
+					<button class="btns" onclick="location.href='memberInfoEdit'">회원정보<br>수정</button>
 					<button class="btns" onclick="location.href='#'">1:1문의내역</button>
 					<button class="btns" onclick="location.href='#'">Coupon & Events</button>
 				</div>

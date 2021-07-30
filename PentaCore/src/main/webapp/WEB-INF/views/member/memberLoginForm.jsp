@@ -147,8 +147,6 @@ private String member_disable;
 </style>
 
 
-
-
 <script>
 	//로그인 function 변수로 지정
 	function loginCheck() {
@@ -250,6 +248,9 @@ $(function() {
 
 </script>
 
+
+
+
 <script>
 $(function() {
 	$('#findId').click(function() {
@@ -276,6 +277,13 @@ $(function() {
 });
 </script>
 
+<script>
+function closeModal() {
+		document.getElementById('idShow').style.display='none';
+		location.reload()
+	}
+	
+</script>	
 
 
 <!-- =================================== 비밀번호 찾기 모달 ======================================== -->
@@ -462,8 +470,8 @@ $(function() {
 								<input type="text" id="member_id" name="member_id"
 									placeholder="ID" value=""> 
 								<input type="password" id="member_pwd" name="member_pwd" 
-								placeholder="PASSWORD" onkeyup="if(window.event.keyCode==13)
-								{loginCheck()}" value="">
+								placeholder="PASSWORD" onkeyup=
+									"if(window.event.keyCode==13) {loginCheck()}" value="">
 								<div>
 									<br>
 									<button class="btn btn-light" type="button"
@@ -546,7 +554,7 @@ $(function() {
 					<div id="idShow" class="modal" align ="center">
 				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">
 				            <div class="imgcontainer">
-				                <span onclick="document.getElementById('idShow').style.display='none'" class="close"
+				                <span id="closeIdShow" onclick="closeModal()" class="close"
 				                    title="Close Modal">&times;</span>
 				                <h3>아이디 찾기</h3>
 				                <br>
@@ -559,7 +567,7 @@ $(function() {
 				            
 							<tr>
 							<th width="150">기존 이메일</th>
-							<td width="300" colspan="2"><span class="input-group-text"
+							<td width="300" ><span class="input-group-text"
 										id="inputGroup-sizing-sm"> ${modalId} </span></td>
 							</tr>
 							
@@ -648,23 +656,25 @@ $(function() {
 				            
 				        </form>
 					</div>
-		    
+		    </body>
 <script>
 /* 모달창 띄우기 */
         var modal = document.getElementById('id01');
         var modal2 = document.getElementById('pw01');
         // 모달창 화면 밖 클릭시 모달창 닫기
+        
+        /* //모달창 밖의 화면 클릭시 모달화면이 닫히는 코드. *사용자가 실수로 창을 끄기 쉬워 막아놓음.
         window.onclick = function (event) {
             console.log(event.target);
-           //모달창 밖의 화면 클릭시 모달화면이 닫히는 코드. *사용자가 실수로 창을 끄기 쉬워 막아놓음.
-           /*  if (event.target == modal || event.target == modal2) {
+           
+             if (event.target == modal || event.target == modal2) {
                 modal.style.display = "none";
                  modal2.style.display = "none"; 
             }*/
         }
 </script>
 
-</body>
+
 </html>
 
 

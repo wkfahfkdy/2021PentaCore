@@ -66,6 +66,12 @@ public class MemberServiceImpl implements MemberService {
 		return sqlSession.selectOne("UseCodeInfo", vo);
 	}
 
+	//회원정보 수정
+	@Override
+	public MemberVO getMemberInfo(String p) {
+		return sqlSession.selectOne("getMemberInfo", p);
+	}
+
 
 	
 

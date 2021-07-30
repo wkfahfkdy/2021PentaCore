@@ -70,16 +70,23 @@ public class MemberController {
 	public int modalEmailCheck(MemberVO vo, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
+		
+		
 		MemberVO rvo = memberDAO.modalEmailCheck(vo);
 		
-		
+
 		int cnt = 0;
 		if (memberDAO.modalEmailCheck(vo) != null) {
 			session.setAttribute("modalId", rvo.getMember_id());
+			
+			/* hash map에 session 넣기 (session.invalidate()시 전체 session이 날라가서 만들었지만 사용x)
+			HashMap<String, HttpSession> hash = new HashMap<String, HttpSession>();
+			hash.put("session", session);
+			hash.get("session").setAttribute("modalId", rvo.getMember_id());
+			hash.get("session").getAttribute("modalId");
+			*/
 			cnt = 1;
 		}
-		
-		System.out.println(session.getAttribute("modalId"));
 		
 		return cnt;
 	}
@@ -236,7 +243,15 @@ public class MemberController {
 	// ------------------------------- 정보수정 ------------------------------ //
 	
 		@RequestMapping("memberInfoEdit")
-		public String memberInfoEdit() {
+		public String memberInfoEdit(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			String id = (String) session.getAttribute("loginId");
+			
+			
+			memberDAO.getMemberInfo(id);
+			
+			
+			
 			return "myPage/memberInfoEdit";
 		}
 }
