@@ -70,6 +70,20 @@
 						<!-- === top menu item === -->
 						<li class="dropdown">
 							<a data-toggle="dropdown" href="myPageInfo">마이스토리지 안내</a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="#">회사소개</a>
+								</li>
+								<li>
+									<a href="#">이용안내</a>
+								</li>
+								<li>
+									<a href="#">스토리지투어예약</a>
+								</li>
+								<li>
+									<a href="#">안심보관이사</a>
+								</li>
+							</ul>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
@@ -115,7 +129,9 @@
 							
 							<li >
 								<sec:authorize access="isAuthenticated()">
-									<a href="home" onclick="document.getElementById('logout').submit();">LOGOUT</a>
+									<form id="logout" action="logout" method="post">
+										<button style="margin:17px 30px;"><a>LOGOUT</a></button>
+									</form>	
 								</sec:authorize>
 							</li>
 						</sec:authorize>

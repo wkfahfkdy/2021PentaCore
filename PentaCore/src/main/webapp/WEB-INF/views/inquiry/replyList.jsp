@@ -11,7 +11,14 @@
 	// 문의작성
 	function formCheck() {
 		if(frm.question_content.value == "") {
-			alert("문의 댓글을 남겨주세요!");
+			alert("문의글을 남겨주세요!");
+			frm.question_content.focus();
+			
+			return false;
+		}
+		
+		if(frm.member_id == null) {
+			alert("LOGIN 후 문의해주세요!")
 			frm.question_content.focus();
 			
 			return false;
@@ -23,17 +30,7 @@
 	// 문의삭제
 	function inquiryDelete(question_num) {
 		
-		$.ajax({
-			url : 'inquiryDelete',
-			data : {question_num : question_num},
-			type : 'POST',
-			success : function(resp){
-				location.href = "replyList";
-			},
-			error : function(err){
-				console.log(err)
-			}
-		});
+		del.submit();
 	}
 	
 	
@@ -63,10 +60,12 @@
 							<fmt:formatDate value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" />
 						</td>
 						<td onclick = "inquiryDelete('{vo.question_num}')">
-							<input type ="hidden" id = "question_num" value="${question_num}" />
-							<button style = "width: 5px; height: 6px; text-align: center;" 
-								type = "button" class=""> <a>x</a> </button>
-						</td>
+							<form id="del" action="inquiryDelete" method="POST">
+								<input style="width: 0px; border: 0px; background-color: #fff;" 
+									type ="button" id = "question_num" value="${question_num}">
+								<a style=" padding-top: -10px">x</a> </input>
+							</form>
+						</td>	
 					</c:when>
 					<c:otherwise >
 						<td>
