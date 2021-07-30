@@ -139,6 +139,15 @@
     	display: table-cell;
     	width: 55%;
     }
+    
+    #choice-btn, .apply-btn {
+    	background-color: #00c0e2;
+		border-color: #00c0e2;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }
         
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
@@ -196,13 +205,18 @@
 				</div>
 				<div class="store-pick">
 					<div class="store-list">
-						지점 리스트
+						<h4 align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
+						<button type="button" id="choice-btn" style="font-size: 9pt; font-weight: normal;">지점선택</button></h4>
 						<div id="storeGrid"></div>
 					</div>
 					<div class="store-mAp">
-						지도 Api
+						<h4 align="left">지점 지도</h4>
 						<div id="map" style="width:100%;height:400px;"></div>
 					</div>
+				</div>
+				<div style="padding: 20px;">
+					<input type="hidden" name="store_addr" id="apply" value="" />
+					<input class="apply-btn" type="submit" value="신청하기" >
 				</div>
 			</form>
 		</div>
@@ -420,6 +434,7 @@ $(document).ready(function() {
 		dataType:'json',
 		success:function(data){
 			// TOAST GRID
+			
 			const recruitGrid = new tui.Grid({
 				el: document.getElementById('storeGrid'), 
 				data: data,
@@ -431,6 +446,13 @@ $(document).ready(function() {
 						width: 90,
 						filter: 'select'
 					}, 
+					{ 
+						header: '지점코드', 
+						name: 'store_code', 
+						align: 'center',
+						width: 80,
+						filter: 'select'
+					},
 					{ 
 						header: '주소', 
 						name: 'store_addr', 
@@ -449,13 +471,15 @@ $(document).ready(function() {
 				}
 			});
 			
+
 			// GRID 클릭 시
 			recruitGrid.on('click', function(ev) {
 				var target = ev
 				// 클릭 시 console에 지점 주소 출력
 				var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
-				console.log(contents);
-			  
+				var s_code = recruitGrid.getValue(ev.rowKey,'store_code');
+				//console.log(contents);
+				
 			 	// 주소로 좌표를 검색합니다
 				geocoder.addressSearch(contents, function(result, status) {
 				
@@ -481,6 +505,12 @@ $(document).ready(function() {
 				        map.setCenter(coords);
 				    } 
 				}); 
+			 	//지점 선택 버튼을 클릭시 선택된 지점의 주소값을 input hidden의 value로 추가
+			 	$('#choice-btn').on('click', function() {
+			 		console.log($('#apply').attr('value'));
+		 			$("#apply").attr('value',s_code);
+		 			console.log($('#apply').attr('value'));
+				})
 			  
 			});
 			
@@ -489,9 +519,6 @@ $(document).ready(function() {
 			console.log(err);
 		}
 	})
-	
-	
-	   
 </script>
 </body>
 </html>
