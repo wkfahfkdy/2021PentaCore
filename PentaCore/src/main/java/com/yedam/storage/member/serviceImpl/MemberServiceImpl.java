@@ -26,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	//로그인(비밀번호 찾기)
-	public MemberVO pwEmailCheck(MemberVO vo) {
-		return sqlSession.selectOne("pwEmailCheck",vo);		
+	public MemberVO modalEmailCheck(MemberVO vo) {
+		return sqlSession.selectOne("modalEmailCheck",vo);		
 	}
 	
 	
@@ -64,6 +64,12 @@ public class MemberServiceImpl implements MemberService {
 	public MyPageVO UseCodeInfo(MyPageVO vo) {
 		
 		return sqlSession.selectOne("UseCodeInfo", vo);
+	}
+
+	//회원정보 수정
+	@Override
+	public MemberVO getMemberInfo(String p) {
+		return sqlSession.selectOne("getMemberInfo", p);
 	}
 
 
