@@ -49,6 +49,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		request.getSession().setAttribute("loginName", vo2.getMember_name());
 		request.getSession().setAttribute("loginTel", vo2.getMember_tel());
 		request.getSession().setAttribute("loginAddr", vo2.getMember_addr());
+		// 이용 중인 지점이 없다면 에러가 떠서 != null일 시
 		if(vo3 != null) {
 			request.getSession().setAttribute("loginStore", vo3.getStore_code());
 		}
