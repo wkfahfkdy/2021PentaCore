@@ -42,6 +42,10 @@
 			},
 		}); // End Swiper
 		
+		// Reset 버튼인데 누르면 input number 값 안올라감 (수정)
+		$('#resetBtn').click(function() {
+			$('input[name=count]').val("0");
+		})
 	});
 	// 페이지 로딩 후 Product List 다 가져오기
 	function pageInit() {
@@ -137,14 +141,12 @@
 		if(product_count >= 1) {
 			/* console.log(product_count); */
 		}
-		/* $('.swiper-wrapper').append('<h4>' + product_name + '</h4>'); */
 	}
 	
 	// 삭제버튼 Function (매개변수 Product테이블의 product_code)
 	function deleteProductList(product_code){
 			// 물건 부피 값
 			product_volume = $('#productVolume' + product_code).val();
-			console.log('볼륨 : '+product_volume);
 			// Int로 형변환 해주고
 			product_del = parseInt($('#productCount'+product_code).val());
 			// 누를때 마다 저장되어 있던 value에서 -1 씩 해주고
@@ -154,16 +156,29 @@
 			// 총 담겨져 있는 total 부피에서 그 물품의 부피만 빼기
 			totalVolume = totalVolume - product_volume;
 			console.log('감산된 물품갯수의 부피 : '+totalVolume);
-			console.log('스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + '/ 현재 스토리지 index : ' + $('.swiper-slide').data("id"));
 			
-			for(var i = 5;  list.length < i; i--){
-				// 현재 볼륨이 각 스토리지 볼륨보다 작아지게 되면 이미지 이동 후 input hidden 스토리지 value 변경 (이미지가 넘어가는 조건)
-					if($('#storageVolumn'+list[i]).val() > totalVolume){
-						slider.slideTo($('.swiper-slide').data("id")*1 + i - 1, 1000);
-						console.log("현재 스토리지 index : " + $('.swiper-slide').data("id")*1 + i-1);
-					}
-			};
-	}
+			// 현재 볼륨이 각 스토리지 볼륨보다 작아지게 되면 이미지 이동 후 input hidden 스토리지 value 변경 (이미지가 넘어가는 조건)
+			if($('#storageVolumn'+list[0]).val() > totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 , 1000); // index 0
+				console.log('현재 스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + ' / 물건부피 : ' + totalVolume);
+			} else if ($('#storageVolumn'+list[1]).val() > totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 + 1, 1000); // index 1
+				console.log('현재 스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + ' / 물건부피 : ' + totalVolume);
+			} else if ($('#storageVolumn'+list[2]).val() > totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 + 2, 1000); // index 2
+				console.log('현재 스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + ' / 물건부피 : ' + totalVolume);
+			} else if ($('#storageVolumn'+list[3]).val() > totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 + 3, 1000); // index 3
+				console.log('현재 스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + ' / 물건부피 : ' + totalVolume);
+			} else if ($('#storageVolumn'+list[4]).val() > totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 + 4, 1000); // index 4
+				console.log('현재 스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + ' / 물건부피 : ' + totalVolume);
+			} else if ($('#storageVolumn'+list[4]).val() < totalVolume){
+				slider.slideTo($('.swiper-slide').data("id")*1 + 5, 1000); // index 5
+				console.log('현재 스토리지 부피 : ' + $('#storageVolumn'+list[0]).val() + ' / 물건부피 : ' + totalVolume);
+			}
+			
+	};
 	
 </script>
 <style>
@@ -394,6 +409,7 @@ input[type='number'] {
 								<!-- Append ProductList -->
 							</ul>
 						</c:forEach>
+						<button class="btn btn-primary btn-lg" id="resetBtn">Reset</button>
 						<div id="productListDIV">
 							<!-- 담기 눌렀을때 담는 곳 -->
 							<input type="hidden" id="hiddenProductList">
