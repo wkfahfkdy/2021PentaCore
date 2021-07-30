@@ -14,6 +14,7 @@ public interface MemberService {
 	public MemberVO idCheck(String p);
 	public int memberInsert(HashMap<String, Object> hash);
 	
+	public MemberVO modalEmailCheck(MemberVO vo);
 	public MemberVO memberInfo(MemberVO vo);
 	public MyPageVO UseCodeInfo(MyPageVO vo);
 }
