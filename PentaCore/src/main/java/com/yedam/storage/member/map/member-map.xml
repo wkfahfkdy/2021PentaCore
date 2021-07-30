@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.storage.member.map.member-map">
+<mapper namespace="com.yedam.storage.member.map.MemberMapper">
 
 <!--  
 private String member_id;
@@ -18,8 +18,8 @@ private String member_disable;
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd} and member_disable = 'N'
 </select>
 	
-<!-- 아이디/비밀번호 찾기(이메일확인)  -->	
-<select id="modalEmailCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
+<!-- 로그인(비밀번호 찾기)  -->	
+<select id="pwEmailCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
 		select * from member where member_name = #{member_name} and member_email = #{member_email} and member_disable = 'N'
 </select>
 
@@ -42,7 +42,17 @@ private String member_disable;
 		select * from member where member_id = #{p}
 </select>	
 
-	
+<select id="memberInfo" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
+		select 	member_id, member_name, member_tel, member_addr
+		from 	member
+		where 	member_id = #{member_id}
+</select>
+
+<select id="UseCodeInfo" parameterType="MyPageVO" resultType="MyPageVO">
+	select 	store_code 
+	from 	use_storage 
+	where 	member_id = #{member_id}
+</select>
 	
 	<!--
 	  

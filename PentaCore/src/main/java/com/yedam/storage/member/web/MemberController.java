@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -185,6 +186,11 @@ public class MemberController {
 	//회원정보 DB입력
 	@RequestMapping("memberJoin")
 	public String userJoin(MemberVO vo, HttpServletRequest request) throws ParseException {
+		
+		// 비밀번호 암호화
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+		String EncodePwd = encoder.encode(vo.getMember_pwd());
+		vo.setMember_pwd(EncodePwd);
 
 		// 테이블양식에 맞게 birth 수정 
 		String birthYear = request.getParameter("member_BirthYear");

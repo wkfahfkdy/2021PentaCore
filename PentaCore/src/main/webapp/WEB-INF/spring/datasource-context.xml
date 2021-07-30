@@ -17,7 +17,7 @@
 		<property name="username" value="myStorage" />
 		<property name="password" value="mystorage" />
 	</bean>
-	<bean id="dataSourceSpied"
+<!-- 	<bean id="dataSourceSpied"
 		class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSource" />
 		<property name="logFormatter">
@@ -26,7 +26,7 @@
 				<property name="sqlPrefix" value="SQL:::" />
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 
 	<!-- MyBatis -->
 	<bean id="sqlSessionFactory"
@@ -42,4 +42,10 @@
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+	
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	  <property name="basePackage" value="com.yedam.storage.**.map" />
+	</bean>
+	
 </beans>

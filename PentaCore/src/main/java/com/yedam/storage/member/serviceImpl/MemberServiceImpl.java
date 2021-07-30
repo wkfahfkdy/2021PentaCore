@@ -6,11 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.yedam.storage.member.service.MemberService;
 import com.yedam.storage.member.vo.MemberVO;
+import com.yedam.storage.mypage.vo.MyPageVO;
 
-@Repository("MemberDAO")
+@Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
@@ -24,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	//로그인(비밀번호 찾기)
-	public MemberVO modalEmailCheck(MemberVO vo) {
-		return sqlSession.selectOne("modalEmailCheck",vo);		
+	public MemberVO pwEmailCheck(MemberVO vo) {
+		return sqlSession.selectOne("pwEmailCheck",vo);		
 	}
 	
 	
@@ -50,6 +52,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberInsert(HashMap<String,Object> hash) {
 		return sqlSession.insert("memberInsert",hash);
+	}
+
+	@Override
+	public MemberVO memberInfo(MemberVO vo) {
+		
+		return sqlSession.selectOne("memberInfo", vo);
+	}
+
+	@Override
+	public MyPageVO UseCodeInfo(MyPageVO vo) {
+		
+		return sqlSession.selectOne("UseCodeInfo", vo);
 	}
 
 

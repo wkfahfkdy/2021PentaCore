@@ -171,6 +171,11 @@
 	<!-- =========================
 		END MAIN SLIDER
 	============================== -->
-	<h1>앙~</h1>
+	<h1>앙~</h1> <br>
+	loginId : ${loginId } <br>
+	loginName : ${loginName } <br>
+	loginTel : ${loginTel } <br>
+	loginAddr : ${loginAddr } <br>
+	loginStore : ${loginStore } <br>
 </body>
 </html>

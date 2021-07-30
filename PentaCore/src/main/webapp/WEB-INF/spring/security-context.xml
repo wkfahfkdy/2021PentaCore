@@ -17,7 +17,8 @@
 			login-page = 로그인이 일어나는 페이지 /memberLoginForm = member/memberLoginForm.jsp
 			username-parameter = 로그인 페이지에서 얻는 값
 			password-parameter = 상동
-			login-processing-url = 로그인 페이지에서 입력 후 실행되는 것
+			login-processing-url = 로그인 페이지에서 입력 후 실행되는 것 (form의 action)
+			authentication-success-handler-ref = 로그인 성공 시 거칠 handler - Session 정보 있음
 			
 			추가 설정은 프로젝트 어느 정도 진행된 후에 일괄 적용 예정
 		-->
@@ -28,6 +29,7 @@
 					username-parameter="member_id"
 					password-parameter="member_pwd"
 					login-processing-url="/memberLoginIdCheck"
+					authentication-success-handler-ref="customSuccessHandler"
 		
 		/>
 		<!-- 로그아웃 만들어야함 -->
@@ -35,6 +37,10 @@
 			logout-url="/logout"
 			logout-success-url="/home"
 			delete-cookies="member_id"/>
+			
+		<!-- 접근 권한 없는 페이지 접근 시 띄울 페이지 -->
+		<!-- 나중에 경고 페이지로 이동되도록 수정?? -->
+		<security:access-denied-handler error-page="/home"/>
 		
 		<!-- 홈페이지 해킹방지? 그런 기능 -->
 		<security:csrf disabled="true"/>
@@ -51,16 +57,21 @@
 			-->
 			<security:jdbc-user-service data-source-ref="dataSource"
 										users-by-username-query
-										="select member_id, '{noop}' || member_pwd, 1
+										="select member_id, member_pwd, 1
 										  from id_all_check
-										  where member_id = ?"
+										  where member_id = ?
+										  and member_disable='N'"
 										authorities-by-username-query
 										="select member_id, role_name
 										  from id_all_check
 										  where member_id = ?"
 			/>
-			<!-- {noop} 뺄 때 bcrypt 추가할 것 -->
+			<security:password-encoder hash="bcrypt"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
+	
+	<bean id="customSuccessHandler" class="com.yedam.storage.common.CustomSuccessHandler">
+		<constructor-arg value="/home"></constructor-arg>
+	</bean>
 	
 </beans>
