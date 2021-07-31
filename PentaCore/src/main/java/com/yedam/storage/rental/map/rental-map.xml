@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.storage.rental.map.RentalMap">
+
+	<select id="selectRentalList" resultType="RentalVO">
+		SELECT RENTAL_CODE, RENTAL_NAME, RENTAL_PRICE, DIVISION_CODE, RENTAL_IMAGE
+		FROM RENTAL
+	</select>
+</mapper>
