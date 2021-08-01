@@ -152,9 +152,22 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 <script>
-	function formCheck() {
-		alert("운송 신청이 완료되었습니다.");
-		frm.submit;
+	function alertRegi() {
+		var data = $("form[id=frm]").serialize() ;
+		console.log(data);
+		
+		$.ajax({
+			url: 'registConvey',
+			type: 'POST',
+			data : data,
+			success : function(result) {
+				alert("운송 신청이 완료되었습니다.");
+				location.reload();
+			},
+			error : function(xhr,status, msg) {
+				alert("운송 신청에 실패하였습니다.  상태값 : "+ status + "  에러메시지 : " + msg);
+			}
+		})
 	}
 </script>
 </head>
@@ -185,6 +198,7 @@
 						<div class="title">신청자 이름</div>
 						<div class="title">이용 중인 지점</div>
 						<div class="title">이용 스토리지 번호</div>
+						<div class="title">이용 희망 지점</div>
 						<div class="title">픽업 희망 주소</div>
 						<div class="title">운송 물품 정보</div>
 					</div>
@@ -210,6 +224,7 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
+						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left"></div>
 						<div class="mem-data"><input type="text" id="apply_addr" name="apply_addr" value="" /></div>
 						<div class="mem-data"><input type="text" id="apply_product" name="apply_product" value="" /></div>
 					</div>
@@ -229,7 +244,8 @@
 						</select></div>
 					</div>
 				</div>
-				<div style="text-align: left; color: red; font-size: 9pt; margin: 0.8em 0em 0.4em;">*지점 선택의 경우 이용 중인 지점이 없으신 고객이시거나, 이용 지점을 기존과 다른 곳으로 원하시는 경우에만 선택해주세요.</div>
+				<div style="text-align: left; color: red; font-size: 9pt; margin: 0.8em 0em 0.4em;">*지점 선택의 경우 이용 중인 지점이 없으신 고객이시거나, 이용 지점을 기존과 다른 곳으로 원하시는 경우에만 선택해주세요.<br>
+																									&nbsp;&nbsp;선택하신 지점은 이용 희망 지점 칸에 보여집니다.</div>
 				<div class="store-pick">
 					<div class="store-list">
 						<h4 id= "choice-store" align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
@@ -538,8 +554,17 @@ $(document).ready(function() {
 			 	$('#choice-btn').on('click', function() {
 			 		console.log($('#apply').attr('value'));
 		 			$("#apply").attr('value',s_code);
-		 			s_name = recruitGrid.getValue(ev.rowKey,'store_name');
-		 			$("#choice-store").append(' : '+ s_name);
+		 			
+		 			let sName = document.getElementById('mem-data-st');
+		 			console.log(sName.innerHTML);
+		 			
+		 			if(sName.innerHTML != null) {
+		 				sName.innerHTML = '';
+		 				s_name= recruitGrid.getValue(ev.rowKey,'store_name');
+		 				sName.innerHTML = s_name;
+		 			}
+		 			
+		 			console.log(sName.innerHTML);
 		 			console.log($('#apply').attr('value'));
 				})
 			  

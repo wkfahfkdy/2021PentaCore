@@ -126,7 +126,7 @@
 				<div class="btns-range">
 					<button class="btns" onclick="location.href='offerList'">나의 견적서</button>
 					<button class="btns" onclick="location.href='conveyList'">물품운송<br>신청조회</button>
-					<button class="btns" onclick="location.href='#'">투어예약<br>신청조회</button>
+					<button class="btns" onclick="location.href='storeTour'">투어예약<br>신청조회</button>
 				</div>
 				<br>
 				<div class="btns-range">
@@ -149,7 +149,7 @@
 										<fmt:formatDate value="${useInfo.use_end }" type="date" pattern="yyyy년 MM월 dd일"/> </h4>
 									</td>
 									<td rowspan="5" style="width: 20%; text-align: center">
-										<button class="review-btn" onclick="location.href='#'">Review</button>
+										<button class="review-btn" onclick="location.href='reviewForm'">Review</button>
 									</td>
 								<tr>
 								<tr>
