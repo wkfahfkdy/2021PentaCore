@@ -14,10 +14,14 @@ public interface MyPageMap {
 	public List<MyPageVO> noticeSelectList();
 	public List<MyPageVO> usedStorageList();
 	
+	//--------------견적서 내역 페이지-----------------
+	
 	// 견적서 리스트 조회
 	public List<MyPageVO> offerSelectList(MyPageVO vo);
 	// 견적서 상세 조회
 	public List<MyPageVO> myOfferSelect(MyPageVO vo);
+	
+	//--------------물품 운송 페이지-----------------
 	
 	// 물품 운송 신청내역 조회
 	public List<MyPageVO> conveyListAll(MyPageVO vo);
@@ -31,4 +35,21 @@ public interface MyPageMap {
 	public int conveyInsert(MyPageVO vo);
 	// 운송 신청 취소
 //	public int conveyDelete(MyPageVO vo);
+	
+	//--------------지점 투어 페이지-----------------
+	
+	// 지점 투어 신청 조회
+	public List<MyPageVO> storeTourListAll(MyPageVO vo);
+	// 투어 신청 등록
+	public int storeTourRegist(MyPageVO vo);
+	// 투어 신청 취소
+	public int storeTourCancel(MyPageVO vo);
+	
+	//--------------리뷰 페이지-----------------
+	public int reviewRegist(MyPageVO vo);
+	
+	//--------------공지사항 페이지----------------------
+	
+	// 공지사항 상세
+	public MyPageVO noticeSelect(MyPageVO vo);
 }

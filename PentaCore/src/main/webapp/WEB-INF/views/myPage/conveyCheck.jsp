@@ -147,12 +147,30 @@
 		font-size: 12pt;
 		padding: 0.4em;
     }
-        
+    
+    .back-btn {
+    	background-color: #006DFC;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }   
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 <script>
 	function alertRegi() {
+		if($('#apply_start').val() == ""){
+			alert("픽업 날짜를 입력하세요.");
+			$('#apply_start').focus();
+			return false;
+		}
+		if($('#apply_end').val() == ""){
+			alert("출고 날짜를 입력하세요.");
+			$('#apply_end').focus();
+			return false;
+		}
+		
 		var data = $("form[id=frm]").serialize() ;
 		console.log(data);
 		
@@ -224,7 +242,8 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left"></div>
+						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left; color: #00c0e2">
+							아래의 지점 리스트에서 선택해주세요.</div>
 						<div class="mem-data"><input type="text" id="apply_addr" name="apply_addr" value="" /></div>
 						<div class="mem-data"><input type="text" id="apply_product" name="apply_product" value="" /></div>
 					</div>
@@ -235,7 +254,9 @@
 					</div>
 					<div class="form-condata">
 						<div class="con-data"><input type="date" id="apply_start" name="apply_start" /><br>
-											<p style="color: gray; font-size: 8pt;">*보관 이사 신청 시 픽업을 원하는 날짜를 선택해주세요.</p></div>
+											<p style="color: gray; font-size: 8pt; line-height: 1em; margin: 0.4em 0em 0em; color: red;">
+											*보관 이사 신청 시 픽업을 원하는 날짜를 선택해주세요.<br>
+											 단순 출고의 경우에도 꼭! 출고날짜와 동일한 날짜를 선택해주세요.</p></div>
 						<div class="con-data"><input type="date" id="apply_end" name="apply_end" /><br>
 											<p style="color: gray; font-size: 8pt;">*보관 물품을 출고할 날짜를 선택해주세요.</p></div>
 						<div class="con-data"><select id="apply_whether" name="apply_whether">
@@ -260,7 +281,8 @@
 				</div>
 				<div style="padding: 20px;">
 					<input type="hidden" name="store_code" id="apply" value="" />
-					<button class="apply-btn" type="button" onclick="alertRegi()">신청하기</button>
+					<button class="apply-btn" type="button" onclick="alertRegi()">신청하기</button>&nbsp;&nbsp;
+					<button class="back-btn" type="button" onclick="history.back()">뒤로가기</button>
 				</div>
 			</form>
 		</div>
@@ -367,8 +389,6 @@ $(document).ready(function() {
 			row += '<td class="mo-tbl" style="width: 70%; padding-top: 30px;">' + a_code + '</td></tr>';
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 일자" + '</td>';
 			row += '<td class="mo-tbl">' + a_Start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 시간" + '</td>';
-			row += '<td class="mo-tbl">' + a_time + '</td></tr>';
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 주소" + '</td>';
 			row += '<td class="mo-tbl">' + a_addr + '</td></tr>';
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "출고 희망 일자" + '</td>';
@@ -381,29 +401,15 @@ $(document).ready(function() {
 			row += '<td class="mo-tbl">' + a_store + '</td></tr>';
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 중인 스토리지 번호" + '</td>';
 			row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
-			row += '<tr><td class="mo-tbl" colspan="2"><button id="cancel">신청취소</button></td></tr>';
+			row += '<tr><td class="mo-tbl" colspan="2"><p style="color: red; font-size: 9pt; line-height: 1.3em;">접수 된 신청건은 세부 일정 조율과 상담을 위해 물품 운송팀에서 확인 후,<br>'
+			+'고객님께 직접 연락을 드립니다. 만일 취소나 변경사항이 생길 경우 고객센터로 문의주시면<br>신속하게 처리를 도와드립니다.</p></td></tr>';
+			
 			tbl.append(row);
 			
 			$(".modal-body").append(title);
 			$(".modal-body").append(tbl);
 		}
 
-		$(document).on('click','#cancel',function () {
-			console.log(myConvey);
-			
-			$.ajax({
-				url:'cancelConvey/'+myConvey,
-				type: 'POST',
-				success: function() {
-					alert("운송 신청이 취소되었습니다.");
-					bg.remove();
-			        modal.style.display = 'none';
-				},
-				error: function(xhr,status, msg) {
-					alert("취소가 되지 않았습니다.  상태값 : "+ status + "  에러메시지 : " + msg);
-				}
-			})
-		})
 	});	// Modal로 견적서 상세 보기 요청 끝
 		
 		// Modal 세부 함수			

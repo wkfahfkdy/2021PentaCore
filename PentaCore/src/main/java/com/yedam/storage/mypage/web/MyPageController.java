@@ -90,6 +90,7 @@ public class MyPageController {
 	@ResponseBody
 	public MyPageVO myConveySelect(@PathVariable String apply_code, Model model, MyPageVO vo) {
 		vo.setApply_code(apply_code);
+		System.out.println(apply_code);
 		return MyPageDAO.myConveySelect(vo);
 	}
 	
@@ -129,6 +130,7 @@ public class MyPageController {
 		} else {
 			vo.setStore_code(uStore);
 		}
+		
 		System.out.println("값 체크 : "+ vo.toString());
 		
 		int regConvey = MyPageDAO.conveyInsert(vo);
@@ -141,15 +143,76 @@ public class MyPageController {
 	
 	// 투어 신청 페이지 실행
 	@RequestMapping("storeTour")
-	public String storeTour(Model model, MyPageVO vo) {
+	public String storeTour(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		model.addAttribute("storeTourListAll", MyPageDAO.storeTourListAll(vo));
+		
 		return "myPage/tourCheck";
+	}
+	
+	// 투어 신청 등록
+	@RequestMapping("registTour")
+	public String registTour(HttpServletRequest req, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		System.out.println("값 체크 : "+vo.toString());
+		
+		MyPageDAO.storeTourRegist(vo);
+		
+		return "redirect:storeTour";
 	}
 	
 	//---------------------------------리뷰 작성 form 페이지-----------------------------------------
 	
 	// 리뷰 작성 form 페이지 실행
 	@RequestMapping("reviewForm")
-	public String reviewForm(MyPageVO vo) {
+	public String reviewForm(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		model.addAttribute("useStore", MyPageDAO.useStore(vo));
 		return "myPage/reviewRegist";
+	}
+	
+	// 리뷰 작성 등록
+//	@RequestMapping("reviewRegist")
+//	public String reviewRegist(MyPageVO vo) {
+//		return null;
+//	}
+	
+	//---------------------------------공지사항 페이지-----------------------------------------
+	
+	// 공지사항 리스트
+	@RequestMapping("noticeList")
+	public String noticeList(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String s_code = (String) session.getAttribute("loginStore");
+		vo.setStore_code(s_code);
+
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		model.addAttribute("noticeSelectList", MyPageDAO.noticeSelectList(vo));
+		
+		return "myPage/noticeCheck";
+	}
+	
+	// 공지사항 상세 Modal 창으로 데이터 보내기
+	@RequestMapping(value = "notice/{notice_num}", method=RequestMethod.GET)
+	@ResponseBody
+	public MyPageVO notice(@PathVariable int notice_num, Model model, MyPageVO vo) {
+		vo.setNotice_num(notice_num);
+		
+		return MyPageDAO.noticeSelect(vo);
 	}
 }

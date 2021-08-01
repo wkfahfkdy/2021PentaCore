@@ -54,7 +54,7 @@ public class MyPageVO {
 	private String tour_code;
 	private String tour_tel;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-	private Date tour_date;
+	private java.sql.Date tour_date;
 	private String tour_time;
 	private String tour_complete;
 	private String coupon_name;

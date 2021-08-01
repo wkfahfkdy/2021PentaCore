@@ -38,6 +38,8 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.selectOne("useStore", vo);
 	}
 	
+	//--------------견적서 내역 페이지-----------------	
+	
 	@Override
 	public List<MyPageVO> offerSelectList(MyPageVO vo) {
 		// 견적서 내역 조회
@@ -50,6 +52,8 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.selectOne("myOfferSelect", vo);
 	}
 
+	//--------------물품 운송 페이지-----------------		
+	
 	@Override
 	public List<MyPageVO> conveyListAll(MyPageVO vo) {
 		// 운송 신청 내역 조회
@@ -78,6 +82,42 @@ public class MyPageServiceImpl implements MyPageService {
 	public int conveyInsert(MyPageVO vo) {
 		// 운송 신청 등록
 		return sqlSession.insert("conveyInsert", vo);
+	}
+
+	//--------------지점 투어 페이지-----------------	
+	
+	@Override
+	public List<MyPageVO> storeTourListAll(MyPageVO vo) {
+		// 투어 신청 내역 조회
+		return sqlSession.selectList("storeTourListAll", vo);
+	}
+
+	@Override
+	public int storeTourRegist(MyPageVO vo) {
+		// 투어 신청 등록
+		return sqlSession.insert("storeTourRegist", vo);
+	}
+
+	@Override
+	public int storeTourCancel(MyPageVO vo) {
+		// 투어 신청 취소
+		return sqlSession.update("storeTourCancel", vo);
+	}
+	
+	//--------------리뷰 작성 페이지-----------------	
+
+	@Override
+	public int reviewRegist(MyPageVO vo) {
+		// 리뷰 작성 등록
+		return sqlSession.insert("reviewRegist", vo);
+	}
+	
+	//--------------공지사항 페이지-----------------	
+
+	@Override
+	public MyPageVO noticeSelect(MyPageVO vo) {
+		// 공지사항 상세글 조회
+		return sqlSession.selectOne("noticeSelect", vo);
 	}
 
 

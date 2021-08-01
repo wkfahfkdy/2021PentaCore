@@ -38,5 +38,17 @@
            </beans:list>
        </beans:property>
    </beans:bean>
-	
+   
+   <!--CK EDITOR 업로드 패스 설정: 물리적 업로드 경로-->
+   <beans:bean class="java.lang.String" id="uploadPath">
+   		<beans:constructor-arg value="C:/Users/hello/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PentaCore/resources"></beans:constructor-arg>
+   </beans:bean>
+   
+   <!-- MultiPartResolver -->
+   <beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+   		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+   </beans:bean>
+   
+   <!-- ck 업로드 에디터 이미지 첨부 파일 경로 -->
+	<resources mapping="/ckUpload/**" location="/resources/ckUpload/" />
 </beans:beans>

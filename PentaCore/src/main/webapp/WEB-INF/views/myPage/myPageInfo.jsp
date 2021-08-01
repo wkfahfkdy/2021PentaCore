@@ -20,24 +20,23 @@
 	
 	.notice-btns{	/*공지사항 및 기능버튼들 전체 div*/
 		display: table;
-		width: 100%;
 		padding: 30px;
 	}
 	
 	.notice{
 		display: table-cell;
-		width: 50%;
+		width: 55%;
 		text-align: center;
 	}
 	
 	.func-btns{
 		display: table-cell;
-		width: 50%;
+		width: 45%;
 		text-align: center;
 		vertical-align: middle;
 	}
 	
-	.btns-range{
+	.btns-range-top{
 		display: inline-block;
 	}
 	
@@ -67,14 +66,16 @@
 	.review-btn{
 		background-color: #00c0e2;
 		border-color: #00c0e2;
+		border-radius: 0.3em;
 		color: white;
-		font-size: 15pt;
+		font-size: 13pt;
 		padding: 0.3em;
 	}
 	
 	.btns {
 		background-color: #00c0e2;
 		border-color: #00c0e2;
+		border-radius: 0.3em;
 		color: white;
 		font-size: 15pt;
 		font-family: 'Nanum Gothic', sans-serif;
@@ -87,6 +88,15 @@
 	th {
 		text-align: center;
 	}
+	
+	caption {
+		color: black;
+		font-size: 14pt;
+		font-weight: bold;
+		margin: 0em 0em 1em;
+		padding: 0px 0px;
+		margin: 0px 0px 0px;
+	}
 </style>
 </head>
 <body>
@@ -98,7 +108,11 @@
 			<div class="notice">
 			<c:choose>
 				<c:when test="${!empty noticeSelectList }">
-					<table>
+					<table style="width: 100% ">
+					<caption><a href="noticeList">이용 지점 공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							<p style="font-size: 9pt; font-weight: normal;">
+								*^^*
+							</p></caption>
 						<tr>
 							<th>no.</th><th>제목</th><th>작성일</th>
 						</tr>
@@ -118,18 +132,18 @@
 					</table>
 				</c:when>
 				<c:otherwise>
-					${notice }
+					<h3>${notice }</h3>
 				</c:otherwise>
 			</c:choose>
 			</div>
 			<div class="func-btns">
-				<div class="btns-range">
+				<div class="btns-range-top" align="center">
 					<button class="btns" onclick="location.href='offerList'">나의 견적서</button>
 					<button class="btns" onclick="location.href='conveyList'">물품운송<br>신청조회</button>
 					<button class="btns" onclick="location.href='storeTour'">투어예약<br>신청조회</button>
 				</div>
 				<br>
-				<div class="btns-range">
+				<div class="btns-range-bottom">
 					<button class="btns" onclick="location.href='memberInfoEdit'">회원정보<br>수정</button>
 					<button class="btns" onclick="location.href='#'">1:1문의내역</button>
 					<button class="btns" onclick="location.href='#'">Coupon & Events</button>

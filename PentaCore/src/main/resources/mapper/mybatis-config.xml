@@ -7,6 +7,7 @@
   		<settings>
   			<setting name="mapUnderscoreToCamelCase" value="false"/>
   		</settings>
+  		
   		<!-- Alias 설정 -->
   		<typeAliases>
   			<typeAlias type="com.yedam.storage.storage.vo.StorageVO" alias="StorageVO"/>
@@ -15,4 +16,5 @@
   			<typeAlias type="com.yedam.storage.mypage.vo.MyPageVO" alias="MyPageVO"/>
   			<typeAlias type="com.yedam.storage.rental.vo.RentalVO" alias="RentalVO"/>
   		</typeAliases>
+  		
   </configuration>
