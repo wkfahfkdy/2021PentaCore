@@ -77,7 +77,7 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int conveyInsert(MyPageVO vo) {
 		// 운송 신청 등록
-		return 0;
+		return sqlSession.insert("conveyInsert", vo);
 	}
 
 

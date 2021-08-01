@@ -48,7 +48,9 @@ public class MyPageController {
 		return "myPage/myPageInfo";
 	}
 	
-	//	견적서 조회 페이지
+	//---------------------------------견적서 내역 페이지-----------------------------------------
+	
+	//	견적서 조회 페이지 실행
 	@RequestMapping("offerList")
 	public String offerList(HttpServletRequest req, Model model, MyPageVO vo) {
 		HttpSession session = req.getSession();
@@ -68,7 +70,9 @@ public class MyPageController {
 		return MyPageDAO.myOfferSelect(vo);
 	}
 	
-	//	물품 운송 신청 및 내역 페이지
+	//---------------------------------물품 운송 신청 페이지-----------------------------------------
+	
+	//	물품 운송 신청 및 내역 페이지 실행
 	@RequestMapping("conveyList")
 	public String conveyList(HttpServletRequest req, Model model, MyPageVO vo) {
 		HttpSession session = req.getSession();
@@ -108,7 +112,7 @@ public class MyPageController {
 	
 	// 운송 신청 등록
 	@RequestMapping("registConvey")
-	public void conveyInsert(HttpServletRequest req, MyPageVO vo) {
+	public String conveyInsert(HttpServletRequest req, MyPageVO vo) {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
@@ -126,5 +130,26 @@ public class MyPageController {
 			vo.setStore_code(uStore);
 		}
 		System.out.println("값 체크 : "+ vo.toString());
+		
+		int regConvey = MyPageDAO.conveyInsert(vo);
+		System.out.println(regConvey);
+		
+		return "redirect:conveyList";
+	}
+	
+	//---------------------------------매장 투어 신청 페이지-----------------------------------------
+	
+	// 투어 신청 페이지 실행
+	@RequestMapping("storeTour")
+	public String storeTour(Model model, MyPageVO vo) {
+		return "myPage/tourCheck";
+	}
+	
+	//---------------------------------리뷰 작성 form 페이지-----------------------------------------
+	
+	// 리뷰 작성 form 페이지 실행
+	@RequestMapping("reviewForm")
+	public String reviewForm(MyPageVO vo) {
+		return "myPage/reviewRegist";
 	}
 }

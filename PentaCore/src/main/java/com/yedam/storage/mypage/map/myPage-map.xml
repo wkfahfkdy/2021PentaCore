@@ -75,10 +75,10 @@
 	
 	<insert id="conveyInsert" parameterType="MyPageVO">
 		insert into convey_apply (apply_code, member_id, apply_addr, apply_product, apply_start, apply_end, apply_whether, use_num, store_code)
-		values('CA'||LPAD(ca_seq,3,0), #{member_id}, #{apply_addr}, #{apply_product}, #{apply_start}, #{apply_end}, #{apply_whether}, 
+		values(111, #{member_id}, #{apply_addr}, #{apply_product}, #{apply_start}, #{apply_end}, #{apply_whether}, 
 				(select use_num
 				 from use_storage
 				 where member_id = #{member_id}), 
-				#{store_code}
+				#{store_code})
 	</insert>
 </mapper>
