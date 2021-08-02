@@ -166,6 +166,9 @@
 			<h3>지점 투어 신청 내역 조회</h3>
 		</div>
 		<div class="tour-list">
+			<div align="right">
+				<button id="cancel-btn">투어취소</button>
+			</div>
 			<div id="tourGrid" align="center"></div>
 		</div>
 		<div class="tour-Reg">
@@ -242,7 +245,7 @@ $(document).ready(function() {
 			tour_date: '<fmt:formatDate value="${list.tour_date}" pattern="yyyy-MM-dd" />',
 			tour_time:'${list.tour_time}',
 			tour_complete: '${list.tour_complete}',
-			tour_cancel: '<button type="button" id="cancel-btn">신청 취소</button>'
+			tour_cancel: '${list.tour_cancel}'
 		}
 			<c:if test="${not status.last}">,</c:if>
 			</c:forEach>
@@ -250,40 +253,71 @@ $(document).ready(function() {
 		
 		console.log(tourData);
 	
+	// Grid API-source
+	const dataSource = {
+			withCredentials: false,
+			initialRequest: false,
+			contentType: 'application/json',
+			api: {
+				readData: {},
+				updateData: {
+					url: 'tourCancel',	// 업데이트가 실행 될 controller url
+					method: 'PUT'
+				}
+			}
+	};
+	
 	const tourGrid = new Grid({
 		el : document.getElementById('tourGrid'),
-		data: tourData,
+		data: dataSource,
+		//rowHeaders: ['checkbox'],
 		columns : [
-		{
-			header: '신청코드',
-			name: 'tour_code',
-			align: 'center',
-		},
-		{
-			header: '투어 희망 지점',
-			name: 'store_name',
-			align: 'center',
-		},
-		{
-			header:  '투어 희망 날짜',
-			name: 'tour_date',
-			align: 'center',
-		},
-		{
-			header: '투어 희망 시간',
-			name: 'tour_time',
-			align: 'center',
-		},
-		{
-			header: '투어 신청 확정 여부',
-			name: 'tour_complete',
-			align: 'center',
-		},
-		{
-			header: '투어 신청 취소',
-			name: 'tour_cancel',
-			align: 'center',
-		}
+			{
+				header: '신청코드',
+				name: 'tour_code',
+				align: 'center',
+			},
+			{
+				header: '투어 희망 지점',
+				name: 'store_name',
+				align: 'center',
+			},
+			{
+				header:  '투어 희망 날짜',
+				name: 'tour_date',
+				align: 'center',
+			},
+			{
+				header: '투어 희망 시간',
+				name: 'tour_time',
+				align: 'center',
+			},
+			{
+				header: '투어 신청 확정 여부',
+				name: 'tour_complete',
+				align: 'center',
+			},
+			{
+				header: '투어 취소',
+				name: 'tour_cancel',
+				formatter: 'listItemText',
+				align: 'center',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: [
+							{
+								text: '선택 안함',
+								value: 'N'
+							},
+							{
+								text: '투어 취소',
+								value: 'Y'
+							},
+						]
+					}
+				}
+			}
 		],
 		
 		bodyHeight: 300,
@@ -292,6 +326,32 @@ $(document).ready(function() {
 		userClient: true,
 		type: 'scroll'
 		}
+	});	// Grid End
+	
+	tourGrid.resetData(tourData);	// (기존의 dataSource -> tourData로 data 새로 세팅)
+	
+	document.getElementById('cancel-btn').addEventListener('click', cancelTour);	// 투어 취소 버튼을 누를 때 취소 함수 실행
+
+	function cancelTour() {
+		const { rowKey, columnName } = tourGrid.getFocusedCell();
+		
+		if(rowKey && columnName){
+			tourGrid.finishEditing(rowKey, columnName);
+		}
+		
+		tourGrid.request('updateData', {
+			//checkedOnly: false 
+			// 이딴 놈은 있으면 귀찮음. 굉장히 귀찮음. 커서가 다른데 가야 뭐가 됨
+		});
+	}
+	
+	// 업데이트 실행 이벤트
+	tourGrid.on('response', ev => {
+		var {response} = ev.xhr;
+		var responseObj = JSON.parse(response);
+		
+		console.log('result : ', responseObj.result);
+		console.log('data : ', responseObj.data);
 	});
 })
 </script>

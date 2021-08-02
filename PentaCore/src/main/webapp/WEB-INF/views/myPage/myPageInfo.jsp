@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -146,7 +145,7 @@
 				<div class="btns-range-bottom">
 					<button class="btns" onclick="location.href='memberInfoEdit'">회원정보<br>수정</button>
 					<button class="btns" onclick="location.href='#'">1:1문의내역</button>
-					<button class="btns" onclick="location.href='#'">Coupon & Events</button>
+					<button class="btns" onclick="location.href='couponList'">Coupon & Events</button>
 				</div>
 			</div>
 		</div>
@@ -163,7 +162,14 @@
 										<fmt:formatDate value="${useInfo.use_end }" type="date" pattern="yyyy년 MM월 dd일"/> </h4>
 									</td>
 									<td rowspan="5" style="width: 20%; text-align: center">
-										<button class="review-btn" onclick="location.href='reviewForm'">Review</button>
+										<c:choose>
+											<c:when test="${empty userReview.review_title }">
+												<button class="review-btn" onclick="location.href='reviewForm'">리뷰작성</button>
+											</c:when>
+											<c:otherwise>
+												<button class="review-btn" onclick="location.href='#'">리뷰보기</button>
+											</c:otherwise>
+										</c:choose>
 									</td>
 								<tr>
 								<tr>

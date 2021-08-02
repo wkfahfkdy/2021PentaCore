@@ -11,6 +11,9 @@ public interface MyPageMap {
 	// 고객이 이용 중인 스토어 이름, 스토리지 번호 가져오기
 	public MyPageVO useStore(MyPageVO vo);
 	
+	// 고객이 사용 중인 지점에 대한 리뷰를 작성했는가?
+	public MyPageVO userReview(MyPageVO vo);
+	
 	public List<MyPageVO> noticeSelectList();
 	public List<MyPageVO> usedStorageList();
 	
@@ -42,8 +45,8 @@ public interface MyPageMap {
 	public List<MyPageVO> storeTourListAll(MyPageVO vo);
 	// 투어 신청 등록
 	public int storeTourRegist(MyPageVO vo);
-	// 투어 신청 취소
-	public int storeTourCancel(MyPageVO vo);
+	//Grid에서 신청 취소 처리할 때 필요함...
+	public int cancelTour(MyPageVO vo);
 	
 	//--------------리뷰 페이지-----------------
 	public int reviewRegist(MyPageVO vo);
@@ -52,4 +55,9 @@ public interface MyPageMap {
 	
 	// 공지사항 상세
 	public MyPageVO noticeSelect(MyPageVO vo);
+	
+	//--------------쿠폰 페이지----------------------
+	
+	// 쿠폰 및 프로모션 리스트
+	public List<MyPageVO> couponList(MyPageVO vo);
 }

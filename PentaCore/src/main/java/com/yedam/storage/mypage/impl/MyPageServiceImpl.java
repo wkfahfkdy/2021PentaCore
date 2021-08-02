@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.storage.mypage.map.MyPageMap;
 import com.yedam.storage.mypage.service.MyPageService;
 import com.yedam.storage.mypage.vo.MyPageVO;
 
@@ -13,6 +14,8 @@ import com.yedam.storage.mypage.vo.MyPageVO;
 public class MyPageServiceImpl implements MyPageService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	@Autowired
+	MyPageMap mMap;
 	
 	@Override
 	public List<MyPageVO> noticeSelectList(MyPageVO vo) {
@@ -38,6 +41,12 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.selectOne("useStore", vo);
 	}
 	
+	@Override
+	public MyPageVO userReview(MyPageVO vo) {
+		// 사용자가 이용 중인 지점에 대한 리뷰를 작성했는지 체크
+		return sqlSession.selectOne("userReview", vo);
+	}
+
 	//--------------견적서 내역 페이지-----------------	
 	
 	@Override
@@ -99,9 +108,12 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int storeTourCancel(MyPageVO vo) {
-		// 투어 신청 취소
-		return sqlSession.update("storeTourCancel", vo);
+	public int cancelTour(MyPageVO vo) {
+		// Grid에서 바로 취소..
+		for(int i = 0; i < vo.getUpdatedRows().size();i++) {
+			mMap.cancelTour(vo.getUpdatedRows().get(i));
+		}
+		return 0;
 	}
 	
 	//--------------리뷰 작성 페이지-----------------	
@@ -119,6 +131,16 @@ public class MyPageServiceImpl implements MyPageService {
 		// 공지사항 상세글 조회
 		return sqlSession.selectOne("noticeSelect", vo);
 	}
+	
+	//--------------쿠폰 페이지-----------------	
+
+	@Override
+	public List<MyPageVO> couponList(MyPageVO vo) {
+		// 쿠폰 및 프로모션 조회
+		return sqlSession.selectList("couponList", vo);
+	}
+
+
 
 
 }
