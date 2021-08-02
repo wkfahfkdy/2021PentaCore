@@ -1,10 +1,5 @@
 package com.yedam.storage.paging;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-
 public class paging {
 	private int pageSize;
 	private int firstPageNo;

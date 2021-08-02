@@ -8,13 +8,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
+	// 댓글작성
+	function formCheck() {
+		if($("#question_content").val() == "") {
+			alert("답변댓글을 남겨주세요!");
+			$("#question_content").focus();
+			
+			return false;
+			
+		}
+		
+		$("#frm").submit();		
+	}
+
 	
 	function goPage(page) {
 		location.href = "iqPaging?page=" + page;
 	}
-	function show(question_num) {
-		console.log(question_num);
-		document.getElementById("trshow${question_num}").style.display = 'block';
+	function show(id) {
+		console.log();
+		document.getElementById('showme').style.display = 'block';
 	}
 
 </script>
@@ -34,27 +47,45 @@
 		<tbody>
 		<c:forEach items="${bolist }" var="vo">
 			<tr>
-				<td>${vo.question_content }</td>
+				<c:choose>
+					<c:when test="${vo.question_parents eq '1'}">
+						<td>${vo.question_content }</td>
+					</c:when>
+					<c:otherwise>
+						<td><img src="resources/assets/images/re.png"> &nbsp;
+							${vo.question_content }</td>
+					</c:otherwise>
+				</c:choose>
 				<td style="text-align: right;">
 					<fmt:formatDate value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" />
 				</td>
 				<td>
-					<button type="button" id="re${vo.question_num}" name="re" onclick="show('${vo.question_num}')" >re</button>
+					<c:if test="${vo.question_parents eq '1'}">
+						<button type="button" id="re" name="re" onclick="show('${vo.question_num}')" >re</button>
+					</c:if>
+				</td>
+				<td>
+					<form id="del" action="adminDelete" method="POST">
+						<input type ="hidden" name = "question_num" value="${vo.question_num}">
+						<input type="submit" style=" padding-top: -10px; cursor: pointer;" value="x" />
+					</form>
 				</td>
 			</tr>					
-			<tr style="display: none;" id="trshow${vo.question_num}">
-				<td>
-					<div>
-						<input size="50" style="height: 10px; background-color: #fff; " 
-							type="text" id="reply" name="reply" value="입력하라!">
-					</div>
+			<tr id="showme" style="display:none; " >
+				<td colspan="3">
+					<form id="frm" name="frm" action="replyInsert" method="POST">
+						<input size="100%" style="width:100%; background-color:#fff;"
+								type="text" id="question_content" name="question_content"
+								value="답변을 입력해주세오!"
+								onfocus="this.value=''" />
+						<input type="hidden" name ="question_group" value="${vo.question_group }">
+					</form>	
 				</td>
-				<td>
-					<button type="button" id="chk" name="chk" >확인</button>
-				</td>				
-				<td>
-					<button type="button" id="del" name="del" >삭제</button>
-				</td>				
+				<td style="text-align: right;">
+					<button style="width: 30px" 
+						type="button" onclick="formCheck()">
+						<a style="padding-top: 20px;">확인</a></button>
+				</td>
 			</tr>
 		</c:forEach>
 		</table>		

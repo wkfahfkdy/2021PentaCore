@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <script>
 	function formCheck(chk, gubun) {
-		if (gubun == "query") {
+		if (gubun == "quiry") {
 			if (frm.question_content.value == "") {
 				alert("문의 댓글을 남겨주세요!");
 				frm.question_content.focus();
@@ -63,16 +63,14 @@
 						<c:choose>
 							<c:when test="${vo.question_parents eq '1'}">
 								<td>${vo.question_content }</td>
-								<td style="text-align: right;"><fmt:formatDate
-										value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" /></td>
 							</c:when>
 							<c:otherwise>
 								<td><img src="resources/assets/images/re.png"> &nbsp;
 									${vo.question_content }</td>
-								<td style="text-align: right;"><fmt:formatDate
-										value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" /></td>
 							</c:otherwise>
 						</c:choose>
+						<td style="text-align: right;"><fmt:formatDate
+								value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" /></td>
 					</tr>
 				</c:forEach>
 		</table>

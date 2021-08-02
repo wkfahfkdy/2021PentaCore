@@ -18,7 +18,7 @@ public interface CenterService {
 	
 	//댓글
 	public List<CenterVO> replyList(CenterVO vo);
-	public int replyInsert();
+	public int replyInsert(CenterVO vo);
 	public int replyDelete();
 
 
