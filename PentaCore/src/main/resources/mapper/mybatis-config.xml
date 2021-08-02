@@ -13,5 +13,6 @@
   			<typeAlias type="com.yedam.storage.division.vo.DivisionVO" alias="DivisionVO"/>
   			<typeAlias type="com.yedam.storage.product.vo.ProductVO" alias="ProductVO"/>
   			<typeAlias type="com.yedam.storage.mypage.vo.MyPageVO" alias="MyPageVO"/>
+  			<typeAlias type="com.yedam.storage.rental.vo.RentalVO" alias="RentalVO"/>
   		</typeAliases>
   </configuration>

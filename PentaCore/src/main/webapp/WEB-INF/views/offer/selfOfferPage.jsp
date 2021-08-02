@@ -146,7 +146,7 @@
          getProductList.push("${productList.product_name}")
       </c:forEach>
       
-      
+      $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
       $('#hiddenOfferProduct').val(resetList);
       $('#hiddenOfferPrice').val(storage_price);
       console.log('Insert Function = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
@@ -197,17 +197,15 @@
               }
          }
         
-         console.log(delProduct);
          var storageImageIndex = ($('.swiper-slide-active').data("index"));
          var storage_price = $('#hiddenStoragePrice' + storageImageIndex ).val();
+         
          // 삭제 된 결과를 value에 담기
-         // 여기서 1이 계속 남아있음
-         console.log('product_del : ' + product_del + '물품 이름 : ' + product_name);
-      
-         $('#hiddenOfferProduct').val(delProduct);
-         $('#hiddenOfferPrice').val(storage_price);
-         console.log('Delete Fnction = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val() );
-         $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
+        $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
+        $('#hiddenOfferProduct').val(delProduct);
+        $('#hiddenOfferPrice').val(storage_price);
+        console.log('Delete Fnction = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
+        $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
    };
    
 </script>
@@ -480,24 +478,38 @@ input[type='number'] {
                </div>
                <!-- End Storage Tag -->
                <h5 id="nowInfo"></h5>
-         </div>
-         
-         <div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu">
-          <h4>렌탈 물품</h4>
-         <ul class="nav navbar-nav">
-         <li class="active dropdown"><label class="offerLabel">
-         <input type="radio" name="offer_date">1개월 미만
-         </label></li>
-         </ul>
-         <div>
-		      <button id="offerInsertBtn">test</button>
-		      <!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
-		      <input type="hidden" name="offer_price" id="hiddenOfferPrice">
-		      <input type="hidden" name="offer_product" id="hiddenOfferProduct">
+         </div><br />
+         <!-- 렌탈물품 정보들 -->
+         <div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float: left">
+	          <h4>렌탈 물품 추가</h4>
+	         <ul class="nav navbar-nav">
+	         	<li class="active dropdown">
+	         	<c:forEach items="${rentalList }" var="rental">
+		         	<label class="offerLabel">
+		         		<c:if test="${rental.rental_name eq '렌탈없음' }">
+		         			<input type="hidden" id="${rental.rental_code }" value="${rental.rental_code }">
+		         			렌탈 X<input type="checkbox">
+		         		</c:if>
+		         		<c:if test="${rental.rental_name ne '렌탈없음' }">
+		         			<input type="hidden" id="${rental.rental_code }" value="${rental.rental_code }">
+		         			<h6>${rental.rental_name }</h6>
+			        		<button><img src="${pageContext.request.contextPath }/resources/product_img/${rental.rental_image}" onclick="rentalService(${rental.rental_code})"></button>
+		         		</c:if>
+				     </label>
+				</c:forEach>
+		        </li>
+	         </ul>
+	         <div>
+	         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
+		         <button id="offerInsertBtn">test</button>
+			     <input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
+			     <input type="hidden" name="offer_price" id="hiddenOfferPrice">
+			     <input type="hidden" name="offer_product" id="hiddenOfferProduct">
+			     <input type="hidden" name="rental_code" id="hiddenRentalCode">
+	         </div>
    		</div>
+   		<!-- 렌탈물품 정보들 -->
       </div>
-   </div>
-   <div>
    </div>
   </div>
   </div>
