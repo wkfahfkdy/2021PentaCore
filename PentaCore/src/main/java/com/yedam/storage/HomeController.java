@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.division.service.DivisionService;
+import com.yedam.storage.laundryinfo.service.LaundryInfoService;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.rental.service.RentalService;
 import com.yedam.storage.store.service.StoreService;
@@ -21,6 +22,8 @@ import com.yedam.storage.storage.service.StorageService;
 @Controller
 public class HomeController {
 	
+	@Autowired
+	private LaundryInfoService laundryInfoDAO;
 	@Autowired
 	private RentalService rentalDAO;
 	@Autowired
@@ -70,6 +73,8 @@ public class HomeController {
 		model.addAttribute("getProductList", productDAO.selectProductList());
 		// 렌탈 물품 정보
 		model.addAttribute("rentalList", rentalDAO.selectRentalList());
+		// 세탁 물품 리스트
+		model.addAttribute("laundryInfoList", laundryInfoDAO.selectLaundryInfoList());
 		return "offer/selfOfferPage";
 	} 
 	
