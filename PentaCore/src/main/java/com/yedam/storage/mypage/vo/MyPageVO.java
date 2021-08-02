@@ -95,6 +95,11 @@ public class MyPageVO {
 	private String review_title;
 	private String review_content;
 	private String review_date;
+	private String condition_num;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date Condition_date;
+	private String condition_title;
+	private String condition_comment;
 	
 	// 투어 취소에 필요: Grid Api
 	private List<MyPageVO> updatedRows;

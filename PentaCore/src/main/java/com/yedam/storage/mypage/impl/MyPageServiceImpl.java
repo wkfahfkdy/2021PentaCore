@@ -139,6 +139,20 @@ public class MyPageServiceImpl implements MyPageService {
 		// 쿠폰 및 프로모션 조회
 		return sqlSession.selectList("couponList", vo);
 	}
+	
+	//--------------컨디션 보고서 페이지-----------------	
+
+	@Override
+	public List<MyPageVO> reportList(MyPageVO vo) {
+		// 컨디션 보고서 리스트
+		return sqlSession.selectList("reportList", vo);
+	}
+
+	@Override
+	public MyPageVO reportSelect(MyPageVO vo) {
+		// 보고서 상세보기
+		return sqlSession.selectOne("reportSelect", vo);
+	}
 
 
 

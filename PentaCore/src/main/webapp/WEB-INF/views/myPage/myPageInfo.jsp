@@ -145,7 +145,7 @@
 				<div class="btns-range-bottom">
 					<button class="btns" onclick="location.href='memberInfoEdit'">회원정보<br>수정</button>
 					<button class="btns" onclick="location.href='#'">1:1문의내역</button>
-					<button class="btns" onclick="location.href='couponList'">Coupon & Events</button>
+					<button class="btns" onclick="location.href='coupon'">Coupon & Events</button>
 				</div>
 			</div>
 		</div>
@@ -206,8 +206,21 @@
 								<h4>Premium Service</h4>
 							</div>
 							<div>
-								<a href="#" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
-								<a href="#" style="font-size: 13pt">세탁 물품 처리 현황</a>
+								<c:choose>
+									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'N' }">
+										이용 중인 서비스가 없습니다.
+									</c:when>
+									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'Y' }">
+										<a href="conditionReport" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
+									</c:when>
+									<c:when test="${useInfo.offer_wash eq 'Y' and useInfo.offer_premium eq 'N' }">
+										<a href="#" style="font-size: 13pt">세탁 물품 처리 현황</a>
+									</c:when>
+									<c:otherwise>
+										<a href="conditionReport" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
+										<a href="#" style="font-size: 13pt">세탁 물품 처리 현황</a>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</c:forEach>
