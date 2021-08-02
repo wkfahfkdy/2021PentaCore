@@ -42,7 +42,7 @@
 <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script>
 	$(function() {
-		CKEDITOR.replace('content', {
+		CKEDITOR.replace('review_content', {
 			filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/reviewRegist',
 			enterMode : CKEDITOR.ENTER_BR,
 			shiftEnterMode : CKEDITOR.ENTER_P,
@@ -52,7 +52,7 @@
 	})
 	
 	function formCheck() {
-		if (frm.title.value == "") {
+		if (frm.review_title.value == "") {
 			alert("제목을 입력하세요.");
 			frm.title.focus();
 			return false;	// submit을 하지 않도록
@@ -66,13 +66,13 @@
 	<div>
 		<h3><font style="color: #00c0e2;">${loginName }</font>님의 <font style="color: #00c0e2;">${useStore.store_name }</font> 이용 리뷰 페이지</h3>
 	</div>
-	<form id="frm" action="" method="POST" enctype="multipart/form-data">
+	<form id="frm" action="reviewRegist" method="POST" enctype="multipart/form-data">
 		<div>
 			<input type="text" name="review_title"/>
 			<input type="hidden" name="store_code" value="${loginStore }" />
 		</div>
 		<div align="center">
-			<textarea id="content" name="content"></textarea>
+			<textarea id="review_content" name="review_content"></textarea>
 		</div>
 		<div style="margin: 1em 0em;">
 			<button class="apply-btn" type="button" onclick="formCheck()">등록</button>&nbsp;&nbsp;

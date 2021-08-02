@@ -24,13 +24,13 @@ public class CenterServiceImpl implements CenterService {
 
 	@Override
 	public List<paging> inquirySelectList(CenterVO vo) {
-		// 1:1문의 조회
+		// 문의 조회
 		return sqlSession.selectList("inquirySelectList", vo);
 	}
 	
 	@Override
 	public List<paging> inquiryPaging(CenterVO vo) {
-		// 1:1문의 페이징
+		// 문의 페이징
 		return sqlSession.selectList("inquiryPaging", vo);
 	}
 
@@ -42,21 +42,21 @@ public class CenterServiceImpl implements CenterService {
 	
 	@Override
 	public int inquiryInsert(CenterVO vo) {
-		// 1:1문의 작성
+		// 문의 작성
 		return sqlSession.insert("inquiryInsert", vo);
 	}
 
 	@Override
 	public int inquiryDelete(CenterVO vo) {
-		// 1:1문의 삭제
+		// 문의 삭제
 		return sqlSession.delete("inquiryDelete", vo);
 	}
 
 
 	@Override
-	public int replyInsert() {
+	public int replyInsert(CenterVO vo) {
 		// 리플 등록
-		return 0;
+		return sqlSession.insert("replyInsert", vo);
 	}
 
 	@Override
@@ -64,6 +64,7 @@ public class CenterServiceImpl implements CenterService {
 		// 리플 삭제
 		return 0;
 	}
+
 
 
 }

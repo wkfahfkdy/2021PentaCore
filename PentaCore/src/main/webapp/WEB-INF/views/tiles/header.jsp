@@ -95,11 +95,11 @@
 									<a href="#">이용후기</a>
 								</li>
 								<li>
-									<a href="iqPaging">1:1문의</a>
+									<a href="iqPaging">문의게시판</a>
 								</li>
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
 									<li>
-										<a href="iqAdmin">1:1문의(관리자용)</a>
+										<a href="iqAdmin">문의게시판(관리자용)</a>
 									</li>
 								</sec:authorize>
 								<li>

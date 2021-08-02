@@ -1,6 +1,7 @@
 package com.yedam.storage.mypage.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -89,4 +90,12 @@ public class MyPageVO {
 	private String store_bus;
 	private String store_subway;
 	private String store_email;
+	private String tour_cancel;
+	private int review_num;
+	private String review_title;
+	private String review_content;
+	private String review_date;
+	
+	// 투어 취소에 필요: Grid Api
+	private List<MyPageVO> updatedRows;
 }

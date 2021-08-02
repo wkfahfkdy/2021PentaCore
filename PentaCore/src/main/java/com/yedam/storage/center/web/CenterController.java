@@ -139,9 +139,29 @@ public class CenterController {
 		return "redirect:iqPaging";
 	}
 	
+	// 댓글작성
+	@RequestMapping("replyInsert")
+	public String replyInsert(HttpServletRequest req, CenterVO vo, Model model) {
+		
+		String question_group = req.getParameter("question_group");
+		CenterDAO.replyInsert(vo);
+		
+		return "redirect:iqAdmin";
+	}
+	
+	
 	// 문의삭제
 	@RequestMapping("inquiryDelete")
 	public String inquiryDelete(HttpServletRequest req, CenterVO vo, Model model) {
+
+		String question_num = req.getParameter("question_num");
+		model.addAttribute("result", CenterDAO.inquiryDelete(vo));
+		
+		return "redirect:replyList";
+	}
+	
+	@RequestMapping("adminDelete")
+	public String adminDelete(HttpServletRequest req, CenterVO vo, Model model) {
 
 		String question_num = req.getParameter("question_num");
 		System.out.println(question_num);
@@ -149,7 +169,7 @@ public class CenterController {
 		model.addAttribute("result", CenterDAO.inquiryDelete(vo));
 		System.out.println(vo);
 		
-		return "redirect:replyList";
+		return "redirect:iqAdmin";
 	}
 	
 }

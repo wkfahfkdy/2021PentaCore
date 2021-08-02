@@ -16,4 +16,5 @@ public class RentalVO {
 	private int rental_price;
 	private String division_code;
 	private String rental_image;
+	private int rental_volume;
 }

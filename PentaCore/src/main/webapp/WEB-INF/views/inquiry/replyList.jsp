@@ -27,7 +27,7 @@
 <body>
 	<div class="title-group" style="margin-top: 70px;">
 		<h2> 1:1 문의 </h2>
-		<div class="subtitle with-square">답변을 확인하세요!</div>
+		<div class="subtitle with-square">답변이 달린 댓글은 삭제가 안돼요!</div>
 	</div>
 	
 	<div style="clear:both; width: 100%; height: 20px;"></div>

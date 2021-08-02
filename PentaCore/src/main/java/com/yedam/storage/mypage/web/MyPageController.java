@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +28,6 @@ public class MyPageController {
 		HttpSession session = req.getSession();
 		
 		String s_code = (String) session.getAttribute("loginStore");
-		vo.setStore_code(s_code);
 
 		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
@@ -36,8 +36,10 @@ public class MyPageController {
 		String useService = null;
 		
 		if(s_code != null) {
+			vo.setStore_code(s_code);
 			model.addAttribute("noticeSelectList", MyPageDAO.noticeSelectList(vo));
 			model.addAttribute("usedStorageList", MyPageDAO.usedStorageList(vo));
+			model.addAttribute("userReview", MyPageDAO.userReview(vo));
 		}
 		else {
 			notice = "아직 이용 중인 지점이 없습니다.";
@@ -169,6 +171,14 @@ public class MyPageController {
 		return "redirect:storeTour";
 	}
 	
+	// 투어 취소
+	@ResponseBody
+	@RequestMapping(value = "tourCancel", method=RequestMethod.PUT)
+	public int cancelTour(@RequestBody MyPageVO vo) {
+		MyPageDAO.cancelTour(vo);
+		return 0;
+	}
+	
 	//---------------------------------리뷰 작성 form 페이지-----------------------------------------
 	
 	// 리뷰 작성 form 페이지 실행
@@ -184,10 +194,16 @@ public class MyPageController {
 	}
 	
 	// 리뷰 작성 등록
-//	@RequestMapping("reviewRegist")
-//	public String reviewRegist(MyPageVO vo) {
-//		return null;
-//	}
+	@RequestMapping("reviewRegist")
+	public String reviewRegist(HttpServletRequest req, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		MyPageDAO.reviewRegist(vo);
+		return "redirect:myPageInfo";
+	}
 	
 	//---------------------------------공지사항 페이지-----------------------------------------
 	
@@ -214,5 +230,13 @@ public class MyPageController {
 		vo.setNotice_num(notice_num);
 		
 		return MyPageDAO.noticeSelect(vo);
+	}
+	
+	//---------------------------------쿠폰 페이지-----------------------------------------
+	
+	// 쿠폰 리스트
+	@RequestMapping("couponList")
+	public String couponList(Model model, MyPageVO vo) {
+		return "myPage/couponList";
 	}
 }

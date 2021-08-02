@@ -59,7 +59,7 @@ public class CkeditorFileUploadController { //reviewRegist
 			  
 			  String callback = req.getParameter("CKEditorFuncNum");
 			  printWriter = res.getWriter();
-			  String fileUrl = "/ckUpload/" + uid + "_" + fileName;  // 작성화면
+			  String fileUrl = req.getContextPath()+ "/resources/ckUpload/" + uid + "_" + fileName;  // 작성화면
 			  //String fileUrl = "/ckUpload/" + uid + "&fileName=" + fileName;  // 작성화면
 
 			  // 업로드시 메시지 출력
@@ -69,7 +69,6 @@ public class CkeditorFileUploadController { //reviewRegist
 			  json.addProperty("url", fileUrl);
 			  printWriter.println(json);	  
 		 		  
-		 
 			 } catch (IOException e) { e.printStackTrace();
 			 } finally {
 			  try {

@@ -3,7 +3,7 @@
 <mapper namespace="com.yedam.storage.rental.map.RentalMap">
 
 	<select id="selectRentalList" resultType="RentalVO">
-		SELECT RENTAL_CODE, RENTAL_NAME, RENTAL_PRICE, DIVISION_CODE, RENTAL_IMAGE
+		SELECT RENTAL_CODE, RENTAL_NAME, RENTAL_PRICE, DIVISION_CODE, RENTAL_IMAGE, RENTAL_VOLUME
 		FROM RENTAL
 	</select>
 </mapper>
