@@ -23,13 +23,16 @@
 
 	
 	function goPage(page) {
-		location.href = "iqPaging?page=" + page;
+		location.href = "iqAdmin?page=" + page;
 	}
-	function show(id) {
+	
+	 function show(id) { // 나중에,,,요? 
 		console.log();
-		document.getElementById('showme').style.display = 'block';
-	}
-
+		document.getElementById('showme'+id).style.display = 'block';
+	} 
+	
+	
+	
 </script>
 </head>
 <body>
@@ -39,14 +42,14 @@
 	</div>
 	
 	<div style="clear:both; width: 100%; height: 20px;"></div>
-	
+	+
 	<!-- === TABLE DEFAULT === -->
 	
 	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left; ">
 		<table class="table">
 		<tbody>
 		<c:forEach items="${bolist }" var="vo">
-			<tr>
+			<tr id="add${vo.question_num}">
 				<c:choose>
 					<c:when test="${vo.question_parents eq '1'}">
 						<td>${vo.question_content }</td>
@@ -61,7 +64,7 @@
 				</td>
 				<td>
 					<c:if test="${vo.question_parents eq '1'}">
-						<button type="button" id="re" name="re" onclick="show('${vo.question_num}')" >re</button>
+						<button type="button" id="re" name="re" data-id="${vo.question_num}" onclick="show(${vo.question_num})"  >re</button>
 					</c:if>
 				</td>
 				<td>
@@ -71,20 +74,20 @@
 					</form>
 				</td>
 			</tr>					
-			<tr id="showme" style="display:none; " >
-				<td colspan="3">
+			<tr id="showme${vo.question_num }" style="display:none;"  >
+				<td colspan="3" id="${vo.question_num }">
 					<form id="frm" name="frm" action="replyInsert" method="POST">
 						<input size="100%" style="width:100%; background-color:#fff;"
 								type="text" id="question_content" name="question_content"
-								value="답변을 입력해주세오!"
-								onfocus="this.value=''" />
-						<input type="hidden" name ="question_group" value="${vo.question_group }">
+								value="답변을 입력해주세오!" 
+								/>
+						<input type="hidden" name ="question_group" value="${vo.question_num }">
 					</form>	
 				</td>
 				<td style="text-align: right;">
 					<button style="width: 30px" 
-						type="button" onclick="formCheck()">
-						<a style="padding-top: 20px;">확인</a></button>
+						type="button" onclick="formCheck(${vo.question_num})">
+						<a style="padding-top: 20px;">확인</a></button>	
 				</td>
 			</tr>
 		</c:forEach>
@@ -104,5 +107,7 @@
 	</div>
 	
 	<div style="clear:both; width: 100%; height: 70px;"></div>
+	
+	
 </body>
 </html>
