@@ -62,4 +62,11 @@ public interface MyPageService {
 	
 	// 쿠폰 및 프로모션 리스트
 	public List<MyPageVO> couponList(MyPageVO vo);
+	
+	//--------------물품 컨디션 보고서 페이지-------------
+	
+	// 물품 컨디션 보고서 리스트
+	public List<MyPageVO> reportList(MyPageVO vo);
+	// 보고서 상세 보기
+	public MyPageVO reportSelect(MyPageVO vo);
 }

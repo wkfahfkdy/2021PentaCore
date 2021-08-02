@@ -235,8 +235,32 @@ public class MyPageController {
 	//---------------------------------쿠폰 페이지-----------------------------------------
 	
 	// 쿠폰 리스트
-	@RequestMapping("couponList")
+	@RequestMapping("coupon")
 	public String couponList(Model model, MyPageVO vo) {
 		return "myPage/couponList";
 	}
+	
+	//---------------------------------컨디션 보고서 페이지-----------------------------------------
+	
+	// 물품 컨디션 보고서 리스트
+	@RequestMapping("conditionReport")
+	public String conditionReport(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String id = (String) session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		model.addAttribute("reportList", MyPageDAO.reportList(vo));
+		
+		return "myPage/conditionReportList";
+	}
+	
+	// 보고서 상세 Modal 창으로 데이터 보내기
+		@RequestMapping(value = "myReport/{condition_num}", method=RequestMethod.GET)
+		@ResponseBody
+		public MyPageVO myReport(@PathVariable String condition_num, Model model, MyPageVO vo) {
+			vo.setCondition_num(condition_num);
+			
+			return MyPageDAO.reportSelect(vo);
+		}
 }

@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
-		select store_name
+		select use_num
 		from use_storage
 		where member_id = #{member_id}
 	</select>
@@ -128,5 +128,25 @@
 	<select id="couponList" resultType="MyPageVO">
 		select * 
 		from coupon
+	</select>
+	
+	<select id="reportList" resultType="MyPageVO" parameterType="MyPageVO">
+		select r.*, s.store_name
+		from condition_list r join use_storage u
+		on (r.use_num = u.use_num)
+		join store s
+		on (u.store_code = s.store_code)
+		where member_id = #{member_id}
+	</select>
+	
+	<select id="reportSelect" resultType="MyPageVO" parameterType="MyPageVO">
+		select r.*, s.store_name, u.use_start, u.use_end, o.offer_product
+		from condition_list r join use_storage u
+		on (r.use_num = u.use_num)
+		join store s
+		on (u.store_code = s.store_code)
+		join offer o
+		on (u.offer_code = o.offer_code)
+		where condition_num = #{condition_num}
 	</select>
 </mapper>
