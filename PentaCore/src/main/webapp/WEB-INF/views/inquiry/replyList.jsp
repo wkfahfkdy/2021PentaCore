@@ -15,22 +15,10 @@
 			frm.question_content.focus();
 			
 			return false;
-		}
-		
-		if(frm.member_id == null) {
-			alert("LOGIN 후 문의해주세요!")
-			frm.question_content.focus();
 			
-			return false;
 		}
 		
 		frm.submit();		
-	}
-	
-	// 문의삭제
-	function inquiryDelete(question_num) {
-		
-		del.submit();
 	}
 	
 	
@@ -59,11 +47,10 @@
 						<td style="text-align: right;">
 							<fmt:formatDate value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" />
 						</td>
-						<td onclick = "inquiryDelete('{vo.question_num}')">
+						<td>
 							<form id="del" action="inquiryDelete" method="POST">
-								<input style="width: 0px; border: 0px; background-color: #fff;" 
-									type ="button" id = "question_num" value="${question_num}">
-								<a style=" padding-top: -10px">x</a> </input>
+								<input type ="hidden" name = "question_num" value="${vo.question_num}">
+								<input type="submit" style=" padding-top: -10px; cursor: pointer;" value="x" />
 							</form>
 						</td>	
 					</c:when>
@@ -92,7 +79,7 @@
 			</form>
 		</div>
 		<div class="btns-row" style="text-align: right;">
-			<button type = "button" class="btn btn-default btn-lg" onclick = "formCheck()">문의</button>
+			<button type="button" class="btn btn-default btn-lg" onclick = "formCheck()">문의</button>
 			<a href="iqPaging" class="btn btn-primary btn-lg" style="margin-left: 10px;">전체문의보기</a> 
 		</div>
 	</div>		

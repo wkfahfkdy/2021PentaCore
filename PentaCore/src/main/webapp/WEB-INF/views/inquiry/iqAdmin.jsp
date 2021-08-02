@@ -12,8 +12,11 @@
 	function goPage(page) {
 		location.href = "iqPaging?page=" + page;
 	}
+	function show(question_num) {
+		console.log(question_num);
+		document.getElementById("trshow${question_num}").style.display = 'block';
+	}
 
-	
 </script>
 </head>
 <body>
@@ -35,7 +38,24 @@
 				<td style="text-align: right;">
 					<fmt:formatDate value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" />
 				</td>
+				<td>
+					<button type="button" id="re${vo.question_num}" name="re" onclick="show('${vo.question_num}')" >re</button>
+				</td>
 			</tr>					
+			<tr style="display: none;" id="trshow${vo.question_num}">
+				<td>
+					<div>
+						<input size="50" style="height: 10px; background-color: #fff; " 
+							type="text" id="reply" name="reply" value="입력하라!">
+					</div>
+				</td>
+				<td>
+					<button type="button" id="chk" name="chk" >확인</button>
+				</td>				
+				<td>
+					<button type="button" id="del" name="del" >삭제</button>
+				</td>				
+			</tr>
 		</c:forEach>
 		</table>		
 		<!-- 페이징 -->
