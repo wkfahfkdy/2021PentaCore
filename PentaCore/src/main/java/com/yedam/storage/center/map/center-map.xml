@@ -6,7 +6,7 @@
 		SELECT * FROM faq
 	</select>
 
-	<!-- 1:1 문의 -->
+	<!-- 문의 -->
 	<select id="inquirySelectList" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
 		ORDER BY question_group DESC, question_parents ASC
@@ -32,7 +32,7 @@
 		ORDER BY question_group desc, question_parents asc
 	</select>
 	
-	<!-- 1:1 문의작성 -->
+	<!-- 문의작성 -->
 	<insert id="inquiryInsert" parameterType="com.yedam.storage.center.vo.CenterVO">
 		INSERT INTO question
 		VALUES(question_seq.nextval, 1, #{question_content},null,'CS', #{member_id}, sysdate, question_seq.nextval)
@@ -42,6 +42,12 @@
 	<delete id="inquiryDelete" parameterType="com.yedam.storage.center.vo.CenterVO">
 		{call delete_comment(#{question_num})}
 	</delete>
+	
+	<!-- 댓글작성 -->
+	<insert id="replyInsert" parameterType="com.yedam.storage.center.vo.CenterVO">
+		INSERT INTO question
+		VALUES(question_seq.nextval, 2, #{question_content},null,'CS', 'admin', sysdate, #{question_group})
+	</insert>
 
 
 </mapper>

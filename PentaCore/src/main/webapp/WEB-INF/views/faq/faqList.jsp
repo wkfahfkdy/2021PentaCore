@@ -29,12 +29,12 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapse${vo.faq_num }">
 									<b>${vo.faq_title }</b>
 								</a>
 							</h4>
 						</div>
-						<div id="collapseOne" class="panel-collapse collapse in">
+						<div id="collapse${vo.faq_num }" class="panel-collapse collapse">
 							<div class="panel-body">
 								<p><a>${vo.faq_content }</a></p>
 							</div>
