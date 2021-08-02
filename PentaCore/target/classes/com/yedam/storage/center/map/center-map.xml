@@ -39,9 +39,8 @@
 	</insert>
 	
 	<!-- 문의삭제 -->
-	<delete id="inquiryDelete">
-		DELETE FROM question
-		WHERE question_num = #{question_num}
+	<delete id="inquiryDelete" parameterType="com.yedam.storage.center.vo.CenterVO">
+		{call delete_comment(#{question_num})}
 	</delete>
 
 

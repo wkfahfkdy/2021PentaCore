@@ -24,6 +24,8 @@ MEMBER_ENABLE	VARCHAR2(1 BYTE)	Yes	'N'  	8	탈퇴여부
 @Data
 @Getter @Setter
 public class MemberVO implements UserDetails {
+	
+// MEMBER
 private String member_id;
 private String member_pwd;
 private String member_name;
@@ -33,8 +35,16 @@ private String member_email;
 private String member_birth;
 private String member_disable;
 private String role_name;
-
-
+// EMPLOYEES
+private String employee_id;
+private String employee_pwd;
+private String employee_name;
+private String employee_addr;
+private String employee_tel;
+private String employee_email;
+private String employee_disable;
+private String department_id;
+private String store_code;
 
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities() {

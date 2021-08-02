@@ -1,6 +1,7 @@
 package com.yedam.storage.common;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
@@ -45,14 +47,28 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		vo3.setMember_id(vo.getUsername());
 		vo3 = memberDAO.UseCodeInfo(vo3);
 		
-		request.getSession().setAttribute("loginId", vo2.getMember_id());
-		request.getSession().setAttribute("loginName", vo2.getMember_name());
-		request.getSession().setAttribute("loginTel", vo2.getMember_tel());
-		request.getSession().setAttribute("loginAddr", vo2.getMember_addr());
-		// 이용 중인 지점이 없다면 에러가 떠서 != null일 시
-		if(vo3 != null) {
-			request.getSession().setAttribute("loginStore", vo3.getStore_code());
+		if(vo2 != null) {
+			request.getSession().setAttribute("loginId", vo2.getMember_id());
+			request.getSession().setAttribute("loginName", vo2.getMember_name());
+			request.getSession().setAttribute("loginTel", vo2.getMember_tel());
+			request.getSession().setAttribute("loginAddr", vo2.getMember_addr());
+			
+			// 이용 중인 지점이 없다면 에러가 떠서 != null일 시
+			Set<GrantedAuthority> authorities = (Set<GrantedAuthority>) vo.getAuthorities();
+			String auth = authorities.iterator().next().toString();
+			System.out.println(auth);
+			
+			if(auth.equals("ROLE_USER")) { 
+				request.getSession().setAttribute("loginStore", vo3.getStore_code());
+			}
+			
+			if(auth.equals("ROLE_STORE") || auth.equals("ROLE_TRANS")) {
+				String adminPath = "/common/enterAdmin.jsp";
+				this.setDefaultTargetUrl(adminPath);
+			}
+			
 		}
+
 		
 	}
 

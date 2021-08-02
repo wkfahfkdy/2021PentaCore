@@ -44,20 +44,23 @@ private String member_disable;
 
 <select id="memberInfo" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
 		select 	member_id, member_name, member_tel, member_addr
-		from 	member
+		from 	id_all_check
 		where 	member_id = #{member_id}
 </select>
 
 <select id="UseCodeInfo" parameterType="MyPageVO" resultType="MyPageVO">
-	select 	store_code 
-	from 	use_storage 
-	where 	member_id = #{member_id}
+		select 	store_code 
+		from 	use_storage 
+		where 	member_id = #{member_id}
 </select>
 	
 	
 	<!-- 회원정보 수정 -->
 <select id="getMemberInfo" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO">
-	select * from member where member_id = #{member_id} and member_disable = 'N'
+		select 	* 
+		from 	member 
+		where 	member_id = #{member_id} 
+		and 	member_disable = 'N'
 </select>	
 	<!--
 	  

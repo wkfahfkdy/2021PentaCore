@@ -41,7 +41,7 @@ public class HomeController {
 	@RequestMapping("calendarTest")
 	public String calendarTest() {
 		
-		return "test/calendar";
+		return "test/calendar2";
 	}
 	
 	// 카카오 지도 API TEST 이동

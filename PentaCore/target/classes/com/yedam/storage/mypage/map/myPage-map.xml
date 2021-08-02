@@ -26,6 +26,13 @@
 		where member_id = #{member_id}
 	</select>
 	
+	<select id="useStore" resultType="MyPageVO" parameterType="MyPageVO">
+		select store_name, info_num
+		from use_storage u, store s
+		where u.store_code = s.store_code
+		and member_id = #{member_id}
+	</select>
+	
 	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
 		select o.*, s.store_name
 		from offer o, store s
@@ -52,11 +59,13 @@
 	</select>
 	
 	<select id="myConveySelect" resultType="MyPageVO" parameterType="MyPageVO">
-		select a.*, s.store_name, u.info_num 
+		select a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>
 		from convey_apply a join store s
-		on (a.store_code = s.store_code) 
-		join use_storage u
-		on (a.use_num = u.use_num)
+		on (a.store_code = s.store_code)
+		<if test="use_num != null and use_num != ''">
+			join use_storage u
+			on (a.use_num = u.use_num)
+		</if> 
 		where apply_code = #{apply_code}
 	</select>
 	
@@ -67,7 +76,45 @@
 	</select>
 	
 	<insert id="conveyInsert" parameterType="MyPageVO">
-		insert into convey_apply (apply_code, member_id, )
-		values()
+		insert into convey_apply (apply_code, member_id, 
+				apply_addr, apply_product, apply_start, 
+				apply_end, apply_whether, use_num, store_code)
+		values('CA'||LPAD(ca_seq.nextval,3,0), #{member_id}, 
+			#{apply_addr}, #{apply_product}, #{apply_start}, 
+			#{apply_end}, #{apply_whether}, 
+			(select use_num
+			 from use_storage
+			 where member_id = #{member_id}), 
+			#{store_code})
 	</insert>
+	
+	<select id="storeTourListAll" resultType="MyPageVO" parameterType="MyPageVO">
+		select t.*, s.store_name
+		from tour t, store s
+		where t.store_code = s.store_code
+		and member_id = #{member_id}
+	</select>
+	
+	<insert id="storeTourRegist" parameterType="MyPageVO">
+		insert into tour(tour_code, member_id, tour_tel, store_code, tour_date, tour_time) 
+		values('TR'||LPAD(tr_seq.nextval,3,0), #{member_id}, #{tour_tel}, #{store_code}, #{tour_date}, #{tour_time})
+	</insert>
+	
+	<update id="storeTourCancel" parameterType="MyPageVO">
+		update tour 
+		set tour_cancel = 'Y'
+		where tour_code = #{tour_code}
+	</update>
+	
+	<insert id="reviewRegist" parameterType="MyPageVO">
+		insert into review(review_num, review_title, review_content, review_date, store_code, member_id)
+		values(review_seq.nextval,#{review_title}, #{review_content}, sysdate, #{store_code}, #{member_id})
+	</insert>
+	
+	<select id="noticeSelect" resultType="MyPageVO" parameterType="MyPageVO">
+		select n.*, s.store_name
+		from notice n, store s
+		where n.store_code = s.store_code
+		and notice_num = #{notice_num}
+	</select>
 </mapper>

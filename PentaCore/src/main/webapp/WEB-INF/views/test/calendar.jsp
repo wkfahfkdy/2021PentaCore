@@ -4,6 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--  
+	테스트 변경사항 : dropdown-menu -> dropdown-menu2
+			이유 : 기존 tiles - header 에서도 dropdown-menu 사용으로 인해서 css가 맞지않음
+-->
+
 <!-- 나중에 실제작 시 js 및 css 위치 변경 필요? -->
 <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">
 <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css">
@@ -12,11 +17,8 @@
 <link href='resources/fullcanlendar/icons.css' rel='stylesheet' type="text/css"/>
 </head>
 <body>
-<div align="center">
-	<div id="top">
-	   </div>
+<div align="center" style="min-height:890px">
 	
-	<h1>Calendar</h1>
 	   <div id="lnb">
 	       <div class="lnb-new-schedule">
 	           <button id="btn-new-schedule" type="button" class="btn btn-default btn-block lnb-new-schedule-btn" data-toggle="modal">
@@ -48,29 +50,29 @@
 	                <span id="calendarTypeName">Dropdown</span>&nbsp;
 	                <i class="calendar-icon tui-full-calendar-dropdown-arrow"></i>
 	            </button>
-	            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu-calendarType">
+	            <ul class="dropdown-menu2" role="menu" aria-labelledby="dropdownMenu-calendarType">
 	                <li role="presentation">
-	                    <a class="dropdown-menu-title" role="menuitem" data-action="toggle-daily">
+	                    <a class="dropdown-menu2-title" role="menuitem" data-action="toggle-daily">
 	                        <i class="calendar-icon ic_view_day"></i>Daily
 	                    </a>
 	                </li>
 	                <li role="presentation">
-	                    <a class="dropdown-menu-title" role="menuitem" data-action="toggle-weekly">
+	                    <a class="dropdown-menu2-title" role="menuitem" data-action="toggle-weekly">
 	                        <i class="calendar-icon ic_view_week"></i>Weekly
 	                    </a>
 	                </li>
 	                <li role="presentation">
-	                    <a class="dropdown-menu-title" role="menuitem" data-action="toggle-monthly">
+	                    <a class="dropdown-menu2-title" role="menuitem" data-action="toggle-monthly">
 	                        <i class="calendar-icon ic_view_month"></i>Month
 	                    </a>
 	                </li>
 	                <li role="presentation">
-	                    <a class="dropdown-menu-title" role="menuitem" data-action="toggle-weeks2">
+	                    <a class="dropdown-menu2-title" role="menuitem" data-action="toggle-weeks2">
 	                        <i class="calendar-icon ic_view_week"></i>2 weeks
 	                    </a>
 	                </li>
 	                <li role="presentation">
-	                    <a class="dropdown-menu-title" role="menuitem" data-action="toggle-weeks3">
+	                    <a class="dropdown-menu2-title" role="menuitem" data-action="toggle-weeks3">
 	                        <i class="calendar-icon ic_view_week"></i>3 weeks
 	                    </a>
 	                </li>
