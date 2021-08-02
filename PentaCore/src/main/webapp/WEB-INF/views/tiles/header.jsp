@@ -97,6 +97,11 @@
 								<li>
 									<a href="iqPaging">1:1문의</a>
 								</li>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<li>
+										<a href="iqAdmin">1:1문의(관리자용)</a>
+									</li>
+								</sec:authorize>
 								<li>
 									<a href="faqList">FAQ</a>
 								</li>

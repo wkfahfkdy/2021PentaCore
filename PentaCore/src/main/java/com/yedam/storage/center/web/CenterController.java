@@ -70,8 +70,14 @@ public class CenterController {
 		paging.setPageSize(10);
 		paging.setTotalCount(total.size());
 		
+		String id = null;
+		if(request.getSession().getAttribute("loginId") == null) {
+			id = "no";
+		}
+		
 		model.addAttribute("bolist", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("chk", id);
 		
 		return "inquiry/iqPaging";
 	}
@@ -135,12 +141,12 @@ public class CenterController {
 	
 	// 문의삭제
 	@RequestMapping("inquiryDelete")
-	public String inquiryDelete(HttpServletRequest req, CenterVO vo) {
+	public String inquiryDelete(HttpServletRequest req, CenterVO vo, Model model) {
 
 		String question_num = req.getParameter("question_num");
-		vo.setQuestion_num(Integer.parseInt(question_num));
+		System.out.println(question_num);
 		
-		CenterDAO.inquiryDelete(vo);
+		model.addAttribute("result", CenterDAO.inquiryDelete(vo));
 		System.out.println(vo);
 		
 		return "redirect:replyList";
