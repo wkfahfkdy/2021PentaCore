@@ -59,7 +59,7 @@
 					<c:when test="${vo.question_parents eq '1'}">
 						<td>${vo.question_content }</td>
 					</c:when>
-					<c:otherwise>
+					<c:otherwise> 
 						<td><img src="resources/assets/images/re.png"> &nbsp;
 							${vo.question_content }</td>
 					</c:otherwise>
