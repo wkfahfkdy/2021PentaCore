@@ -31,6 +31,14 @@
     #myReport .modal-body{
     	font-size: 10pt;
     }
+    
+   	.back-btn {
+    	background-color: #006DFC;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 11pt;
+		padding: 0.4em;
+    }
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -45,6 +53,9 @@
 		<a class="modal_close_btn">닫기</a>
 		<div class="modal-body"></div>
 	</div>	
+	<div style="margin: 1em 0em;">
+		<button class="back-btn" type="button" onclick="history.back();">돌아가기</button>
+	</div>
 </div>
 <script>
 // 보관 컨디션 보고서 그리드 생성
@@ -184,6 +195,7 @@ $(document).ready(function() {
 		    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
 		    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
 		        bg.remove();
+		        $('.modal-body').empty();
 		        modal.style.display = 'none';
 		    });
 	
