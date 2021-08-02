@@ -23,7 +23,6 @@
 			추가 설정은 프로젝트 어느 정도 진행된 후에 일괄 적용 예정
 		-->
 		<security:form-login
-					always-use-default-target="true"
 					default-target-url="/home" 
 					login-page="/memberLoginForm"
 					
