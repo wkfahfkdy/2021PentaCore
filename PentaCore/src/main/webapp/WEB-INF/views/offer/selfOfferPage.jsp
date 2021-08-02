@@ -17,6 +17,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 <script type="text/javascript">
+	
+	//세탁 총 가격
+	let totalLaundryPrice = 0;
+	// 세탁물 배열
+	let laundryArrayList = new Array();
+		
 	let storageImageIndex;
 	let storage_price; 
 	// 총 물품의 부피를 담는 변수
@@ -77,15 +83,17 @@
      
       
       // Laundry 신청 미신청 여부
+      var resultLaundry = ""
       $('#laundryInfoList').hide();
       	$("input[name='wash']").change(function(){
 			console.log($(this).val())
 			if($(this).val() == 'N'){
-				 $('#laundryInfoList').hide();
-				 $('#hiddenOfferWash').val("N");
+				delete laundryArrayList;
+				$('#laundryInfoList').hide();
+				$('#hiddenOfferWash').val("N");
 			}else{
-				$('#laundryInfoList').show();
 				$('#hiddenOfferWash').val("Y");
+				$('#laundryInfoList').show();
 			}
 		});
       
@@ -325,6 +333,42 @@
        $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
        $('#hiddenOfferPrice').val(storage_price);
        $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
+   }
+   
+// 여기부터 수정
+   // 세탁서비스 function
+   function laundryTableInsert(laundry_code){
+	   var laundryName = $('#laundryName' + laundry_code).val(); // 이름
+	   var laundryPrice = parseInt($('#laundryPrice' + laundry_code).val());  // 물품별 가격
+	   var laundryCount = parseInt($('#laundryCount' + laundry_code).val()); // 세탁물 갯수
+	   laundryCount = laundryCount + 1;
+	   var resultLaundryList = "";
+	   laundryArrayList[laundryName] = laundryName + ' ' + laundryCount + '개';
+	   for(insertLaundry in laundryArrayList) {
+		   resultLaundryList += laundryArrayList[insertLaundry] + " ";
+		   $("input[name='wash']").change(function(){
+				console.log($(this).val())
+				if($(this).val() == 'N'){
+					laundryCount = 0;
+					totalLaundryPrice = 0;
+					delete laundryArrayList[insertLaundry];
+					resultLaundryList += laundryArrayList[insertLaundry];
+					$('#hiddenOfferLaundryProduct').removeAttr("value");
+				} else {
+					laundryCount = 0;
+					totalLaundryPrice = 0;
+					delete laundryArrayList[insertLaundry];
+					resultLaundryList += laundryArrayList[insertLaundry];
+				}
+			});
+		}
+	   
+	   $('#laundryCount'+laundry_code).attr('value', laundryCount);
+	   totalLaundryPrice = totalLaundryPrice + laundryPrice;
+	   console.log($('#laundryPrice' + laundry_code).val() + ' / ' + $('#laundryName' + laundry_code).val() + ' / ' + totalLaundryPrice);
+	   $('#hiddenOfferLaundryProduct').val(resultLaundryList);
+	   $('#hiddenLaundryCount').val(laundryCount);
+	   $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
    }
    
 </script>
@@ -643,20 +687,31 @@ input[type='number'] {
    				</h5>
    		</div>
    		<div id="laundryInfoList">
+   			<!-- 세탁물품 담는곳 -->
    			<ul class="nav navbar-nav" style="width: 50%;">
    			<c:forEach items="${laundryInfoList }" var="laundry">
    				<li class="divisionBtnliTag" style="margin:10px">
-                        <input type="button" id="divisionBtn" style="display: inline-block;" class="btn btn-default btn-lg" onclick="test('${laundry.laundry_gubun}')" value="${laundry.laundry_kind }">
+   						<input type="hidden" id="laundryPrice${laundry.laundry_gubun }" value="${laundry.laundry_price }">
+   						<input type="hidden" id="laundryName${laundry.laundry_gubun}" value="${laundry.laundry_kind }">
+                        <input type="button" id="divisionBtn" style="display: inline-block;" class="btn btn-default btn-lg" onclick="laundryTableInsert('${laundry.laundry_gubun}')" value="${laundry.laundry_kind }">
                 </li>
 			</c:forEach>
 			</ul>
-			<table class="table table-striped" style="width: 50%;">
+			<table class="table table-striped" style="width: 50%;  vertical-align: middle;">
 				<tr>
-					<th>세탁물종류</th><th>수량</th><th>가격</th>
+					<th>세탁물종류</th><th>수량</th><th>가격<strong style="color: blue;">(*한벌당)</strong></th><th>기능</th>
                 </tr>
-                <tr>
-                	<td>종류</td><td>수량</td><td>가격</td>
-                </tr>
+                <c:forEach items="${laundryInfoList }" var="laundry">
+	                <tr id="appendLaundry">
+	                	<td id="laundryKind">${laundry.laundry_kind }</td>
+	                	<td><input type="number" id="laundryCount${laundry.laundry_gubun }" readonly="readonly" value="0"  class="totalLaundryCount"></td>
+	                	<td id="laundryPrice"><fmt:formatNumber value="${laundry.laundry_price }" pattern="#,###"></fmt:formatNumber>원</td>
+	                	<td><button class="btn btn-default btn-lg">삭제</button></td>
+	                </tr>
+                </c:forEach>
+                	<tr>
+	                	<th style="text-align: right;" colspan="4" id="memberTotalPrice"></th>
+	                </tr>
 			</table>
         	
    		</div>
@@ -671,6 +726,8 @@ input[type='number'] {
 			     <input type="hidden" name="offer_rental" id="hiddenOfferRental">
 			     <input type="hidden" name="offer_wash" id="hiddenOfferWash">
 			     <input type="hidden" name="offer_premium" id="hiddenOfferPremium">
+			     <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct">
+			     <input type="hidden" name="laundry_count" id="hiddenLaundryCount">
 	         </div>
    </div>
   </div>
