@@ -263,13 +263,13 @@ private String member_disable;
 								<tr>
 									<th width="150">이름</th>
 									<td width="300"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> ${loginName}</span></td>
+										id="inputGroup-sizing-sm"> <%=request.getAttribute("name") %> </span></td>
 								</tr>
 
 								<tr>
 									<th width="150">생년월일</th>
 									<td width="300"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> ${loginUserVOBirth } </span></td>
+										id="inputGroup-sizing-sm"> <%=request.getAttribute("birth") %> </span></td>
 								</tr>
 
 								<tr>

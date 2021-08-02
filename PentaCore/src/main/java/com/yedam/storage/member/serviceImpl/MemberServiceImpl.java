@@ -68,8 +68,8 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원정보 수정
 	@Override
-	public MemberVO getMemberInfo(String p) {
-		return sqlSession.selectOne("getMemberInfo", p);
+	public MemberVO getMemberInfo(@Param("p") String memberId) {
+		return sqlSession.selectOne("getMemberInfo", memberId);
 	}
 
 

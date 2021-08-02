@@ -72,7 +72,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		
 		
-		MemberVO rvo = memberDAO.modalEmailCheck(vo);
+		MemberVO rvo = memberDAO.modalEmailCheck(vo); 
 		
 
 		int cnt = 0;
@@ -247,11 +247,14 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			String id = (String) session.getAttribute("loginId");
 			
+			/*
+			MemberVO rvo = memberDAO.getMemberInfo(id);
+			String name = rvo.getMember_name();
+			String birth = rvo.getMember_birth();
 			
-			memberDAO.getMemberInfo(id);
-			
-			
-			
+			model.addAttribute("name", name);
+			model.addAttribute("birth", birth);
+			*/
 			return "myPage/memberInfoEdit";
 		}
 }
