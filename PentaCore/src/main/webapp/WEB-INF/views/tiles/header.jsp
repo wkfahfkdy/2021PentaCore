@@ -76,7 +76,7 @@
 									<a href="#">회사소개</a>
 								</li>
 								<li>
-									<a href="infofUse">이용안내</a>
+									<a href="useForm">이용안내</a>
 								</li>
 								<li>
 									<a href="#">스토리지투어예약</a>
