@@ -7,14 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>셀프견적</title>
-<script
-   src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
-<link
-   href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css"
-   rel="stylesheet" />
-<!-- 이 예제에서는 필요한 js, css 를 링크걸어 사용 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<!-- 이유는 모르겠는데 아래 5줄의 css, js 가져오는 것들 순서 바뀌면 Grid 작동 제대로 안해요 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+<script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
+<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 
 <script type="text/javascript">
 	
@@ -43,6 +45,8 @@
    $(document).ready(function() {
       // ProductList Ajax
       pageInit();
+      // CouponList Ajax
+      couponList();
       // Swiper API 설정
       slider = new Swiper('.swiper-container',{
          spaceBetween : 30, // 슬라이드간 간격
@@ -76,9 +80,11 @@
     		// Y일때 5000원추가
     		storage_price =  storage_price + 5000;
     		$('#hiddenOfferPrice').val(storage_price);
+    		$('#hiddenOfferDiscountPrice').val(storage_price);
     	 } else {
     		 storage_price =  storage_price - 5000;
     		 $('#hiddenOfferPrice').val(storage_price);
+    		 $('#hiddenOfferDiscountPrice').val(storage_price);
     	 }
       });
       
@@ -104,6 +110,36 @@
 			}
 		});
    });
+   
+   
+   // 페이지 로딩 후 Coupon List 가져오기
+   function couponList(){
+	   $.ajax({
+		   url: 'couponList',
+		   dataType: 'json',
+		   type: 'GET',
+		   success: function(data){
+			   for(var i = 0; i<data.length; i++){
+				   	var store_code = '#' + data[i].store_code;
+			 	// 결과 다 Append 후 Hide 작업
+				   $(store_code).append(
+						'<li class="couponSelectList" style="margin: 10px;">'
+						+ '<h4>쿠폰 / 할인 선택</h4><p style="padding: 0"><b>쿠폰을 선택해주세요.</b></p>'
+						+ '<label class="offerLabel">일반요금<input type="radio" name="discount'+data[i].store_code+'" id="normalPrice" value="no" onclick="discount('+data[i].store_code+')"></label>'
+						+ '<label class="offerLabel" style="margin-left: 30px;">'+data[i].coupon_name+'<input type="radio" name="discount'+data[i].store_code+'" id="discountPrice" value="yes" onclick="discount('+data[i].store_code+')"></label>'
+						+ '<input type="hidden" id="hiddenDiscount'+ data[i].store_code +'" value="'+data[i].coupon_discount+'">'
+						+ '</li>'
+					);
+			   }
+		 		// 전체 결과 일단 숨기고 kakao map 에서 누르면 보여줌
+			   $('.coupon').hide();
+		   },
+		   error : function(err) {
+               console.log(err);
+            }
+         });
+	}
+
    // 페이지 로딩 후 Product List 다 가져오기
    function pageInit() {
       $
@@ -180,6 +216,7 @@
     	$('#hiddenOfferProduct').val(resetList);
       	$('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
       	$('#hiddenOfferPrice').val(storage_price);
+      	$('#hiddenOfferDiscountPrice').val(storage_price)
      	console.log('Insert Function = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
       	$('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
    }
@@ -242,6 +279,7 @@
         $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
         $('#hiddenOfferProduct').val(delProduct);
         $('#hiddenOfferPrice').val(storage_price);
+        $('#hiddenOfferDiscountPrice').val(storage_price);
         console.log('Delete Fnction = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
         $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
    };
@@ -281,6 +319,7 @@
 	   $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
 	   $('#hiddenOfferRental').val(rentalList);
 	   $('#hiddenOfferPrice').val(storage_price);
+	   $('#hiddenOfferDiscountPrice').val(storage_price);
 	   $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
    }
    // 렌탈물품 삭제 Btn
@@ -340,6 +379,7 @@
        $('#hiddenOfferRental').val(delRental);
        $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
        $('#hiddenOfferPrice').val(storage_price);
+       $('#hiddenOfferDiscountPrice').val(storage_price);
        $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
    }
    
@@ -395,8 +435,63 @@
 	  $('#hiddenOfferLaundryProduct').val(delLaundry);	
 	  $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
    }
+   
+	// 망할 쿠폰
+   	function discount(store_code){
+   		var normalPrice = parseInt($('#hiddenOfferPrice').val());
+		var discountPrice = parseInt($('#hiddenOfferDiscountPrice').val());
+		console.log("현재가격 : " + normalPrice + ' / 감산가격 : ' + discountPrice);	
+		console.log('이제되노');
+		
+		/* var discount = parseFloat($('#hiddenDiscount'+store_code).val());
+		
+		console.log(discount + " / " + discountPrice);
+		$("input[name='discount"+store_code+"']").on('click', function(){
+			console.log($(this).val());
+		 	if($(this).val() == "yes"){
+			// 할인율 O
+				console.log($('#hiddenDiscount'+store_code).val());
+				discountPrice = discountPrice * discount;
+		 		} else{
+		 			discountPrice = parseInt($('#hiddenOfferPrice').val());
+		 			console.log('else' + discountPrice);
+		 		}
+		});
+		if ($("input[name='discount"+data[i].store_code+"']").prop('checked') == false){
+			console.log($('#hiddenDiscount'+data[i].store_code).val());
+			$('#hiddenOfferDiscountPrice').attr("value", normalPrice);
+			$('#hiddenOfferPrice').val(normalPrice);
+		})
+		$('#hiddenOfferDiscountPrice').attr("value", discountPrice);
+		console.log(discountPrice + '  '  + normalPrice); */
+			/* var discount = parseFloat($('#hiddenDiscount'+store_code).val());
+		     $("input[name='discount"+store_code+"']").prop('checked', function(){
+		 		console.log($(this).val());
+		    	 if($(this).val() == "yes"+store_code){
+			 			// 할인율 O
+			 			console.log($('#hiddenDiscount'+store_code).val());
+			 			discountPrice = discountPrice * discount;
+			 		} else{
+			 			discountPrice = parseInt($('#hiddenOfferPrice').val());
+			 			console.log('else' + discountPrice);
+			 		}
+		 	}); */
+	}
 </script>
 <style>
+ .store-pick {
+    	display: table;
+    	width: 100%;
+}
+.store-list {
+   	display: table-cell;
+   	width: 50%;
+}
+.map {
+  	display: table-cell;
+ 	width: 50%;
+}
+
 .deleteProduct {
    width: 24px;
     height: 24px;
@@ -515,256 +610,381 @@ input[type='number'] {
 </head>
 <body>
    <div style="width: 100%">
-      <!-- 이용목적 칸 -->
-    <section class="def-section" id="clients-section">
-         <div class="container">
-            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
-               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
-                  style="width: 100%;">
-                  <div class="home-clients">
-                     <h3>셀프견적</h3>
-                     <br>
-                     <h4>이용정보 입력</h4>
-                     <h5>어떤 용도로 사용하세요? (복수선택 가능)</h5>
-                     <div class="collapse navbar-collapse main-menu main-menu-2"
-                        id="main-menu">
-                        <ul class="nav navbar-nav">
-                           <!-- === top menu item === -->
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">이삿짐 단기보관
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">해외 출장
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">작은 집
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">취미용품 보관
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">계절용품
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">사업용도
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">프라이버시
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input type="checkbox">기타
-                           </label></li>
-                           <li class="active dropdown"><label class="offerLabel">
-                                 <input  type="text" value="다락 사용 목적을 입력해주세요.">
-                           </label></li>
-                            
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-   
-   </section>
-   <!-- /이용 목적 -->
-   <!-- 이용 기간 -->
-   <section class="def-section" id="clients-section">
-      <div class="container">
-         <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
-               style="width: 100%;">
-               <div class="home-clients">
-                  <h4>얼마나 오래 사용하실 계획이세요?</h4>
-                  <div class="collapse navbar-collapse main-menu main-menu-2"
-                     id="main-menu">
-                     <ul class="nav navbar-nav">
-                        <!-- === top menu item === -->
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">1개월 미만
-                        </label></li>
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">1개월 이상
-                        </label></li>
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">3개월 이상
-                        </label></li>
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">6개월 이상
-                        </label></li>
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">12개월 이상
-                        </label></li>
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">지속적 이용
-                        </label></li>
-                        <li class="active dropdown"><label class="offerLabel">
-                              <input type="radio" name="offer_date">확실하지 않음 
-                         </label></li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </section>
-   <!-- /이용기간 -->
-   <div class="home-clients">
-      <div class="def-section services-1">
-         <div class="container">
-            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
-               <!-- 카테고리 별 물품 리스트 나오는 Tag -->
-               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"
-                  style="width: 60%;">
-                  <ul class="nav divisionBtnAppend">
-                     <c:forEach items="${divisionList }" var="division">
-                        <li class="divisionBtnliTag"><input type="button"
-                           id="divisionBtn" style="display: inline-block;"
-                           class="btn btn-primary btn-lg"
-                           onclick="test('${division.division_code}')"
-                           value="${division.division_name }"></li>
-                     </c:forEach>
-                  </ul>
-                  <!-- AJAX 처리 후 Append 되는 물품 리스트 -->
-                  <c:forEach items="${divisionList }" var="division">
-                     <ul class="nav divisionBtn do" id="${division.division_code }">
-                        <!-- Append ProductList -->
-                     </ul>
-                  </c:forEach>
-                  <button class="btn btn-primary btn-lg" id="resetBtn">Reset</button>
-                  <div id="productListDIV">
-                     <!-- 담기 눌렀을때 담는 곳 -->
-                     <input type="hidden" id="hiddenProductList">
-                     <input type="hidden" name="offer_product" id="offer_product">
-                  </div>
-               </div>
-               <!-- End Storage Tag -->
-               <!-- 스토리지 출력 Tag -->
-               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 40%; height: auto">
-                  <div class="home-clients">
-                     <div class="swiper-container">
-                        <div class="swiper-wrapper" style="margin-bottom: 5%">
-                        <!-- === 스토리지 정보 forEach === -->
-                           <c:forEach items="${storageList }" var="storage" varStatus="status">
-                              <div class="swiper-slide" data-storagePrice="${storage.storage_price }" data-index="${storage.storage_code }" data-id="${status.index }">
-                                 <h4 align="center">${storage.storage_name }</h4>
-                                 <h6 align="center"> ${storage.storage_width } *  ${storage.storage_vertical } * ${storage.storage_height} cm³ (강남역기준)</h6>
-                                 <h6 align="center">${storage.storage_content }</h6>
-                                 <img style="width: 100%; height: 50%;" data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage">
-                                 <input type="hidden" value="${storage.storage_volume }" id="storageVolumn${storage.storage_code }">
-                                 <input type="hidden"  id="hiddenStoragePrice${storage.storage_code }" value="${storage.storage_price }">
-                              </div>
-                           </c:forEach>
-                        </div>
-                        <!-- 네비게이션 버튼 -->
-                        <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-                        <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
-                        <!-- 페이징 -->
-                        <div class="swiper-pagination"></div>
-                     </div>
-                  </div>
-               </div>
-               <!-- End Storage Tag -->
-               <h5 id="nowInfo"></h5>
-         </div><br />
-         <!-- 렌탈물품 정보들 -->
-         <section class="def-section" id="clients-section">
-	         <div class="container" style="width: 100%	">
-	            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
-	         		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float: left; width: 100%">
-				          <h4>렌탈 물품 추가</h4>
-				         <ul class="nav navbar-nav">
-				         	<li class="active dropdown">
-				         	<c:forEach items="${rentalList }" var="rental">
-					         	<label class="offerLabel" style="width: 25%; margin-left: 50px;">
-					         			<input type="hidden" id="rental${rental.rental_code }" value="${rental.rental_code }">
-					         			<input type="hidden" id="rentalVolume${rental.rental_code }" value="${rental.rental_volume }">
-					         			<input type="hidden" id="rentalPrice${rental.rental_code }" value="${rental.rental_price }">
-					         			<h6>${rental.rental_name }</h6>
-						        		<button onclick="rentalService('${rental.rental_code}')" >
-						        			<input type="hidden" id="rentalName${rental.rental_code }" value="${rental.rental_name }">
-						        			<button id=deleteRental class="deleteProduct" onclick="deleteRental('${rental.rental_code }')"> - </button>
-						        			<img style="width: 100%" src="${pageContext.request.contextPath }/resources/product_img/${rental.rental_image}" id="rentalProductCount${rental.rental_code }">
-						        			<h5><fmt:formatNumber value="${rental.rental_price }" pattern="#,###"></fmt:formatNumber>원</h5>
-						        			<input type="number" readonly="readonly" class="count" id="rentalCount${rental.rental_code }" style="width: 100px;" value="0">
-						        		</button>
-							     </label>
-							</c:forEach>
-					        </li>
-				         </ul>
-				         <!-- Offer Table Insert Button -->
-			   		</div>
-				</div>
-			</div>
-		</section>
-   		<!-- 렌탈물품 정보들 -->
-   		<section class="def-section" id="clients-section">
-	         <div class="container" style="width: 100%	">
-	            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
-			   		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float:left; width: 100%; maring: 0 auto; ">
-			   			<h4>서비스 추가</h4>
-			   			<h5 style="display: inline-block; margin-bottom: 50px;">프리미엄 서비스	(* 월 요금 5000원 추가금 발생)
-			   			<label class="offerLabel" style="margin-left: 70px;">
-				   				신청<input type="radio" name=premium value="Y">
-				   			</label>
-				   			<label class="offerLabel" style="margin-left: 50px;">
-				   				미신청<input type="radio" name=premium value="N" checked="checked">
-				   			</label><br>
-			   			</h5>
-			   			<h5>세탁 서비스
-				   			<label class="offerLabel" style="margin-left: 70px;">
-				   				신청<input type="radio" id="washY" name="wash" value="Y">
-				   			</label>
-				   			<label class="offerLabel" style="margin-left: 50px;">
-				   				미신청<input type="radio" id="washN" name="wash" value="N" checked="checked">
-				   			</label>
-			   			</h5>
-			   		</div>
-			   		
-			   		<div id="laundryInfoList">
-			   			<!-- 세탁물품 담는곳 -->
-			   			<ul class="nav navbar-nav" style="width: 50%;">
-			   			<c:forEach items="${laundryInfoList }" var="laundry">
-			   			<li class="divisionBtnliTag" style="margin:10px">
-			   					<input type="hidden" id="laundryPrice${laundry.laundry_gubun }" value="${laundry.laundry_price }">
-			   					<input type="hidden" id="laundryName${laundry.laundry_gubun}" value="${laundry.laundry_kind }">
-			                    <input type="button" id="divisionBtn" style="display: inline-block;" class="btn btn-default btn-lg" onclick="laundryTableInsert('${laundry.laundry_gubun}')" value="${laundry.laundry_kind }">
-			            </li>
-					</c:forEach>
-					</ul>
-					<table class="table table-striped" style="width: 50%;  vertical-align: middle;">
-						<tr>
-							<th>세탁물종류</th><th>수량</th><th>가격<strong style="color: blue;">(*한벌당)</strong></th><th>기능</th>
-			               </tr>
-			               <c:forEach items="${laundryInfoList }" var="laundry">
-				               <tr id="appendLaundry">
-				               	<td id="laundryKind">${laundry.laundry_kind }</td>
-				               	<td><input type="number" id="laundryCount${laundry.laundry_gubun }" readonly="readonly" value="0"  class="totalLaundryCount"></td>
-				               	<td id="laundryPrice"><fmt:formatNumber value="${laundry.laundry_price }" pattern="#,###"></fmt:formatNumber>원</td>
-				               	<td><button class="btn btn-default btn-lg" onclick="deleteLaundry('${laundry.laundry_gubun}')">삭제</button></td>
-				               </tr>
-			               </c:forEach>
-			               	<tr>
-				               	<th style="text-align: right;" colspan="4" id="memberTotalPrice"></th>
-				               </tr>
-					</table>
-			   	</div>
-     		</div>
-     	</div>
-     </section>
-      <div align="center" style="margin: 100px auto">
-	         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
-		         <button id="offerInsertBtn" class="my-btn my-btn-grey">견적 뽑기</button>
-			     <input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
-			     <input type="hidden" name="offer_price" id="hiddenOfferPrice">
-			     <input type="hidden" name="offer_product" id="hiddenOfferProduct">
-			     <input type="hidden" name="offer_rental" id="hiddenOfferRental">
-			     <input type="hidden" name="offer_wash" id="hiddenOfferWash">
-			     <input type="hidden" name="offer_premium" id="hiddenOfferPremium">
-			     <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct">
-			     <input type="hidden" name="laundry_count" id="hiddenLaundryCount">
-	         </div>
-   </div>
-  </div>
+	      <!-- 이용목적 칸 -->
+		<section class="def-section" id="clients-section">
+			<div class="container">
+			            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+			               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
+			                  style="width: 100%;">
+			                  <div class="home-clients">
+			                     <h3>셀프견적</h3>
+			                     <br>
+			                     <h4>이용정보 입력</h4>
+			                     <h5>어떤 용도로 사용하세요? (복수선택 가능)</h5>
+			                     <div class="collapse navbar-collapse main-menu main-menu-2"
+			                        id="main-menu">
+			                        <ul class="nav navbar-nav">
+			                           <!-- === top menu item === -->
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">이삿짐 단기보관
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">해외 출장
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">작은 집
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">취미용품 보관
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">계절용품
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">사업용도
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">프라이버시
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input type="checkbox">기타
+			                           </label></li>
+			                           <li class="active dropdown"><label class="offerLabel">
+			                                 <input  type="text" value="다락 사용 목적을 입력해주세요.">
+			                           </label></li>
+			                            
+			                        </ul>
+			                     </div>
+			                  </div>
+			               </div>
+			            </div>
+			         </div>
+			   
+			   </section>
+			   <!-- /이용 목적 -->
+			   <!-- 이용 기간 -->
+			   <section class="def-section" id="clients-section">
+			      <div class="container">
+			         <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+			            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
+			               style="width: 100%;">
+			               <div class="home-clients">
+			                  <h4>얼마나 오래 사용하실 계획이세요?</h4>
+			                  <div class="collapse navbar-collapse main-menu main-menu-2"
+			                     id="main-menu">
+			                     <ul class="nav navbar-nav">
+			                        <!-- === top menu item === -->
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">1개월 미만
+			                        </label></li>
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">1개월 이상
+			                        </label></li>
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">3개월 이상
+			                        </label></li>
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">6개월 이상
+			                        </label></li>
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">12개월 이상
+			                        </label></li>
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">지속적 이용
+			                        </label></li>
+			                        <li class="active dropdown"><label class="offerLabel">
+			                              <input type="radio" name="offer_date">확실하지 않음 
+			                         </label></li>
+			                     </ul>
+			                  </div>
+			               </div>
+			            </div>
+			         </div>
+			      </div>
+			   </section>
+			   <!-- /이용기간 -->
+			   <div class="home-clients">
+			      <div class="def-section services-1">
+			         <div class="container">
+			            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+			               <!-- 카테고리 별 물품 리스트 나오는 Tag -->
+			               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"
+			                  style="width: 60%;">
+			                  <ul class="nav divisionBtnAppend">
+			                     <c:forEach items="${divisionList }" var="division">
+			                        <li class="divisionBtnliTag"><input type="button"
+			                           id="divisionBtn" style="display: inline-block;"
+			                           class="btn btn-primary btn-lg"
+			                           onclick="test('${division.division_code}')"
+			                           value="${division.division_name }"></li>
+			                     </c:forEach>
+			                  </ul>
+			                  <!-- AJAX 처리 후 Append 되는 물품 리스트 -->
+			                  <c:forEach items="${divisionList }" var="division">
+			                     <ul class="nav divisionBtn do" id="${division.division_code }">
+			                        <!-- Append ProductList -->
+			                     </ul>
+			                  </c:forEach>
+			                  <button class="btn btn-primary btn-lg" id="resetBtn">Reset</button>
+			                  <div id="productListDIV">
+			                     <!-- 담기 눌렀을때 담는 곳 -->
+			                     <input type="hidden" id="hiddenProductList">
+			                     <input type="hidden" name="offer_product" id="offer_product">
+			                  </div>
+			               </div>
+			               <!-- End Storage Tag -->
+			               <!-- 스토리지 출력 Tag -->
+			               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="width: 40%; height: auto">
+			                  <div class="home-clients">
+			                     <div class="swiper-container">
+			                        <div class="swiper-wrapper" style="margin-bottom: 5%">
+			                        <!-- === 스토리지 정보 forEach === -->
+			                           <c:forEach items="${storageList }" var="storage" varStatus="status">
+			                              <div class="swiper-slide" data-storagePrice="${storage.storage_price }" data-index="${storage.storage_code }" data-id="${status.index }">
+			                                 <h4 align="center">${storage.storage_name }</h4>
+			                                 <h6 align="center"> ${storage.storage_width } *  ${storage.storage_vertical } * ${storage.storage_height} cm³ (강남역기준)</h6>
+			                                 <h6 align="center">${storage.storage_content }</h6>
+			                                 <img style="width: 100%; height: 50%;" data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage">
+			                                 <input type="hidden" value="${storage.storage_volume }" id="storageVolumn${storage.storage_code }">
+			                                 <input type="hidden"  id="hiddenStoragePrice${storage.storage_code }" value="${storage.storage_price }">
+			                              </div>
+			                           </c:forEach>
+			                        </div>
+			                        <!-- 네비게이션 버튼 -->
+			                        <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+			                        <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			                        <!-- 페이징 -->
+			                        <div class="swiper-pagination"></div>
+			                     </div>
+			                  </div>
+			               </div>
+			               <!-- End Storage Tag -->
+			               <h5 id="nowInfo"></h5>
+			         </div><br />
+			         <!-- 렌탈물품 정보들 -->
+			         <section class="def-section" id="clients-section">
+				         <div class="container" style="width: 100%; padding: 0;	">
+				            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+				         		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float: left; width: 100%">
+							          <h4>렌탈 물품 추가</h4>
+							         <ul class="nav navbar-nav">
+							         	<li class="active dropdown">
+							         	<c:forEach items="${rentalList }" var="rental">
+								         	<label class="offerLabel" style="width: 25%; margin-left: 50px;">
+								         			<input type="hidden" id="rental${rental.rental_code }" value="${rental.rental_code }">
+								         			<input type="hidden" id="rentalVolume${rental.rental_code }" value="${rental.rental_volume }">
+								         			<input type="hidden" id="rentalPrice${rental.rental_code }" value="${rental.rental_price }">
+								         			<h6>${rental.rental_name }</h6>
+									        		<button onclick="rentalService('${rental.rental_code}')" >
+									        			<input type="hidden" id="rentalName${rental.rental_code }" value="${rental.rental_name }">
+									        			<button id=deleteRental class="deleteProduct" onclick="deleteRental('${rental.rental_code }')"> - </button>
+									        			<img style="width: 100%" src="${pageContext.request.contextPath }/resources/product_img/${rental.rental_image}" id="rentalProductCount${rental.rental_code }">
+									        			<h5><fmt:formatNumber value="${rental.rental_price }" pattern="#,###"></fmt:formatNumber>원</h5>
+									        			<input type="number" readonly="readonly" class="count" id="rentalCount${rental.rental_code }" style="width: 100px;" value="0">
+									        		</button>
+										     </label>
+										</c:forEach>
+								        </li>
+							         </ul>
+							         <!-- Offer Table Insert Button -->
+						   		</div>
+							</div>
+						</div>
+					</section>
+			   		<!-- 렌탈물품 정보들 -->
+			   		<section class="def-section" id="clients-section">
+				         <div class="container" style="width: 100%; padding: 0;	">
+				            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+						   		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float:left; width: 100%; maring: 0 auto; ">
+						   			<h4>서비스 추가</h4>
+						   			<h5 style="display: inline-block; margin-bottom: 50px;">프리미엄 서비스	(* 월 요금 5000원 추가금 발생)
+						   			<label class="offerLabel" style="margin-left: 70px;">
+							   				신청<input type="radio" name=premium value="Y">
+							   			</label>
+							   			<label class="offerLabel" style="margin-left: 50px;">
+							   				미신청<input type="radio" name=premium value="N" checked="checked">
+							   			</label><br>
+						   			</h5>
+						   			<h5>세탁 서비스
+							   			<label class="offerLabel" style="margin-left: 70px;">
+							   				신청<input type="radio" id="washY" name="wash" value="Y">
+							   			</label>
+							   			<label class="offerLabel" style="margin-left: 50px;">
+							   				미신청<input type="radio" id="washN" name="wash" value="N" checked="checked">
+							   			</label>
+						   			</h5>
+						   		</div>
+						   		
+						   		<div id="laundryInfoList">
+						   			<!-- 세탁물품 담는곳 -->
+						   			<ul class="nav navbar-nav" style="width: 50%;">
+						   			<c:forEach items="${laundryInfoList }" var="laundry">
+						   			<li class="divisionBtnliTag" style="margin:10px">
+						   					<input type="hidden" id="laundryPrice${laundry.laundry_gubun }" value="${laundry.laundry_price }">
+						   					<input type="hidden" id="laundryName${laundry.laundry_gubun}" value="${laundry.laundry_kind }">
+						                    <input type="button" id="divisionBtn" style="display: inline-block;" class="btn btn-default btn-lg" onclick="laundryTableInsert('${laundry.laundry_gubun}')" value="${laundry.laundry_kind }">
+						            </li>
+								</c:forEach>
+								</ul>
+								<table class="table table-striped" style="width: 50%;  vertical-align: middle;">
+									<tr>
+										<th>세탁물종류</th><th>수량</th><th>가격<strong style="color: blue;">(*한벌당)</strong></th><th>기능</th>
+						               </tr>
+						               <c:forEach items="${laundryInfoList }" var="laundry">
+							               <tr id="appendLaundry">
+							               	<td id="laundryKind">${laundry.laundry_kind }</td>
+							               	<td><input type="number" id="laundryCount${laundry.laundry_gubun }" readonly="readonly" value="0"  class="totalLaundryCount"></td>
+							               	<td id="laundryPrice"><fmt:formatNumber value="${laundry.laundry_price }" pattern="#,###"></fmt:formatNumber>원</td>
+							               	<td><button class="btn btn-default btn-lg" onclick="deleteLaundry('${laundry.laundry_gubun}')">삭제</button></td>
+							               </tr>
+						               </c:forEach>
+						               	<tr>
+							               	<th style="text-align: right;" colspan="4" id="memberTotalPrice"></th>
+							               </tr>
+								</table>
+						   	</div>
+			     		</div>
+			     	</div>
+			     </section>
+				<section class="def-section" id="clients-section">
+				        <div class="container" style="width: 100%; padding: 0;	">
+				            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+				            	<div class="store-pick">
+									<div class="store-list">
+										<h4 id= "choice-store" align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
+										<button type="button" id="choice-btn" style="font-size: 9pt; font-weight: normal;">지점선택</button>
+										</h4>
+										<div id="grid"></div>
+									</div>
+									<div class="map">
+										<h4 align="left">지점 지도</h4>
+										<div id="map" style="width:100%;height:400px;"></div>
+									</div>
+								</div>
+								<div style="margin-top: 30px;">
+									<c:forEach items="${couponeInfoList }" var="coupon">
+										<ul class="nav divisionBtn coupon" id="${coupon.store_code }">
+											<!-- Append Coupon Information -->
+										</ul>
+									</c:forEach>
+								</div>
+				            </div>
+						</div>
+				</section>
+			      <div align="center" style="margin: 100px auto">
+				         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
+					         <button id="offerInsertBtn" class="my-btn my-btn-grey">견적 뽑기</button>
+						     <input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
+						     <input type="hidden" name="offer_price" id="hiddenOfferPrice">
+						     <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice">
+						     <input type="hidden" name="offer_product" id="hiddenOfferProduct">
+						     <input type="hidden" name="offer_rental" id="hiddenOfferRental">
+						     <input type="hidden" name="offer_wash" id="hiddenOfferWash">
+						     <input type="hidden" name="offer_premium" id="hiddenOfferPremium">
+						     <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct">
+						     <input type="hidden" name="laundry_count" id="hiddenLaundryCount">
+						     <input type="hidden" name="coupon_code" id="hiddenCouponCode">
+		        	 </div>
+	  			 </div>
+	  		</div>
+		</div>
   </div>
 </body>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a66ba8e60100e68a1df7756407ad0bb&libraries=services"></script>
+	<script>
+		// KakaoMap
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 (default 값)
+		        level: 3 // 지도의 확대 레벨
+		    };  
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		$.ajax({
+			url:'storeInfo',
+			dataType:'json',
+			success:function(data){
+				// TOAST GRID
+				
+				const recruitGrid = new tui.Grid({
+					el: document.getElementById('grid'), 
+					data: data,
+					columns: [ 
+						{ 
+							header: '지점명', 
+							name: 'store_name', 
+							align: 'center',
+							width: 90,
+							filter: 'select'
+						}, 
+						{ 
+							header: '주소', 
+							name: 'store_addr', 
+							align: 'center',
+							filter: 'select'
+						} 
+					],
+					
+					// 무한 스크롤 - 그냥 페이징처리할땐 BodyHeight 필요없음
+					bodyHeight: 357,
+					pageOptions: {
+						// 무한 스크롤 혹은 페이징 처리 시 기능 사용한다는 옵션
+						useClient: true,
+					    // 무한스크롤 옵션 
+					    type: 'scroll'
+					}
+				});
+				// GRID 클릭 시
+				recruitGrid.on('click', function(ev) {
+					// 새로운 지역 클릭시 새롭게 초기화
+					$("input:radio[id='normalPrice']").removeAttr('checked');
+				 	$("input:radio[id='discountPrice']").removeAttr('checked');
+					var target = ev
+					
+					// 클릭 시 console에 지점 주소 출력
+					var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
+					var coupon_code = recruitGrid.getValue(ev.rowKey,'coupon_code');
+				  	// 각 지점 코드
+					var store_code = recruitGrid.getValue(ev.rowKey,'store_code');
+				  	// 이전에 있던 쿠폰 정보 hide 해주고
+				  	$('.coupon').hide();
+				  	// 지점 찍을때 id가 store_code인걸 보여줌
+					$('#' + store_code).show();
+				 	// 주소로 좌표를 검색합니다
+				 	
+					geocoder.addressSearch(contents, function(result, status) {
+					
+					    // 정상적으로 검색이 완료됐으면 
+					     if (status === kakao.maps.services.Status.OK) {
+					
+					        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					
+					        // 결과값으로 받은 위치를 마커로 표시합니다
+					        var marker = new kakao.maps.Marker({
+					            map: map,
+					            position: coords
+					        });
+					
+					        // 인포윈도우로 장소에 대한 설명을 표시합니다
+					        var infowindow = new kakao.maps.InfoWindow({
+					        	// 지도 마커에 적힌 내용 수정하는 곳
+					            content: '<div style="width:150px;text-align:center;padding:6px 0;">지점 위치</div>'	
+					        });
+					        infowindow.open(map, marker);
+					
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.setCenter(coords);
+					    } 
+					}); 
+				  
+				});
+			}, // success 닫힘
+			error: function(err){
+				console.log(err);
+			}
+		})
+	</script>
 </html>
