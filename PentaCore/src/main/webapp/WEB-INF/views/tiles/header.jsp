@@ -92,7 +92,7 @@
 							<a data-toggle="dropdown" href="#">고객센터</a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
-									<a href="#">이용후기</a>
+									<a href="reviewList">이용후기</a>
 								</li>
 								<li>
 									<a href="iqPaging">문의게시판</a>

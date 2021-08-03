@@ -17,14 +17,15 @@ private String member_disable;
 
 	<select id="reviewList" parameterType="int" resultType="com.yedam.storage.review.vo.ReviewVO">
 		SELECT 	r.review_num, r.review_title, r.review_content,
-				TO_CHAR(r.review_date,'YYYY/MM/DD') review_date ,
+				TO_DATE(r.review_date,'YYYY/MM/DD') review_date ,
 			    r.store_code, r.member_id, m.member_name,
 			    s.store_name
 				
 				from review r join member m on (r.member_id = m.member_id)
 				join store s on (r.store_code = s.store_code) 
-				where r.review_num > ( select MAX(review_num) from review )-#{count}
-				order by r.review_num desc;
+				where r.review_num between  ( select MAX(review_num) from review ) -#{count} -5 
+				and ( select MAX(review_num) from review ) -#{count}
+				order by r.review_num desc
 	</select>
 	
 	
