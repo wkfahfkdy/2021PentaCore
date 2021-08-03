@@ -58,98 +58,46 @@ private String member_disable;
 	
 	
 	<!-- 회원정보 수정 -->
-<select id="getMemberInfo" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO">
-		select 	* 
-		from 	member 
-		where 	member_id = #{p}
-		and 	member_disable = 'N'
-</select>	
-	<!--
-	  
-	<update id="userPwUpdate" parameterType="hashmap">
-		update users set user_pw=#{user_Pw} where user_id=#{user_Id}
+	<select id="getMemberInfo" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO">
+			select 	* 
+			from 	id_all_check 
+			where 	member_id = #{p}
+			and 	member_disable = 'N'
+	</select>	
+	<!-- (멤버 수정) -->
+	<update id="memberPwUpdate" parameterType="hashmap">
+		update member set member_pwd=#{member_pwd} where member_id=#{member_id}
 	</update>
 	
-	<update id="userEmailUpdate" parameterType="hashmap">
-		update users set user_Email=#{user_Email} where user_Id=#{user_Id}
+	<update id="memberEmailUpdate" parameterType="hashmap">
+		update member set member_email=#{member_email} where member_id=#{member_id}
 	</update>
 	
-	<update id="userPhoneUpdate" parameterType="hashmap">
-		update users set user_Phone=#{user_Phone} where user_Id=#{user_Id}
+	<update id="memberPhoneUpdate" parameterType="hashmap">
+		update member set member_tel=#{member_tel} where member_id=#{member_id}
 	</update>
 	
-	<update id="userAddrUpdate" parameterType="hashmap">
-		update users set user_Addr=#{user_Addr} where user_Id=#{user_Id}
+	<update id="memberAddrUpdate" parameterType="hashmap">
+		update member set member_addr=#{member_addr} where member_id=#{member_id}
+	</update>
+	
+	<!-- (직원 수정) -->
+	<update id="employeePwUpdate" parameterType="hashmap">
+		update employees set employee_pwd=#{employee_pwd} where employee_id=#{employee_id}
+	</update>
+	
+	<update id="employeeEmailUpdate" parameterType="hashmap">
+		update employees set employee_email=#{employee_email} where employee_id=#{employee_id}
+	</update>
+	
+	<update id="employeePhoneUpdate" parameterType="hashmap">
+		update employees set employee_tel=#{employee_tel} where employee_id=#{employee_id}
+	</update>
+	
+	<update id="employeeAddrUpdate" parameterType="hashmap">
+		update employees set employee_addr=#{employee_addr} where employee_id=#{employee_id}
 	</update>
 	
 	
-	<select id="userLoanList" parameterType="string" resultType="com.yd.lib.users.vo.UserLoanInfoVO">
-		SELECT 	h.user_Id, u.user_Name, b.book_Isbn, 
-				b.book_title, b.book_aut, b.book_location, b.book_Img,b.book_Pub, b.book_subject, 
-				TO_CHAR(h.loan_date,'YYYY/MM/DD') loan_Date, 
-        		TO_CHAR(h.return_duedate,'YYYY/MM/DD') return_Duedate, h.loan_Status 
-				from users u join history h on (u.user_id = h.user_id)
-				join book b on (b.book_num = h.book_num) 
-				where u.user_id = #{user_Id}
-				order by h.loan_status,
-       			h.loan_date asc
-	</select>
 	
-	<select id="loanBooksCount" parameterType="string" resultType="int">
-		<![CDATA[ SELECT 	COUNT(*)
-				from users u join history h on (u.user_id = h.user_id)
-				join book b on (b.book_num = h.book_num) 
-        		where u.user_id = #{user_Id}
-       			and loan_status = '대출'
-				]]>
-	</select>
-	
-	<select id="overDueBooksCount" parameterType="string" resultType="int">
-		<![CDATA[ SELECT 	COUNT(*)
-				from users u join history h on (u.user_id = h.user_id)
-				join book b on (b.book_num = h.book_num) 
-        		where u.user_id = #{user_Id}
-       			and h.return_duedate < sysdate
-       			and loan_status = '대출'
-				]]>
-	</select>
-	
-	<select id="loanSuspensionDate" parameterType="string" resultType="string">
-		<![CDATA[ SELECT TO_CHAR((sysdate + 
-											(select max(return_delaydays) -1 from history where
-											return_delaydays > 0 and user_id= #{user_Id})) , 'YYYY/MM/DD')  from dual
-				]]>
-	</select>
-	
-	
-	
-	
-	<select id="userYeyakList" parameterType="string" resultType="com.yd.lib.users.vo.UserYeyakInfoVO">
-		SELECT 	y.user_Id, u.user_Name, b.book_Title, b.book_Aut, b.book_Location, b.book_Img,b.book_Pub, b.book_subject,y.yeyak_Num,
-       			TO_CHAR(y.yeyak_submit,'YYYY/MM/DD') yeyak_Submit, 
-       			TO_CHAR(y.yeyak_start,'YYYY/MM/DD') yeyak_Start, 
-      			TO_CHAR(y.yeyak_end,'YYYY/MM/DD') yeyak_End, 
-      			y.yeyak_Processing
-        		FROM yeyak y JOIN book b
-				ON (y.book_num = b.book_num)
-				JOIN users u
-				ON (y.user_id = u.user_id)
-       			where y.user_id = #{user_Id} and y.yeyak_Processing = '예약중' or  y.user_id = #{user_Id} and y.yeyak_Processing = '예약신청'
-	</select>
-	
-	
-	<delete id="yeyakCancel" parameterType="string">
-		delete from yeyak where yeyak_Num=#{yeyak_Num} 
-	</delete>
-	
-	
-	<select id="userWishList" parameterType="string" resultType="com.yd.lib.users.vo.UserWishInfoVO">
-		SELECT 	w.user_id ,u.user_Name, w.wish_title, w.wish_aut, w.wish_pub, w.wish_isbn, w.wish_pubdate, w.wish_date,
-        		w.wish_processing, w.wish_bigo,w.wish_coment
-       			FROM users u JOIN wish w
-				ON (u.user_id = w.user_id)
-        		where u.user_id = #{user_Id}
-	</select>
-	
-	-->
 </mapper>

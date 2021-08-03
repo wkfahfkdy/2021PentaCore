@@ -72,6 +72,46 @@ public class MemberServiceImpl implements MemberService {
 		return sqlSession.selectOne("getMemberInfo", memberId);
 	}
 
+	@Override
+	public int memberPwUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("memberPwUpdate",hash);
+	}
+
+	@Override
+	public int memberEmailUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("memberEmailUpdate",hash);
+	}
+
+	@Override
+	public int memberPhoneUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("memberPhoneUpdate",hash);
+	}
+
+	@Override
+	public int memberAddrUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("memberAddrUpdate",hash);
+	}
+
+	@Override
+	public int employeePwUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("employeePwUpdate",hash);
+	}
+
+	@Override
+	public int employeeEmailUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("employeeEmailUpdate",hash);
+	}
+
+	@Override
+	public int employeePhoneUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("employeePhoneUpdate",hash);
+	}
+
+	@Override
+	public int employeeAddrUpdate(HashMap<String, Object> hash) {
+		return sqlSession.update("employeeAddrUpdate",hash);
+	}
+
 
 	
 

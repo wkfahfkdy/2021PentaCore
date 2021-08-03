@@ -24,4 +24,14 @@ public interface MemberService {
 		
 		//회원정보 수정
 		public MemberVO getMemberInfo(String p);
+		//member수정
+		public int memberPwUpdate(HashMap<String, Object> hash);
+		public int memberEmailUpdate(HashMap<String, Object> hash);
+		public int memberPhoneUpdate(HashMap<String, Object> hash);
+		public int memberAddrUpdate(HashMap<String, Object> hash);
+		//employee수정
+		public int employeePwUpdate(HashMap<String, Object> hash);
+		public int employeeEmailUpdate(HashMap<String, Object> hash);
+		public int employeePhoneUpdate(HashMap<String, Object> hash);
+		public int employeeAddrUpdate(HashMap<String, Object> hash);
 }

@@ -56,7 +56,7 @@ private String member_disable;
 						$('#emailCode').focus();
 						//중복확인 통과후 인증코드 메일보내는 ajax
 						$.ajax({
-							url : 'sendEmail',
+							url : 'sendEmail.do',
 							data : {
 								email : $('#member_email').val()
 							},
@@ -69,6 +69,7 @@ private String member_disable;
 										frm.checkEmail.value = 'checked';
 									} else {
 										alert('인증번호가 틀립니다');
+										frm.checkEmail.value = 'unChecked';
 									}
 								})
 							},
@@ -210,15 +211,16 @@ private String member_disable;
 			return false;
 			}
 		}
-		/*
-		if (frm.user_Phone.value != "") {
+		
+		if (frm.member_tel.value != "") {
 		if (frm.checkSMS.value == "unChecked") {
 			alert("문자 인증을 하세요");
 			frm.smsKey.focus();
 			return false;
 			}
-		}  */
-
+		}  
+		
+		//일부 정보만 수정할 경우 
 		if (frm.member_pwd.value == "" || frm.member_email.value == ""
 				|| frm.member_tel.value == "" || frm.member_post.value == "") {
 			var delConfirm = confirm("작성하지 않은 부분이 있습니다. 입력한 정보만 수정하시겠습니까?");
@@ -229,7 +231,7 @@ private String member_disable;
 			}
 			return false;
 		}
-
+		//모든 정보 수정할 경우
 		frm.submit();
 		alert("회원정보가 정상적으로 수정되었습니다");
 	}
@@ -238,7 +240,7 @@ private String member_disable;
 
 				<!--회원가입 화면-->
 					<div align="center">
-						<form id="frm" action="userUpdate.do" method="post">
+						<form id="frm" action="userUpdate" method="post">
 							<table style="border: 1; border-collapse: collapse;">
 								<tr>
 									<th width="150">아이디</th>
@@ -246,32 +248,35 @@ private String member_disable;
 										<div>
 											<span class="input-group-text" id="inputGroup-sizing-sm">
 												${loginId}</span>
-										</div> <input type="hidden" id="user_Id" name="user_Id"
-										value="${loginUserVO.user_Id}">
+										</div> <input type="hidden" id="member_id" name="member_id"
+										value="${loginId}">
 									</td>
 								</tr>
 								<tr>
 									<th width="150">변경할 비밀번호</th>
 									<td width="300"><input class="form-control"
-										type="password" id="user_Pw" name="user_Pw"></td>
+										type="password" id="member_pwd" name="member_pwd"></td>
 								</tr>
 								<tr>
 									<th width="150">비밀번호 재확인</th>
 									<td width="300"><input class="form-control"
-										type="password" id="user_Pw2" name="user_Pw2"></td>
+										type="password" id="member_pwd2" name="member_pwd2"></td>
 								</tr>
 								<tr>
 									<th width="150">이름</th>
 									<td width="300"><span class="input-group-text"
 										id="inputGroup-sizing-sm"> <%=request.getAttribute("name") %> </span></td>
 								</tr>
+								
+								<c:if test="${birth ne null}">
 
 								<tr>
 									<th width="150">생년월일</th>
 									<td width="300"><span class="input-group-text"
 										id="inputGroup-sizing-sm"> <%=request.getAttribute("birth") %> </span></td>
 								</tr>
-
+								</c:if>
+								
 								<tr>
 									<td colspan="3">&nbsp;</td>
 								</tr>
@@ -279,12 +284,12 @@ private String member_disable;
 								<tr>
 									<th width="150">기존 이메일</th>
 									<td width="150" colspan="2"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> ${loginUserVO.user_Email} </span></td>
+										id="inputGroup-sizing-sm"> <%=request.getAttribute("email") %> </span></td>
 								</tr>
 								<tr>
 									<th>변경할 이메일</th>
 									<td width="150" colspan="2"><input class="form-control"
-										type="text" id="user_Email" name="user_Email" value="">
+										type="text" id="member_email" name="member_email" value="">
 									</td>
 									<td>
 										<button class="btn btn-light" type="button" id="sendEmail"
@@ -315,7 +320,7 @@ private String member_disable;
 								<tr>
 									<th width="150">변경할 전화번호</th>
 									<td width="150" colspan="2"><input class="form-control"
-										type="text" id="user_Phone" name="user_Phone"
+										type="text" id="member_tel" name="member_tel"
 										placeholder="'-'없이 숫자만 입력"></td>
 									<td>
 										<button class="btn btn-light" type="button" id="sendSMS"
@@ -343,19 +348,19 @@ private String member_disable;
 
 								<tr>
 									<th width="150">변경할 주소</th>
-									<td width="300"><input class="form-control" id="user_post"
-										type="text" name="userAddressZip" placeholder="우편번호" readonly
+									<td width="300"><input class="form-control" id="member_post"
+										type="text" name="memberAddressZip" placeholder="우편번호" readonly
 										onclick="findAddr()"></td>
 								</tr>
 								<tr>
 									<td></td>
 									<td><input class="form-control" id="member_addr" type="text"
-										name="userAddress" placeholder="주소" readonly></td>
+										name="member_addr" placeholder="주소" readonly></td>
 								</tr>
 								<tr>
 									<td></td>
 									<td><input class="form-control" id="member_detailedAddr"
-										type="text" placeholder="상세주소" name="userAddressDetail">
+										type="text" placeholder="상세주소" name="member_detailedAddr">
 									</td>
 								</tr>
 							</table>
