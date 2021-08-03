@@ -31,16 +31,18 @@ private String member_disable;
 
 	
 <select id="emailCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
-		select * from member where member_email = #{p}
+		select * from member where member_email = #{p} and member_disable = 'N'
 </select>
 
 <select id="telCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
-		select * from member where member_tel = #{p}
+		select * from member where member_tel = #{p} and member_disable = 'N'
 	</select>
 	
 <select id="idCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
-		select * from member where member_id = #{p}
+		select * from member where member_id = #{p} and member_disable = 'N'
 </select>	
+
+
 
 <select id="memberInfo" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
 		select 	member_id, member_name, member_tel, member_addr
@@ -59,7 +61,7 @@ private String member_disable;
 <select id="getMemberInfo" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO">
 		select 	* 
 		from 	member 
-		where 	member_id = #{member_id} 
+		where 	member_id = #{p}
 		and 	member_disable = 'N'
 </select>	
 	<!--

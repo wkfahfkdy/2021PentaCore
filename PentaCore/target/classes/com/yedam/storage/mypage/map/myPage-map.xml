@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
-		select store_name
+		select use_num
 		from use_storage
 		where member_id = #{member_id}
 	</select>
@@ -31,6 +31,13 @@
 		from use_storage u, store s
 		where u.store_code = s.store_code
 		and member_id = #{member_id}
+	</select>
+	
+	<select id="userReview" resultType="MyPageVO" parameterType="MyPageVO">
+		select * 
+		from review
+		where member_id = #{member_id}
+		and store_code = #{store_code}
 	</select>
 	
 	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
@@ -100,9 +107,9 @@
 		values('TR'||LPAD(tr_seq.nextval,3,0), #{member_id}, #{tour_tel}, #{store_code}, #{tour_date}, #{tour_time})
 	</insert>
 	
-	<update id="storeTourCancel" parameterType="MyPageVO">
+	<update id="cancelTour" parameterType="MyPageVO">
 		update tour 
-		set tour_cancel = 'Y'
+		set tour_cancel = #{tour_cancel}
 		where tour_code = #{tour_code}
 	</update>
 	
@@ -116,5 +123,30 @@
 		from notice n, store s
 		where n.store_code = s.store_code
 		and notice_num = #{notice_num}
+	</select>
+	
+	<select id="couponList" resultType="MyPageVO">
+		select * 
+		from coupon
+	</select>
+	
+	<select id="reportList" resultType="MyPageVO" parameterType="MyPageVO">
+		select r.*, s.store_name
+		from condition_list r join use_storage u
+		on (r.use_num = u.use_num)
+		join store s
+		on (u.store_code = s.store_code)
+		where member_id = #{member_id}
+	</select>
+	
+	<select id="reportSelect" resultType="MyPageVO" parameterType="MyPageVO">
+		select r.*, s.store_name, u.use_start, u.use_end, o.offer_product
+		from condition_list r join use_storage u
+		on (r.use_num = u.use_num)
+		join store s
+		on (u.store_code = s.store_code)
+		join offer o
+		on (u.offer_code = o.offer_code)
+		where condition_num = #{condition_num}
 	</select>
 </mapper>
