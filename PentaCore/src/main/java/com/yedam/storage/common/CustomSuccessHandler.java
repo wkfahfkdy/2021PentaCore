@@ -61,8 +61,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			Set<GrantedAuthority> authorities = (Set<GrantedAuthority>) vo.getAuthorities();
 			String auth = authorities.iterator().next().toString();
 			
-			// 이용 중인 지점이 없다면 에러가 떠서 ROLE_USER일 시에만 값 저장
-			if(auth.equals("ROLE_USER")) { 
+			// 이용 중인 지점이 없다면 에러가 떠서 ROLE_USER일 시 + Store_code 값이 존재할 시에만 저장
+			if(auth.equals("ROLE_USER") && vo3.getStore_code() != null) { 
 				// 이용 중인 지점 코드 값 저장
 				request.getSession().setAttribute("loginStore", vo3.getStore_code());
 			}
