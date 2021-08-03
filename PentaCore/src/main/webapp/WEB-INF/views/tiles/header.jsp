@@ -79,7 +79,7 @@
 									<a href="infofUse">이용안내</a>
 								</li>
 								<li>
-									<a href="#">스토리지투어예약</a>
+									<a href="storeTour">스토리지투어예약</a>
 								</li>
 								<li>
 									<a href="keep">안심보관이사</a>
