@@ -16,6 +16,7 @@
   			<typeAlias type="com.yedam.storage.mypage.vo.MyPageVO" alias="MyPageVO"/>
   			<typeAlias type="com.yedam.storage.rental.vo.RentalVO" alias="RentalVO"/>
   			<typeAlias type="com.yedam.storage.laundryinfo.vo.LaundryInfoVO" alias="LaundryInfoVO"/>
+  			<typeAlias type="com.yedam.storage.coupon.vo.CouponVO" alias="CouponVO"/>
   		</typeAliases>
   		
   </configuration>

@@ -1,20 +1,16 @@
 package com.yedam.storage;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yedam.storage.coupon.service.CouponService;
 import com.yedam.storage.division.service.DivisionService;
 import com.yedam.storage.laundryinfo.service.LaundryInfoService;
 import com.yedam.storage.product.service.ProductService;
@@ -26,6 +22,8 @@ import com.yedam.storage.store.vo.StoreVO;
 @Controller
 public class HomeController {
 	
+	@Autowired
+	private CouponService couponDAO;
 	@Autowired
 	private LaundryInfoService laundryInfoDAO;
 	@Autowired
@@ -94,6 +92,8 @@ public class HomeController {
 		model.addAttribute("rentalList", rentalDAO.selectRentalList());
 		// 세탁 물품 리스트
 		model.addAttribute("laundryInfoList", laundryInfoDAO.selectLaundryInfoList());
+		// 쿠폰 정보 리스트
+		model.addAttribute("couponeInfoList", couponDAO.selectCouponList());
 		return "offer/selfOfferPage";
 	} 
 	
