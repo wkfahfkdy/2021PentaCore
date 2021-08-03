@@ -72,8 +72,12 @@ public class MyPageVO {
 	private String member_enable;
 	private int question_num;
 	private int question_parents;
-	private String question_content;
 	private String question_file;
+	private int question_group;
+	private String question_title;
+	private String question_content;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date question_date;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date use_start;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")

@@ -1,6 +1,7 @@
 package com.yedam.storage.mypage.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -256,11 +257,67 @@ public class MyPageController {
 	}
 	
 	// 보고서 상세 Modal 창으로 데이터 보내기
-		@RequestMapping(value = "myReport/{condition_num}", method=RequestMethod.GET)
-		@ResponseBody
-		public MyPageVO myReport(@PathVariable String condition_num, Model model, MyPageVO vo) {
-			vo.setCondition_num(condition_num);
+	@RequestMapping(value = "myReport/{condition_num}", method=RequestMethod.GET)
+	@ResponseBody
+	public MyPageVO myReport(@PathVariable String condition_num, Model model, MyPageVO vo) {
+		vo.setCondition_num(condition_num);
+		
+		return MyPageDAO.reportSelect(vo);
+	}
+	//---------------------------------컨디션 보고서 페이지-----------------------------------------
+	
+	// 1:1 문의 페이지 로드
+	@RequestMapping("myAsk")
+	public String myAsk(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		
+		String id = (String) session.getAttribute("loginId");
+		String ask;
+		int idx;
+		int idx1;
+		String title;
+		vo.setMember_id(id);
+		
+		List<MyPageVO> list = MyPageDAO.myAskList(vo);
+		// DB상의 테이블에는 title 컬럼이 따로 없어서 Grid에서 제목 대신 question_content를 사용해야한다.
+		// CKEditor를 사용해서 문의 form을 만들어두었기 때문에, 사용자가 이미지를 먼저 올리고 글을 작성할 가능성도 있기 때문에
+		// Grid 리스트 상에 출력해줄 때 img 태그를 잘라내고 텍스트만 나타날 수 있도록 데이터 가공이 필요함.
+		
+		// 문의 내용을 가공해서 Grid 리스트 상에 제목 대신 출력할 데이터 만들기
+		for(int i=0; i < list.size(); i++) {
+			// list 안의 question_content 값 가져옴
+			ask = list.get(i).getQuestion_content();
+			System.out.println(ask);
+			idx = ask.indexOf("<img ");
 			
-			return MyPageDAO.reportSelect(vo);
+			if (idx == 0){
+				idx1 = ask.lastIndexOf(" />");
+				// question_content 값 가공 (글 시작 부분에 img 태그가 존재할 시 잘라내기)
+				title = ask.substring(idx1 + 3, idx1+23);
+				// VO에 question_title 변수를 만들어 두고 가공된 내용을 list에 추가
+				list.get(i).setQuestion_title(title);
+				System.out.println(title);
+			}
+			else if (idx > 0 && idx <= 20){
+				title = ask.substring(0,idx);
+				list.get(i).setQuestion_title(title);
+				System.out.println(title);
+			}
+			else if (idx > 20) {
+				title = ask.substring(0,20);
+				list.get(i).setQuestion_title(title);
+				System.out.println(title);
+			}
+			else {
+				title = ask.substring(0,20);
+				list.get(i).setQuestion_title(title);
+				System.out.println(title);
+			}
 		}
+		
+		// question_title을 추가 해준 list를 1:1문의 페이지로 보냄
+		model.addAttribute("myAskList", list);
+		model.addAttribute("storeList", MyPageDAO.storeInfoSelect());
+		return "myPage/myAskLIst";
+	}
 }

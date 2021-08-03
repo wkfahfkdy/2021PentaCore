@@ -1,152 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.storage.mypage.map.MyPageMap">
+	
+	<!-- 사용자가 이용 중인 지점의 공지사항 리스트 -->
 	<select id="noticeSelectList" resultType="MyPageVO" parameterType="MyPageVO">
-		select * 
-		from notice
-		where store_code = #{store_code}
-		order by notice_num desc
+		SELECT * 
+		FROM notice
+		WHERE store_code = #{store_code}
+		ORDER BY notice_num desc
 	</select>
 	
+	<!-- My Page 메인 페이지 하단에서 보여줄 정보 : 현재 이용 중인 정보 -->
 	<select id="usedStorageList" resultType="MyPageVO" parameterType="MyPageVO">
-		select u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
+		SELECT u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
 				o.offer_wash, o.offer_premium
-		from storage s join offer o
-		on (s.storage_code = o.storage_code)
-		join use_storage u
-		on (u.offer_code = o.offer_code)
-		join store t
-		on(u.store_code = t.store_code)
-		where u.member_id = #{member_id}
+		FROM storage s JOIN offer o
+		ON (s.storage_code = o.storage_code)
+		JOIN use_storage u
+		ON (u.offer_code = o.offer_code)
+		JOIN store t
+		ON(u.store_code = t.store_code)
+		WHERE u.member_id = #{member_id}
 	</select>
 	
+	<!-- 사용자가 이용 중인 정보의 고유번호 조회 -->
 	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
-		select use_num
-		from use_storage
-		where member_id = #{member_id}
+		SELECT use_num
+		FROM use_storage
+		WHERE member_id = #{member_id}
 	</select>
 	
+	<!-- 사용자가 이용 중인 지점명 및 이용 중인 스토리지 고유넘버 조회 -->
 	<select id="useStore" resultType="MyPageVO" parameterType="MyPageVO">
-		select store_name, info_num
-		from use_storage u, store s
-		where u.store_code = s.store_code
-		and member_id = #{member_id}
+		SELECT store_name, info_num
+		FROM use_storage u, store s
+		WHERE u.store_code = s.store_code
+		AND member_id = #{member_id}
 	</select>
 	
+	<!-- 사용자가 이용 중인 지점의 리뷰를 작성한 적 있는가 -->
 	<select id="userReview" resultType="MyPageVO" parameterType="MyPageVO">
-		select * 
-		from review
-		where member_id = #{member_id}
-		and store_code = #{store_code}
+		SELECT * 
+		FROM review
+		WHERE member_id = #{member_id}
+		AND store_code = #{store_code}
 	</select>
 	
+	<!-- 사용자가 저장한 셀프 견적서 내역 -->
 	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
-		select o.*, s.store_name
-		from offer o, store s
-		where o.store_code = s.store_code
-    	and member_id = #{member_id}
+		SELECT o.*, s.store_name
+		FROM offer o, store s
+		WHERE o.store_code = s.store_code
+    	AND member_id = #{member_id}
 	</select>
 	
+	<!-- 셀프 견적서 상세 -->
 	<select id="myOfferSelect" resultType="MyPageVO" parameterType="MyPageVO">
-		select o.*, (o.offer_price*c.coupon_discount) as total_price, s.store_name, s.store_tel,s.STORE_ADDR, s.STORE_BUS, s.STORE_EMAIL,s.STORE_SUBWAY, t.storage_name, 
+		SELECT o.*, (o.offer_price*c.coupon_discount) as total_price, s.store_name, s.store_tel,s.STORE_ADDR, s.STORE_BUS, s.STORE_EMAIL,s.STORE_SUBWAY, t.storage_name, 
         t.STORAGE_PRICE, c.coupon_name
-		from offer o join store s
-		on (o.store_code = s.store_code)
-		join storage t
-		on (o.storage_code = t.storage_code)
-		join coupon c
-		on (o.COUPON_CODE = c.coupon_code)
-		where offer_code = #{offer_code}
+		FROM offer o JOIN store s
+		ON (o.store_code = s.store_code)
+		JOIN storage t
+		ON (o.storage_code = t.storage_code)
+		JOIN coupon c
+		ON (o.COUPON_CODE = c.coupon_code)
+		WHERE offer_code = #{offer_code}
 	</select>
 	
+	<!-- 사용자가 신청한 운송 신청 내역 -->
 	<select id="conveyListAll" resultType="MyPageVO" parameterType="MyPageVO">
-		select a.apply_code, a.apply_product, a.apply_start, a.apply_whether, s.store_name 
-		from convey_apply a, store s
-		where a.store_code = s.store_code and member_id = #{member_id}
+		SELECT a.apply_code, a.apply_product, a.apply_start, a.apply_whether, s.store_name 
+		FROM convey_apply a, store s
+		WHERE a.store_code = s.store_code 
+		AND member_id = #{member_id}
 	</select>
 	
+	<!-- 물품 운송 신청 상세 -->
 	<select id="myConveySelect" resultType="MyPageVO" parameterType="MyPageVO">
-		select a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>
-		from convey_apply a join store s
-		on (a.store_code = s.store_code)
+		SELECT a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>
+		FROM convey_apply a JOIN store s
+		ON (a.store_code = s.store_code)
 		<if test="use_num != null and use_num != ''">
-			join use_storage u
-			on (a.use_num = u.use_num)
+			JOIN use_storage u
+			ON (a.use_num = u.use_num)
 		</if> 
-		where apply_code = #{apply_code}
+		WHERE apply_code = #{apply_code}
 	</select>
 	
+	<!-- 지점 정보 리스트: 지도Api용 리스트에서 사용 -->
 	<select id="storeInfoSelect" resultType="MyPageVO">
-		select 	store_name, store_addr, store_code
-		from 	store
-		where store_code like 'ST%'
+		SELECT 	store_name, store_addr, store_code
+		FROM 	store
+		WHERE store_code LIKE 'ST%'
 	</select>
 	
+	<!-- 물품 운송 신청 등록 -->
 	<insert id="conveyInsert" parameterType="MyPageVO">
-		insert into convey_apply (apply_code, member_id, 
+		INSERT INTO convey_apply (apply_code, member_id, 
 				apply_addr, apply_product, apply_start, 
 				apply_end, apply_whether, use_num, store_code)
-		values('CA'||LPAD(ca_seq.nextval,3,0), #{member_id}, 
+		VALUES('CA'||LPAD(ca_seq.nextval,3,0), #{member_id}, 
 			#{apply_addr}, #{apply_product}, #{apply_start}, 
 			#{apply_end}, #{apply_whether}, 
-			(select use_num
-			 from use_storage
-			 where member_id = #{member_id}), 
+			(SELECT use_num
+			 FROM use_storage
+			 WHERE member_id = #{member_id}), 
 			#{store_code})
 	</insert>
 	
+	<!-- 사용자가 신청한 투어 리스트 -->
 	<select id="storeTourListAll" resultType="MyPageVO" parameterType="MyPageVO">
-		select t.*, s.store_name
-		from tour t, store s
-		where t.store_code = s.store_code
-		and member_id = #{member_id}
+		SELECT t.*, s.store_name
+		FROM tour t, store s
+		WHERE t.store_code = s.store_code
+		AND member_id = #{member_id}
 	</select>
 	
+	<!-- 투어 신청 등록 -->
 	<insert id="storeTourRegist" parameterType="MyPageVO">
-		insert into tour(tour_code, member_id, tour_tel, store_code, tour_date, tour_time) 
-		values('TR'||LPAD(tr_seq.nextval,3,0), #{member_id}, #{tour_tel}, #{store_code}, #{tour_date}, #{tour_time})
+		INSERT INTO tour(tour_code, member_id, tour_tel, store_code, tour_date, tour_time) 
+		VALUES('TR'||LPAD(tr_seq.nextval,3,0), #{member_id}, #{tour_tel}, #{store_code}, #{tour_date}, #{tour_time})
 	</insert>
 	
+	<!-- 투어 신청 취소 -->
 	<update id="cancelTour" parameterType="MyPageVO">
-		update tour 
-		set tour_cancel = #{tour_cancel}
-		where tour_code = #{tour_code}
+		UPDATE tour 
+		SET tour_cancel = #{tour_cancel}
+		WHERE tour_code = #{tour_code}
 	</update>
 	
+	<!-- 리뷰 등록 -->
 	<insert id="reviewRegist" parameterType="MyPageVO">
-		insert into review(review_num, review_title, review_content, review_date, store_code, member_id)
-		values(review_seq.nextval,#{review_title}, #{review_content}, sysdate, #{store_code}, #{member_id})
+		INSERT INTO review(review_num, review_title, review_content, review_date, store_code, member_id)
+		VALUES(review_seq.nextval,#{review_title}, #{review_content}, sysdate, #{store_code}, #{member_id})
 	</insert>
 	
+	<!-- 공지사항 상세 조회 -->
 	<select id="noticeSelect" resultType="MyPageVO" parameterType="MyPageVO">
-		select n.*, s.store_name
-		from notice n, store s
-		where n.store_code = s.store_code
-		and notice_num = #{notice_num}
+		SELECT n.*, s.store_name
+		FROM notice n, store s
+		WHERE n.store_code = s.store_code
+		AND notice_num = #{notice_num}
 	</select>
 	
-	<select id="couponList" resultType="MyPageVO">
-		select * 
-		from coupon
-	</select>
-	
+	<!-- 물품 컨디션 보고서 리스트 -->
 	<select id="reportList" resultType="MyPageVO" parameterType="MyPageVO">
-		select r.*, s.store_name
-		from condition_list r join use_storage u
-		on (r.use_num = u.use_num)
-		join store s
-		on (u.store_code = s.store_code)
-		where member_id = #{member_id}
+		SELECT r.*, s.store_name
+		FROM condition_list r JOIN use_storage u
+		ON (r.use_num = u.use_num)
+		JOIN store s
+		ON (u.store_code = s.store_code)
+		WHERE member_id = #{member_id}
 	</select>
 	
+	<!-- 물품 컨디션 보고서 상세 조회 -->
 	<select id="reportSelect" resultType="MyPageVO" parameterType="MyPageVO">
-		select r.*, s.store_name, u.use_start, u.use_end, o.offer_product
-		from condition_list r join use_storage u
-		on (r.use_num = u.use_num)
-		join store s
-		on (u.store_code = s.store_code)
-		join offer o
-		on (u.offer_code = o.offer_code)
-		where condition_num = #{condition_num}
+		SELECT r.*, s.store_name, u.use_start, u.use_end, o.offer_product
+		FROM condition_list r JOIN use_storage u
+		ON (r.use_num = u.use_num)
+		JOIN store s
+		ON (u.store_code = s.store_code)
+		JOIN offer o
+		ON (u.offer_code = o.offer_code)
+		WHERE condition_num = #{condition_num}
 	</select>
+	
+	<!-- MyPage 1:1 문의 내역 리스트 -->
+	<select id="myAskList" resultType="MyPageVO" parameterType="MyPageVO">
+		SELECT q.*, s.store_name 
+		FROM question q, store s
+		WHERE q.store_code = s.store_code
+		AND member_id = #{member_id}
+		ORDER BY question_group DESC
+	</select>
+	
+	<!-- My Page 1:1 문의 등록 -->
+	<insert id="registAsk" parameterType="MyPageVO">
+		INSERT INTO question
+		VALUES(question_seq.nextval, 1, #{question_content}, null, #{store_code}, #{member_id}, sysdate, question_seq.nextval)
+	</insert>
 </mapper>

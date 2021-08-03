@@ -69,4 +69,12 @@ public interface MyPageService {
 	public List<MyPageVO> reportList(MyPageVO vo);
 	// 보고서 상세 보기
 	public MyPageVO reportSelect(MyPageVO vo);
+	
+	//--------------1:1문의 페이지-------------------
+	
+	// 사용자의 1:1 문의 내역 리스트
+	public List<MyPageVO> myAskList(MyPageVO vo);
+	
+	// 1:1 문의 등록
+	public int registAsk(MyPageVO vo);
 }

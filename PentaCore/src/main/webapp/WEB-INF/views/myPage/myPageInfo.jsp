@@ -144,8 +144,7 @@
 				<br>
 				<div class="btns-range-bottom">
 					<button class="btns" onclick="location.href='memberInfoEdit'">회원정보<br>수정</button>
-					<button class="btns" onclick="location.href='#'">1:1문의내역</button>
-					<button class="btns" onclick="location.href='coupon'">Coupon & Events</button>
+					<button class="btns" onclick="location.href='myAsk'">1:1문의내역</button>
 				</div>
 			</div>
 		</div>

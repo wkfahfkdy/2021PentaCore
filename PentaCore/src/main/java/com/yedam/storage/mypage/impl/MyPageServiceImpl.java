@@ -1,6 +1,7 @@
 package com.yedam.storage.mypage.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +153,20 @@ public class MyPageServiceImpl implements MyPageService {
 	public MyPageVO reportSelect(MyPageVO vo) {
 		// 보고서 상세보기
 		return sqlSession.selectOne("reportSelect", vo);
+	}
+
+	//--------------1:1 문의 페이지-----------------	
+	
+	@Override
+	public List<MyPageVO> myAskList(MyPageVO vo) {
+		// 사용자의 1:1 문의 내역 리스트
+		return sqlSession.selectList("myAskList", vo);
+	}
+
+	@Override
+	public int registAsk(MyPageVO vo) {
+		// 1:1 문의 등록
+		return 0;
 	}
 
 
