@@ -26,9 +26,15 @@
 		location.href = "iqAdmin?page=" + page;
 	}
 	
-	 function show(id) { // 나중에,,,요? 
-		console.log();
-		document.getElementById('showme'+id).style.display = 'block';
+	// div 열고 닫기
+	 function show(id) { 
+		 var div = document.getElementById('showme'+id);
+		 if (div.style.display === 'none') {
+			 div.style.display = 'table-row';
+		 } else {
+			 div.style.display = 'none';
+		 }
+		 
 	} 
 	
 	
@@ -42,19 +48,18 @@
 	</div>
 	
 	<div style="clear:both; width: 100%; height: 20px;"></div>
-	+
+	
 	<!-- === TABLE DEFAULT === -->
 	
 	<div class="bs-example" style="width: 70%; margin-left: 15%; text-align: left; ">
 		<table class="table">
-		<tbody>
 		<c:forEach items="${bolist }" var="vo">
 			<tr id="add${vo.question_num}">
 				<c:choose>
 					<c:when test="${vo.question_parents eq '1'}">
 						<td>${vo.question_content }</td>
 					</c:when>
-					<c:otherwise>
+					<c:otherwise> 
 						<td><img src="resources/assets/images/re.png"> &nbsp;
 							${vo.question_content }</td>
 					</c:otherwise>
@@ -75,19 +80,19 @@
 				</td>
 			</tr>					
 			<tr id="showme${vo.question_num }" style="display:none;"  >
-				<td colspan="3" id="${vo.question_num }">
+				<td colspan="2" id="${vo.question_num }">
 					<form id="frm" name="frm" action="replyInsert" method="POST">
-						<input size="100%" style="width:100%; background-color:#fff;"
+						<input size="150" style="width:100%; background-color:#fff;"
 								type="text" id="question_content" name="question_content"
-								value="답변을 입력해주세오!" 
+								onfocus="this.value=''; return true" value="답변을 입력해주세오!" 
 								/>
 						<input type="hidden" name ="question_group" value="${vo.question_num }">
 					</form>	
 				</td>
-				<td style="text-align: right;">
-					<button style="width: 30px" 
+				<td colspan="2" >
+					<button style="width: 30px"
 						type="button" onclick="formCheck(${vo.question_num})">
-						<a style="padding-top: 20px;">확인</a></button>	
+						<a >확인</a></button>	
 				</td>
 			</tr>
 		</c:forEach>
