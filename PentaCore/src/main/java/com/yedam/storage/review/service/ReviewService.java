@@ -8,5 +8,6 @@ import com.yedam.storage.review.vo.ReviewVO;
 public interface ReviewService {
 
 	//리스트 출력
-		public List<ReviewVO> reviewList(int count);
+		public List<ReviewVO> reviewList();
+		public List<ReviewVO> reviewListPaging(ReviewVO vo);
 }

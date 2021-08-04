@@ -25,4 +25,7 @@ public class ReviewVO {
 	//join
 	private String member_name;
 	private String store_name;
-}
+	private int firstCnt;
+	private int lastCnt;
+		
+	}

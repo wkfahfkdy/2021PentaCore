@@ -16,10 +16,23 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	private SqlSession sqlSession;
 
+	
 	@Override
-	public List<ReviewVO> reviewList(@Param("count") int count) {
-		return sqlSession.selectList("reviewList", count);
+	public List<ReviewVO> reviewList() {
+		return sqlSession.selectList("reviewList");
+	}
+
+
+	@Override
+	public List<ReviewVO> reviewListPaging(ReviewVO vo) {
+		return sqlSession.selectList("reviewListPaging", vo);
 	}
 	
+	
+	
+	/*
+	 * @Override public List<ReviewVO> reviewList(@Param("count") int count) {
+	 * return sqlSession.selectList("reviewList", count); }
+	 */	
 	
 }
