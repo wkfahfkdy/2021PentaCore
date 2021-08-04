@@ -51,7 +51,7 @@ private String member_disable;
 </select>
 <!-- Session 저장용 -->
 <select id="UseCodeInfo" parameterType="MyPageVO" resultType="MyPageVO">
-		select 	store_code 
+		select DISTINCT	store_code 
 		from 	use_storage 
 		where 	member_id = #{member_id}
 </select>
