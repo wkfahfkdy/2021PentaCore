@@ -13,28 +13,6 @@
 		padding: 50px 10px;
 		width: 90%;
 	}
-	
-	.back-btn {
-    	background-color: #006DFC;
-		border-radius: 0.3em;
-		color: white;
-		font-size: 12pt;
-		padding: 0.4em;
-    }
-    
-    .apply-btn {
-    	background-color: #00c0e2;
-		border-radius: 0.3em;
-		color: white;
-		font-size: 12pt;
-		padding: 0.4em;
-    }
-    
-    .choice-store {
-    	margin: 2em 0em;
-    	text-align: right;
-    	width: 90%;
-    }
     
     #my-ask {	/*모달창*/
         display: none;
@@ -53,16 +31,69 @@
     
     .ask-table {
     	display: table;
-    	width: 60%;
+    	width: 100%;
     	margin-top: 2em;
     	border-top: 1px solid #00c0e2;
     }
     
-    .form-title, .choice-store, .form-area, .bts {
+    .ask-row1, .ask-row2, .ask-row3 {
     	display: table-row;
+    }
+
+    .form-title, .ct-title, .choice-store, .ct-content, .ct-content2, .form-area, .bts {
+    	display: table-cell;
     	height: 2em;
     }
+
+	.back-btn {
+    	background-color: #006DFC;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }
     
+    .apply-btn {
+    	background-color: #00c0e2;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }
+    
+    .choice-store {
+    	margin: 2em 0em;
+    }
+    
+    .cs-call {
+    	background-color: #00c0e2;
+		border-radius: 0.3em;
+		color: white;
+		font-weight: bold;
+		font-size: 20pt;
+		width: 15em;
+		height: 2em;
+    }
+    
+    .cs-mail {
+    	background-color: #819FF7;
+		border-radius: 0.3em;
+		color: white;
+		font-weight: bold;
+		font-size: 18pt;
+		width: 16.5em;
+		height: 2.3em;
+    }
+    
+    input[type="text"] {
+		background: white;
+		border: 1px solid #5fd3e8;
+		border-radius: 0.3em;
+		width: 42%;
+		height: 2.5em;
+		padding: 5px;
+		margin: 2em 0em;
+	}
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -101,13 +132,20 @@
 		    <div class="modal-body"></div>
 	    </div>
 	</div>
-	<div class="ask-table">
-		<div class="at-from">
-			<div class="form-title">
-				<h3 align="left">1:1 문의하기</h3>
+	<form id="frm" action="registAsk" method="POST">
+		<div class="ask-table">
+			<div class="ask-row1">
+				<div class="form-title">
+					<h3 align="left">1:1 문의하기</h3>
+				</div>
+				<div class="ct-title">
+					<h3 align="left" style="margin-left: 1em;">무엇이든 물어보세요!</h3>
+				</div>
 			</div>
-			<form id="frm" action="" method="POST">
-				<div class="choice-store">
+			<div class="ask-row2">
+				<div class="choice-store" style="width:60%;">
+					제목&nbsp;&nbsp;<input type="text" id="question_title" name="question_title" />
+					&nbsp;&nbsp;&nbsp;&nbsp;
 					<font style="color: #00c0e2;">
 						*문의를 원하시는 지점을 선택해주세요&nbsp;&nbsp;
 					</font>
@@ -117,21 +155,37 @@
 						</c:forEach>
 					</select>
 				</div>
+				<div class="ct-content" align="left" style="padding-left: 2em;">
+					법인, 특수목적 등 별도 문의가 필요한 경우는<br>
+					대표 고객센터로 연락하시거나 메일로 문의사항을 제출해주세요.
+				</div>
+			</div>
+			<div class="ask-row3">
 				<div class="form-area" align="center">
 					<textarea id="question_content" name="question_content"></textarea>
 				</div>
-				<div class="bts">
-					<button type="submit" class="apply-btn">등록</button>&nbsp;&nbsp;
-					<button class="back-btn" style="margin: 1em 0em;">돌아가기</button>
+				<div class="ct-content2" style="vertical-align: top;">
+					<div style="padding:1em 0em;">
+						<button class="cs-call" type="button">1661-5959</button><br>
+					</div>
+					<div>
+						월-일 10:00 ~ 18:00, 점심시간 12:00 ~ 13:00
+					</div>
+					<div style="padding:1em 0em;">
+						<button class="cs-mail" type="button">cs_center@mystorage.kr</button>
+					</div>
 				</div>
-			</form>
+			</div>
+			<div class="bts">
+				<button type="submit" class="apply-btn">등록</button>&nbsp;&nbsp;
+				<button class="back-btn" style="margin: 1em 0em;">돌아가기</button>
+			</div>
 		</div>
-	</div>
+	</form>
 </div>
 <script>
 // 문의 내역 그리드 생성
 $(document).ready(function() {
-	var list = '<c:out value="${myAskList}"/>';
 	const Grid = tui.Grid;
 	
 	const myAskData = [
@@ -140,7 +194,14 @@ $(document).ready(function() {
 		{
 			question_num: '${list.question_num}',
 			store_name: '${list.store_name}',
-			question_title: '${list.question_title}...',
+			<c:choose>
+				<c:when test="${empty list.question_title}">
+					question_title: '제목이 없습니다.',
+				</c:when>
+				<c:otherwise>
+					question_title: '${list.question_title}',
+				</c:otherwise>
+			</c:choose>
 			question_date: '<fmt:formatDate value="${list.question_date}" pattern="yy-MM-dd" />',
 		}
 			<c:if test="${not status.last}">,</c:if>
@@ -164,7 +225,7 @@ $(document).ready(function() {
 			align: 'center',
 		},
 		{
-			header:  '문의 내용',
+			header:  '문의 제목',
 			name: 'question_title',
 			align: 'center',
 		},
@@ -188,7 +249,7 @@ $(document).ready(function() {
 		var target = ev;
 		
 		var myAsk = askGrid.getValue(ev.rowKey,'question_num');
-		console.log(myConvey);
+		console.log(myAsk);
 		
 		$.ajax({
 			url: 'myAsk/'+myAsk,

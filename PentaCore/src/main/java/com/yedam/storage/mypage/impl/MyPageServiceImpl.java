@@ -166,7 +166,7 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int registAsk(MyPageVO vo) {
 		// 1:1 문의 등록
-		return 0;
+		return sqlSession.insert("registAsk", vo);
 	}
 
 
