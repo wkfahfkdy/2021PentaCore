@@ -5,8 +5,424 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.wrap {
+			margin: auto;
+			text-align: center;
+			padding: 50px 10px;
+			width: 90%;
+		}
+		
+	.convey-list {
+		padding: 30px 50px;
+		
+	}
+	
+	.convey-Reg {
+		padding: 7% 7%;
+	}	
+	
+	.list-info {
+		text-align: right;
+		color: gray;
+	}
+	
+	input[type="text"] {
+		background: white;
+		border: 1px solid #5fd3e8;
+		border-radius: 0.3em;
+		width: 100%;
+		height: 25px;
+		padding: 5px;
+	}
+	
+	.convey-form {
+		display: table;
+		border-top: 2px lightgray solid;
+		padding-top: 20px;
+		width: 100%;
+		
+	}
+	
+	.form-memtitle {
+		display: table-cell;
+		width: 15%;
+		padding: 3px;
+		padding-left: 30px;
+	}
+	
+	.form-memtitle>.title {
+		text-align: left;
+		width: 100%;
+		padding: 2px; 
+		line-height: 2.5em;
+	}
+	
+	.form-memdata {
+		display: table-cell;
+		width: 35%
+	}
+	
+	.form-memdata>.mem-data {
+		padding: 3px;
+		width: 100%;
+		text-align: left;
+	}
+	
+	.form-contitle {
+		display: table-cell;
+		width: 15%;
+		padding: 3px;
+		padding-left: 30px;
+	}
+	
+	.form-contitle>.con-title {
+		padding: 3px;
+		text-align: left;
+		height: 4.6em;
+	}
+	
+	.form-condata {
+		display: table-cell;
+		width: 35%;
+	}
+	
+	.form-condata>.con-data {
+		padding: 3px;
+		text-align: left;
+	}
+	
+	#my_convey {	/*모달창*/
+        display: none;
+        width: 50%;
+        padding: 30px 50px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
+    }
+
+    #my_convey .modal_close_btn {	/*모달창 닫기버튼*/
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    
+    #cancel {	/*모달 신청 취소 버튼*/
+    	background: #00c0e2;
+    	border-radius: 0.3em;
+    	color: white;
+    	padding: 8px;
+    }
+    
+    .comment {	/*모달 내용 작은 코멘트*/
+    	font-size:9pt;
+    	color:#00c0e2;
+    	margin: 0 0 0;
+    }
+    
+    .mo-tbl {	/*모달 테이블 내용*/
+    	padding: 3px;
+    }
+    
+    .store-pick {
+    	display: table;
+    	width: 100%;
+    	padding-top: 3%;
+    }
+    
+    .store-list {
+    	display: table-cell;
+    	width: 45%;
+    }
+    
+    .store-mAp {
+    	display: table-cell;
+    	width: 55%;
+    }
+    
+    #choice-btn, .apply-btn {
+    	background-color: #00c0e2;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }
+    
+    .back-btn {
+    	background-color: #006DFC;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }   
+    
+    
+    /* 퀵메뉴 */
+    div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding:0;margin:0}
+a {text-decoration:none;}
+
+.quickmenu {position:absolute;width:90px;top:50%;margin-top:-50px;right:10px;background:#fff;}
+.quickmenu ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;border:1px solid #ddd;}
+.quickmenu ul li {float:left;width:100%;border-bottom:1px solid #ddd;text-align:center;display:inline-block;*display:inline;}
+.quickmenu ul li a {position:relative;float:left;width:100%;height:30px;line-height:30px;text-align:center;color:#999;font-size:9.5pt;}
+.quickmenu ul li a:hover {color:#000;}
+.quickmenu ul li:last-child {border-bottom:0;}
+
+.content {position:relative;min-height:1000px;}
+    
+</style>
+<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<!-- 해당div 이동 -->
+<script>
+	function alertRegi(check) {
+
+    	if (check == "no") {
+        	var check = confirm("LOGIN 후 사용가능합니다!")
+        	if (check == true) {
+        		location.href = "memberLoginForm";
+        	} else {
+        		location.href = "keep";
+        	}
+    	} else {
+    		
+    		if($('#apply_start').val() == ""){
+    			alert("픽업 날짜를 입력하세요.");
+    			$('#apply_start').focus();
+    			return false;
+    		}
+    		if($('#apply_end').val() == ""){
+    			alert("출고 날짜를 입력하세요.");
+    			$('#apply_end').focus();
+    			return false;
+    		}
+    		
+    		var data = $("form[id=frm]").serialize() ;
+    		console.log(data);
+    		
+    		$.ajax({
+    			url: 'keepInsert',
+    			type: 'POST',
+    			data : data,
+    			success : function(result) {
+    				alert("보관이사 신청이 완료되었습니다!");
+    				location.reload();
+    			},
+    			error : function(xhr,status, msg) {
+    				alert("보관이사 신청에 실패하였습니다.  상태값 : "+ status + "  에러메시지 : " + msg);
+    			}
+    		})
+    		
+    	}
+	}
+	
+	$(document).ready(function(){ 
+		var currentPosition = parseInt($(".quickmenu").css("top")); 
+		$(window).scroll(function() { var position = $(window).scrollTop(); 
+			$(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000); 
+		}); 
+	});
+
+	
+</script>
 </head>
 <body>
-	<h1>안심보관이사</h1>
+		<div class="wrap">
+		<!-- 서비스소개 및 QnA -->
+		<div class="scrollBtn"> 
+			<div class="quickmenu"> 
+				<ul> 
+					<li><a href="#">등급별혜택</a></li> 
+					<li><a href="#">1:1문의</a></li> 
+					<li><a href="#">후기</a></li> 
+				</ul> 
+			</div>
+		</div>
+		<div>
+			<img style="width: 100%" src="${pageContext.request.contextPath }/resources/img/moving.jpg">
+		</div>
+		<div align="center" style="padding-top: 5%;">
+			<h4>다락 안심보관이사</h4>
+			<h1><b>어떤 서비스인가요?</b></h1> <br>
+			<h5>다락 안심보관이사란 다락만의 IoT기술을 기반으로 </h5>
+			<h5>항온항습 및 100% 살균 보관 환경에서 고객님의 이삿짐을 케어해드리는 프리미엄 서비스입니다.</h5>
+		</div>
+	
+		<!-- 보관이사신청 입력폼 -->
+		<div class="convey-Reg" id="scrollDiv">
+			<div align="left">
+				<h4>보관이사 신청</h4><br>
+				<p class="comment">*더욱 자세한 상담을 위해 마이스토리지에서 고객님께 연락을 드립니다.</p>
+			</div>
+			<form id="frm" action="keepInsert" method="post">
+				<div class="convey-form">
+					<div class="form-memtitle">
+						<div class="title">신청자 이름</div>
+						<div class="title">전화번호</div>
+						<div class="title">현재 주소</div>
+						<div class="title">이사규모</div>
+						<div class="title">이용 희망 지점</div>
+					</div>
+					<div class="form-memdata">
+						<div class="mem-data"><input type="text" id="apply_id" name="apply_id" value="${loginName }" /></div>
+						<div class="mem-data" style="line-height: 2.5em;"><input type="text" id="apply_tel" name="apply_tel" value="${loginTel }" /></div>
+						<div class="mem-data" style="line-height: 2.5em;"><input type="text" id="apply_addr" name="apply_addr" value="${loginAddr }" /></div>
+						<div class="mem-data" ><input type="text" id="apply_product" name="apply_product" value="ex) 원룸, 아파트21평 ..." /></div>
+						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left; color: #00c0e2">
+												아래의 지점 리스트에서 선택해주세요.</div>
+					</div>
+					<div class="form-contitle">
+						<div class="con-title">픽업 희망 날짜</div>
+						<div class="con-title">출고 희망 날짜</div>
+					</div>
+					<div class="form-condata">
+						<div class="con-data"><input type="date" id="apply_start" name="apply_start" /><br>
+											<p style="color: gray; font-size: 8pt; line-height: 1em; margin: 0.4em 0em 0em; color: red;">
+											*보관 이사 신청 시 픽업을 원하는 날짜를 선택해주세요.<br>
+											 단순 출고의 경우에도 꼭! 출고날짜와 동일한 날짜를 선택
+											 해주세요.</p></div>
+						<div class="con-data"><input type="date" id="apply_end" name="apply_end" /><br>
+											<p style="color: gray; font-size: 8pt;">*보관 물품을 출고할 날짜를 선택해주세요.</p></div>
+					</div>
+				</div>
+				<div class="store-pick">
+					<div class="store-list">
+						<h4 id= "choice-store" align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
+						<button type="button" id="choice-btn" style="font-size: 9pt; font-weight: normal;">지점선택</button>
+						</h4>
+						<div id="storeGrid"></div>
+					</div>
+					<div class="store-mAp">
+						<h4 align="left">지점 지도</h4>
+						<div id="map" style="width:100%;height:400px;"></div>
+					</div>
+				</div>
+				<div style="padding: 20px;">
+					<input type="hidden" name="store_code" id="apply" value="" />
+					<button class="apply-btn" type="button" onclick="alertRegi('${chk}')">신청하기</button>&nbsp;&nbsp;
+					<button class="back-btn" type="button" onclick="history.back()">뒤로가기</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a66ba8e60100e68a1df7756407ad0bb&libraries=services"></script>
+<script>
+	// TOAST GRID로 먼저 지점 리스트를 불러온 후, 클릭 시 웹사이트 화면 아래의 지도가 바뀌도록 구현
+	// KakaoMap
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 (default 값)
+	        level: 3 // 지도의 확대 레벨
+	    };  
+	
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	$.ajax({
+		url:'storeInfo',
+		dataType:'json',
+		success:function(data){
+			// TOAST GRID
+			
+			const recruitGrid = new tui.Grid({
+				el: document.getElementById('storeGrid'), 
+				data: data,
+				columns: [ 
+					{ 
+						header: '지점명', 
+						name: 'store_name', 
+						align: 'center',
+						width: 90,
+						filter: 'select'
+					}, 
+					{ 
+						header: '지점코드', 
+						name: 'store_code', 
+						align: 'center',
+						width: 80,
+						filter: 'select'
+					},
+					{ 
+						header: '주소', 
+						name: 'store_addr', 
+						align: 'center',
+						filter: 'select'
+					} 
+				],
+				
+				// 무한 스크롤 - 그냥 페이징처리할땐 BodyHeight 필요없음
+				bodyHeight: 357,
+				pageOptions: {
+					// 무한 스크롤 혹은 페이징 처리 시 기능 사용한다는 옵션
+					useClient: true,
+				    // 무한스크롤 옵션 
+				    type: 'scroll'
+				}
+			});
+			
+
+			// GRID 클릭 시
+			recruitGrid.on('click', function(ev) {
+				var target = ev
+				// 클릭 시 console에 지점 주소 출력
+				var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
+				var s_code = recruitGrid.getValue(ev.rowKey,'store_code');
+				var s_name = "";
+				//console.log(contents);
+				
+			 	// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(contents, function(result, status) {
+				
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker = new kakao.maps.Marker({
+				            map: map,
+				            position: coords
+				        });
+				
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				        var infowindow = new kakao.maps.InfoWindow({
+				        	// 지도 마커에 적힌 내용 수정하는 곳
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;">지점 위치</div>'	
+				        });
+				        infowindow.open(map, marker);
+				
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(coords);
+				    } 
+				}); 
+			 	//지점 선택 버튼을 클릭시 선택된 지점의 주소값을 input hidden의 value로 추가
+			 	$('#choice-btn').on('click', function() {
+			 		console.log($('#apply').attr('value'));
+		 			$("#apply").attr('value',s_code);
+		 			
+		 			let sName = document.getElementById('mem-data-st');
+		 			console.log(sName.innerHTML);
+		 			
+		 			if(sName.innerHTML != null) {
+		 				sName.innerHTML = '';
+		 				s_name= recruitGrid.getValue(ev.rowKey,'store_name');
+		 				sName.innerHTML = s_name;
+		 			}
+		 			
+		 			console.log(sName.innerHTML);
+		 			console.log($('#apply').attr('value'));
+				})
+			  
+			});
+			
+		}, // success 닫힘
+		error: function(err){
+			console.log(err);
+		}
+	})
+</script>
 </body>
 </html>
