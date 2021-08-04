@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yedam.storage.review.common.Paging;
 import com.yedam.storage.review.serviceImpl.ReviewServiceImpl;
 import com.yedam.storage.review.vo.ReviewVO;
 
@@ -24,22 +25,31 @@ public class ReviewController {
 	// ------------------------------- 이용후기 ------------------------------ //
 	
 	//이용후기 페이지 이동
+		
 		@RequestMapping("reviewList")
-		public String loginForm(HttpServletRequest request, Model model) {
+		public String newBook(Model model , ReviewVO vo , HttpServletRequest req) {
+			String page = req.getParameter("page");
+			//요청받은 페이지번호
+			if(page == null) {
+				page = "1";
+			}
+			//10개씩 페이징
+			int pageCnt = Integer.parseInt(page);
+			int firstCnt = (pageCnt - 1) * 10 + 1; // 1 , 11 ,21
+			int lastCnt = (pageCnt * 10); // 10 , 20 , 30
+			vo.setFirstCnt(firstCnt);
+			vo.setLastCnt(lastCnt);
 			
-			List<ReviewVO> list1 = reviewDAO.reviewList(0);
-			List<ReviewVO> list2 = reviewDAO.reviewList(6);
-			List<ReviewVO> list3 = reviewDAO.reviewList(12);
-			
-
-			request.setAttribute("list1", list1);
-			request.setAttribute("list2", list2);
-			request.setAttribute("list3", list3);
-			
+			List<ReviewVO> total = reviewDAO.reviewList();//전체 검색결과
+			Paging paging = new Paging();
+			paging.setPageNo(pageCnt);//요청받은 페이지
+			paging.setPageSize(10);//한페이지에 보여줄 값
+			paging.setTotalCount(total.size());//페이지에 필요한 변수 생성
+		    
+			model.addAttribute("paging", paging);//페이징에 필요한 값
+			model.addAttribute("reviewList", reviewDAO.reviewListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
 			return "review/reviewList";
 		}
-		
-	
 	
 	
 }
