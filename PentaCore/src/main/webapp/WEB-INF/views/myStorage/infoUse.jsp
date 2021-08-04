@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html> <head> <meta charset="UTF-8">
 <style type="text/css">
@@ -130,41 +131,12 @@
     });
     
     //클릭시 스와이퍼 및 해당글 나오도록!
-    
-    //function aClick() {
-    	
-    //	var slim = document.getElementById('slim');
-	 // 	var cube = document.getElementById('cube');
-    	
-   // 	if(slim.src.match("i_slim")) {
-    //		slim.src = "${pageContext.request.contextPath }/resources/storage_img/slim_c.png";
-    //		slider.slideTo($('.swiper-slide').data("id"))
-    //	} else if (slim.src.match("slim_c")){
-   // 		slim.src = "${pageContext.request.contextPath }/resources/storage_img/i_slim.png";
-    //	} else if (cube.src.match("i_cube")) {
-    //		cube.src = "${pageContext.request.contextPath }/resources/storage_img/cube_c.png";
-    //	} else if (cube.src.match("cube_c")) {
-    //		cube.src = "${pageContext.request.contextPath }/resources/storage_img/i_cube.png";
-    //	}
-    //}
-    
     function storageImage(storage_code, image){
     	//console.log($('#testImage'+storage_code).parent().data("id"));
     	var imageIndex = parseInt($('#testImage'+storage_code).parent().data("id"));
 
     	console.log(imageIndex);
     	slider.slideTo($('.swiper-slide').data("id")*1 + imageIndex, 1000);
-    	
-    	console.log("123"+event.target);
-    	
-    	var et = event.target;
-    	//var img = et.getElementById('image');
-    	
-  //  	if(imageIndex == 0 ) {
-  //  		et.src = "${pageContext.request.contextPath }/resources/storage_img/slim_c.png";
-   // 	} else if (imageIndex == 1) {
-  //  		et.src = "${pageContext.request.contextPath }/resources/storage_img/cube_c.png";
-   // 	} else if ()
     	
         //이전 스토리지는 해제  ( c_ -> i_)
         if(typeof $(".s").attr("src") !== 'undefined') {
@@ -177,10 +149,21 @@
        $(".s").attr('src',"${pageContext.request.contextPath }/resources/storage_img/c_" + image);
         
       }
-	  
     
     
-      
+    function loginChk(check) {
+    	if (check == "no") {
+        	var check = confirm("LOGIN 후 사용가능합니다!")
+        	if (check == true) {
+        		location.href = "memberLoginForm";
+        	} else {
+        		location.href = "infoUse";
+        	}
+    	} else {
+    		location.href="selfOffer";
+    	}
+    }
+    
 </script>
 </head>
 <body>
@@ -265,9 +248,13 @@
 					</div>
 				</div>
 				<div style="padding-top: 5%;">
-					<h4 style="color: #58ACFA">지금 시작해보세요 > </h4>
+					<button><h4 style="color: #58ACFA"> ✔ 지금 시작해보세요 </h4></button>
 				</div>
-			
+				<div><br>
+					<button class="btn btn-primary btn-lg" type="button" onclick="loginChk('${chk}')"
+						style="background-color:#58ACFA; width: 70%;"">
+						<h4>셀프견적 바로가기</h4></button>
+				</div>
 			</div>
 		</div>
 	</div>	

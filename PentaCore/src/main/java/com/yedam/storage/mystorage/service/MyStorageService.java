@@ -8,6 +8,6 @@ public interface MyStorageService {
 	
 	//안심보관이사
 	public List<MyStorageVO> keepList();
-	public int keepInsert();
+	public int keepInsert(MyStorageVO vo);
 
 }
