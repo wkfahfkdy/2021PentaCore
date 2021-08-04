@@ -1,5 +1,6 @@
 package com.yedam.storage;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -92,6 +93,23 @@ public class HomeController {
 	// 투어관리 예제 페이지 이동
 	@RequestMapping("tourTest")
 	public String tourTest() {
+		
+		UserDetails userDetails =
+				(UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		String id = userDetails.getUsername();
+		String store_code = memberDAO.empStoreCode(id);
+		
+		TourVO vo = new TourVO();
+		vo.setStore_code(store_code);
+		List<TourVO> list = tourDAO.tourManageEx(vo);
+		for(int i = 0; i < list.size(); i++) {
+			String time =  list.get(i).getTour_time();
+			String subtime = time.substring(3,5);
+			Date date = list.get(i).getTour_date();
+			System.out.println(date);
+		}
+		
 		return "test/tourManage";
 	}
 	
@@ -103,7 +121,7 @@ public class HomeController {
 		// Map에서 TOUR_DATE를 가져올때 TO_CHAR을 이용하여 'YYYY-MM-DD'로 가져와야한다
 		// 예시 - TOUR_DATE : 2021-08-04, TOUR_TIME : PM 15:00 ~ 16:00
 		// 		> String time = vo.gettour_time
-		// 		> String subtime = time.substr(4,2) << 아마 15 나올듯??
+		// 		> String subtime = time.substr(3,5) << 아마 15 나올듯??
 		// 		> String date = vo.gettour_date + "T" + subtime
 		//		> 하면 나올 것 같다
 		// 가져와야 하는 값 : store_id / member_name(id로 join) / tour_date / tour_time
@@ -119,6 +137,10 @@ public class HomeController {
 		TourVO vo = new TourVO();
 		vo.setStore_code(store_code);
 		List<TourVO> list = tourDAO.tourManageEx(vo);
+		for(int i = 0; i < list.size(); i++) {
+			String time =  list.get(i).getTour_time();
+			System.out.println(time.substring(3,5));
+		}
 		
 		return list;
 	}

@@ -5,7 +5,7 @@
 	<select id="tourManageEx" parameterType="com.yedam.storage.tour.vo.TourVO" resultType="com.yedam.storage.tour.vo.TourVO">
 			select 	*
 			from 	tour
-			where 	store_id = #{store_id}
+			where 	store_code = #{store_code}
 	</select>
 
 </mapper>

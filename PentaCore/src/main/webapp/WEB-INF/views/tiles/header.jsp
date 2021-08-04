@@ -112,6 +112,10 @@
 								<li>
 									<!-- API 테스트 용 -->
 									<a href="kakaoMapTest">KakaoMapTest</a>
+								</li>tourTest
+								<li>
+									<!-- 투어 예제 -->
+									<a href="calendarTest">CalendarTest</a>
 								</li>
 							</ul>
 						</li> 
