@@ -169,6 +169,14 @@
       	
         // Form Submit Button
         $('#offerInsertBtn').click(function () {
+        	// product 비어있을때
+	        if($('#hiddenOfferProduct').val() == ""){
+	      		alert("선택 된 물품이 없습니다.");
+	      		return false;
+	      	} else{
+	      		$('#offerProduct').html($('#hiddenOfferProduct').val());
+	      		return true;
+	      	}
       	 pickupServiceFnc(); // 층수 + 박스value를 #hiddenOfferPickup에 Append 해줌
       	 
          console.log($('#hiddenOfferProduct').val());
@@ -1048,7 +1056,52 @@ input[type='number'] {
 							    	</div>
 							    	<form>
 								    	<div class="modal-body">
-								    		<p>Some text in the modal.</p>
+								    		<table id="modalTable">
+								    			<tr>
+								    				<td>사이즈</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>이용기간</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>이용지점</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>렌탈용품</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>보관용품</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>쿠폰 / 할인</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>픽업 서비스</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>세탁 서비스</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>예상 월 이용금액</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>예상 첫달 이용금액</td>
+								    				<td></td>
+								    			</tr>
+								    			<tr>
+								    				<td>무슨지점</td>
+								    				<td>지도 / 오시는길</td>
+								    			</tr>
+								    		</table>
 								    	</div>
 								    	<div class="modal-footer">
 								    		<button type="button" class="btn btn-default">결정</button>
