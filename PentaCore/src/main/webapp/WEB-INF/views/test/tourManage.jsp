@@ -4,12 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!--  
-	테스트 변경사항 : dropdown-menu -> dropdown-menu2
-			이유 : 기존 tiles - header 에서도 dropdown-menu 사용으로 인해서 css가 맞지않음
--->
-
-<!-- 나중에 실제작 시 js 및 css 위치 변경 필요? -->
 <link rel="stylesheet" type="text/css" href="resources/fullcanlendar/tui-calendar.css" />
 <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css">
 <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">
@@ -65,17 +59,7 @@ cal.createSchedules([
     {
         
         calendarId: '1',
-        title: '대구 달성군 동동읍 고양이로5959 3층 302호',
-        body: '이거랑 저거',
-        category: 'time',
-        start: '2021-08-04T09:00:00',
-        end: '2021-08-04T18:00:00+09:00'
-    },
-    {
-        
-        calendarId: '1',
         title: '대구 중구 중앙로역 6번 출구',
-        body: '저거랑 그거랑 거기꺼',
         category: 'time',
         bgColor : '#bbdc00',
         start: '2021-08-05T09:00:00+09:00',
@@ -86,5 +70,6 @@ cal.createSchedules([
 
 
 </script>
+
 </body>
 </html>

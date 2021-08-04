@@ -43,17 +43,24 @@ private String member_disable;
 </select>	
 
 
-
+<!-- Session 저장용 -->
 <select id="memberInfo" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
 		select 	member_id, member_name, member_tel, member_addr
 		from 	id_all_check
 		where 	member_id = #{member_id}
 </select>
-
+<!-- Session 저장용 -->
 <select id="UseCodeInfo" parameterType="MyPageVO" resultType="MyPageVO">
 		select 	store_code 
 		from 	use_storage 
 		where 	member_id = #{member_id}
+</select>
+
+<!-- 지점 관리자의 지점 코드 값 -->
+<select id="empStoreCode" parameterType="String" resultType="String">
+		select 	store_code
+		from 	employees
+		where 	employee_id = #{employee_id}
 </select>
 	
 	

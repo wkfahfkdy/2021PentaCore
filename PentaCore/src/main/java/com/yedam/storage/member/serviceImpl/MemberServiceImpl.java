@@ -112,6 +112,11 @@ public class MemberServiceImpl implements MemberService {
 		return sqlSession.update("employeeAddrUpdate",hash);
 	}
 
+	@Override
+	public String empStoreCode(String p) {
+		return sqlSession.selectOne("empStoreCode", p);
+	}
+
 
 	
 

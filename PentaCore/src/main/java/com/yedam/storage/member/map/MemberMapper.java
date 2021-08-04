@@ -36,4 +36,6 @@ public interface MemberMapper {
 	public int employeeEmailUpdate(HashMap<String, Object> hash);
 	public int employeePhoneUpdate(HashMap<String, Object> hash);
 	public int employeeAddrUpdate(HashMap<String, Object> hash);
+	//employee 지점코드값
+			public String empStoreCode(String p);
 }

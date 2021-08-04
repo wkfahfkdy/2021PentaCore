@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yedam.storage.coupon.service.CouponService;
 import com.yedam.storage.division.service.DivisionService;
 import com.yedam.storage.laundryinfo.service.LaundryInfoService;
+import com.yedam.storage.member.serviceImpl.MemberServiceImpl;
+import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.rental.service.RentalService;
 import com.yedam.storage.storage.service.StorageService;
 import com.yedam.storage.store.service.StoreService;
 import com.yedam.storage.store.vo.StoreVO;
+import com.yedam.storage.tour.service.TourService;
+import com.yedam.storage.tour.vo.TourVO;
 
 @Controller
 public class HomeController {
@@ -36,6 +41,10 @@ public class HomeController {
 	private StoreService storeDAO;
 	@Autowired
 	private StorageService storageDAO;
+	@Autowired
+	private TourService tourDAO;
+	@Autowired
+	private MemberServiceImpl memberDAO;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home() {
@@ -77,6 +86,40 @@ public class HomeController {
 	public List<StoreVO> StoreAddr() {
 		// Store - 지점명, 지점주소 (StoreConlloer)
 		List<StoreVO> list = storeDAO.SelectStoreAddr();
+		return list;
+	}
+	
+	// 투어관리 예제 페이지 이동
+	@RequestMapping("tourTest")
+	public String tourTest() {
+		return "test/tourManage";
+	}
+	
+	// 투어관리 예제
+	@RequestMapping("tourManageEx")
+	@ResponseBody
+	public List<TourVO> tourManageEx() {
+		// TOUR TABLE에서 TOUR_DATE와 TOUR_TIME을 가져오고 합쳐야한다.
+		// Map에서 TOUR_DATE를 가져올때 TO_CHAR을 이용하여 'YYYY-MM-DD'로 가져와야한다
+		// 예시 - TOUR_DATE : 2021-08-04, TOUR_TIME : PM 15:00 ~ 16:00
+		// 		> String time = vo.gettour_time
+		// 		> String subtime = time.substr(4,2) << 아마 15 나올듯??
+		// 		> String date = vo.gettour_date + "T" + subtime
+		//		> 하면 나올 것 같다
+		// 가져와야 하는 값 : store_id / member_name(id로 join) / tour_date / tour_time
+		// 각각 calendarId / title / start, end(투어는 1시간이므로 가져올 때 subtime +1을 해서 subtiem2에 담던말던)
+		// 아무튼 여기서 list로 넘겨서 jsp에서 c:forEach로 json type으로 바꾸고 스케쥴하면 나올 것 같다...
+		
+		UserDetails userDetails =
+				(UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		String id = userDetails.getUsername();
+		String store_code = memberDAO.empStoreCode(id);
+		
+		TourVO vo = new TourVO();
+		vo.setStore_code(store_code);
+		List<TourVO> list = tourDAO.tourManageEx(vo);
+		
 		return list;
 	}
 	
