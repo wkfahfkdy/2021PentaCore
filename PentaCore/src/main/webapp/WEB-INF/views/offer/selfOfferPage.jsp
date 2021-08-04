@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>셀프견적</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
@@ -17,9 +19,7 @@
 <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
 <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
-
 <script type="text/javascript">
-	
 	//세탁 총 가격
 	let totalLaundryPrice = 0;
 	// 세탁물 배열
@@ -40,6 +40,7 @@
 	<c:forEach items="${storageList}" var="storage">
 	   list.push("${storage.storage_code}");
 	</c:forEach>
+	
    // Swiper API 변수
    let slider;
    $(document).ready(function() {
@@ -68,11 +69,6 @@
          },
       }); // End Swiper
       
-      // Form Submit Button
-      $('#offerInsertBtn').click(function () {
-         console.log($('#hiddenOfferProduct').val());
-      });
-      
       // 프리미엄 서비스
       $("input[name='premium']").change(function(){
     	 $('#hiddenOfferPremium').val($(this).val());
@@ -97,7 +93,7 @@
 			if($(this).val() == 'N'){
 				// 세탁서비스 정보 고르다가 갑자기 안한다고 하면 다 초기화 시켜줌 ㅅㅂ 개같네 여기 나중에 컨트롤러에 옮길때 value값 신경써야됌
 				$('#hiddenOfferLaundryProduct').removeAttr("value");
-				$('.totalLaundryCount').attr("value", "");
+				$('.totalLaundryCount').attr("value", " ");
 				$('#memberTotalPrice').html("총 0 원");	
 				$('#laundryInfoList').hide();
 				$('#hiddenOfferWash').val("N");
@@ -109,10 +105,112 @@
 				$('#laundryInfoList').show();
 			}
 		});
+      	
+      	// Reset Button
+      	$('#resetBtn').click(function(){
+      		productArrayList = new Array();
+        	console.log('resetBtn클릭');
+        	$('#hiddenOfferPrice').attr("value", " "); // 현재가격 공백
+        	$('#hiddenOfferDiscountPrice').attr("value", " "); // 감산 될 가격 공백
+        	$('#hiddenOfferProduct').attr("value", productArrayList); // 물품 리스트 다시 초기화
+        	$('#hiddenOfferRental').attr("value", " "); // 렌탈도 초기화
+        	$('.count').attr("value", "0"); // $('input:number[class="count"]')'.val()초기화
+        	$('#hiddenOfferStorageCode').attr('value','a10'); // storage_code 값 슬림으로 다시 초기화
+        	totalVolume = 0; // 현재 고객 가격 다 초기화
+        	slider.slideTo($('.swiper-slide').data("id")*1 , 1000); // index 0 으로 이동
+        	$('#nowInfo').html('<br>총 물품 : 현재 아무것도 없습니다 <br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
+        });
+      	
+      	// ---- 포장서비스 ---- // 
+      	// 처음엔 다 숨겼다가
+      	$('#pickupBoxCount').hide();
+      	$('#pickupInfo').hide();
+      	// 포장서비스 유무
+      	$('input:radio[name="pickupService"]').change(function(){ // 저 name의 radio가 바뀔때 마다
+      		if($(this).val() == 'Y'){
+      			$('#pickupInfo').show();
+      		}else { // N 도중에 누르면 다 초기화
+      			$('#hiddenFloorValue').removeAttr("value");
+      			$('#hiddenBoxCount').removeAttr("value");
+      			parseInt($('#floor').val(0));
+      			parseInt($('#boxCount').val(0));
+      			$("input:radio[name='pickupService']").removeAttr('checked');
+			 	$("input:radio[name='boxService']").removeAttr('checked');
+			 	$('#pickupInfo').hide();
+      		}
+      	});
+      	// 박스 카운트
+      	$('input:radio[name="boxService"]').change(function(){
+      		if($(this).val() == 'Y'){
+      			$('#pickupBoxCount').show();
+      		}else {
+      			$('#pickupBoxCount').hide();
+      			$('#hiddenBoxCount').removeAttr("value");
+      			parseInt($('#boxCount').val(0));
+      		}
+	     });
+      	// offer_date 넣어줄때 검증
+      	$('input:radio[name="offerDate"]').change(function(){
+      		if(($(this).val()) == 1){
+  				$('#hiddenOfferDate').val("1");
+  			} else if($(this).val() == 3) {
+  				$('#hiddenOfferDate').val("3");
+  			} else if($(this).val() == 6){
+  				$('#hiddenOfferDate').val("6");
+  			} else if($(this).val() == 12){
+  				$('#hiddenOfferDate').val("12");
+  			}
+      	});
+      	// 이거 된다
+	/*  	console.log($("#member_addr").val());
+      	if($("#member_addr").val() === undefined){
+      		console.log("undefined입니다");
+      	}*/
+      	
+        // Form Submit Button
+        $('#offerInsertBtn').click(function () {
+      	 pickupServiceFnc(); // 층수 + 박스value를 #hiddenOfferPickup에 Append 해줌
+      	 
+         console.log($('#hiddenOfferProduct').val());
+        });
+      	 
    });
+   var resultPickupService = "";
+   var floorService = "";
+   $(document).ready(function(){
+	   $('#floor').change(function(){
+			var floor = parseInt($('#floor').val());
+			console.log(floor);
+			if(floor < -2){
+				alert("더 밑으로 가면 안된데이");
+				parseInt($('#floor').val(0));
+				$('#hiddenOfferPickup').attr("value", " ");
+			} else {
+				floorService = "층수:" + floor + "층 ";
+				$('#hiddenFloorValue').val(floorService);
+			}
+		});
+	   
+	   $('#boxCount').change(function(){
+			var boxCount = parseInt($('#boxCount').val());
+			var resultBoxCount = "";
+			if(boxCount < 0){
+				alert("0개 밑으론 신청할 수 없습니다.");
+				parseInt($('#boxCount').val(0));
+			} else {
+				resultBoxCount = "박스갯수:" + boxCount + "개" ;
+				$('#hiddenBoxCount').val(resultBoxCount)
+			}
+		});
+	   
+   })
    
+   function pickupServiceFnc(){
+	   var floor = $('#hiddenFloorValue').val();
+	   var box = $('#hiddenBoxCount').val();
+	   $('#hiddenOfferPickup').val(floor + box);
+   }
    
-   // 페이지 로딩 후 Coupon List 가져오기
    function couponList(){
 	   $.ajax({
 		   url: 'couponList',
@@ -128,6 +226,7 @@
 						+ '<label class="offerLabel">일반요금<input type="radio" class="normal'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="normalPrice" value="no" onclick="discount(\''+data[i].store_code+'\')"></label>'
 						+ '<label class="offerLabel" style="margin-left: 30px;">'+data[i].coupon_name+'<input type="radio" class="discount'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="discountPrice" value="yes" onclick="discount(\''+data[i].store_code+'\')"></label>'
 						+ '<input type="hidden" id="hiddenDiscount'+ data[i].store_code +'" value="'+data[i].coupon_discount+'">'
+						+ '<input type="hidden" id="couponCode'+ data[i].store_code +'" value="'+data[i].coupon_code+'">'
 						+ '</li>'
 					);
 			   }
@@ -268,7 +367,7 @@
               } else if (product_del == 0){
             	  // 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delProduct를 담아줌
             	  delete productArrayList[product_name];
-            	  productArrayList[product_name] = "";
+            	  productArrayList[product_name] = " ";
             	  delProduct += productArrayList[deleteItems] + "";
             	  $('#hiddenOfferProduct').val().replace();
               } 
@@ -284,6 +383,8 @@
         $('#hiddenOfferDiscountPrice').val(storage_price);
         console.log('Delete Fnction = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
         $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
+        
+        
    };
    
    let rentalArrayList = new Array();
@@ -366,7 +467,7 @@
              }else if (rentalCount == 0){
            	  	// 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delRental를 담아줌
            	  	delete rentalArrayList[rentalName];
-           	  	rentalArrayList[rentalName] = "";
+           	  	rentalArrayList[rentalName] = " ";
            	  	delRental += rentalArrayList[deleteItems] + ""
            		$('#hiddenOfferRental').val().replace();
              }
@@ -403,7 +504,6 @@
 	   }
 	   console.log($('#laundryPrice' + laundry_code).val() + ' / ' + $('#laundryName' + laundry_code).val() + ' / ' + totalLaundryPrice);
 	   $('#hiddenOfferLaundryProduct').val(resultLaundryList);
-	   $('#hiddenLaundryCount').val(laundryCount);
 	   $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
    }
    
@@ -430,7 +530,7 @@
            }else if (laundryCount == 0){
          	  // 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delProduct를 담아줌
          		delete laundryArrayList[laundryName];
-         		laundryArrayList[laundryName] = "";
+         		laundryArrayList[laundryName] = " ";
          		delLaundry += laundryArrayList[deleteItems] + ""
          		$('#hiddenOfferLaundryProduct').val().replace();
            }
@@ -447,26 +547,30 @@
   		var normalPrice = parseInt($('#hiddenOfferPrice').val()); // 기존의 가격
 		var discountPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 할인율을 받는 가격 변수
 		var discount = parseFloat($('#hiddenDiscount'+store_code).val()); // 지점별 할인율
+		var coupon_code = $('#couponCode' + store_code).val(); // 지점별 쿠폰 코드
+		console.log(coupon_code);
 		console.log("현재가격 : " + normalPrice + ' / 감산가격 : ' + discountPrice + ' / 여기 지점 할인율 : ' + discount);
 		
-  		$("input[name='discount"+store_code+"']").on("click", function(){
+  		$("input[name='discount"+store_code+"']").change(function(){
 			console.log($(this).val());
 				if($(this).val() == "no"){
 					// 할인율 X
 					$('#hiddenOfferDiscountPrice').val(normalPrice);
+					$('#hiddenCouponCode').attr("value", " ");
 				}	else{
 					$('#hiddenOfferDiscountPrice').val(discountPrice * discount);
 					console.log("할인 됬3");
 			 	}
+			$('#hiddenCouponCode').val(coupon_code); // 쿠폰코드도 넣고
 		});
   	};
 </script>
 <style>
-input[type="number"]::-webkit-outer-spin-button,
+/* input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
+} */
 #pickupService{
 	width: 100%;
 	height: 100%;
@@ -635,28 +739,28 @@ input[type='number'] {
 			                        <ul class="nav navbar-nav">
 			                           <!-- === top menu item === -->
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">이삿짐 단기보관
+			                                이삿짐 단기보관 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">해외 출장
+											해외 출장 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">작은 집
+			                                작은 집 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">취미용품 보관
+			                                취미용품 보관 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">계절용품
+			                                계절용품 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">사업용도
+			                                사업용도 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">프라이버시
+			                                프라이버시 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input type="checkbox">기타
+			                                기타 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel">
 			                                 <input  type="text" value="다락 사용 목적을 입력해주세요.">
@@ -684,25 +788,25 @@ input[type='number'] {
 			                     <ul class="nav navbar-nav">
 			                        <!-- === top menu item === -->
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">1개월 미만
+			                             1개월 미만 &nbsp;&nbsp;<input type="radio" name="offerDate" value="1">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">1개월 이상
+			                             1개월 이상 &nbsp;&nbsp;<input type="radio" name="offerDate" value="1">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">3개월 이상
+			                             3개월 이상 &nbsp;&nbsp;<input type="radio" name="offerDate" value="3">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">6개월 이상
+			                             6개월 이상 &nbsp;&nbsp;<input type="radio" name="offerDate" value="6">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">12개월 이상
+			                             12개월 이상 &nbsp;&nbsp;<input type="radio" name="offerDate" value="12">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">지속적 이용
+			                             지속적 이용 &nbsp;&nbsp;<input type="radio" name="offerDate" value="12">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                              <input type="radio" name="offer_date">확실하지 않음 
+			                             확실하지 않음  &nbsp;&nbsp;<input type="radio" name="offerDate" value="12">
 			                         </label></li>
 			                     </ul>
 			                  </div>
@@ -811,18 +915,18 @@ input[type='number'] {
 						   			<h4>서비스 추가</h4>
 						   			<h5 style="display: inline-block; margin-bottom: 50px;">프리미엄 서비스	(* 월 요금 5000원 추가금 발생)
 						   			<label class="offerLabel" style="margin-left: 70px;">
-							   				신청<input type="radio" name=premium value="Y">
+							   				신청&nbsp;&nbsp;<input type="radio" name=premium value="Y">
 							   			</label>
 							   			<label class="offerLabel" style="margin-left: 50px;">
-							   				미신청<input type="radio" name=premium value="N" checked="checked">
+							   				미신청&nbsp;&nbsp;<input type="radio" name=premium value="N" checked="checked">
 							   			</label><br>
 						   			</h5>
 						   			<h5>세탁 서비스
 							   			<label class="offerLabel" style="margin-left: 70px;">
-							   				신청<input type="radio" id="washY" name="wash" value="Y">
+							   				신청&nbsp;&nbsp;<input type="radio" id="washY" name="wash" value="Y">
 							   			</label>
 							   			<label class="offerLabel" style="margin-left: 50px;">
-							   				미신청<input type="radio" id="washN" name="wash" value="N" checked="checked">
+							   				미신청&nbsp;&nbsp;<input type="radio" id="washN" name="wash" value="N" checked="checked">
 							   			</label>
 						   			</h5>
 						   		</div>
@@ -886,53 +990,100 @@ input[type='number'] {
 				<section class="def-section" id="clients-section">
 					<div class="container" style="width: 100%; padding: 0;	">
 						<div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
-							<h4>픽업서비스</h4>
-							<table border="0" id="pickupService">
-								<tr>
-									<th id="pickupServiceThTag">주소</th><td>${loginAddr  }</td>
-								</tr>
-								<tr>
-									<th id="pickupServiceThTag">층수</th><td><input type="number" value="층수를 입력해주세요">&nbsp;&nbsp;<b>층</b></td>
-								</tr>
-								<tr>
-									<th id="pickupServiceThTag">포장서비스</th>
-									<td>
-										<label class="offerLabel">YES &nbsp;&nbsp;<input type="radio" name="pickupService" value="Y"></label>
-										<label class="offerLabel">NO &nbsp;&nbsp;<input type="radio" name="pickupService" value="N"></label>
-									</td>
-								</tr>
-								<tr>
-									<th id="pickupServiceThTag">박스구매</th>
-									<td>
-										<label class="offerLabel">YES &nbsp;&nbsp;<input type="radio" name="boxService" value="Y"></label>
-										<label class="offerLabel">NO &nbsp;&nbsp;<input type="radio" name="boxService" value="N"></label>
-									</td>
-								</tr>
-							</table>
-							<div id="pickupBoxCount">
-								<h4>박스 몇개노?</h4>
+							<h4>픽업서비스 신청</h4>
+							<div>
+								<p style="display: inline-block; font-family: Montserrat; font-weight: bold; font-size: 12pt;">포장서비스</p>
+								<label class="offerLabel pickupYes">YES &nbsp;&nbsp;<input type="radio" name="pickupService" value="Y"></label>
+								<label class="offerLabel pickupNo">NO &nbsp;&nbsp;<input type="radio" name="pickupService" value="N"></label>
+							</div>
+							<div style="padding: 0 85px;" id="pickupInfo">
+								<table border="0" id="pickupService">
+									<tr>
+										<th id="pickupServiceThTag">주소</th><td>${loginAddr  }</td>
+									</tr>
+									<tr>
+										<th id="pickupServiceThTag">층수</th><td><input type="number" id="floor" value="0">&nbsp;&nbsp;<b>층</b></td>
+									</tr>
+									<!-- <tr>
+										<th id="pickupServiceThTag">포장서비스</th>
+										<td>
+											
+										</td>
+									</tr> -->
+									<tr>
+										<th id="pickupServiceThTag">박스구매</th>
+										<td>
+											<label class="offerLabel">YES &nbsp;&nbsp;<input type="radio" name="boxService" value="Y"></label>
+											<label class="offerLabel">NO &nbsp;&nbsp;<input type="radio" name="boxService" value="N"></label>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							<div align="center" style="padding: 0 85px;" id="pickupBoxCount">
+								<input type="number" id="boxCount" value="0">&nbsp;&nbsp;<b>개</b>
+								<h6>박스 규격 : (48cm x 38cm x 34cm)<br/>
+										고객님께서 직접 포장하시는 경우 박스를 출발지 주소로 택배 발송해 드립니다.<br/>
+										박스구매는 운송신청 최소 5일전에 신청해 주시기 바랍니다.<br/>
+										한묶음(10개)당 택배비용 6,600 원 발생<br/>
+								</h6>
 							</div>
 						</div>
 					</div>
 				</section>
+				<!-- JSTL 현재 날짜 들고오기 -->
+				<c:set var="now" value="<%=new Date() %>"/>
 			      <div align="center" style="margin: 100px auto">
+			      	<div class="container">
+							  <!-- Trigger the modal with a button -->
+							<button type="button" id="offerInsertBtn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#offerModal">견적 뽑기</button>
+							<!-- Modal -->
+							<div class="modal fade" id="offerModal" role="dialog">
+								<div class="modal-dialog" style="width: 70%">
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							    	<div class="modal-header">
+							    		<button type="button" class="close" data-dismiss="modal">&times;</button>
+							    		<h4 class="modal-title">견 적 서</h4>
+							    	</div>
+							    	<form>
+								    	<div class="modal-body">
+								    		<p>Some text in the modal.</p>
+								    	</div>
+								    	<div class="modal-footer">
+								    		<button type="button" class="btn btn-default">결정</button>
+								    		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								    	</div>
+								    </form>
+							    </div>
+							    </div>
+							  </div>
+							</div>
 				         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
-					         <button id="offerInsertBtn" class="my-btn my-btn-grey">견적 뽑기</button>
-						     <input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
-						     <input type="hidden" name="offer_price" id="hiddenOfferPrice">
-						     <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice">
-						     <input type="hidden" name="offer_product" id="hiddenOfferProduct">
-						     <input type="hidden" name="offer_rental" id="hiddenOfferRental">
-						     <input type="hidden" name="offer_wash" id="hiddenOfferWash">
-						     <input type="hidden" name="offer_premium" id="hiddenOfferPremium">
-						     <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct">
-						     <input type="hidden" name="laundry_count" id="hiddenLaundryCount">
-						     <input type="hidden" name="coupon_code" id="hiddenCouponCode">
-						     <input type="hidden" name="member_addr" value="${loginAddr }">
+					        <!-- <button id="offerInsertBtn" class="my-btn my-btn-grey">견적 뽑기</button> -->
+						    <input type="hidden" id="hiddenOfferPrice"> <!-- 일단 밑에꺼랑 name이 똑같으면 안되니까 바꿔주고 -->
+						    <input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
+						    <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice"> <!-- 얘가 모달창에서 보여질 총 Total 가격 + 디비로 넘길거 -->
+						    <input type="hidden" name="offer_product" id="hiddenOfferProduct">
+						    <input type="hidden" name="offer_rental" id="hiddenOfferRental">
+						    <input type="hidden" name="offer_wash" id="hiddenOfferWash" value="N">
+						    <input type="hidden" name="offer_premium" id="hiddenOfferPremium" value="N">
+						    <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct">
+						    <input type="hidden" name="coupon_code" id="hiddenCouponCode">
+						    <input type="hidden" name="offer_addr" value="${loginAddr }">
+						    <input type="hidden" name="member_id" value="${loginId }">
+						    <input type="hidden" name="offer_pickup" id="hiddenOfferPickup"> <!-- 여기에 픽업 정보 붙여줌 -->
+						    <input type="hidden" name="offer_start" value="<fmt:formatDate value="${now }" type="date" pattern="YY/MM/dd" />">
+						    <input type="hidden" name="offer_date" id="hiddenOfferDate">
+						    <input type="hidden" id="hiddenFloorValue"> <!-- 층수 받아오고 -->
+						    <input type="hidden" id="hiddenBoxCount"> <!-- 박스 갯수 받아오고 -->
 		        	 </div>
 	  			 </div>
 	  		</div>
 		</div>
+  </div>
+  <div class="self-banner-bottom">
+  	
   </div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a66ba8e60100e68a1df7756407ad0bb&libraries=services"></script>
@@ -940,7 +1091,7 @@ input[type='number'] {
 		// KakaoMap
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
-		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 (default 값)
+		        center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666), // 지도의 중심좌표 (default 값)
 		        level: 3 // 지도의 확대 레벨
 		    };  
 		// 지도를 생성합니다    
@@ -990,11 +1141,9 @@ input[type='number'] {
 					var target = ev
 					var discountPrice = parseInt($("#hiddenOfferDiscountPrice").val()); // 감산되고의 가격
 					var normalPrice = parseInt($("#hiddenOfferPrice").val()); // 원래의 가격
-					console.log('discountPrice : '+ discountPrice);
-					console.log('normalPrice : '+ normalPrice);
 					// 이제 여기서 만약 고객님이 "아 이 지점말고 다른거 하고싶은데?" 라고 생각이 드실때 감산된 가격이 본래의 가격으로 돌아가는 마술을 써준다.
 					$("#hiddenOfferDiscountPrice").attr("value", normalPrice);
-					
+					$("#hiddenCouponCode").attr("value", " ");
 					// 클릭 시 console에 지점 주소 출력
 					var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
 					var coupon_code = recruitGrid.getValue(ev.rowKey,'coupon_code');
