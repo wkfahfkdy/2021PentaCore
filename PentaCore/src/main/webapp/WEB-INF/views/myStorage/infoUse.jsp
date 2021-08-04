@@ -20,14 +20,28 @@
 	width: 50%;
 	text-align: left;
 	float: left;
-	padding-top: 5%;
+	padding-top: 10%;
 }
 
 .use2 {
 	width: 50%;
-	display: inline-block;
 	text-align: left;
 	float: left;
+	padding: 7%;
+}
+
+.use3 {
+	width: 50%;
+	text-align: left;
+	float: left;
+	padding-top: 5%;
+}
+
+.use4 {
+	width: 50%;
+	text-align: left;
+	float: left;
+	padding-top: 5%;
 }
 
 .useImg {
@@ -43,14 +57,42 @@
 }
 
 .use2 > img {
-	width:500px;
+	width:300px;
 
 }
 
-.swiper-container-cube .swiper-cube-shadow {
+/* step */
+.step input[type=radio] {
+	display : none;
+}
 
-	background-color: #fff;
+#tab-1:checked ~ .tab label:nth-child(1),
+#tab-2:checked ~ .tab label:nth-child(2),
+#tab-3:checked ~ .tab label:nth-child(3),
+#tab-4:checked ~ .tab label:nth-child(4) {
+	box-shadow: none;
+}
 
+.content > div {
+	display: none;
+}
+
+#tab-1:checked ~ .content div:nth-child(1),
+#tab-2:checked ~ .content div:nth-child(2),
+#tab-3:checked ~ .content div:nth-child(3),
+#tab-4:checked ~ .content div:nth-child(4) {
+	display: block;
+}
+
+.tab {
+	overflow : hidden;
+}
+
+.tab label {
+	cursor: pointer;
+	user-select : none;
+	-webkit-user-select: none;
+	padding-right: 15px;
 }
 
 </style>
@@ -124,15 +166,18 @@
   //  		et.src = "${pageContext.request.contextPath }/resources/storage_img/cube_c.png";
    // 	} else if ()
     	
-	   //이전 스토리지는 해제  ( c_ -> i_)
-  	   console.log($("#image").attr("src").replace("c_", "i_"));
-	   $(".s").removeClass("s").attr("src", $("#image").attr("src").replace("c_", "i_"));
-  	
-	   //이전 스토리지는 선택  ( i_ -> c_)
-	  $(event.target).addClass("s");
-	  $(".s").attr('src',"${pageContext.request.contextPath }/resources/storage_img/c_" + image);
-	   
-    }
+        //이전 스토리지는 해제  ( c_ -> i_)
+        if(typeof $(".s").attr("src") !== 'undefined') {
+           $(".s").attr("src", $(".s").attr("src").replace("c_", "i_"));         
+        }
+        $(".s").removeClass("s");
+        
+        //이전 스토리지는 선택  ( i_ -> c_)
+       $(event.target).addClass("s");
+       $(".s").attr('src',"${pageContext.request.contextPath }/resources/storage_img/c_" + image);
+        
+      }
+	  
     
     
       
@@ -157,31 +202,76 @@
 			</div>
 		</div>
 		<div class="use2">
-			<div >
-			   <div class="home-clients">
-			      <div class="swiper-container" >
-			         <div class="swiper-wrapper" style="margin-bottom: 5%" style="background-color: #fff;">
-			         <!-- === 스토리지 정보 forEach === -->
-			            <c:forEach items="${storageList }" var="storage" varStatus="status">
-			               <div class="swiper-slide" data-storagePrice="${storage.storage_price }" data-index="${storage.storage_code }" data-id="${status.index }">
-			                  <h4 align="center">${storage.storage_name }</h4>
-			                  <h6 align="center"> ${storage.storage_width } *  ${storage.storage_vertical } * ${storage.storage_height} cm³ (강남역기준)</h6>
-			                  <img style="width: 100%; height: 50%;" data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage${storage.storage_code }">
-			               </div>
-			         	</c:forEach>
-			         </div>
-			         
-			         <!-- 네비게이션 버튼 -->
-			         <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			         <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
-			         <!-- 페이징 -->
-			         <div class="swiper-pagination"></div>
-			      </div>
-			   </div>
+		   <div class="home-clients" >
+		      <div class="swiper-container" >
+		         <div class="swiper-wrapper" style="margin-bottom: 5%" style="background-color: #fff;">
+		         <!-- === 스토리지 정보 forEach === -->
+		            <c:forEach items="${storageList }" var="storage" varStatus="status">
+		               <div class="swiper-slide" data-storagePrice="${storage.storage_price }" data-index="${storage.storage_code }" data-id="${status.index }">
+		                  <h4 align="center">${storage.storage_name }</h4>
+		                  <h6 align="center"> ${storage.storage_width } *  ${storage.storage_vertical } * ${storage.storage_height} cm³ (강남역기준)</h6>
+		                  <img style="width: 100%; height: 50%;" data-src="${pageContext.request.contextPath }/resources/storage_img/${storage.storage_image}" class="swiper-lazy" id="testImage${storage.storage_code }">
+		               </div>
+		         	</c:forEach>
+		         </div>
+		         
+		         <!-- 네비게이션 버튼 -->
+		         <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+		         <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+		         <!-- 페이징 -->
+		         <div class="swiper-pagination"></div>
+		      </div>
+		   </div>
+		</div>
+		<div class="use3">
+			<div>
+				<img style="width: 100%;" 
+					src="${pageContext.request.contextPath}/resources/img/use.png">
 			</div>
 		</div>
-		<div style="clear: both;"></div>
+		<div class="use4">
+			<div> 
+				<h1>셀프견적부터</h1><h1>쉽고 편리한 이용까지</h1><br>
+				<h5>맞춤 사이즈, 가격 확인에서 방문 예약까지 한번에! </h5>
+				<h5>다양한 사용 형태를 고려한 개별 맞춤 서비스를 제공합니다.</h5><br>
+			</div>
+			<div class="step" style="padding-top: 5%;">
+				<input type="radio" id="tab-1" name="show" checked />
+				<input type="radio" id="tab-2" name="show" />
+				<input type="radio" id="tab-3" name="show" />
+				<input type="radio" id="tab-4" name="show" />
+				<div class="tab">
+					<label for="tab-1">STEP 1</label>
+					<label for="tab-2">STEP 2</label>
+					<label for="tab-3">STEP 3</label>
+					<label for="tab-4">STEP 4</label>
+				</div> 
+				<div class="content" style="padding-top: 2%;" >
+					<div class="content-dis">
+						<h4>셀프 견적</h4>
+						<h6>사이즈 추천을 위해 보관하시려는 물품을 선택해 주세요</h6>
+					</div>
+					<div class="content-dis">
+						<h4>맞춤 상담</h4> 
+						<h6>선택해 주신 짐의 종류와 양에 따라 적합한 공간 사이즈를 추천해 드립니다</h6>
+					</div>
+					<div class="content-dis">
+						<h4>사용 신청</h4>
+						<h6>이용선택해 주신 사이즈 및 기간을 설정하신 후 이용신청서를 확인해 주세요</h6>
+					</div>
+					<div class="content-dis">
+						<h4>사용 시작</h4>
+						<h6>365일 24시간 언제든 이용할 수 있어요</h6>
+					</div>
+				</div>
+				<div style="padding-top: 5%;">
+					<h4 style="color: #58ACFA">지금 시작해보세요 > </h4>
+				</div>
+			
+			</div>
+		</div>
 	</div>	
 	</div>
+	<div style="clear: both; padding-bottom: 10%"></div>
 </body>
 </html>
