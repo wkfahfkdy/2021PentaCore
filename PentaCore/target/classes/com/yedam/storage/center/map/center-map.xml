@@ -6,7 +6,7 @@
 		SELECT * FROM faq
 	</select>
 
-	<!-- 문의 -->
+	<!-- 1:1 문의 -->
 	<select id="inquirySelectList" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
 		ORDER BY question_group DESC, question_parents ASC
@@ -27,27 +27,21 @@
 	
 	<!-- 내가쓴글 조회 -->
 	<select id="replyList" parameterType="com.yedam.storage.center.vo.CenterVO" resultType="com.yedam.storage.center.vo.CenterVO">
-		SELECT question_num, question_parents, question_content, store_code, member_id, question_date, question_group FROM question
+		SELECT * FROM question
 		WHERE question_group in (select question_group from question where member_id = #{member_id})
 		ORDER BY question_group desc, question_parents asc
 	</select>
 	
-	<!-- 문의작성 -->
+	<!-- 1:1 문의작성 -->
 	<insert id="inquiryInsert" parameterType="com.yedam.storage.center.vo.CenterVO">
-		INSERT INTO question(question_num, question_parents, question_content, store_code, member_id, question_date, question_group)
-		VALUES(question_seq.nextval, 1, #{question_content},'CS', #{member_id}, sysdate, question_seq.nextval)
+		INSERT INTO question
+		VALUES(question_seq.nextval, 1, #{question_content},null,'CS', #{member_id}, sysdate, question_seq.nextval)
 	</insert>
 	
 	<!-- 문의삭제 -->
 	<delete id="inquiryDelete" parameterType="com.yedam.storage.center.vo.CenterVO">
 		{call delete_comment(#{question_num})}
 	</delete>
-	
-	<!-- 댓글작성 -->
-	<insert id="replyInsert" parameterType="com.yedam.storage.center.vo.CenterVO">
-		INSERT INTO question(question_num, question_parents, question_content, store_code, member_id, question_date, question_group)
-		VALUES(question_seq.nextval, 2, #{question_content},'CS', 'admin', sysdate, #{question_group})
-	</insert>
 
 
 </mapper>

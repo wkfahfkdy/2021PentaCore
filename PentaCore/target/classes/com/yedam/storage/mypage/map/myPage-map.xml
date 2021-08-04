@@ -177,6 +177,6 @@
 	<!-- My Page 1:1 문의 등록 -->
 	<insert id="registAsk" parameterType="MyPageVO">
 		INSERT INTO question
-		VALUES(question_seq.nextval, 1, #{question_content}, null, #{store_code}, #{member_id}, sysdate, question_seq.nextval, #{question_title})
+		VALUES(question_seq.nextval, 1, #{question_content}, null, #{store_code}, #{member_id}, sysdate, question_seq.nextval)
 	</insert>
 </mapper>
