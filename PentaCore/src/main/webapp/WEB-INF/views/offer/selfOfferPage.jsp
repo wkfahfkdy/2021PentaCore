@@ -125,8 +125,8 @@
 				   $(store_code).append(
 						'<li class="couponSelectList" style="margin: 10px;">'
 						+ '<h4>쿠폰 / 할인 선택</h4><p style="padding: 0"><b>쿠폰을 선택해주세요.</b></p>'
-						+ '<label class="offerLabel">일반요금<input type="radio" name="discount'+data[i].store_code+'" id="normalPrice" value="no" onclick="discount('+data[i].store_code+')"></label>'
-						+ '<label class="offerLabel" style="margin-left: 30px;">'+data[i].coupon_name+'<input type="radio" name="discount'+data[i].store_code+'" id="discountPrice" value="yes" onclick="discount('+data[i].store_code+')"></label>'
+						+ '<label class="offerLabel">일반요금<input type="radio" class="normal'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="normalPrice" value="no" onclick="discount(\''+data[i].store_code+'\')"></label>'
+						+ '<label class="offerLabel" style="margin-left: 30px;">'+data[i].coupon_name+'<input type="radio" class="discount'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="discountPrice" value="yes" onclick="discount(\''+data[i].store_code+'\')"></label>'
 						+ '<input type="hidden" id="hiddenDiscount'+ data[i].store_code +'" value="'+data[i].coupon_discount+'">'
 						+ '</li>'
 					);
@@ -153,7 +153,7 @@
                      // 결과값 다 Append 시키고
                      $(division_code)
                            .append(
-                                 '<li class="divisionBtnliTag" style="margin: 10px;">'
+                                 '<li class="divisionBtnliTag" style="margin: 10px; width: 25%">'
                                     // 물품 별 이미지 
                                  +'<button id="deleteProduct'+result[i].product_code+'" class="deleteProduct" onclick="deleteProductList(\''+result[i].product_code+'\')"> - </button>'
                                  + '<img src="${pageContext.request.contextPath }/resources/product_img/' + result[i].product_image + '" onclick="intoProduct(\''+result[i].product_code+'\')">'
@@ -218,7 +218,7 @@
       	$('#hiddenOfferPrice').val(storage_price);
       	$('#hiddenOfferDiscountPrice').val(storage_price)
      	console.log('Insert Function = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
-      	$('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
+      	$('#nowInfo').html('<br>총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
    }
    
    // 삭제버튼 Function (매개변수 Product테이블의 product_code)
@@ -267,8 +267,10 @@
             	 delProduct += productArrayList[deleteItems] + " "
               } else if (product_del == 0){
             	  // 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delProduct를 담아줌
-            	  delete productArrayList[product_name]; 
-            	  delProduct += productArrayList[deleteItems] + " "
+            	  delete productArrayList[product_name];
+            	  productArrayList[product_name] = "";
+            	  delProduct += productArrayList[deleteItems] + "";
+            	  $('#hiddenOfferProduct').val().replace();
               } 
          }
         
@@ -356,15 +358,17 @@
          }
 		var delRental = "";
         // 배열의 value값 변수에 담기
-        rentalArrayList[rentalName] = rentalName + ' ' + rentalCount +'개';
+        rentalArrayList[rentalName] = rentalName + '' + rentalCount +'개';
         for(deleteItems in rentalArrayList){
        	 if (rentalCount >= 1){
        		 // 0이 안되면 계속 그 물품을 delRental 변수에 담아주고
-           	 delRental += rentalArrayList[deleteItems] + " "
+           	 delRental += rentalArrayList[deleteItems] + ""
              }else if (rentalCount == 0){
-           	  // 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delRental를 담아줌
-           	  delete rentalArrayList[rentalName]; 
-           	  delRental += rentalArrayList[deleteItems] + " "
+           	  	// 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delRental를 담아줌
+           	  	delete rentalArrayList[rentalName];
+           	  	rentalArrayList[rentalName] = "";
+           	  	delRental += rentalArrayList[deleteItems] + ""
+           		$('#hiddenOfferRental').val().replace();
              }
         }
         storageImageIndex = ($('.swiper-slide-active').data("index"));
@@ -425,8 +429,10 @@
          	 delLaundry += laundryArrayList[deleteItems] + " "
            }else if (laundryCount == 0){
          	  // 0이 되면 count가 0이 된 배열을 삭제시키고 그 삭제 시킨 결과를 delProduct를 담아줌
-         	 delete laundryArrayList[laundryName]; 
-         	 delLaundry += laundryArrayList[deleteItems] + " "
+         		delete laundryArrayList[laundryName];
+         		laundryArrayList[laundryName] = "";
+         		delLaundry += laundryArrayList[deleteItems] + ""
+         		$('#hiddenOfferLaundryProduct').val().replace();
            }
       }
       console.log($('input[name=wash]:checked').length);
@@ -435,50 +441,53 @@
 	  $('#hiddenOfferLaundryProduct').val(delLaundry);	
 	  $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
    }
-   
 	// 망할 쿠폰
-   	function discount(store_code){
-   		var normalPrice = parseInt($('#hiddenOfferPrice').val());
-		var discountPrice = parseInt($('#hiddenOfferDiscountPrice').val());
-		console.log("현재가격 : " + normalPrice + ' / 감산가격 : ' + discountPrice);	
-		console.log('이제되노');
+  	function discount(store_code){
+  		console.log(store_code);
+  		var normalPrice = parseInt($('#hiddenOfferPrice').val()); // 기존의 가격
+		var discountPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 할인율을 받는 가격 변수
+		var discount = parseFloat($('#hiddenDiscount'+store_code).val()); // 지점별 할인율
+		console.log("현재가격 : " + normalPrice + ' / 감산가격 : ' + discountPrice + ' / 여기 지점 할인율 : ' + discount);
 		
-		/* var discount = parseFloat($('#hiddenDiscount'+store_code).val());
-		
-		console.log(discount + " / " + discountPrice);
-		$("input[name='discount"+store_code+"']").on('click', function(){
+  		$("input[name='discount"+store_code+"']").on("click", function(){
 			console.log($(this).val());
-		 	if($(this).val() == "yes"){
-			// 할인율 O
-				console.log($('#hiddenDiscount'+store_code).val());
-				discountPrice = discountPrice * discount;
-		 		} else{
-		 			discountPrice = parseInt($('#hiddenOfferPrice').val());
-		 			console.log('else' + discountPrice);
-		 		}
+				if($(this).val() == "no"){
+					// 할인율 X
+					$('#hiddenOfferDiscountPrice').val(normalPrice);
+				}	else{
+					$('#hiddenOfferDiscountPrice').val(discountPrice * discount);
+					console.log("할인 됬3");
+			 	}
 		});
-		if ($("input[name='discount"+data[i].store_code+"']").prop('checked') == false){
-			console.log($('#hiddenDiscount'+data[i].store_code).val());
-			$('#hiddenOfferDiscountPrice').attr("value", normalPrice);
-			$('#hiddenOfferPrice').val(normalPrice);
-		})
-		$('#hiddenOfferDiscountPrice').attr("value", discountPrice);
-		console.log(discountPrice + '  '  + normalPrice); */
-			/* var discount = parseFloat($('#hiddenDiscount'+store_code).val());
-		     $("input[name='discount"+store_code+"']").prop('checked', function(){
-		 		console.log($(this).val());
-		    	 if($(this).val() == "yes"+store_code){
-			 			// 할인율 O
-			 			console.log($('#hiddenDiscount'+store_code).val());
-			 			discountPrice = discountPrice * discount;
-			 		} else{
-			 			discountPrice = parseInt($('#hiddenOfferPrice').val());
-			 			console.log('else' + discountPrice);
-			 		}
-		 	}); */
-	}
+  	};
 </script>
 <style>
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#pickupService{
+	width: 100%;
+	height: 100%;
+}
+
+#pickupService >  td {
+    font-family: Montserrat;
+	font-weight: bold;
+    font-size: 17px;
+    width: 50%;
+}
+
+#pickupServiceThTag {
+	padding: 20px;
+    font-family: Montserrat;
+	font-weight: bold;
+    font-size: 17px;
+    width: 20%;
+    height: 20%;
+}
+
  .store-pick {
     	display: table;
     	width: 100%;
@@ -720,12 +729,14 @@ input[type='number'] {
 			                     </c:forEach>
 			                  </ul>
 			                  <!-- AJAX 처리 후 Append 되는 물품 리스트 -->
-			                  <c:forEach items="${divisionList }" var="division">
-			                     <ul class="nav divisionBtn do" id="${division.division_code }">
-			                        <!-- Append ProductList -->
-			                     </ul>
-			                  </c:forEach>
-			                  <button class="btn btn-primary btn-lg" id="resetBtn">Reset</button>
+			                  <div style="width: 100%; height:622px; overflow:auto; display: inline-block;">
+			                  	<c:forEach items="${divisionList }" var="division">
+			                    	<ul class="nav divisionBtn do" id="${division.division_code }">
+			                        	<!-- Append ProductList -->
+			                     	</ul>
+			                 	</c:forEach>
+			                  </div>
+			                  
 			                  <div id="productListDIV">
 			                     <!-- 담기 눌렀을때 담는 곳 -->
 			                     <input type="hidden" id="hiddenProductList">
@@ -757,9 +768,10 @@ input[type='number'] {
 			                        <div class="swiper-pagination"></div>
 			                     </div>
 			                  </div>
+			                  <button class="btn btn-primary btn-lg" id="resetBtn">Reset</button>
 			               </div>
 			               <!-- End Storage Tag -->
-			               <h5 id="nowInfo"></h5>
+							<h5 id="nowInfo" style="width: 100%; display: block; float:left"></h5>
 			         </div><br />
 			         <!-- 렌탈물품 정보들 -->
 			         <section class="def-section" id="clients-section">
@@ -871,6 +883,38 @@ input[type='number'] {
 				            </div>
 						</div>
 				</section>
+				<section class="def-section" id="clients-section">
+					<div class="container" style="width: 100%; padding: 0;	">
+						<div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
+							<h4>픽업서비스</h4>
+							<table border="0" id="pickupService">
+								<tr>
+									<th id="pickupServiceThTag">주소</th><td>${loginAddr  }</td>
+								</tr>
+								<tr>
+									<th id="pickupServiceThTag">층수</th><td><input type="number" value="층수를 입력해주세요">&nbsp;&nbsp;<b>층</b></td>
+								</tr>
+								<tr>
+									<th id="pickupServiceThTag">포장서비스</th>
+									<td>
+										<label class="offerLabel">YES &nbsp;&nbsp;<input type="radio" name="pickupService" value="Y"></label>
+										<label class="offerLabel">NO &nbsp;&nbsp;<input type="radio" name="pickupService" value="N"></label>
+									</td>
+								</tr>
+								<tr>
+									<th id="pickupServiceThTag">박스구매</th>
+									<td>
+										<label class="offerLabel">YES &nbsp;&nbsp;<input type="radio" name="boxService" value="Y"></label>
+										<label class="offerLabel">NO &nbsp;&nbsp;<input type="radio" name="boxService" value="N"></label>
+									</td>
+								</tr>
+							</table>
+							<div id="pickupBoxCount">
+								<h4>박스 몇개노?</h4>
+							</div>
+						</div>
+					</div>
+				</section>
 			      <div align="center" style="margin: 100px auto">
 				         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
 					         <button id="offerInsertBtn" class="my-btn my-btn-grey">견적 뽑기</button>
@@ -884,6 +928,7 @@ input[type='number'] {
 						     <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct">
 						     <input type="hidden" name="laundry_count" id="hiddenLaundryCount">
 						     <input type="hidden" name="coupon_code" id="hiddenCouponCode">
+						     <input type="hidden" name="member_addr" value="${loginAddr }">
 		        	 </div>
 	  			 </div>
 	  		</div>
@@ -943,6 +988,12 @@ input[type='number'] {
 					$("input:radio[id='normalPrice']").removeAttr('checked');
 				 	$("input:radio[id='discountPrice']").removeAttr('checked');
 					var target = ev
+					var discountPrice = parseInt($("#hiddenOfferDiscountPrice").val()); // 감산되고의 가격
+					var normalPrice = parseInt($("#hiddenOfferPrice").val()); // 원래의 가격
+					console.log('discountPrice : '+ discountPrice);
+					console.log('normalPrice : '+ normalPrice);
+					// 이제 여기서 만약 고객님이 "아 이 지점말고 다른거 하고싶은데?" 라고 생각이 드실때 감산된 가격이 본래의 가격으로 돌아가는 마술을 써준다.
+					$("#hiddenOfferDiscountPrice").attr("value", normalPrice);
 					
 					// 클릭 시 console에 지점 주소 출력
 					var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
