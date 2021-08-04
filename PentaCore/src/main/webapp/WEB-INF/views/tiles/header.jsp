@@ -113,6 +113,10 @@
 									<!-- API 테스트 용 -->
 									<a href="kakaoMapTest">KakaoMapTest</a>
 								</li>
+								<li>
+									<!-- 투어 캘린더 테스트 -->
+									<a href="tourTest">투어 캘린더 테스트</a>
+								</li>
 							</ul>
 						</li> 
 						<li class="main-menu-separator"></li>
