@@ -5,7 +5,7 @@
 	<!-- 안심보관이사 신청 -->
 	<insert id="keepInsert" parameterType="com.yedam.storage.mystorage.vo.MyStorageVO">
 		INSERT INTO convey_apply
-		VALUES('CA'||LPAD(ca_seq.nextval,3,0),#{apply_start},#{apply_end},'Y',#{apply_product},null,#{store_code},#{apply_addr},#{member_id})
+		VALUES('CA'||LPAD(ca_seq.nextval,3,0),#{apply_end},#{apply_end},'Y',#{apply_product},null,#{store_code},#{apply_addr},#{member_id})
 	</insert>
 
 

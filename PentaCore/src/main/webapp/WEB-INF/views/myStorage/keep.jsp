@@ -181,17 +181,12 @@
         	if (check == true) {
         		location.href = "memberLoginForm";
         	} else {
-        		location.href = "keep";
+        		return false;
         	}
     	} else {
     		
-    		if($('#apply_start').val() == ""){
-    			alert("픽업 날짜를 입력하세요.");
-    			$('#apply_start').focus();
-    			return false;
-    		}
     		if($('#apply_end').val() == ""){
-    			alert("출고 날짜를 입력하세요.");
+    			alert("희망일을 선택해주세요.");
     			$('#apply_end').focus();
     			return false;
     		}
@@ -256,30 +251,23 @@
 					<div class="form-memtitle">
 						<div class="title">신청자 이름</div>
 						<div class="title">전화번호</div>
-						<div class="title">현재 주소</div>
-						<div class="title">이사규모</div>
 						<div class="title">이용 희망 지점</div>
 					</div>
 					<div class="form-memdata">
 						<div class="mem-data"><input type="text" id="apply_id" name="apply_id" value="${loginName }" /></div>
 						<div class="mem-data" style="line-height: 2.5em;"><input type="text" id="apply_tel" name="apply_tel" value="${loginTel }" /></div>
-						<div class="mem-data" style="line-height: 2.5em;"><input type="text" id="apply_addr" name="apply_addr" value="${loginAddr }" /></div>
-						<div class="mem-data" ><input type="text" id="apply_product" name="apply_product" value="ex) 원룸, 아파트21평 ..." /></div>
 						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left; color: #00c0e2">
 												아래의 지점 리스트에서 선택해주세요.</div>
 					</div>
-					<div class="form-contitle">
-						<div class="con-title">픽업 희망 날짜</div>
-						<div class="con-title">출고 희망 날짜</div>
+					<div class="form-memtitle">
+						<div class="title">현재 주소</div>
+						<div class="title">이사규모</div>
+						<div class="title">운송 희망일</div>
 					</div>
-					<div class="form-condata">
-						<div class="con-data"><input type="date" id="apply_start" name="apply_start" /><br>
-											<p style="color: gray; font-size: 8pt; line-height: 1em; margin: 0.4em 0em 0em; color: red;">
-											*보관 이사 신청 시 픽업을 원하는 날짜를 선택해주세요.<br>
-											 단순 출고의 경우에도 꼭! 출고날짜와 동일한 날짜를 선택
-											 해주세요.</p></div>
-						<div class="con-data"><input type="date" id="apply_end" name="apply_end" /><br>
-											<p style="color: gray; font-size: 8pt;">*보관 물품을 출고할 날짜를 선택해주세요.</p></div>
+					<div class="form-memdata">
+						<div class="mem-data" style="line-height: 2.5em;"><input type="text" id="apply_addr" name="apply_addr" value="${loginAddr }" /></div>
+						<div class="mem-data" ><input type="text" id="apply_product" name="apply_product" value="ex) 원룸, 아파트21평 ..." /></div>
+						<div class="mem-data" style="padding-top: 0.7em;"><input type="date" id="apply_end" name="apply_end" /><br> </div>
 					</div>
 				</div>
 				<div class="store-pick">

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>안녕</h1>
+	<h1>여기는 스케쥴!</h1>
 </body>
 </html>

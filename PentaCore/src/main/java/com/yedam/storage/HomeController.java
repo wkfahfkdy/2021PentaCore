@@ -60,7 +60,7 @@ public class HomeController {
 			// 관리자일 시에 해당 페이지로 이동
 			if("ROLE_STORE".equals(auth.get(0).toString()) || "ROLE_TRANS".equals(auth.get(0).toString()) ) {
 				System.out.println("컨트롤러 : " + auth.get(0).toString());
-				return "common/enterAdmin";
+				return "empty/empty/enterAdmin";
 			}
 		}
 		
