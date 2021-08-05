@@ -166,9 +166,6 @@
 			<h3>지점 투어 신청 내역 조회</h3>
 		</div>
 		<div class="tour-list">
-			<div align="right">
-				<button id="cancel-btn">투어취소</button>
-			</div>
 			<div id="tourGrid" align="center"></div>
 		</div>
 		<div class="tour-Reg">

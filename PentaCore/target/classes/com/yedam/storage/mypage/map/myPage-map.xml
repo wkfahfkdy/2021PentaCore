@@ -167,7 +167,7 @@
 	
 	<!-- MyPage 1:1 문의 내역 리스트 -->
 	<select id="myAskList" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT q.*, s.store_name 
+		SELECT q.question_num, q.question_title, q.question_date, s.store_name 
 		FROM question q, store s
 		WHERE q.store_code = s.store_code
 		AND member_id = #{member_id}
@@ -179,4 +179,17 @@
 		INSERT INTO question
 		VALUES(question_seq.nextval, 1, #{question_content}, null, #{store_code}, #{member_id}, sysdate, question_seq.nextval, #{question_title})
 	</insert>
+	
+	<!-- My Page 1:1 문의 상세 : Modal창으로 데이터 전달 -->
+	<select id="myAskSelect" resultType="MyPageVO" parameterType="MyPageVO">
+		SELECT q.*, s.store_name
+		FROM question q, store s
+		WHERE q.store_code = s.store_code
+		AND question_group IN
+			(SELECT question_group 
+			FROM question
+			WHERE member_id = #{member_id}
+			AND question_num = #{question_num})
+		ORDER BY question_group DESC, question_parents ASC
+	</select>
 </mapper>
