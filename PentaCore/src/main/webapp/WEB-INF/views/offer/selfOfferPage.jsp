@@ -47,25 +47,6 @@
    // Swiper API 변수
    let slider;
    $(document).ready(function() {
-	   /* $('#datePick').datepicker({
-		   closeText: "닫기",
-			prevText: "이전달",
-			nextText: "다음달",
-			currentText: "오늘",
-			monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월",
-			"7월", "8월", "9월", "10월", "11월", "12월" ],
-			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월",
-			"7월", "8월", "9월", "10월", "11월", "12월" ],
-			dayNames: [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
-			dayNamesShort: [ "일", "월", "화", "수", "목", "금", "토" ],
-			dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-			weekHeader: "주",
-			dateFormat: "yy. m. d.",
-			firstDay: 0,
-			isRTL: false,
-			showMonthAfterYear: true,
-			yearSuffix: "년"
-	   }); */
       // ProductList Ajax
       pageInit();
       // CouponList Ajax
@@ -323,6 +304,7 @@
       	})
       	// DB 처리
       	$('#insertOfferBtn').click(function(){
+      		$('#offerModal').modal('hide');
       		$('#frm').submit();
       	});
 
@@ -567,14 +549,16 @@
 	      };
 	      // 스토리지 가격 (현재 이미지의 Div 태그에data-Index 값 으로 구별해서 hidden에 담아주기)
 	      storageImageIndex = ($('.swiper-slide-active').data("index"));
-	      if(storageImageIndex == "f20"){
+	      if(storageImageIndex == "f20"){ // 라지플러스 일때
 	    	  storage_price = 0;
+	    	  $('#fixedDiscountPrice').html("상담문의");
+		      $('#fixedPrice').html("상담문의");
 	      } else{
 	    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) + rentalCount * rentalPrice ;
+	    	  $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+		      $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
 	      };
 	      $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-	      $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-	      $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
 		  $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
 		  $('#hiddenOfferRental').val(rentalList);
 		  $('#hiddenOfferPrice').val(storage_price);
@@ -630,15 +614,18 @@
         storageImageIndex = ($('.swiper-slide-active').data("index"));
         if(storageImageIndex == "f20"){
         	// 라지플러스면 price 상담문의로 변경
-	    	  storage_price = 0;
+	    	storage_price = 0;
+		  	$('#fixedDiscountPrice').html("상담문의");
+		    $('#fixedPrice').html("상담문의");
 	      } else{
 	    	  // 나머지는 렌탈 count * 가격에서 현재 선택되어있는 스토리지 data-index값을 읽어서 더해줌
 	    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) + rentalCount * rentalPrice ;
+	    	  $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+	          $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
 	      };
         // 삭제 된 결과를 value에 담기
        $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-       $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-       $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
+       
        $('#hiddenOfferRental').val(delRental);
        $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
        $('#hiddenOfferPrice').val(storage_price);
@@ -709,15 +696,18 @@
 					$('#hiddenOfferDiscountPrice').val(normalPrice);
 					$('#hiddenCouponCode').attr("value", " ");
 					$('#hiddenCouponName').val("일반쿠폰");
+					$('#fixedDiscountPrice').html("현재가격 : " + normalPrice + '원'); // 감산될 가격
 					
 				}	else{
 					$('#hiddenOfferDiscountPrice').val(Math.ceil(discountPrice * discount));
 					$('#hiddenCouponName').val(coupon_name);
+					$('#fixedDiscountPrice').html("현재가격 : " + Math.ceil(discountPrice * discount) + '원'); // 감산될 가격
 			 	}
 			$('#hiddenCouponCode').val(coupon_code); // 쿠폰코드도 넣고
-			$('#fixedDiscountPrice').html("현재가격 : " + Math.ceil(discountPrice * discount) + '원'); // 감산될 가격
+			
 		});
   	};
+  	
   	
 </script>
 <style>
@@ -1322,6 +1312,7 @@ input[type='number'] {
 						    <!-- DB에 들어가야 될 데이터를 가공해놓은 hidden들 -->
 						    <form action="insertOffer" id="frm" method="post">
 						    	<input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
+						    	<input type="hidden" name="store_code" id="hiddenStoreCode">
 							    <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice"> <!-- 얘가 모달창에서 보여질 총 Total 가격 + 디비로 넘길거 -->
 							    <input type="hidden" name="offer_product" id="hiddenOfferProduct">
 							    <input type="hidden" name="offer_rental" id="hiddenOfferRental" value="">
@@ -1427,6 +1418,7 @@ input[type='number'] {
 				  	$('.coupon').hide();
 				  	// 지점 찍을때 id가 store_code인걸 보여줌
 					$('#' + store_code).show();
+				  	$('#hiddenStoreCode').val(store_code);
 				  	$('#hiddenStoreBus').val(store_bus);
 				  	$('#hiddenStoreEmail').val(store_email);
 					$('#hiddenStoreWay').val(store_way);

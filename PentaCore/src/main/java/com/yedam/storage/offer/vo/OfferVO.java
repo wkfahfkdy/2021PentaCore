@@ -34,10 +34,11 @@ public class OfferVO {
 	private int offer_date;
 	private String offer_wash;
 	private String offer_premium;
-	private String rental_code;
 	private String coupon_code;
 	private String store_code;
 	private String laundry_product;
 	private String offer_pay;
 	private String member_id;
+	private String storage_code;
+	private String offer_addr;
 }

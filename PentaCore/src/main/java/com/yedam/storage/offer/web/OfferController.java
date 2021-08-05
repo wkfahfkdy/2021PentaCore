@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yedam.storage.offer.service.OfferService;
 import com.yedam.storage.offer.vo.OfferVO;
 import com.yedam.storage.product.impl.ProductServiceImpl;
 import com.yedam.storage.product.service.ProductService;
@@ -22,6 +23,8 @@ public class OfferController {
 	private ProductService productDAO;
 	@Autowired
 	private ProductServiceImpl impl;
+	@Autowired
+	private OfferService offerService;
 	
 	@RequestMapping("productList")
 	@ResponseBody
@@ -35,10 +38,11 @@ public class OfferController {
 		return productDAO.getProduct(vo);
 	}
 	
-	@RequestMapping(value="insertOffer", method = RequestMethod.POST)
+	@RequestMapping("insertOffer")
 	public String insertOffer(Model model, OfferVO vo) {
 		System.out.println(vo);
-		return null;
+		offerService.offerInsert(vo);
+		return "redirect:offerList";
 	}
 	
 }
