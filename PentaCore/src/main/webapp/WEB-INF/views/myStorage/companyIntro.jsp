@@ -5,10 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
+<br>
 <img
-								src="${pageContext.request.contextPath }/resources/companyIntro/siteIntro_bg.PNG"
+								src="${pageContext.request.contextPath }/resources/companyIntro/siteIntro_bg1_2.PNG"
 								alt="Image" width="100%">
 								<img
 								src="${pageContext.request.contextPath }/resources/companyIntro/siteIntro_bg2_1.PNG"
