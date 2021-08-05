@@ -6,6 +6,7 @@ import org.mybatis.spring.annotation.MapperScan;
 
 import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.storage.tour.vo.TourVO;
 
 @MapperScan
 public interface MemberMapper {
@@ -37,5 +38,7 @@ public interface MemberMapper {
 	public int employeePhoneUpdate(HashMap<String, Object> hash);
 	public int employeeAddrUpdate(HashMap<String, Object> hash);
 	//employee 지점코드값
-			public String empStoreCode(String p);
+	public String empStoreCode(String p);
+	//tour member_id값
+	public MemberVO tourMemberName(String p);
 }

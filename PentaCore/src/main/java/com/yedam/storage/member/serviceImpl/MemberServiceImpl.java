@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.yedam.storage.member.service.MemberService;
 import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.storage.tour.vo.TourVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -115,6 +116,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String empStoreCode(String p) {
 		return sqlSession.selectOne("empStoreCode", p);
+	}
+
+	@Override
+	public MemberVO tourMemberName(String p) {
+		return sqlSession.selectOne("tourMemberName", p);
 	}
 
 

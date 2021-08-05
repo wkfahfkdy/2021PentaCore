@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.storage.tour.vo.TourVO;
 
 public interface MemberService {
 
@@ -36,4 +37,6 @@ public interface MemberService {
 		public int employeeAddrUpdate(HashMap<String, Object> hash);
 		//employee 지점코드값
 		public String empStoreCode(String p);
+		//tour member_id값
+		public MemberVO tourMemberName(String p);
 }

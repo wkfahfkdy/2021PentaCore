@@ -16,4 +16,9 @@ public class TourVO {
 	private String member_id;
 	private String tour_cancel;
 	
+	// tour JSON에 필요
+	private String member_name;
+	private String start;
+	private String end;
+	
 }

@@ -62,6 +62,13 @@ private String member_disable;
 		from 	employees
 		where 	employee_id = #{employee_id}
 </select>
+
+<!-- tour에서 member_name 요구 / parameterType이 String -->
+<select id="tourMemberName" parameterType="String" resultType="com.yedam.storage.member.vo.MemberVO">
+		select 	member_name
+		from 	id_all_check
+		where 	member_id = #{member_id}
+</select>
 	
 	
 	<!-- 회원정보 수정 -->
