@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yedam.storage.offer.vo.OfferVO;
 import com.yedam.storage.product.impl.ProductServiceImpl;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.product.vo.ProductVO;
@@ -34,5 +35,10 @@ public class OfferController {
 		return productDAO.getProduct(vo);
 	}
 	
+	@RequestMapping(value="insertOffer", method = RequestMethod.POST)
+	public String insertOffer(Model model, OfferVO vo) {
+		System.out.println(vo);
+		return null;
+	}
 	
 }

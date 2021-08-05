@@ -110,7 +110,6 @@
       	// Reset Button
       	$('#resetBtn').click(function(){
       		productArrayList = new Array();
-        	console.log('resetBtn클릭');
         	$('#hiddenOfferPrice').attr("value", " "); // 현재가격 공백
         	$('#hiddenOfferDiscountPrice').attr("value", " "); // 감산 될 가격 공백
         	$('#hiddenOfferProduct').attr("value", productArrayList); // 물품 리스트 다시 초기화
@@ -167,14 +166,19 @@
       	if($("#member_addr").val() === undefined){
       		console.log("undefined입니다");
       	}*/
-      	setTimeout(function() {
+      
       		 // Form Submit Button
-            $('#offerInsertBtn').click(function () {
+		$('#offerInsertBtn').click(function () {
+            	// 이용기간 radio 체크 안되있을때
+            	if($('#hiddenOfferDate').val() == "" || $('#hiddenOfferDate').val() == " "){
+            		alert("이용기간을 체크해주세요");
+            		return false;
+            	}
+            	
             	// product 비어있을때
     	        if($('#hiddenOfferProduct').val() == ""){
     	      		alert("선택 된 물품이 없습니다.");
-    	      		console.log($('#hiddenOfferLaundryProduct').val());
-    	      		return false;
+					return false;
     	      	} else{
     	      		$('#offerProduct').html($('#hiddenOfferProduct').val());
     	      	}
@@ -229,51 +233,59 @@
             	} else{
             		$('#offerRental').html($('#hiddenOfferRental').val());
             	}
+            	
             	var addr = $('#hiddenStoreAddr').val();
             	var mapContainer2 = document.getElementById('modalInMap')// 지도를 표시할 div 
     		    mapOption2 = {
     				center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666),
-    		        level: 3 // 지도의 확대 레벨
+    		        level: 4 // 지도의 확대 레벨
     		    };  
-            	
-    			// 지도를 생성합니다    
-    			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
-    		
-    			// 주소-좌표 변환 객체를 생성합니다
-    			var geocoder2 = new kakao.maps.services.Geocoder();
-    			
-    			console.log(addr);
-    			// 주소로 좌표를 검색합니다
-    			geocoder2.addressSearch(addr, function(result, status) {
-    		
-    			    // 정상적으로 검색이 완료됐으면 
-    			     if (status === kakao.maps.services.Status.OK) {
-    		
-    			        var coords2 = new kakao.maps.LatLng(result[0].y, result[0].x);
-    		
-    			        // 결과값으로 받은 위치를 마커로 표시합니다
-    			        var marker2 = new kakao.maps.Marker({
-    			            map: map2,
-    			            position: coords2
-    			        });
-    		
-    			        // 인포윈도우로 장소에 대한 설명을 표시합니다
-    			        var infowindow2 = new kakao.maps.InfoWindow({
-    			            content: '<div style="width:150px;text-align:center;padding:6px 0;">지점위치</div>'
-    			        });
-    			        infowindow2.open(map2, marker2);
-    		
-    			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-    			        map2.setCenter(coords2);
-    			    }
-    			});
-            	
-            	$('#offerStorageSize').html($('.swiper-slide-active').data("name"));
+            	setTimeout(function() {
+	    			// 지도를 생성합니다    
+	    			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
+	    			
+	    			// 주소-좌표 변환 객체를 생성합니다
+	    			var geocoder2 = new kakao.maps.services.Geocoder();
+	    			
+	    			// 주소로 좌표를 검색합니다
+	    			geocoder2.addressSearch(addr, function(result, status) {
+	    		
+	    			    // 정상적으로 검색이 완료됐으면 
+	    			     if (status === kakao.maps.services.Status.OK) {
+	    		
+	    			        var coords2 = new kakao.maps.LatLng(result[0].y, result[0].x);
+	    		
+	    			        // 결과값으로 받은 위치를 마커로 표시합니다
+	    			        var marker2 = new kakao.maps.Marker({
+	    			            map: map2,
+	    			            position: coords2
+	    			        });
+	    		
+	    			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	    			        var infowindow2 = new kakao.maps.InfoWindow({
+	    			            content: '<div style="width:150px;text-align:center;padding:6px 0;">지점위치</div>'
+	    			        });
+	    			        infowindow2.open(map2, marker2);
+	    		
+	    			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    			        map2.setCenter(coords2);
+	    			    }
+	    			});
+            	}, 500);
+            	$('#storeWay').html("지하철 : " + $('#hiddenStoreWay').val()); // 오시는길
+            	$('#storeBus').html("버스 : " + $('#hiddenStoreBus').val()); // 버스
+            	$('#storeEmail').html("지점 이메일 : "+$('#hiddenStoreEmail').val()); // 지점 이메일
+            	$('#storeTel').html("전화번호 : "+$('#hiddenStoreTel').val()); //지점 전화번호
+            	$('#offerStorageSize').html($('.swiper-slide-active').data("name")); // 스토리지 이름
             	$('#offerDate').html($('input:radio[name="offerDate"]:checked').val() + '개월'); // 이용기간
             	$('#offerStore').html($('#hiddenStoreName').val()); // 이용지점
             	
             });
-      	}, 3000);
+      	
+      	// DB 처리
+      	$('#insertOfferBtn').click(function(){
+      		
+      	});
 
    });
    var resultPickupService = "";
@@ -281,7 +293,6 @@
    $(document).ready(function(){
 	   $('#floor').change(function(){
 			var floor = parseInt($('#floor').val());
-			console.log(floor);
 			if(floor < -2){
 				alert("더 밑으로 가면 안된데이");
 				parseInt($('#floor').val(0));
@@ -412,13 +423,14 @@
       // 스토리지 가격 (현재 이미지의 Div 태그에data-Index 값 으로 구별해서 hidden에 담아주기)
       storageImageIndex = ($('.swiper-slide-active').data("index"));
       storage_price = $('#hiddenStoragePrice' + storageImageIndex ).val();
-      console.log(storage_price);
-      
+
+      	$('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+      	$('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+        $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
     	$('#hiddenOfferProduct').val(resetList);
       	$('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
       	$('#hiddenOfferPrice').val(storage_price);
       	$('#hiddenOfferDiscountPrice').val(storage_price)
-     	console.log('Insert Function = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
       	$('#nowInfo').html('<br>총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
    }
    
@@ -477,13 +489,14 @@
         
         storageImageIndex = ($('.swiper-slide-active').data("index"));
         storage_price = $('#hiddenStoragePrice' + storageImageIndex ).val();
-         
+        $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+        $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+        $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
          // 삭제 된 결과를 value에 담기
         $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
         $('#hiddenOfferProduct').val(delProduct);
         $('#hiddenOfferPrice').val(storage_price);
         $('#hiddenOfferDiscountPrice').val(storage_price);
-        console.log('Delete Fnction = 총 물품 : ' + $('#hiddenOfferProduct').val() + ' / 가격 : ' +  $('#hiddenOfferPrice').val());
         $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
         
         
@@ -520,12 +533,14 @@
 	      } else{
 	    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) + rentalCount * rentalPrice ;
 	      };
-	      console.log('총 비용 ' + storage_price + '원 ');
-	   $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
-	   $('#hiddenOfferRental').val(rentalList);
-	   $('#hiddenOfferPrice').val(storage_price);
-	   $('#hiddenOfferDiscountPrice').val(storage_price);
-	   $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
+	      $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+	      $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+	      $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
+		  $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
+		  $('#hiddenOfferRental').val(rentalList);
+		  $('#hiddenOfferPrice').val(storage_price);
+		  $('#hiddenOfferDiscountPrice').val(storage_price);
+		  $('#nowInfo').html('총 물품 : ' + $('#hiddenOfferProduct').val() + '<br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
    }
    // 렌탈물품 삭제 Btn
    function deleteRental(rental_code){
@@ -544,7 +559,6 @@
       	}
 	   	totalVolume = totalVolume - rentalVolume;
 		$('#rentalCount' + rental_code).attr("value", rentalCount);
-		console.log(rentalCount + ' ' + rentalCode);
 		// 스토리지 부피랑 총 렌탈 부피 + 물품부피까지 더한걸 비교해서 슬라이드 이미지 이동
 		if($('#storageVolumn'+list[0]).val() > totalVolume){
             slider.slideTo($('.swiper-slide').data("id")*1 , 1000); // index 0
@@ -583,6 +597,9 @@
 	    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) + rentalCount * rentalPrice ;
 	      };
         // 삭제 된 결과를 value에 담기
+       $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+       $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+       $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
        $('#hiddenOfferRental').val(delRental);
        $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
        $('#hiddenOfferPrice').val(storage_price);
@@ -604,7 +621,6 @@
 	   for(insertLaundry in laundryArrayList) {
 		   resultLaundryList += laundryArrayList[insertLaundry] + " ";
 	   }
-	   console.log($('#laundryPrice' + laundry_code).val() + ' / ' + $('#laundryName' + laundry_code).val() + ' / ' + totalLaundryPrice);
 	   $('#hiddenOfferLaundryProduct').val(resultLaundryList);
 	   $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
    }
@@ -637,25 +653,18 @@
          		$('#hiddenOfferLaundryProduct').val().replace();
            }
       }
-      console.log($('input[name=wash]:checked').length);
-  	    
-	  console.log(laundryCount + " " +totalLaundryPrice);
 	  $('#hiddenOfferLaundryProduct').val(delLaundry);	
 	  $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
    }
 	// 망할 쿠폰
   	function discount(store_code){
-  		console.log(store_code);
   		var normalPrice = parseInt($('#hiddenOfferPrice').val()); // 기존의 가격
 		var discountPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 할인율을 받는 가격 변수
 		var discount = parseFloat($('#hiddenDiscount'+store_code).val()); // 지점별 할인율
 		var coupon_code = $('#couponCode' + store_code).val(); // 지점별 쿠폰 코드
 		var coupon_name = $('#couponName' + store_code).val();
-		console.log(coupon_code);
-		console.log("현재가격 : " + normalPrice + ' / 감산가격 : ' + discountPrice + ' / 여기 지점 할인율 : ' + discount);
 		
   		$("input[name='discount"+store_code+"']").change(function(){
-			console.log($(this).val());
 				if($(this).val() == "no"){
 					// 할인율 X
 					$('#hiddenOfferDiscountPrice').val(normalPrice);
@@ -664,19 +673,23 @@
 					
 				}	else{
 					$('#hiddenOfferDiscountPrice').val(Math.ceil(discountPrice * discount));
-					$('#hiddenCouponName').val(coupon_name);					
+					$('#hiddenCouponName').val(coupon_name);
 			 	}
 			$('#hiddenCouponCode').val(coupon_code); // 쿠폰코드도 넣고
+			$('#fixedDiscountPrice').html("현재가격 : " + Math.ceil(discountPrice * discount) + '원'); // 감산될 가격
 		});
   	};
   	
-  	function makeMap() {
-  		
-  		
-  	}
-  	
 </script>
 <style>
+.self-banner-bottom {
+	padding: 30px 0;
+    background: #6a9eff;
+    box-shadow: 0 -2px 7px 0 rgb(0 0 0 / 17%);
+    z-index: 10;
+    color: #fff;
+}
+
 #modalTable {
 	width: 80%;
 	border-collapse: separate;
@@ -888,8 +901,8 @@ input[type='number'] {
 			                           <li class="active dropdown"><label class="offerLabel">
 			                                기타 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
-			                           <li class="active dropdown"><label class="offerLabel">
-			                                 <input  type="text" value="다락 사용 목적을 입력해주세요.">
+			                           <li class="active dropdown"><label class="offerLabel" style="padding : 0">
+			                                 <input  type="text" value="다락 사용 목적을 입력해주세요." style="margin:0">
 			                           </label></li>
 			                            
 			                        </ul>
@@ -932,7 +945,7 @@ input[type='number'] {
 			                             지속적 이용 &nbsp;&nbsp;<input type="radio" name="offerDate" value="12">
 			                        </label></li>
 			                        <li class="active dropdown"><label class="offerLabel">
-			                             확실하지 않음  &nbsp;&nbsp;<input type="radio" name="offerDate" value="12">
+			                             확실하지 않음  &nbsp;&nbsp;<input type="radio" name="offerDate" value="12" checked="checked">
 			                         </label></li>
 			                     </ul>
 			                  </div>
@@ -1216,14 +1229,39 @@ input[type='number'] {
 								    				<td id="offerFirstPrice"></td>
 								    			</tr>
 								    		</table>
-								    		<div class="modalInMap" style="width: 70%">
-												<h4 align="left">지점 지도</h4>
-												<div id="modalInMap" style="width:100%;height:400px; margin:auto"></div>
+								    		<div style="display: table; width: 80%; margin: 30px auto">
+									    		<div class="modalInMap" style="width: 50%; display: table-cell;">
+													<h4 align="center">지점 지도</h4>
+													<div id="modalInMap" style="width:100%;height:400px; margin:auto"></div>
+												</div>
+												<div style="width:50%; display: table-cell; vertical-align: middle; line-height: 2.5">
+													<h4>오시는 길 및 정보</h4>
+													<h5 id="storeWay" style="padding: 30px"></h5>
+													<h5 id="storeBus" style="padding: 30px"></h5>
+													<h5 id="storeTel" style="padding:30px"></h5>
+													<h5 id="storeEmail" style="padding: 30px"></h5>
+												</div>
 											</div>
 								    	</div>
-								    	<div class="modal-footer">
-								    		<button type="button" class="btn btn-default">결정</button>
-								    		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								    	<div class="modal-footer" style="margin:30px auto; width:100%; text-align: center">
+								    		<button type="button" style="width: 40%" id="insertOfferBtn">
+								    			<div class="my-btn my-btn-primary">
+													<div class="my-btn-bg-top"></div>
+													<div class="my-btn-bg-bottom"></div>
+													<div class="my-btn-text">
+														결정
+													</div>
+												</div>
+								    		</button>
+								    		<button type="button" data-dismiss="modal" style="width: 40%">
+								    			<div class="my-btn my-btn-grey">
+													<div class="my-btn-bg-top"></div>
+													<div class="my-btn-bg-bottom"></div>
+													<div class="my-btn-text">
+														CLOSE
+													</div>
+												</div>
+								    		</button>
 								    	</div>
 								    </form>
 							    </div>
@@ -1231,34 +1269,50 @@ input[type='number'] {
 							  </div>
 							</div>
 				         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
+				         	<!-- 모달 및 필요한 정보들의 hidden -->
 				         	<input type="hidden" id="hiddenStoreName"> <!-- 모달 지점 이름 넣어주기 위한 Hidden -->
-				         	<input type="hidden" id="hiddenStoreAddr">
+				         	<input type="hidden" id="hiddenStoreAddr"> <!-- 주소값 -->
+				         	<input type="hidden" id="hiddenStoreWay"> <!-- 오시는길 -->
+				         	<input type="hidden" id="hiddenStoreBus"> <!-- 버스 -->
+				         	<input type="hidden" id="hiddenStoreEmail"> <!-- 이메일 -->
+				         	<input type="hidden" id="hiddenStoreTel"> <!-- 전화번호 -->
 				         	<input type="hidden" id="hiddenCouponName">	<!-- 모달 지점 이름 넣어주기 위한 Hidden -->
-				         	
-					        <!-- <button id="offerInsertBtn" class="my-btn my-btn-grey">견적 뽑기</button> -->
-						    <input type="hidden" id="hiddenOfferPrice"> <!-- 일단 밑에꺼랑 name이 똑같으면 안되니까 바꿔주고 -->
-						    <input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
-						    <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice"> <!-- 얘가 모달창에서 보여질 총 Total 가격 + 디비로 넘길거 -->
-						    <input type="hidden" name="offer_product" id="hiddenOfferProduct">
-						    <input type="hidden" name="offer_rental" id="hiddenOfferRental" value="">
-						    <input type="hidden" name="offer_wash" id="hiddenOfferWash" value="N">
-						    <input type="hidden" name="offer_premium" id="hiddenOfferPremium" value="N">
-						    <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct" value="">
-						    <input type="hidden" name="coupon_code" id="hiddenCouponCode" value="">
-						    <input type="hidden" name="offer_addr" value="${loginAddr }">
-						    <input type="hidden" name="member_id" value="${loginId }">
-						    <input type="hidden" name="offer_pickup" id="hiddenOfferPickup"> <!-- 여기에 픽업 정보 붙여줌 -->
-						    <input type="hidden" name="offer_start" value="<fmt:formatDate value="${now }" type="date" pattern="YY/MM/dd" />">
-						    <input type="hidden" name="offer_date" id="hiddenOfferDate">
-						    <input type="hidden" id="hiddenFloorValue"> <!-- 층수 받아오고 -->
+				         	<input type="hidden" id="hiddenFloorValue"> <!-- 층수 받아오고 -->
 						    <input type="hidden" id="hiddenBoxCount"> <!-- 박스 갯수 받아오고 -->
+						    <input type="hidden" id="hiddenOfferPrice"> <!-- 일단 감산된거랑 name이 똑같으면 안되니까 바꿔주고 -->
+						    <!-- DB에 들어가야 될 데이터를 가공해놓은 hidden들 -->
+						    <form action="insertOffer" id="frm" method="post">
+						    	<input type="hidden" name="storage_code" id="hiddenOfferStorageCode">
+							    <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice"> <!-- 얘가 모달창에서 보여질 총 Total 가격 + 디비로 넘길거 -->
+							    <input type="hidden" name="offer_product" id="hiddenOfferProduct">
+							    <input type="hidden" name="offer_rental" id="hiddenOfferRental" value="">
+							    <input type="hidden" name="offer_wash" id="hiddenOfferWash" value="N">
+							    <input type="hidden" name="offer_premium" id="hiddenOfferPremium" value="N">
+							    <input type="hidden" name="laundry_product" id="hiddenOfferLaundryProduct" value="">
+							    <input type="hidden" name="coupon_code" id="hiddenCouponCode" value="">
+							    <input type="hidden" name="offer_addr" value="${loginAddr }">
+							    <input type="hidden" name="member_id" value="${loginId }">
+							    <input type="hidden" name="offer_pickup" id="hiddenOfferPickup"> <!-- 여기에 픽업 정보 붙여줌 -->
+							    <input type="hidden" name="offer_start" value="<fmt:formatDate value="${now }" type="date" pattern="YY/MM/dd" />">
+							    <input type="hidden" name="offer_date" id="hiddenOfferDate">
+						    </form>
 		        	 </div>
 	  			 </div>
 	  		</div>
 		</div>
   </div>
-  <div class="self-banner-bottom">
-	<!-- 총 가격 -->
+  <div align="right" class="self-banner-bottom" style="position: fixed; bottom: 0px; width:19.4%; border-radius: 20px;">
+		<div id="inner"  style="padding: 0px 20px;">
+			<div style="float: left;">
+				<h4 id="fixedStoreName">중구점</h4> <!-- 지점이름 -->
+				<h5 id="fixedStorageName">슬림</h5> <!-- 스토리지 이름 / 약정 -->
+			</div>
+			<div style="float: right;">
+				<h4 id="fixedDiscountPrice" style="display: inline-block;">가격</h4> <!-- 감산된 가격-->
+				<h5 id="fixedPrice"></h5> <!-- 원래가격 --> 
+			</div>
+		</div>
+	
   </div>
 </body>
 
@@ -1275,7 +1329,7 @@ input[type='number'] {
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
 		$.ajax({
-			url:'storeInfo',
+			url:'storeAddr',
 			dataType:'json',
 			success:function(data){
 				// TOAST GRID
@@ -1323,15 +1377,26 @@ input[type='number'] {
 					var contents = recruitGrid.getValue(ev.rowKey,'store_addr');
 					var store_name = recruitGrid.getValue(ev.rowKey,'store_name');
 					var coupon_code = recruitGrid.getValue(ev.rowKey,'coupon_code');
-				  	// 각 지점 코드
+					var store_way = recruitGrid.getValue(ev.rowKey,'store_subway');
+					var store_bus = recruitGrid.getValue(ev.rowKey,'store_bus');
+					var store_email = recruitGrid.getValue(ev.rowKey,'store_email');
 					var store_code = recruitGrid.getValue(ev.rowKey,'store_code');
+					var store_tel = recruitGrid.getValue(ev.rowKey,'store_tel');
+				  	// 각 지점 코드
+					
 				  	// 이전에 있던 쿠폰 정보 hide 해주고
 				  	$('.coupon').hide();
 				  	// 지점 찍을때 id가 store_code인걸 보여줌
 					$('#' + store_code).show();
-				 	// 주소로 좌표를 검색합니다
+				  	$('#hiddenStoreBus').val(store_bus);
+				  	$('#hiddenStoreEmail').val(store_email);
+					$('#hiddenStoreWay').val(store_way);
 				 	$('#hiddenStoreName').val(store_name);
 				 	$('#hiddenStoreAddr').val(contents);
+				 	$('#hiddenStoreTel').val(store_tel);
+				 	
+				 	$('#fixedStoreName').html(store_name);
+				 	// 주소로 좌표를 검색합니다
 					geocoder.addressSearch(contents, function(result, status) {
 					
 					    // 정상적으로 검색이 완료됐으면 
