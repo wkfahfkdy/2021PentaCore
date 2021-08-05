@@ -58,9 +58,14 @@ public class HomeController {
 					(List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 			
 			// 관리자일 시에 해당 페이지로 이동
-			if("ROLE_STORE".equals(auth.get(0).toString()) || "ROLE_TRANS".equals(auth.get(0).toString()) ) {
+			if("ROLE_TRANS".equals(auth.get(0).toString())) {
 				System.out.println("컨트롤러 : " + auth.get(0).toString());
 				return "empty/empty/enterAdmin";
+			}
+			//지점관리자일 시에 해당 페이지로 이동
+			else if("ROLE_STORE".equals(auth.get(0).toString())) {
+				System.out.println("컨트롤러 : " + auth.get(0).toString());
+				return "storeAdmin/enterStoreAdmin";
 			}
 		}
 		
