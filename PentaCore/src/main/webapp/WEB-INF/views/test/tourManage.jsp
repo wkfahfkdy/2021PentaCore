@@ -43,6 +43,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js"></script>
 <script src="resources/fullcanlendar/calendars.js"></script>
+
 <c:set var="bgcolor" value="<%=new String[]{\"#000080\", \"#05abf7\", \"#f70ca5\"}%>"></c:set>
 <c:set var="fontcolor" value="<%=new String[]{\"#FFFFFF\", \"#FFFFFF\", \"#FFFFFF\"}%>"></c:set>
 <script>

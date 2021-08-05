@@ -167,7 +167,7 @@
       	if($("#member_addr").val() === undefined){
       		console.log("undefined입니다");
       	}*/
-      	setTimeout(function() {
+      	
       		 // Form Submit Button
             $('#offerInsertBtn').click(function () {
             	// product 비어있을때
@@ -235,7 +235,7 @@
     				center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666),
     		        level: 3 // 지도의 확대 레벨
     		    };  
-            	
+            	setTimeout(function() {
     			// 지도를 생성합니다    
     			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
     		
@@ -267,13 +267,14 @@
     			        map2.setCenter(coords2);
     			    }
     			});
+            	}, 500);
             	
             	$('#offerStorageSize').html($('.swiper-slide-active').data("name"));
             	$('#offerDate').html($('input:radio[name="offerDate"]:checked').val() + '개월'); // 이용기간
             	$('#offerStore').html($('#hiddenStoreName').val()); // 이용지점
             	
             });
-      	}, 3000);
+      	
 
    });
    var resultPickupService = "";
