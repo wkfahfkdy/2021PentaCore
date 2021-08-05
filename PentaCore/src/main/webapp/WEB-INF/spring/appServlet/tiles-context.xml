@@ -26,5 +26,21 @@
 		<put-attribute name="title" value="앙" />
 	</definition>
 	
+	
+	
+	
+	
+	<!-- 지점관리자  -->
+	<definition name="storeManagerLayout" template="/WEB-INF/views/tiles/storeManagerLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	<definition name="*/*" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+		<put-attribute name="title" value="앙" />
+	</definition>
+	
+	
 
 </tiles-definitions>
