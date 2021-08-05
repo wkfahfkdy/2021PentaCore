@@ -73,7 +73,7 @@
 							<a data-toggle="dropdown" href="myPageInfo">마이스토리지 안내</a>
 							<ul class="dropdown-menu" role="menu">
 								<li>
-									<a href="#">회사소개</a>
+									<a href="companyIntro">회사소개</a>
 								</li>
 								<li>
 									<a href="useForm">이용안내</a>

@@ -9,6 +9,18 @@
 ul{
    list-style:none;
    }
+   
+.review-text-bottom {
+    margin-top: 20px;
+}
+   
+.review-info {
+    margin-bottom: 2px;
+    color: #999;
+    font-size: 14px;
+}
+
+
 
 .pagination {
   display: inline-block;
@@ -68,91 +80,26 @@ ul{
 	function goPage(page) {
 		location.href="reviewList?page="+page;
 	}
+	
+	function reviewDetail(review_num1) {
+		
+		ifrm.review_num.value=review_num1;
+		ifrm.submit();
+	}
 </script>
 </head>
 <body>
 
-<div align="center" style="width=80%">
-<%-- 
-		<form action="reviewInfo" id="ifrm">
-			<input type="hidden" id="review_num" name="review_num">
-
-			<table>
-
-
-				<c:forEach items="${reviewList }" var="review" varStatus="status">
-					<c:if test="${status.index %3 == 0 }">
-						<tr>
-						<td>
-					</c:if>
-					<c:if test="${status.index %3 == 1 }">
-						</td>
-						<td>
-					</c:if>
-					<c:if test="${status.index %3 == 2 }">
-						</td>
-					</c:if>
-					<div >
-
-						<div>
-
-
-							<img
-								src="${pageContext.request.contextPath }/resources/store_img/${review.store_code }.jpg"
-								alt="Image" width="30%">
-
-
-						</div>
-						<div>
-							<div>
-								<div class="review-title">
-									<em>${review.store_name }</em> 그럭저럭?
-								</div>
-								<p class="review-body">아쉬웠던 점다락 대학로점을 사용하면서 느낀점이다1.내가 사용해야
-									할&nbsp; DHi16(slim)이 수리가 필요하다...</p>
-							</div>
-							<div class="review-text-bottom">
-								<div class="review-info">
-									<span class="review-name origin">전*훈</span> · <span>2021-04-04</span>
-								</div>
-
-
-
-							</div>
-						</div>
-					</div>
-					
-					<c:if test="${status.index %3 == 0 }">
-						</td>
-						<td>
-					</c:if>
-
-					<c:if test="${status.index %3 == 1 }">
-						</td>
-						<td>
-					</c:if>
-					<c:if test="${status.index %3 == 2 }">
-						</tr>
-					</c:if>
-				</c:forEach>
-			</table>
-		</form>
- --%>
-
-
+<div align="center" >
 
 
 
 		<div class="container">
 		
-		<form action="reviewInfo" id="ifrm">
-			<input type="hidden" id="review_num" name="review_num">
-
-
-				
-			
+		<form action="reviewDetail" id="ifrm">
+		<input type="hidden" id="review_num" name="review_num">
 			<div class="row">
-                 <c:forEach items="${reviewList }" var="review" varStatus="status">
+                 <c:forEach items="${reviewList }" var="reviewVO" varStatus="status">
 				<!-- === SERVICE ITEM === -->	
 				
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -160,24 +107,34 @@ ul{
 					<div class="service">				
 						<div class="service-icon">
 							<img
-								src="${pageContext.request.contextPath }/resources/store_img/${review.store_code }.jpg"
+								src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
 								alt="Image" width="100%">
 						</div>
-						<h3>road freight</h3>
+						<h3>${reviewVO.review_title }</h3>
 						<div class="service-text">
-							<p>Integer congue, elit semper laoreet sed<br>lectus orci posuh nisl tempor<br>lacus felis ac mauris.<br>elit non in urna.</p>
+							<p>${reviewVO.review_content }</p>
 						</div>
+						
+						
 						<div class="service-button">
-							<a href="05_service_detail.html">
+							<a onclick="reviewDetail(${reviewVO.review_num})">
+							
 								<div class="my-btn my-btn-default">
 									<div class="my-btn-bg-top"></div>
 									<div class="my-btn-bg-bottom"></div>
 									<div class="my-btn-text">
-										MORE
+										상세 보기
 									</div>
 								</div>
 							</a>
 						</div>
+						
+						<div class="review-text-bottom">
+							<div class="review-info">
+								<span>${reviewVO.member_name }</span> · <span>${reviewVO.review_date }</span>
+							</div>
+						</div>
+						
 					</div>
 					
 				</div>

@@ -62,5 +62,12 @@ public class MyStorageController {
 		
 		return "redirect:keep";
 	}
+	
+	//회사 소개
+	@RequestMapping("companyIntro")
+	public String companyIntro() {
+		
+		return "myStorage/companyIntro";
+	}	
 
 }

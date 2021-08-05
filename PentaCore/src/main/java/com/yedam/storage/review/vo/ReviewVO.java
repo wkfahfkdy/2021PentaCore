@@ -19,7 +19,7 @@ public class ReviewVO {
 	private int review_num;
 	private String review_title;
 	private String review_content;
-	private Date review_date;
+	private String review_date;
 	private String store_code;
 	private String member_id;
 	//join
