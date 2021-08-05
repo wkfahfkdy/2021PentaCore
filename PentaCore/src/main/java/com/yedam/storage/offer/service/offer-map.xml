@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.storage.offer.service.OfferMap">
+	<insert id="insertOffer" parameterType="com.yedam.storage.offer.vo.OfferVO">
+		INSERT INTO OFFER(
+			OFFER_CODE, OFFER_PRODUCT, OFFER_START, OFFER_RENTAL,
+			OFFER_PICKUP, OFFER_PRICE, OFFER_DATE, OFFER_WASH,
+			OFFER_PREMIUM, STORAGE_CODE, COUPON_CODE, STORE_CODE, 
+			LAUNDRY_PRODUCT, OFFER_PAY, MEMBER_ID, OFFER_ADDR
+			) 
+		VALUES (
+			OF_SEQ.NEXTVAL, #{offer_product}, #{offer_start}, #{offer_rental}, #{offer_pickup},
+			#{offer_price}, #{offer_date}, #{offer_wash}, #{offer_premium},
+			#{storage_code}, #{coupon_code}, #{store_code}, #{laundry_product}, 'N', #{member_id}, #{offer_addr}
+		) 
+	</insert>
+</mapper>
