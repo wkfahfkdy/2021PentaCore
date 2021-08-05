@@ -157,24 +157,23 @@
     }   
     
     
-    /* 퀵메뉴 */
-    div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding:0;margin:0}
-a {text-decoration:none;}
-
-.quickmenu {position:absolute;width:90px;top:50%;margin-top:-50px;right:10px;background:#fff;}
-.quickmenu ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;border:1px solid #ddd;}
-.quickmenu ul li {float:left;width:100%;border-bottom:1px solid #ddd;text-align:center;display:inline-block;*display:inline;}
-.quickmenu ul li a {position:relative;float:left;width:100%;height:30px;line-height:30px;text-align:center;color:#999;font-size:9.5pt;}
-.quickmenu ul li a:hover {color:#000;}
-.quickmenu ul li:last-child {border-bottom:0;}
-
-.content {position:relative;min-height:1000px;}
+    /* 따라다니는 아이콘 */	
+	.quickmenu {
+		position : absolute;
+		width : 90px;
+		top : 50%;
+		margin-top : -270px;
+		right : 80px;
+		}
+		
     
 </style>
+<!-- 지점list grid -->
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
-<!-- 해당div 이동 -->
 <script>
+
+	// 로그인체크 후 보관이사신청
 	function alertRegi(check) {
 
     	if (check == "no") {
@@ -216,6 +215,7 @@ a {text-decoration:none;}
     	}
 	}
 	
+	// 따라다니는 아이콘
 	$(document).ready(function(){ 
 		var currentPosition = parseInt($(".quickmenu").css("top")); 
 		$(window).scroll(function() { var position = $(window).scrollTop(); 
@@ -227,19 +227,16 @@ a {text-decoration:none;}
 </script>
 </head>
 <body>
+		<div>
+			<img style="width: 100%" src="${pageContext.request.contextPath }/resources/img/moving.jpg">
+		</div>
+		
 		<div class="wrap">
 		<!-- 서비스소개 및 QnA -->
 		<div class="scrollBtn"> 
 			<div class="quickmenu"> 
-				<ul> 
-					<li><a href="#">등급별혜택</a></li> 
-					<li><a href="#">1:1문의</a></li> 
-					<li><a href="#">후기</a></li> 
-				</ul> 
+				<button type="button" class="btn btn-primary btn-lg" > <a href="#scrollDiv">안심이사신청<br>바로가기</a></button>
 			</div>
-		</div>
-		<div>
-			<img style="width: 100%" src="${pageContext.request.contextPath }/resources/img/moving.jpg">
 		</div>
 		<div align="center" style="padding-top: 5%;">
 			<h4>다락 안심보관이사</h4>
