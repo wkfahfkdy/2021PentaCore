@@ -30,6 +30,14 @@
     #my_offer .modal-body{
     	font-size: 10pt;
     }
+    
+    .back-btn {
+    	background-color: #006DFC;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }   
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -42,8 +50,12 @@
 		<div id="offerGrid" align="center"></div>
 		<div id="my_offer" align="center">
 		    <a class="modal_close_btn">닫기</a>
+		    <div class="modal-header"></div>
 		    <div class="modal-body"></div>
 		    <div class="modal-storeInfo"></div>
+		</div>
+		<div style="margin: 1em 0em;">
+			<button class="back-btn" type="button" onclick="history.back()">뒤로가기</button>
 		</div>
 	</div>
 <script>
@@ -131,7 +143,7 @@ $(document).ready(function() {
 
 			var storageSize = data.storage_name;
 			var useStart = data.offer_start;
-			var useEnd = data.offer_date;
+			var useEnd = data.offer_end;
 			var storeName = data.store_name;
 			var rental = data.offer_rental;
 			var prod = data.offer_product;
@@ -147,9 +159,9 @@ $(document).ready(function() {
 			var sMail = data.store_email;
 			var sTel = data.store_tel;
 
-			var title = '견적서 상세내역';
+			var title = '<h4>견적서 상세내역</h4>';
 			
-			var tbl =$('<table />');
+			var tbl =$('<table width="100%" />');
 			var row = '<tr>';
 			row += '<td style="width: 30%;">' + '사이즈' + '</td>';
 			row += '<td style="width: 70%;">' + storageSize + '</td></tr>';
@@ -191,7 +203,7 @@ $(document).ready(function() {
 			tbl2.append(row2);
 			
 			
-			$(".modal-body").append(title);
+			$(".modal-header").append(title);
 			$(".modal-body").append(tbl);
 			$(".modal-body").append(tbl2);
 		}

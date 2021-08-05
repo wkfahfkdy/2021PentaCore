@@ -307,11 +307,6 @@ svg {
 	vertical-align: middle
 }
 
-table {
-	caption-side: bottom;
-	border-collapse: collapse
-}
-
 caption {
 	padding-top: .5rem;
 	padding-bottom: .5rem;

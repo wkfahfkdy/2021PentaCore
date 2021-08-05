@@ -16,7 +16,7 @@
     
     #my-ask {	/*모달창*/
         display: none;
-        width: 50%;
+        width: 60%;
         padding: 30px 50px;
         background-color: #fefefe;
         border: 1px solid #888;
@@ -103,6 +103,15 @@
 		max-width: 100%;
 		height: auto;
 	}
+	
+	.modal-body {
+		border: 1px solid #00c0e2; 
+	 	border-radius: 0.3em;
+	 	overflow: auto;
+	 	word-break: break-word;
+      	min-height: 200px;
+	}
+	
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -138,6 +147,7 @@
 		<div id="askGrid"></div>
 		<div id="my-ask" align="center">
 		    <a class="modal_close_btn">닫기</a>
+		    <div class="modal-header"></div>
 		    <div class="modal-body"></div>
 	    </div>
 	</div>
@@ -284,7 +294,7 @@ $(document).ready(function() {
 			var q_date;
  			var title;
 
- 			var tbl =$('<table />');
+ 			var tbl =$('<table width="100%" />');
 			
 			$.each(data,function(idx, item){
 				console.log(item);
@@ -305,13 +315,15 @@ $(document).ready(function() {
 				var row = '<tr>';
 					
 					if(q_parents == 1) {
-						row += '<td>작성일자</td>';
-						row += '<td>'+ q_date + '</td></tr>';
-						row += '<tr><td colspan="2" width="60%">' + q_content + '</td></tr>';
+						row += '<td width="20%" style="padding: 0.3em;">작성일자</td>';
+						row += '<td width="80%">'+ q_date + '</td></tr>';
+						row += '<tr style="border-bottom: 1px solid lightgray;">'+
+								'<td colspan="2" width="60%" align="center" style="line-height: 2.5em; padding-bottom: 1em;">'
+								+ q_content + '</td></tr>';
 					} else {
 						if(q_content != null){
-						row += '<tr><td>답변 </td><td>' + q_date + '</td></tr>';
-						row += '<tr><td>' + q_content + '</td></tr>';
+						row += '<tr><td style="padding: 0.3em;"><img src="resources/assets/images/re.png">&nbsp;답변 </td><td>' + q_date + '</td></tr>';
+						row += '<tr style="border-bottom: 1px dashed lightgray;"><td colspan="2" style="padding: 0.3em;">' + q_content + '</td></tr>';
 						}
 						else {
 							row += '아직 등록된 답변이 없습니다.';
@@ -319,7 +331,7 @@ $(document).ready(function() {
 					}
 				tbl.append(row);
 				if(idx == 0){
-					$(".modal-body").append(title);
+					$(".modal-header").append(title);
 				}
 			})
 				$(".modal-body").append(tbl);
@@ -350,6 +362,7 @@ $(document).ready(function() {
 		    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
 		    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
 		        bg.remove();
+		        $('.modal-header').empty();
 		        $('.modal-body').empty();
 		        modal.style.display = 'none';
 		    });

@@ -28,8 +28,9 @@ public class MyPageVO {
 	private String offer_premium;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date offer_start;
+	private int offer_date;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-	private Date offer_date;
+	private Date offer_end;
 	private String offer_pickup;
 	private String coupon_code;
 	private int offer_price;
