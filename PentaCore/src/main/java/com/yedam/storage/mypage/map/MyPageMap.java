@@ -75,4 +75,7 @@ public interface MyPageMap {
 	
 	// 1:1 문의 등록
 	public int registAsk(MyPageVO vo);
+	
+	// 1:1 문의 상세
+	public List<MyPageVO> myAskSelect(MyPageVO vo);
 }

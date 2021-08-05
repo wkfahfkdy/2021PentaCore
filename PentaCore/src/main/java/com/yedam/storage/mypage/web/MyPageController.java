@@ -290,4 +290,20 @@ public class MyPageController {
 		MyPageDAO.registAsk(vo);
 		return "redirect:myAsk";
 	}
+	
+	// 1:1 문의 상세
+	@RequestMapping(value = "askSelect/{question_num}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<MyPageVO> askSelect(@PathVariable int question_num, HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("loginId");
+		
+		vo.setMember_id(id);
+		vo.setQuestion_num(question_num);
+		
+		List<MyPageVO> askSelect = MyPageDAO.myAskSelect(vo);
+		System.out.println(askSelect);
+		
+		return askSelect;
+	}
 }

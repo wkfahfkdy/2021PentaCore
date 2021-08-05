@@ -169,7 +169,10 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.insert("registAsk", vo);
 	}
 
-
-
+	@Override
+	public List<MyPageVO> myAskSelect(MyPageVO vo) {
+		// 1:1 문의 상세
+		return sqlSession.selectList("myAskSelect", vo) ;
+	}
 
 }

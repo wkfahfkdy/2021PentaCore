@@ -94,6 +94,15 @@
 		padding: 5px;
 		margin: 2em 0em;
 	}
+	
+	#cke_editor1 {	/* 시도때도 없이 나오는 CK에디터 머리 참수 */
+		display: none;
+	}
+	
+	div.modal-body img {	/* Modal창 안에 표시되는 내용의 이미지 사이즈 강제 조정*/
+		max-width: 100%;
+		height: auto;
+	}
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -178,7 +187,7 @@
 			</div>
 			<div class="bts">
 				<button type="button" class="apply-btn" onclick="formCheck()">등록</button>&nbsp;&nbsp;
-				<button class="back-btn" style="margin: 1em 0em;" onclick="location.href='myPageInfo'">돌아가기</button>
+				<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='myPageInfo'">돌아가기</button>
 			</div>
 		</div>
 	</form>
@@ -252,7 +261,7 @@ $(document).ready(function() {
 		console.log(myAsk);
 		
 		$.ajax({
-			url: 'myAsk/'+myAsk,
+			url: 'askSelect/'+myAsk,
 			type: 'GET',
 			dataType: 'json',
 			success: function(result) {
@@ -266,44 +275,54 @@ $(document).ready(function() {
 		
 		function showAsk(data) {
 			modal('my-ask');
+			
+			var q_code;
+			var q_parents;
+			var q_title;
+			var q_content;
+			var q_store;
+			var q_date;
+ 			var title;
 
-// 			var a_code = data.apply_code;
-// 			var a_Start = data.apply_start;
-// 			var a_time = data.apply_time;
-// 			var a_end = data.apply_end;
-// 			var a_whether = data.apply_whether;
-// 			var a_prod = data.apply_product;
-// 			var a_use = data.info_num;
-// 			var a_store = data.store_name;
-// 			var a_addr = data.apply_addr;
+ 			var tbl =$('<table />');
+			
+			$.each(data,function(idx, item){
+				console.log(item);
+				console.log(idx);
+				q_code = item.question_num;
+				q_parents = item.question_parents;
+				q_title = item.question_title;
+				q_content = item.question_content;
+				q_store = item.store_name;
+				q_date = item.question_date;
+				console.log(q_code, q_parents, q_title, q_content, q_store, q_date);
 
-// 			var title = '<h4>운송 신청 상세내역</h4>';
-			
-// 			var tbl =$('<table />');
-// 			var row = '<tr>';
-// 			row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;">' + '신청코드' + '</td>';
-// 			row += '<td class="mo-tbl" style="width: 70%; padding-top: 30px;">' + a_code + '</td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 일자" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_Start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 주소" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_addr + '</td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "출고 희망 일자" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_end + '<br><p class="comment">*보관이사 또는 이용 중인 스토리지에서 물품을 출고하는 날짜입니다.</p></td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "보관이사 여부" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_whether + '</td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "운송 물품 정보" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_prod + '</td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 지점" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_store + '</td></tr>';
-// 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 중인 스토리지 번호" + '</td>';
-// 			row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
-// 			row += '<tr><td class="mo-tbl" colspan="2"><p style="color: red; font-size: 9pt; line-height: 1.3em;">접수 된 신청건은 세부 일정 조율과 상담을 위해 물품 운송팀에서 확인 후,<br>'
-// 			+'고객님께 직접 연락을 드립니다. 만일 취소나 변경사항이 생길 경우 고객센터로 문의주시면<br>신속하게 처리를 도와드립니다.</p></td></tr>';
-			
-// 			tbl.append(row);
-			
-// 			$(".modal-body").append(title);
-// 			$(".modal-body").append(tbl);
+				if(q_title == null)
+					title = '<h4>제목이 없습니다.</h4>';
+				else
+					title = '<h4>'+ q_title + '</h4>';
+					
+				var row = '<tr>';
+					
+					if(q_parents == 1) {
+						row += '<td>작성일자</td>';
+						row += '<td>'+ q_date + '</td></tr>';
+						row += '<tr><td colspan="2" width="60%">' + q_content + '</td></tr>';
+					} else {
+						if(q_content != null){
+						row += '<tr><td>답변 </td><td>' + q_date + '</td></tr>';
+						row += '<tr><td>' + q_content + '</td></tr>';
+						}
+						else {
+							row += '아직 등록된 답변이 없습니다.';
+						}
+					}
+				tbl.append(row);
+				if(idx == 0){
+					$(".modal-body").append(title);
+				}
+			})
+				$(".modal-body").append(tbl);
 		}
 
 	});	// Modal로 견적서 상세 보기 요청 끝
