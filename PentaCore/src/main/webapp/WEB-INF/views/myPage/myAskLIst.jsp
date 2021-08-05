@@ -177,8 +177,8 @@
 				</div>
 			</div>
 			<div class="bts">
-				<button type="submit" class="apply-btn">등록</button>&nbsp;&nbsp;
-				<button class="back-btn" style="margin: 1em 0em;">돌아가기</button>
+				<button type="button" class="apply-btn" onclick="formCheck()">등록</button>&nbsp;&nbsp;
+				<button class="back-btn" style="margin: 1em 0em;" onclick="location.href='myPageInfo'">돌아가기</button>
 			</div>
 		</div>
 	</form>
