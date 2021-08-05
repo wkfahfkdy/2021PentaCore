@@ -166,7 +166,7 @@
 												<button class="review-btn" onclick="location.href='reviewForm'">리뷰작성</button>
 											</c:when>
 											<c:otherwise>
-												<button class="review-btn" onclick="location.href='reviewDetail'">리뷰보기</button>
+												<button class="review-btn" onclick="location.href='reviewList'">리뷰페이지</button>
 											</c:otherwise>
 										</c:choose>
 									</td>

@@ -56,8 +56,11 @@
 	
 	<!-- 셀프 견적서 상세 -->
 	<select id="myOfferSelect" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT o.*, (o.offer_price*c.coupon_discount) as total_price, s.store_name, s.store_tel,s.STORE_ADDR, s.STORE_BUS, s.STORE_EMAIL,s.STORE_SUBWAY, t.storage_name, 
-        t.STORAGE_PRICE, c.coupon_name
+		SELECT o.*, (o.offer_price*c.coupon_discount) as total_price, 
+				add_months(o.offer_start, o.offer_date) as offer_end, 
+				s.store_name, s.store_tel,s.STORE_ADDR, s.STORE_BUS, s.STORE_EMAIL,s.STORE_SUBWAY, 
+				t.storage_name, 
+        		t.STORAGE_PRICE, c.coupon_name
 		FROM offer o JOIN store s
 		ON (o.store_code = s.store_code)
 		JOIN storage t
@@ -102,7 +105,7 @@
 		VALUES('CA'||LPAD(ca_seq.nextval,3,0), #{member_id}, 
 			#{apply_addr}, #{apply_product}, #{apply_start}, 
 			#{apply_end}, #{apply_whether}, 
-			(SELECT use_num
+			(SELECT DISTINCT use_num
 			 FROM use_storage
 			 WHERE member_id = #{member_id}), 
 			#{store_code})
@@ -113,6 +116,7 @@
 		SELECT t.*, s.store_name
 		FROM tour t, store s
 		WHERE t.store_code = s.store_code
+		AND t.tour_cancel = 'N' 
 		AND member_id = #{member_id}
 	</select>
 	

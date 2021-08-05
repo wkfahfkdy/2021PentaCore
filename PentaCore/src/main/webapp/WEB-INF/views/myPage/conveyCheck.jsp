@@ -372,12 +372,12 @@ $(document).ready(function() {
 			modal('my_convey');
 
 			var a_code = data.apply_code;
-			var a_Start = data.apply_start;
+			var a_start = data.apply_start;
 			var a_time = data.apply_time;
 			var a_end = data.apply_end;
 			var a_whether = data.apply_whether;
 			var a_prod = data.apply_product;
-			var a_use = data.info_num;
+			var a_use = data.use_num;
 			var a_store = data.store_name;
 			var a_addr = data.apply_addr;
 
@@ -388,7 +388,11 @@ $(document).ready(function() {
 			row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;">' + '신청코드' + '</td>';
 			row += '<td class="mo-tbl" style="width: 70%; padding-top: 30px;">' + a_code + '</td></tr>';
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 일자" + '</td>';
-			row += '<td class="mo-tbl">' + a_Start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
+			if(a_start == a_end){
+				row += '<td class="mo-tbl"><p class="comment">*보관 이사 시 픽업되는 날짜로, 단순 출고는 해당되지 않습니다.</p></td></tr>';
+			} else {
+				row += '<td class="mo-tbl">' + a_start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
+			}
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 주소" + '</td>';
 			row += '<td class="mo-tbl">' + a_addr + '</td></tr>';
 			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "출고 희망 일자" + '</td>';
