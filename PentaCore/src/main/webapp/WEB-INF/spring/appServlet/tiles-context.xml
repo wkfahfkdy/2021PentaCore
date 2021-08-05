@@ -30,6 +30,7 @@
 	
 	
 	
+	
 	<!-- 지점관리자  -->
 	<definition name="storeManagerLayout" template="/WEB-INF/views/tiles/storeManagerLayout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />

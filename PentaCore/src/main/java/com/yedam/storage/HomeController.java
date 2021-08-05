@@ -65,7 +65,7 @@ public class HomeController {
 			//지점관리자일 시에 해당 페이지로 이동
 			else if("ROLE_STORE".equals(auth.get(0).toString())) {
 				System.out.println("컨트롤러 : " + auth.get(0).toString());
-				return "common/enterStoreAdmin";
+				return "storeAdmin/enterStoreAdmin";
 			}
 		}
 		
