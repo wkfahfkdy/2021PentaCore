@@ -19,7 +19,9 @@
 <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
 <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
 <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a66ba8e60100e68a1df7756407ad0bb&libraries=services"></script>
+
 <script type="text/javascript">
 	//세탁 총 가격
 	let totalLaundryPrice = 0;
@@ -45,6 +47,25 @@
    // Swiper API 변수
    let slider;
    $(document).ready(function() {
+	   /* $('#datePick').datepicker({
+		   closeText: "닫기",
+			prevText: "이전달",
+			nextText: "다음달",
+			currentText: "오늘",
+			monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월",
+			"7월", "8월", "9월", "10월", "11월", "12월" ],
+			monthNamesShort: [ "1월", "2월", "3월", "4월", "5월", "6월",
+			"7월", "8월", "9월", "10월", "11월", "12월" ],
+			dayNames: [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+			dayNamesShort: [ "일", "월", "화", "수", "목", "금", "토" ],
+			dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
+			weekHeader: "주",
+			dateFormat: "yy. m. d.",
+			firstDay: 0,
+			isRTL: false,
+			showMonthAfterYear: true,
+			yearSuffix: "년"
+	   }); */
       // ProductList Ajax
       pageInit();
       // CouponList Ajax
@@ -73,16 +94,29 @@
       // 프리미엄 서비스
       $("input[name='premium']").change(function(){
     	 $('#hiddenOfferPremium').val($(this).val());
+    	// Y일때 5000원추가
     	 if($(this).val() == "Y"){
-    		// Y일때 5000원추가
-    		storage_price =  storage_price + 5000;
-    		$('#hiddenOfferPrice').val(storage_price);
-    		$('#hiddenOfferDiscountPrice').val(storage_price);
+    		 // 라지 플러스일때는 그대로 0
+    		 if(parseInt($('#hiddenOfferDiscountPrice').val()) == 0){
+    			 	$('#hiddenOfferPrice').val("0");
+    	    		$('#hiddenOfferDiscountPrice').val("0");
+    		 }else {
+    			storage_price =  storage_price + 5000;
+    	    	$('#hiddenOfferPrice').val(storage_price);
+    	    	$('#hiddenOfferDiscountPrice').val(storage_price);
+    		 }
     	 } else {
-    		 storage_price =  storage_price - 5000;
-    		 $('#hiddenOfferPrice').val(storage_price);
-    		 $('#hiddenOfferDiscountPrice').val(storage_price);
+    		 if(parseInt($('#hiddenOfferDiscountPrice').val()) == 0) {
+    			$('#hiddenOfferPrice').val("0");
+ 	    		$('#hiddenOfferDiscountPrice').val("0");
+    		 } else{
+    			 storage_price =  storage_price - 5000;
+        		 $('#hiddenOfferPrice').val(storage_price);
+        		 $('#hiddenOfferDiscountPrice').val(storage_price);
+    		 }
     	 }
+    	 $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
+         $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
       });
       
       // Laundry 신청 미신청 여부
@@ -282,9 +316,14 @@
             	
             });
       	
+      	//offer_start
+      	$('#datePick').change(function(){
+      		console.log($(this).val());
+      		$('#hiddenOfferStart').val($(this).val());
+      	})
       	// DB 처리
       	$('#insertOfferBtn').click(function(){
-      		
+      		$('#frm').submit();
       	});
 
    });
@@ -921,7 +960,7 @@ input[type='number'] {
 			            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
 			               style="width: 100%;">
 			               <div class="home-clients">
-			                  <h4>얼마나 오래 사용하실 계획이세요?</h4>
+			                  <h4>얼마나 오래 사용하실 계획이세요? <input type="date" id="datePick" pattern="YYYY/MM/DD"></h4>
 			                  <div class="collapse navbar-collapse main-menu main-menu-2"
 			                     id="main-menu">
 			                     <ul class="nav navbar-nav">
@@ -1293,7 +1332,7 @@ input[type='number'] {
 							    <input type="hidden" name="offer_addr" value="${loginAddr }">
 							    <input type="hidden" name="member_id" value="${loginId }">
 							    <input type="hidden" name="offer_pickup" id="hiddenOfferPickup"> <!-- 여기에 픽업 정보 붙여줌 -->
-							    <input type="hidden" name="offer_start" value="<fmt:formatDate value="${now }" type="date" pattern="YY/MM/dd" />">
+							    <input type="hidden" name="offer_start" id="hiddenOfferStart" value="">
 							    <input type="hidden" name="offer_date" id="hiddenOfferDate">
 						    </form>
 		        	 </div>

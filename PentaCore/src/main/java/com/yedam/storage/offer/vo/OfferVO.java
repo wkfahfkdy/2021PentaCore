@@ -31,14 +31,13 @@ public class OfferVO {
 	private String offer_rental;
 	private String offer_pickup;
 	private int offer_price;
-	private Date offer_date;
+	private int offer_date;
 	private String offer_wash;
 	private String offer_premium;
 	private String rental_code;
 	private String coupon_code;
 	private String store_code;
 	private String laundry_product;
-	private int laundry_count;
 	private String offer_pay;
 	private String member_id;
 }
