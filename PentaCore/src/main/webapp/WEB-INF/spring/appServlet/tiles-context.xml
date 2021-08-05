@@ -9,8 +9,8 @@
         <put-attribute name="content" value=""/>  
     </definition>
     
-	<definition name="empty/*" extends="empty">
-          <put-attribute name="content" value="/WEB-INF/views/empty/{1}/{2}.jsp" />
+	<definition name="empty/*/*" extends="empty">
+          <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
 
 
