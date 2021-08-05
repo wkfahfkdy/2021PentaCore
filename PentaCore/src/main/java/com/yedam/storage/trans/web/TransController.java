@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.storage.trans.service.TransService;
@@ -23,12 +24,13 @@ public class TransController {
 	}
 	
 	
-	@RequestMapping("admin/customer")
+	@RequestMapping("customer")
 	public String customer(Model model, TransVO vo) {
 
 		model.addAttribute("customerListAll", transDAO.coustomerListAll(vo));
-		List<TransVO> vo2 = transDAO.coustomerListAll(vo);
-		System.out.println(vo2);
+	//	List<TransVO> vo2 = transDAO.coustomerListAll(vo);
+	//	System.out.println(vo2);
+		System.out.println(vo);
 		
 		return "empty/empty/customer";
 	}

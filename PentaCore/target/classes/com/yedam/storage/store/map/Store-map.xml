@@ -5,7 +5,7 @@
 	
 	<!-- 카카오맵 지도 API에 필요한 리스트 출력용 -->
 	<select id="SelectStoreAddr" resultType="com.yedam.storage.store.vo.StoreVO">
-		select 	store_name, store_addr
+		select 	*
 		from 	store
 	</select>
 

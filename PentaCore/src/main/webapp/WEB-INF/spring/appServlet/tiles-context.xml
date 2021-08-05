@@ -14,7 +14,6 @@
     </definition>
 
 
-
 	<definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
 		<put-attribute name="body" value="" />
