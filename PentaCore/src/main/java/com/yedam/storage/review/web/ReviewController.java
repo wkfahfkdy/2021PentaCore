@@ -35,20 +35,20 @@ public class ReviewController {
 			}
 			//10개씩 페이징
 			int pageCnt = Integer.parseInt(page);
-			int firstCnt = (pageCnt - 1) * 10 + 1; // 1 , 11 ,21
-			int lastCnt = (pageCnt * 10); // 10 , 20 , 30
+			int firstCnt = (pageCnt - 1) * 8 + 1; // 1 , 11 ,21
+			int lastCnt = (pageCnt * 8); // 10 , 20 , 30
 			vo.setFirstCnt(firstCnt);
 			vo.setLastCnt(lastCnt);
 			
 			List<ReviewVO> total = reviewDAO.reviewList();//전체 검색결과
 			Paging paging = new Paging();
 			paging.setPageNo(pageCnt);//요청받은 페이지
-			paging.setPageSize(10);//한페이지에 보여줄 값
+			paging.setPageSize(8);//한페이지에 보여줄 값
 			paging.setTotalCount(total.size());//페이지에 필요한 변수 생성
 		    
 			model.addAttribute("paging", paging);//페이징에 필요한 값
 			model.addAttribute("reviewList", reviewDAO.reviewListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
-			return "review/reviewList";
+			return "review/reviewList2";
 		}
 	
 	
