@@ -27,6 +27,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewVO> reviewListPaging(ReviewVO vo) {
 		return sqlSession.selectList("reviewListPaging", vo);
 	}
+
+
+	@Override
+	public ReviewVO selectReview(String reviewNum) {
+		return sqlSession.selectOne("selectReview", reviewNum);
+	}
 	
 	
 	

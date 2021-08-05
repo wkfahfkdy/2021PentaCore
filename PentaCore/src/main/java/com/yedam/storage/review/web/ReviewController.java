@@ -45,11 +45,26 @@ public class ReviewController {
 			paging.setPageNo(pageCnt);//요청받은 페이지
 			paging.setPageSize(8);//한페이지에 보여줄 값
 			paging.setTotalCount(total.size());//페이지에 필요한 변수 생성
+			
+			
+			
 		    
 			model.addAttribute("paging", paging);//페이징에 필요한 값
 			model.addAttribute("reviewList", reviewDAO.reviewListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
-			return "review/reviewList2";
+			return "review/reviewList";
 		}
-	
+		
+		//이용후기 상세페이지
+		
+		@RequestMapping("reviewDetail")
+			public String reviewDetail(Model model , HttpServletRequest req ) {
+			String review_num = req.getParameter("review_num");
+			ReviewVO rvo = reviewDAO.selectReview(review_num);
+			
+			model.addAttribute("reviewVO",rvo);
+			model.addAttribute("review_num", review_num);// 리뷰 번호 넘기기
+			
+			return "review/reviewDetail";
+			}	
 	
 }

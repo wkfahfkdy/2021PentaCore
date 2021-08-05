@@ -30,17 +30,39 @@ private String member_disable;
 
 
 	<select id="reviewListPaging" parameterType="com.yedam.storage.review.vo.ReviewVO"  resultType="com.yedam.storage.review.vo.ReviewVO">
-		      SELECT *
-		      FROM (
-		          SELECT ROW_NUMBER() OVER(ORDER by review_num DESC) AS
-		          row_num
-		          ,a.*
-		          FROM review a
-		      )
-		      WHERE review_num BETWEEN #{firstCnt} AND #{lastCnt}
+		      
+		      
+		      SELECT    r.review_num, r.review_title, 
+
+				        case 
+				        when  length(substr(r.review_content,1,40)) > 39  then substr(r.review_content,1,40)||'..'
+				        else substr(r.review_content,1,40)
+				        end review_content,
+				
+								'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
+							    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
+							    s.store_name
+							    
+								from review r join member m on (r.member_id = m.member_id)
+								join store s on (r.store_code = s.store_code) 
+				        WHERE review_num BETWEEN #{firstCnt} AND #{lastCnt}
+						order by r.review_num desc
 	</select>
 
+	
+	<select id ="selectReview" parameterType="string" resultType="com.yedam.storage.review.vo.ReviewVO">
+			SELECT 	r.review_num, r.review_title, r.review_content,
 
+				'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
+			    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
+			    s.store_name
+			    
+				from review r join member m on (r.member_id = m.member_id)
+				join store s on (r.store_code = s.store_code) 
+       			WHERE review_num = #{p}
+				order by r.review_num desc
+	
+	</select>
 
 	<!-- 
 	<select id="reviewList" parameterType="int" resultType="com.yedam.storage.review.vo.ReviewVO">
