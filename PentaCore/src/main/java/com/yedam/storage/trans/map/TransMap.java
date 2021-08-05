@@ -1,5 +1,12 @@
 package com.yedam.storage.trans.map;
 
-public class TransMap {
+import java.util.List;
+
+import com.yedam.storage.trans.vo.TransVO;
+
+public interface TransMap {
+	
+	public List<TransVO> coustomerListAll(TransVO vo);
+	
 
 }

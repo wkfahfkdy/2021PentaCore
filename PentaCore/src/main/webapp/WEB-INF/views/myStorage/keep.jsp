@@ -191,6 +191,12 @@
     			return false;
     		}
     		
+    		if($('#apply').val() == ""){
+    			alert("희망지점을 선택해주세요.");
+    			$('#apply_end').focus();
+    			return false;
+    		}
+    		
     		var data = $("form[id=frm]").serialize() ;
     		console.log(data);
     		
