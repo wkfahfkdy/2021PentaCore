@@ -11,14 +11,14 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.yedam.storage">
+<!-- 	<logger name="com.yedam.storage">
 		<level value="info" />
 	</logger>
 	
-	<!-- 3rdparty Loggers -->
+	3rdparty Loggers
 	<logger name="org.springframework.core">
 		<level value="info" />
-	</logger>	
+	</logger>
 	
 	<logger name="org.springframework.beans">
 		<level value="info" />
@@ -30,11 +30,11 @@
 
 	<logger name="org.springframework.web">
 		<level value="info" />
-	</logger>
+	</logger> -->
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
 	
