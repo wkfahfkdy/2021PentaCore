@@ -9,6 +9,18 @@
 ul{
    list-style:none;
    }
+   
+.review-text-bottom {
+    margin-top: 20px;
+}
+   
+.review-info {
+    margin-bottom: 2px;
+    color: #999;
+    font-size: 14px;
+}
+
+
 
 .pagination {
   display: inline-block;
@@ -68,75 +80,83 @@ ul{
 	function goPage(page) {
 		location.href="reviewList?page="+page;
 	}
+	
+	function reviewDetail(review_num1) {
+		
+		ifrm.review_num.value=review_num1;
+		ifrm.submit();
+	}
 </script>
 </head>
 <body>
 
-<div align="center" style="width=80%">
-
-		<form action="reviewInfo" id="ifrm">
-			<input type="hidden" id="review_num" name="review_num">
-
-			<table>
+<div align="center" >
 
 
-				<c:forEach items="${reviewList }" var="review" varStatus="status">
-					<c:if test="${status.index %3 == 0 }">
-						<tr>
-						<td>
-					</c:if>
-					<c:if test="${status.index %3 == 1 }">
-						</td>
-						<td>
-					</c:if>
-					<c:if test="${status.index %3 == 2 }">
-						</td>
-					</c:if>
-					<div >
 
-						<div>
-
-
+		<div class="container">
+		
+		<form action="reviewDetail" id="ifrm">
+		<input type="hidden" id="review_num" name="review_num">
+			<div class="row">
+                 <c:forEach items="${reviewList }" var="reviewVO" varStatus="status">
+				<!-- === SERVICE ITEM === -->	
+				
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				
+					<div class="service">				
+						<div class="service-icon">
 							<img
-								src="${pageContext.request.contextPath }/resources/store_img/${review.store_code }.jpg"
-								alt="Image" width="30%">
-
-
+								src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
+								alt="Image" width="100%">
 						</div>
-						<div>
-							<div>
-								<div class="review-title">
-									<em>${review.store_name }</em> 그럭저럭?
+						<h3>${reviewVO.review_title }</h3>
+						<div class="service-text">
+							<p>${reviewVO.review_content }</p>
+						</div>
+						
+						
+						<div class="service-button">
+							<a onclick="reviewDetail(${reviewVO.review_num})">
+							
+								<div class="my-btn my-btn-default">
+									<div class="my-btn-bg-top"></div>
+									<div class="my-btn-bg-bottom"></div>
+									<div class="my-btn-text">
+										상세 보기
+									</div>
 								</div>
-								<p class="review-body">아쉬웠던 점다락 대학로점을 사용하면서 느낀점이다1.내가 사용해야
-									할&nbsp; DHi16(slim)이 수리가 필요하다...</p>
-							</div>
-							<div class="review-text-bottom">
-								<div class="review-info">
-									<span class="review-name origin">전*훈</span> · <span>2021-04-04</span>
-								</div>
-
-
-
+							</a>
+						</div>
+						
+						<div class="review-text-bottom">
+							<div class="review-info">
+								<span>${reviewVO.member_name }</span> · <span>${reviewVO.review_date }</span>
 							</div>
 						</div>
+						
 					</div>
 					
-					<c:if test="${status.index %3 == 0 }">
-						</td>
-						<td>
-					</c:if>
+				</div>
+                </c:forEach>
+				 
+             </div>
+             
+             </form>
+         </div>
 
-					<c:if test="${status.index %3 == 1 }">
-						</td>
-						<td>
-					</c:if>
-					<c:if test="${status.index %3 == 2 }">
-						</tr>
-					</c:if>
-				</c:forEach>
-			</table>
-		</form>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

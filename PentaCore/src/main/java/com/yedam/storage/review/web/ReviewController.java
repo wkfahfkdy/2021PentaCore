@@ -51,7 +51,7 @@ public class ReviewController {
 		    
 			model.addAttribute("paging", paging);//페이징에 필요한 값
 			model.addAttribute("reviewList", reviewDAO.reviewListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
-			return "review/reviewList2";
+			return "review/reviewList";
 		}
 		
 		//이용후기 상세페이지
