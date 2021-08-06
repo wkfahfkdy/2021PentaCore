@@ -91,7 +91,8 @@ public class MyPageController {
 	// 운송 신청 상세 modal로 보낼 data
 	@RequestMapping(value="myConvey/{apply_code}", method=RequestMethod.GET)
 	@ResponseBody
-	public MyPageVO myConveySelect(@PathVariable String apply_code, Model model, MyPageVO vo) {
+	public MyPageVO myConveySelect(@
+			PathVariable String apply_code, Model model, MyPageVO vo) {
 		vo.setApply_code(apply_code);
 		System.out.println(apply_code);
 		return MyPageDAO.myConveySelect(vo);

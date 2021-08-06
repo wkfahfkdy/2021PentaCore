@@ -28,5 +28,7 @@ public class TransVO {
 	private String convey_car;
 	private String convey_driver;
 	private String convey_time;
+	
+	private String store_name;
 
 }

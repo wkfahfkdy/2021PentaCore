@@ -4,7 +4,11 @@
 
 	<!-- 신청내역 -->
 	<select id="coustomerListAll" resultType="com.yedam.storage.trans.vo.TransVO">
-		SELECT * FROM convey_apply	
+		SELECT a.member_name, b.apply_addr, b.apply_start, b.apply_end, c.store_name
+		FROM member a join convey_apply b
+		ON (a.member_id = b.member_id)
+		JOIN store c
+		ON (b.store_code = c.store_code)
 	</select>
 
 </mapper>
