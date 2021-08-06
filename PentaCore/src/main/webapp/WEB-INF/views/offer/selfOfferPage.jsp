@@ -74,30 +74,40 @@
       
       // 프리미엄 서비스
       $("input[name='premium']").change(function(){
-    	 $('#hiddenOfferPremium').val($(this).val());
     	// Y일때 5000원추가
+    	// 이거 너무 IF 많이 들어가야됌 일단 ㄱㄷ
+    	$('#hiddenOfferPremium').val($(this).val());
     	 if($(this).val() == "Y"){
-    		 // 라지 플러스일때는 그대로 0
-    		 if(parseInt($('#hiddenOfferDiscountPrice').val()) == 0){
-    			 	$('#hiddenOfferPrice').val("0");
-    	    		$('#hiddenOfferDiscountPrice').val("0");
+    		 // 라지 플러스일때는 그대로 5000원
+    		 if($('.swiper-slide-active').data("index") == "f20"){
+    			 	storage_price = 5000;
+    			 	$('#hiddenOfferPrice').val(storage_price);
+    	    		$('#hiddenOfferDiscountPrice').val(storage_price);
+    	    		$('#fixedDiscountPrice').html("상담문의"); // 감산될 가격
+    	            $('#fixedPrice').html("상담문의"); // 원래가격
     		 }else {
-    			storage_price =  storage_price + 5000;
+    			storage_price = storage_price + 5000;
     	    	$('#hiddenOfferPrice').val(storage_price);
     	    	$('#hiddenOfferDiscountPrice').val(storage_price);
+    	    	$('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
+    	        $('#fixedPrice').html("할인전가격" + storage_price + '원'); // 원래가격
     		 }
     	 } else {
-    		 if(parseInt($('#hiddenOfferDiscountPrice').val()) == 0) {
-    			$('#hiddenOfferPrice').val("0");
- 	    		$('#hiddenOfferDiscountPrice').val("0");
-    		 } else{
-    			 storage_price =  storage_price - 5000;
-        		 $('#hiddenOfferPrice').val(storage_price);
-        		 $('#hiddenOfferDiscountPrice').val(storage_price);
-    		 }
+	    		if($('.swiper-slide-active').data("index") == "f20"){
+	    			storage_price = 0;
+	 			 	$('#hiddenOfferPrice').val(storage_price);
+	 	    		$('#hiddenOfferDiscountPrice').val(storage_price);
+	 	    		$('#fixedDiscountPrice').html("상담문의"); // 감산될 가격
+	 	            $('#fixedPrice').html("상담문의"); // 원래가격
+				}
+	    		else{
+	    			storage_price =  storage_price - 5000;
+	    			$('#hiddenOfferPrice').val(storage_price);
+	     	    	$('#hiddenOfferDiscountPrice').val(storage_price);
+	     	    	$('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
+	     	        $('#fixedPrice').html("할인전가격" + storage_price + '원'); // 원래가격
+	    		}
     	 }
-    	 $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-         $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
       });
       
       // Laundry 신청 미신청 여부
@@ -113,12 +123,15 @@
 				$('#memberTotalPrice').html("총 0 원");	
 				$('#laundryInfoList').hide();
 				$('#hiddenOfferWash').val("N");
+				$('#fixedLaundry').html("세탁물품가격");
+				$('#hiddenLaundryTotalPrice').val("0"); // 히든 세탁서비스 총 가격
 			}else{
 				// Y눌러도 일단 N누르고 Y눌렀을테니 바로 초기화 시켜버리기
 				$('#hiddenOfferWash').val("Y");
 				$('.totalLaundryCount').attr("value", "0");
 				$('#memberTotalPrice').html("총 0 원");
 				$('#laundryInfoList').show();
+				$('#hiddenLaundryTotalPrice').val("0"); // 히든 세탁서비스 총 가격
 			}
 		});
       	
@@ -161,7 +174,7 @@
       		}else {
       			$('#pickupBoxCount').hide();
       			$('#hiddenBoxCount').removeAttr("value");
-      			parseInt($('#boxCount').val(0));
+      			$('#boxCount').val("");
       		}
 	     });
       	// offer_date 넣어줄때 검증
@@ -176,13 +189,8 @@
   				$('#hiddenOfferDate').val("12");
   			}
       	});
-      	// 이거 된다
-	/*  	console.log($("#member_addr").val());
-      	if($("#member_addr").val() === undefined){
-      		console.log("undefined입니다");
-      	}*/
-      
-      		 // Form Submit Button
+      	
+      	// 견적서 뽑기
 		$('#offerInsertBtn').click(function () {
             	// 이용기간 radio 체크 안되있을때
             	if($('#hiddenOfferDate').val() == "" || $('#hiddenOfferDate').val() == " "){
@@ -205,9 +213,11 @@
             			return false;
             		}else {
             			$('#offerLaundry').html($('#hiddenOfferLaundryProduct').val());
+            			$('#offerLaundryPrice').html($('#hiddenLaundryTotalPrice').val() + "원")// 세탁서비스 총 가격
             		}
             	} else{
             		$('#offerLaundry').html("신청 X");
+            		$('#offerLaundryPrice').html("0원")// 세탁서비스 총 가격
             	}
             	
             	// 지점 선택 안했을때랑 선택했는데 쿠폰 선택을 안했을 경우
@@ -215,12 +225,18 @@
             		alert("지점 선택 후 쿠폰사용 유무를 입력해주세요.");
             		return false;
             	} else{
-            		// 예상 월 이용금액
-            		$('#offerPrice').html($('#hiddenOfferPrice').val() + "원");
-            		// 예상 첫달 이용금액
-            		$('#offerFirstPrice').html($('#hiddenOfferDiscountPrice').val() + "원");
-            		// 쿠폰 이름
-            		$('#offerCoupon').html($('#hiddenCouponName').val()); 
+            		if(($('.swiper-slide-active').data("index")) == "f20"){
+            			$('#offerCoupon').html($('#hiddenCouponName').val()); 
+    	      			$('#offerPrice').html("상담문의");
+    	      			$('#offerFirstPrice').html("상담문의");
+    	      		} else{
+    	      			// 예상 월 이용금액
+                		$('#offerPrice').html($('#hiddenOfferPrice').val() + "원");
+                		// 예상 첫달 이용금액
+                		$('#offerFirstPrice').html($('#hiddenOfferDiscountPrice').val() + "원");
+                		// 쿠폰 이름
+                		$('#offerCoupon').html($('#hiddenCouponName').val()); 
+    	      		}
             	}
             	
             	// 픽업 서비스 신청했는데 층수가 0층일때 + 박스 신청했는데 갯수가 0일때 alert
@@ -236,7 +252,9 @@
             				}
             			}
             			pickupServiceFnc(); // 층수 + 박스value를 #hiddenOfferPickup에 Append 해줌
+            			
             			$('#offerPickup').html($('#hiddenOfferPickup').val());
+            			$('#offerOtherPrice').html(parseInt($('#hiddenBoxPrice').val()) + "원"); 
             		}
             	} else {
             		$('#offerPickup').html("신청 X");
@@ -287,6 +305,12 @@
 	    			    }
 	    			});
             	}, 500);
+            	var storageTotalPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 스토리지이용 총 금액
+            	var laundryTotalPrice = parseInt($('#hiddenLaundryTotalPrice').val()); // 세탁서비스 총 금액
+            	var boxTotalPrice = parseInt($('#hiddenBoxPrice').val()); // 박스 총 가격
+            	$('#offerPremium').html($('#hiddenOfferPremium').val()); // 프리미엄 서비스 신청 유무
+            	// 세탁서비스 총 가격 + hiddenOfferPrice에 더해주기
+            	$('#offerTotalPrice').html($('#'))
             	$('#storeWay').html("지하철 : " + $('#hiddenStoreWay').val()); // 오시는길
             	$('#storeBus').html("버스 : " + $('#hiddenStoreBus').val()); // 버스
             	$('#storeEmail').html("지점 이메일 : "+$('#hiddenStoreEmail').val()); // 지점 이메일
@@ -294,7 +318,9 @@
             	$('#offerStorageSize').html($('.swiper-slide-active').data("name")); // 스토리지 이름
             	$('#offerDate').html($('input:radio[name="offerDate"]:checked').val() + '개월'); // 이용기간
             	$('#offerStore').html($('#hiddenStoreName').val()); // 이용지점
-            	
+            	// 총가격 보여주고 DB넣을때 다 더해주기
+            	$('#offerTotalPrice').html(storageTotalPrice + laundryTotalPrice + boxTotalPrice + '원'); // 세탁서비스 + 스토리지 이용금액
+            	$('#hiddenOfferDiscountPrice').val(storageTotalPrice + laundryTotalPrice + boxTotalPrice); // DB에 들어갈거
             });
       	
       	//offer_start
@@ -330,12 +356,15 @@
 			if(boxCount < 0){
 				alert("0개 밑으론 신청할 수 없습니다.");
 				parseInt($('#boxCount').val(0));
+				$('#hiddenBoxCount').val("");
+				$('#fixedOther').html("기타");
 			} else {
+				$('#fixedOther').html("기타 가격 : " + boxCount * 6600 + "원");
+				$('#hiddenBoxPrice').val(boxCount * 6600);
 				resultBoxCount = "박스갯수:" + boxCount + "개" ;
 				$('#hiddenBoxCount').val(resultBoxCount)
 			}
 		});
-	   
    })
    
    function pickupServiceFnc(){
@@ -442,12 +471,17 @@
          }
       };
       // 스토리지 가격 (현재 이미지의 Div 태그에data-Index 값 으로 구별해서 hidden에 담아주기)
-      storageImageIndex = ($('.swiper-slide-active').data("index"));
-      storage_price = $('#hiddenStoragePrice' + storageImageIndex ).val();
-
-      	$('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-      	$('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-        $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
+      storageImageIndex = $('.swiper-slide-active').data("index");
+      if(storageImageIndex == "f20"){ // 라지플러스 일때
+    	  storage_price = 0;
+    	  $('#fixedDiscountPrice').html("상담문의");
+	      $('#fixedPrice').html("상담문의");
+      } else{
+    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) ;
+    	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
+          $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
+      };
+     	$('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
     	$('#hiddenOfferProduct').val(resetList);
       	$('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
       	$('#hiddenOfferPrice').val(storage_price);
@@ -510,9 +544,18 @@
         
         storageImageIndex = ($('.swiper-slide-active').data("index"));
         storage_price = $('#hiddenStoragePrice' + storageImageIndex ).val();
+     	// 스토리지 가격 (현재 이미지의 Div 태그에data-Index 값 으로 구별해서 hidden에 담아주기)
+        storageImageIndex = $('.swiper-slide-active').data("index");
+        if(storageImageIndex == "f20"){ // 라지플러스 일때
+      	  storage_price = 0;
+      	  $('#fixedDiscountPrice').html("상담문의");
+  	      $('#fixedPrice').html("상담문의");
+        } else{
+      	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) ;
+      	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
+            $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
+        };
         $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-        $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-        $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
          // 삭제 된 결과를 value에 담기
         $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
         $('#hiddenOfferProduct').val(delProduct);
@@ -555,8 +598,8 @@
 		      $('#fixedPrice').html("상담문의");
 	      } else{
 	    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) + rentalCount * rentalPrice ;
-	    	  $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-		      $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
+	    	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
+	          $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
 	      };
 	      $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
 		  $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
@@ -620,8 +663,8 @@
 	      } else{
 	    	  // 나머지는 렌탈 count * 가격에서 현재 선택되어있는 스토리지 data-index값을 읽어서 더해줌
 	    	  storage_price = parseInt($('#hiddenStoragePrice' + storageImageIndex ).val()) + rentalCount * rentalPrice ;
-	    	  $('#fixedDiscountPrice').html("헌재가격" + storage_price + '원'); // 감산될 가격
-	          $('#fixedPrice').html("원래가격" + storage_price + '원'); // 원래가격
+	    	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
+	          $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
 	      };
         // 삭제 된 결과를 value에 담기
        $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
@@ -647,8 +690,10 @@
 	   for(insertLaundry in laundryArrayList) {
 		   resultLaundryList += laundryArrayList[insertLaundry] + " ";
 	   }
+	   $('#fixedLaundry').html("세탁서비스 가격 : " + totalLaundryPrice + "원");
 	   $('#hiddenOfferLaundryProduct').val(resultLaundryList);
 	   $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
+	   $('#hiddenLaundryTotalPrice').val(totalLaundryPrice); // 히든 세탁서비스 총 가격
    }
    
    function deleteLaundry(laundry_code){
@@ -679,8 +724,10 @@
          		$('#hiddenOfferLaundryProduct').val().replace();
            }
       }
+      $('#fixedLaundry').html("세탁서비스 가격 : " + totalLaundryPrice + "원");
 	  $('#hiddenOfferLaundryProduct').val(delLaundry);	
 	  $('#memberTotalPrice').html('총 ' + totalLaundryPrice + ' 원');
+	  $('#hiddenLaundryTotalPrice').val(totalLaundryPrice); // 히든 세탁서비스 총 가격
    }
 	// 망할 쿠폰
   	function discount(store_code){
@@ -689,22 +736,40 @@
 		var discount = parseFloat($('#hiddenDiscount'+store_code).val()); // 지점별 할인율
 		var coupon_code = $('#couponCode' + store_code).val(); // 지점별 쿠폰 코드
 		var coupon_name = $('#couponName' + store_code).val();
-		
+		storageImageIndex = ($('.swiper-slide-active').data("index"));
   		$("input[name='discount"+store_code+"']").change(function(){
 				if($(this).val() == "no"){
-					// 할인율 X
-					$('#hiddenOfferDiscountPrice').val(normalPrice);
-					$('#hiddenCouponCode').attr("value", " ");
-					$('#hiddenCouponName').val("일반쿠폰");
-					$('#fixedDiscountPrice').html("현재가격 : " + normalPrice + '원'); // 감산될 가격
-					
-				}	else{
-					$('#hiddenOfferDiscountPrice').val(Math.ceil(discountPrice * discount));
-					$('#hiddenCouponName').val(coupon_name);
-					$('#fixedDiscountPrice').html("현재가격 : " + Math.ceil(discountPrice * discount) + '원'); // 감산될 가격
+			        if(storageImageIndex == "f20"){
+			        	// 라지플러스면 price 상담문의로 변경 (라지플러스인데 일반요금을 할때 바로 5000원으로 변경)
+				    	storage_price = 5000;
+				    	$('#hiddenOfferDiscountPrice').val(storage_price);
+					  	$('#fixedDiscountPrice').html("상담문의");
+					    $('#fixedPrice').html("상담문의");
+				      } else{
+				    	// 할인율 X (기존 있던 normalPrice를 감산될 가격에 넣어줌)
+						$('#hiddenOfferDiscountPrice').val(normalPrice);
+						$('#hiddenCouponCode').attr("value", " ");
+						$('#fixedDiscountPrice').html("스토리지이용가격 : " + normalPrice + '원'); // 감산될 가격
+					    $('#fixedPrice').html("할인전가격 : " + normalPrice + '원'); // 원래가격
+				      };
+				      $('#hiddenCouponName').val("일반쿠폰");
+				} else{ // 쿠폰을 쓸때
+					// 쓸때도 라지플러스이면 걍 5000원이고 아니면 감산 시켜주고
+					if(storageImageIndex == "f20"){
+			        	// 라지플러스면 price 상담문의로 변경 (라지플러스인데 일반요금을 할때 바로 5000원으로 변경)
+				    	storage_price = 5000;
+				    	$('#hiddenOfferDiscountPrice').val(storage_price);
+				    	$('#hiddenCouponName').val(coupon_name);
+					  	$('#fixedDiscountPrice').html("상담문의");
+					    $('#fixedPrice').html("상담문의");
+				    } else{
+				    	$('#hiddenOfferDiscountPrice').val(Math.ceil(discountPrice * discount));
+						$('#hiddenCouponName').val(coupon_name);
+						$('#fixedDiscountPrice').html("스토리지이용가격 : " + Math.ceil(discountPrice * discount) + '원'); // 감산될 가격
+						$('#fixedPrice').html("할인전가격 : " + normalPrice + '원'); // 원래가격
+				    }
 			 	}
 			$('#hiddenCouponCode').val(coupon_code); // 쿠폰코드도 넣고
-			
 		});
   	};
   	
@@ -1238,24 +1303,40 @@ input[type='number'] {
 								    				<td id="offerProduct"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">쿠폰 / 할인</td>
-								    				<td id="offerCoupon"></td>
+								    				<td style="padding: 10px; font-weight: bold;">프리미엄서비스 신청</td>
+								    				<td id="offerPremium"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">픽업 서비스</td>
-								    				<td id="offerPickup"></td>
+								    				<td style="padding: 10px; font-weight: bold;">스토리지 이용 예상 월 이용금액</td>
+								    				<td id="offerPrice"></td>
+								    			</tr>
+								    			<tr>
+								    				<td style="padding: 10px; font-weight: bold;">스토리지 이용 예상 첫달 이용금액</td>
+								    				<td id="offerFirstPrice"></td>
 								    			</tr>
 								    			<tr>
 								    				<td style="padding: 10px; font-weight: bold;">세탁 서비스</td>
 								    				<td id="offerLaundry"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">예상 월 이용금액</td>
-								    				<td id="offerPrice"></td>
+								    				<td style="padding: 10px; font-weight: bold;">세탁 서비스 총 가격</td>
+								    				<td id="offerLaundryPrice"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">예상 첫달 이용금액</td>
-								    				<td id="offerFirstPrice"></td>
+								    				<td style="padding: 10px; font-weight: bold;">픽업 서비스</td>
+								    				<td id="offerPickup"></td>
+								    			</tr>
+								    			<tr>
+								    				<td style="padding: 10px; font-weight: bold;">기타 가격 (박스)</td>
+								    				<td id="offerOtherPrice"></td>
+								    			</tr>
+								    			<tr>
+								    				<td style="padding: 10px; font-weight: bold;">쿠폰 / 할인</td>
+								    				<td id="offerCoupon"></td>
+								    			</tr>
+								    			<tr>
+								    				<td style="padding: 10px; font-weight: bold;">총 가격</td>
+								    				<td id="offerTotalPrice"></td>
 								    			</tr>
 								    		</table>
 								    		<div style="display: table; width: 80%; margin: 30px auto">
@@ -1299,6 +1380,8 @@ input[type='number'] {
 							</div>
 				         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
 				         	<!-- 모달 및 필요한 정보들의 hidden -->
+				         	<input type="hidden" id="hiddenLaundryTotalPrice"> <!-- 세탁물 총 가격 -->
+				         	<input type="hidden" id="hiddenBoxPrice"> <!-- 박스가격 -->
 				         	<input type="hidden" id="hiddenStoreName"> <!-- 모달 지점 이름 넣어주기 위한 Hidden -->
 				         	<input type="hidden" id="hiddenStoreAddr"> <!-- 주소값 -->
 				         	<input type="hidden" id="hiddenStoreWay"> <!-- 오시는길 -->
@@ -1338,8 +1421,10 @@ input[type='number'] {
 				<h5 id="fixedStorageName">슬림</h5> <!-- 스토리지 이름 / 약정 -->
 			</div>
 			<div style="float: right;">
-				<h4 id="fixedDiscountPrice" style="display: inline-block;">가격</h4> <!-- 감산된 가격-->
+				<h4 id="fixedDiscountPrice" style="display: inline-block;">현재가격54000원</h4> <!-- 감산된 가격-->
 				<h5 id="fixedPrice"></h5> <!-- 원래가격 --> 
+				<h4 id="fixedLaundry">세탁물품가격</h4>
+				<h4 id="fixedOther">기타</h4>
 			</div>
 		</div>
 	
