@@ -45,6 +45,7 @@ private String employee_email;
 private String employee_disable;
 private String department_id;
 private String store_code;
+private String store_name;
 
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities() {

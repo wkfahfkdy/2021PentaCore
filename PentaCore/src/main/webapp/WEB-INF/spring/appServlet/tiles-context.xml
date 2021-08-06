@@ -4,6 +4,8 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
        
 <tiles-definitions>
+	
+	<!-- 운송 관리자 tile -->
 	<definition name="empty" template="/WEB-INF/views/tiles/empty.jsp">
 		<put-attribute name="headerA" value="/WEB-INF/views/tiles/headerA.jsp" />
         <put-attribute name="content" value=""/>  
@@ -13,7 +15,19 @@
           <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
 
+	<!-- 지점관리자 tile -->
+	<definition name="storeManagerLayout" template="/WEB-INF/views/tiles/empty2.jsp">
+		<put-attribute name="headerB" value="/WEB-INF/views/tiles/headerB.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<definition name="storeAdmin/*" extends="storeManagerLayout">
+		<put-attribute name="content" value="/WEB-INF/views/storeAdmin/{1}.jsp" />
+	</definition>
 
+
+
+	<!-- 기본 tile -->
 	<definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
 		<put-attribute name="body" value="" />
@@ -29,17 +43,6 @@
 	
 	
 	
-	
-	<!-- 지점관리자  -->
-	<definition name="storeManagerLayout" template="/WEB-INF/views/tiles/storeManagerLayout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
-	<definition name="*/*" extends="layout">
-		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
-		<put-attribute name="title" value="앙" />
-	</definition>
 	
 	
 

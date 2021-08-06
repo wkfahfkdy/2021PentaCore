@@ -11,6 +11,7 @@ public interface MemberService {
 
 	//로그인 시
 		public MemberVO loginCheck(MemberVO vo);
+		public MemberVO StoreAdminLoginCheck(MemberVO vo);
 		public MemberVO emailCheck(String p);
 		public MemberVO telCheck(String p);
 		public MemberVO idCheck(String p);

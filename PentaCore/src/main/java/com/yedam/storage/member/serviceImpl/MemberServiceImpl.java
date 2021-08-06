@@ -25,6 +25,11 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO loginCheck(MemberVO vo) {
 		return sqlSession.selectOne("loginCheck",vo);
 	}
+	//지점관리자 
+	@Override
+	public MemberVO StoreAdminLoginCheck(MemberVO vo) {
+		return sqlSession.selectOne("StoreAdminLoginCheck",vo);
+	}
 	
 	//로그인(비밀번호 찾기)
 	public MemberVO modalEmailCheck(MemberVO vo) {

@@ -49,6 +49,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		vo3.setMember_id(vo.getUsername());
 		vo3 = memberDAO.UseCodeInfo(vo3);
 		
+		
 		// 아무튼 null이 아닐 때
 		if(vo2 != null) {
 			// session 값들 저장
@@ -69,7 +70,17 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			
 		}
 		
+		//로그인한 사람이 Store 직원일 때
+		MemberVO vo4 = new MemberVO();
+		vo4.setMember_id(vo.getUsername());
+		vo4 = memberDAO.StoreAdminLoginCheck(vo4);
 		
+		
+		// Store 직원일 때
+				if(vo4 != null) {
+					// 직원 session 값 저장
+					request.getSession().setAttribute("employeeVO", vo4);
+				}
 	}
 
 }
