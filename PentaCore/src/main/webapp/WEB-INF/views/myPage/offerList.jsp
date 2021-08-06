@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +30,8 @@
     
     #my_offer .modal-body{
     	font-size: 10pt;
+    	border: 1px solid #00c0e2;
+    	border-radius: 0.3em;
     }
     
     .back-btn {
@@ -38,6 +41,16 @@
 		font-size: 12pt;
 		padding: 0.4em;
     }   
+    
+    .offer-row {
+    	width: 70%;
+    	height: 2em;
+    }
+    
+    .store-row {
+    	width: 40%;
+		height: 2em;    
+    }
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -46,6 +59,9 @@
 	<div class="wrap">
 		<div>
 			<h3>견적서 내역 조회</h3>
+		</div>
+		<div align="right" style="margin-bottom: 1em; color: #00c0e2;">
+				*확인하실 견적서를 더블 클릭하시면 팝업으로 상세내역을 조회하실 수 있습니다.
 		</div>
 		<div id="offerGrid" align="center"></div>
 		<div id="my_offer" align="center">
@@ -93,8 +109,6 @@ $(document).ready(function() {
 				header:  '보관 물품명',
 				name: 'offer_product',
 				align: 'center',
-				width: 800
-				
 			},
 			{
 				header: '희망 지점',
@@ -143,6 +157,7 @@ $(document).ready(function() {
 
 			var storageSize = data.storage_name;
 			var useStart = data.offer_start;
+			var usePeriod = data.offer_date;
 			var useEnd = data.offer_end;
 			var storeName = data.store_name;
 			var rental = data.offer_rental;
@@ -159,47 +174,47 @@ $(document).ready(function() {
 			var sMail = data.store_email;
 			var sTel = data.store_tel;
 
-			var title = '<h4>견적서 상세내역</h4>';
+			var title = '<h3>견적서 상세내역</h3>';
 			
 			var tbl =$('<table width="100%" />');
 			var row = '<tr>';
-			row += '<td style="width: 30%;">' + '사이즈' + '</td>';
-			row += '<td style="width: 70%;">' + storageSize + '</td></tr>';
-			row += '<tr><td>' + "이용기간" + '</td>';
-			row += '<td>' + useStart + " ~ " + useEnd + '</td></tr>';
-			row += '<tr><td>' + "이용지점" + '</td>';
-			row += '<td>' + storeName + '</td></tr>';
-			row += '<tr><td>' + "렌탈용품" + '</td>';
-			row += '<td>' + rental + '</td></tr>';
-			row += '<tr><td>' + "보관용품" + '</td>';
-			row += '<td>' + prod + '</td></tr>';
-			row += '<tr><td>' + "쿠폰/할인" + '</td>';
-			row += '<td>' + coupon + '</td></tr>';
-			row += '<tr><td>' + "픽업 서비스" + '</td>';
-			row += '<td>' + pickup + '</td></tr>';
-			row += '<tr><td>' + "프리미엄 서비스" + '</td>';
-			row += '<td>' + premium + '</td></tr>';
-			row += '<tr><td>' + "세탁 서비스" + '</td>';
-			row += '<td>' + wash + '</td></tr>';
-			row += '<tr><td></td><td>' + "*세탁 서비스는 할인에서 제외됩니다." + '</td></tr>';
-			row += '<tr><td>' + "예상 월 이용금액" + '</td>';
-			row += '<td>' + price + '</td></tr>';
-			row += '<tr style="border-bottom: 1px lightgray solid;"><td style="padding-bottom:0.8em;">' + "예상 첫달 이용금액" + '</td>';
-			row += '<td style="padding-bottom:0.8em;">' + totalPrice + '</td></tr>';
+			row += '<th style="width: 20%;">사이즈</th>';
+			row += '<td class="offer-row">' + storageSize + '</td></tr>';
+			row += '<tr><th>이용기간</th>';
+			row += '<td class="offer-row">' + useStart + " ~ " + useEnd + '&nbsp;(' + usePeriod + '개월)</td></tr>';
+			row += '<tr><th>이용지점</th>';
+			row += '<td class="offer-row">' + storeName + '</td></tr>';
+			row += '<tr><th>렌탈용품</th>';
+			row += '<td class="offer-row">' + rental + '</td></tr>';
+			row += '<tr><th>보관용품</th>';
+			row += '<td class="offer-row">' + prod + '</td></tr>';
+			row += '<tr><th>쿠폰/할인</th>';
+			row += '<td class="offer-row">' + coupon + '</td></tr>';
+			row += '<tr><th>픽업 서비스</th>';
+			row += '<td class="offer-row">' + pickup + '</td></tr>';
+			row += '<tr><th style="color: #00c0e2;">프리미엄 서비스</th>';
+			row += '<td class="offer-row">' + premium + '</td></tr>';
+			row += '<tr><th style="color: #00c0e2;">세탁 서비스</th>';
+			row += '<td class="offer-row">' + wash + '</td></tr>';
+			row += '<tr><th></th><td style="color: red;">*세탁 서비스와 프리미엄 서비스는 할인에서 제외됩니다.</td></tr>';
+			row += '<tr><th>예상 월 이용금액</th>';
+			row += '<td class="offer-row">' + price.toLocaleString(); + '</td></tr>';
+			row += '<tr style="border-bottom: 1px lightgray solid;"><th style="padding-bottom:0.8em;">' + "예상 첫달 이용금액" + '</th>';
+			row += '<td class="offer-row" style="padding-bottom:0.8em;">' + totalPrice.toLocaleString(); + '</td></tr>';
 			tbl.append(row);
 			
-			var tbl2 = $('<table />');
+			var tbl2 = $('<table width="100%" />');
 			var row2 = '<tr>';
-			row2 += '<td colspan="2" style="padding-top:0.8em; width: 100%;">' + storeName + '</td></tr>';
-			row2 += '<tr><td rowspan="8" style="width: 50%;">' + "여기엔 매장지도" + '</td>';
-			row2 += '<td style="width: 50%;">' + "네비게이션" + '</td></tr>';
-			row2 += '<tr><td>' + navi + '</td></tr>';
-			row2 += '<tr><td>' + "BUS" + '</td></tr>';
-			row2 += '<tr><td>' + bus + '</td></tr>';
-			row2 += '<tr><td>' + "SUBWAY" + '</td></tr>';
-			row2 += '<tr><td>' + subway + '</td></tr>';
-			row2 += '<tr><td>' + "CONTACT" + '</td></tr>';
-			row2 += '<tr><td>' + sMail + '<br>' + sTel + '</td></tr>';
+			row2 += '<td colspan="2" style="padding-top:0.8em; width: 100%;"><h4>' + storeName + '</h4></td></tr>';
+			row2 += '<tr><td rowspan="8">' + "여기엔 매장지도" + '</td>';
+			row2 += '<td><b>네비게이션</b></td></tr>';
+			row2 += '<tr><td class="store-row">' + navi + '</td></tr>';
+			row2 += '<tr><td class="store-row"><b>BUS</b></td></tr>';
+			row2 += '<tr><td class="store-row">' + bus + '</td></tr>';
+			row2 += '<tr><td class="store-row"><b>SUBWAY</b></td></tr>';
+			row2 += '<tr><td class="store-row">' + subway + '</td></tr>';
+			row2 += '<tr><td class="store-row"><b>CONTACT</b></td></tr>';
+			row2 += '<tr><td class="store-row">' + sMail + '<br>' + sTel + '</td></tr>';
 			tbl2.append(row2);
 			
 			
