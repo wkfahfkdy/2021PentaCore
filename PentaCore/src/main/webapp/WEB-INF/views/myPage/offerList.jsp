@@ -34,6 +34,10 @@
     	border-radius: 0.3em;
     }
     
+    .modal-header {
+    	border: none;
+    }
+    
     .back-btn {
     	background-color: #006DFC;
 		border-radius: 0.3em;
@@ -197,10 +201,16 @@ $(document).ready(function() {
 			row += '<tr><th style="color: #00c0e2;">세탁 서비스</th>';
 			row += '<td class="offer-row">' + wash + '</td></tr>';
 			row += '<tr><th></th><td style="color: red;">*세탁 서비스와 프리미엄 서비스는 할인에서 제외됩니다.</td></tr>';
-			row += '<tr><th>예상 월 이용금액</th>';
-			row += '<td class="offer-row">' + price.toLocaleString(); + '</td></tr>';
+			row += '<tr><th style="vertical-align: top;">예상 월 이용금액</th>';
+			if(price == 0){
+				row += '<td class="offer-row" style="color: #006DFC; font-size: 9pt;">*라지 플러스의 경우 상담 후 창고 이용 최종 가격이 결정되며,'
+						+ '<br>&nbsp;선택 옵션 가격만 계산되어 아래에 나타납니다.<br>'
+						+ '&nbsp;창고 이용 시작일까지 매장으로 방문하시어 창고 이용료 결제를 완료 하셔야 이용 가능합니다.</td>'
+			} else {
+				row += '<td class="offer-row">' + price.toLocaleString() + '원</td></tr>';
+			}
 			row += '<tr style="border-bottom: 1px lightgray solid;"><th style="padding-bottom:0.8em;">' + "예상 첫달 이용금액" + '</th>';
-			row += '<td class="offer-row" style="padding-bottom:0.8em;">' + totalPrice.toLocaleString(); + '</td></tr>';
+			row += '<td class="offer-row" style="padding-bottom:0.8em;">' + totalPrice.toLocaleString() + '원</td></tr>';
 			tbl.append(row);
 			
 			var tbl2 = $('<table width="100%" />');
@@ -245,6 +255,7 @@ $(document).ready(function() {
 		    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
 		    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
 		        bg.remove();
+		        $('.modal-header').empty();
 		        $('.modal-body').empty();
 		        modal.style.display = 'none';
 		    });

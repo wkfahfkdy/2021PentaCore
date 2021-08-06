@@ -27,14 +27,17 @@ import com.google.gson.JsonObject;
 public class CkeditorFileUploadController { //reviewRegist
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Resource(name="uploadPath")
-	private String uploadPath;
 	
 	@RequestMapping(value="reviewRegist", method=RequestMethod.POST)
 	@ResponseBody
 	public void ckUpload(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception{
 			logger.info("ckUpload 진입 =========================================1");
 			
+			//	@Resource(name="uploadPath")
+			// servlet-context 파일에 지정해 놓은 경로를 읽어올 때 사용.
+			// 현재는 servlet-context에서 불러오지 않고 getRealPath함수를 사용하기 때문에,
+			// 주석으로 막아 놓았음. 
+			String uploadPath =req.getServletContext().getRealPath("/resources");
 			 // 랜덤 문자 생성
 			 UUID uid = UUID.randomUUID();
 			 

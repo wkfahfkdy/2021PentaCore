@@ -128,9 +128,13 @@
 	})
 	
 	function formCheck() {
-		if (frm.question_content.value == "") {
+		if (frm.question_title.value == "") {
+			alert("제목을 입력하세요.");
+			frm.question_title.focus();
+		}
+		if (frm.question_content.text == "") {
 			alert("내용을 입력하세요.");
-			frm.title.focus();
+			frm.question_content.focus();
 			return false;	// submit을 하지 않도록
 		}
 		frm.submit();

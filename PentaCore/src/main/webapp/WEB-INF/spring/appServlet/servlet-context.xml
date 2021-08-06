@@ -39,10 +39,10 @@
        </beans:property>
    </beans:bean>
    
-   <!--CK EDITOR 업로드 패스 설정: 물리적 업로드 경로-->
-   <beans:bean class="java.lang.String" id="uploadPath">
-   		<beans:constructor-arg value="C:\Users\hello\git\2021PentaCore\PentaCore\src\main\webapp\resources\ckUpload"></beans:constructor-arg>
-   </beans:bean>
+<!--    CK EDITOR 업로드 패스 설정: 물리적 업로드 경로-->
+<!--    <beans:bean class="java.lang.String" id="uploadPath"> -->
+<!--    		<beans:constructor-arg value="/PentaCore/src/main/webapp/resources"></beans:constructor-arg> -->
+<!--    </beans:bean> -->
    
    <!-- MultiPartResolver -->
    <beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
