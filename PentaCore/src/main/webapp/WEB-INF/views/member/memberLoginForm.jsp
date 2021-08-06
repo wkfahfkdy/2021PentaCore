@@ -477,9 +477,6 @@ $(function() {
 									<button class="btn btn-light" type="button"
 										onclick="loginCheck()"
 										style="width: 370px; background: #89ba10; color: white;">로그인</button>
-									<!-- <button class="btn btn-light" type="button"
-										onclick="location.href='memberJoinForm'"
-										style="width: 185px; background: #89ba10; color: white;">회원가입</button> -->
 									<br> <br>
 									<br> <br>
 								</div>
@@ -670,8 +667,8 @@ $(function() {
              if (event.target == modal || event.target == modal2) {
                 modal.style.display = "none";
                  modal2.style.display = "none"; 
-            }*/
-        }
+            }
+        }*/
 </script>
 
 

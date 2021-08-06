@@ -6,13 +6,13 @@ import org.mybatis.spring.annotation.MapperScan;
 
 import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.mypage.vo.MyPageVO;
-import com.yedam.storage.tour.vo.TourVO;
 
 @MapperScan
 public interface MemberMapper {
 	
 	//로그인 시
 	public MemberVO loginCheck(MemberVO vo);
+	public MemberVO StoreAdminLoginCheck(MemberVO vo);
 	public MemberVO emailCheck(String p);
 	public MemberVO telCheck(String p);
 	public MemberVO idCheck(String p);

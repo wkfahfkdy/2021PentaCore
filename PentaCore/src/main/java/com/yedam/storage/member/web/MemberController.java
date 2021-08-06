@@ -50,6 +50,8 @@ public class MemberController {
 			
 			
 			MemberVO rvo = memberDAO.loginCheck(vo);
+			MemberVO employeeVO = memberDAO.StoreAdminLoginCheck(vo);
+			
 			System.out.println(rvo.getMember_id());
 			String Id = rvo.getMember_id();
 			
@@ -60,6 +62,13 @@ public class MemberController {
 	        session.setAttribute("loginMemberId", Id);
 	        
 	        }
+	        
+	        if(employeeVO != null) {
+		        session.setAttribute("employeeVO", employeeVO);
+		    }
+		        
+	        System.out.println("asdsad"+ employeeVO.getEmployee_name());
+	        
 	        return Id;
 	}
 	
