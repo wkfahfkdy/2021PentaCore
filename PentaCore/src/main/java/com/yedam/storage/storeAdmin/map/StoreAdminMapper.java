@@ -1,0 +1,13 @@
+package com.yedam.storage.storeAdmin.map;
+
+import java.util.List;
+
+import org.mybatis.spring.annotation.MapperScan;
+
+import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
+
+@MapperScan
+public interface StoreAdminMapper {
+	
+	public List<StoreAdminVO> usingStrorageList();
+}
