@@ -7,6 +7,6 @@ import com.yedam.storage.trans.vo.TransVO;
 public interface TransMap {
 	
 	public List<TransVO> coustomerListAll(TransVO vo);
+	public TransVO myCoustomerSelect(TransVO vo);
 	
-
 }

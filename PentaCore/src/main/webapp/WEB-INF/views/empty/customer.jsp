@@ -7,22 +7,41 @@
 <head> <meta charset="UTF-8"> 	
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<style type="text/css">
+
+	.wrap {
+		width: 100%;
+		text-align: center;
+	}
+	
+	
+	.list-info > a {
+		text-align: right;
+	}
+	
+	.convey-list {
+		width: 80%;
+	}
+
+</style>
 </head>
 <body>
-	<div>
-		<h3>물품 운송 신청 조회</h3>
-	</div>
-
-	<div class="convey-list">
-		<div class="list-info">
-		* 더블클릭으로 추가정보를 입력해주세요.
+	<div class="wrap">
+		<div class="title">
+			<h3>물품 운송 신청 조회</h3>
 		</div>
-		<div id="customerGrid" align="center"></div>
-		<div id="customer" align="center">
-		    <a class="modal_close_btn">닫기</a>
-		    <div class="modal-body"></div>
-	    </div>
-	</div>
+	
+		<div class="convey-list">
+			<div class="list-info">
+			<a>* 더블클릭으로 추가정보를 입력해주세요.</a>
+			</div>
+			<div id="customerGrid" align="center"></div>
+			<div id="customer" align="center">
+			    <a class="modal_close_btn">닫기</a>
+			    <div class="modal-body"></div>
+		    </div>
+		</div>
+      </div>
       
     <script type="text/javascript">
     
@@ -51,6 +70,7 @@
     		data: customerData,
     		columns : [
     		{
+    			width: 100,
     			header: '신청자명',
     			name: 'member_name',
     			align: 'center'
@@ -61,16 +81,19 @@
     			align: 'center'
     		},
     		{
+    			width: 100,
     			header:  '픽업',
     			name: 'apply_start',
     			align: 'center'
     		},
     		{
+    			width: 100,
     			header:  '운송',
     			name: 'apply_end',
     			align: 'center'
     		},
     		{
+    			width: 150,
     			header: '희망지점',
     			name: 'store_name',
     			align: 'center'
@@ -89,61 +112,59 @@
    		customerGrid.on('dblclick', function(ev) {
    			var target = ev;
    			
-   			var myCustomer = conveyGrid.getValue(ev.rowKey,'apply_code');
-   			console.log(myConvey);
+   			var myCustomer = customerGrid.getValue(ev.rowKey,'apply_code');
+   			console.log(myCustomer);
    			
    			$.ajax({
-   				url: 'myConvey/'+myConvey,
+   				url: 'myCustomer/'+myCustomer,
    				type: 'GET',
    				dataType: 'json',
    				success: function(result) {
    					console.log(result);
-   					showConvey(result);
+   					showCustomer(result);
    				},
    				error: function(xhr,status, msg) {
    					alert("상태값 : "+status+" Http 에러메시지 : "+msg);
    				}
    			})
    			
-   			function showConvey(data) {
-   				modal('my_convey');
+   			function showCustomer(data) {
+   				modal('my_customer');
 
-   				var a_code = data.apply_code;
-   				var a_start = data.apply_start;
-   				var a_time = data.apply_time;
-   				var a_end = data.apply_end;
-   				var a_whether = data.apply_whether;
-   				var a_prod = data.apply_product;
-   				var a_use = data.use_num;
-   				var a_store = data.store_name;
-   				var a_addr = data.apply_addr;
+   				var a_code = data.apply_code;	// 코드
+   				var a_name = data.member_name;	// 이름 
+   				var a_tel = data.mamber_tel;	// 연락처
+   				var a_start = data.apply_start;	// 픽업일
+   				var a_end = data.apply_end;		// 운송일
+   				var a_prod = data.apply_product;	// 이전주소
+   				var a_store = data.store_name;	// 지점명
 
-   				var title = '<h4>운송 신청 상세내역</h4>';
+   				var title = '<h4>운송정보</h4>';
    				
    				var tbl =$('<table />');
    				var row = '<tr>';
-   				row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;">' + '신청코드' + '</td>';
-   				row += '<td class="mo-tbl" style="width: 70%; padding-top: 30px;">' + a_code + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 일자" + '</td>';
-   				if(a_start == a_end){
-   					row += '<td class="mo-tbl"><p class="comment">*보관 이사 시 픽업되는 날짜로, 단순 출고는 해당되지 않습니다.</p></td></tr>';
-   				} else {
-   					row += '<td class="mo-tbl">' + a_start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
-   				}
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 주소" + '</td>';
-   				row += '<td class="mo-tbl">' + a_addr + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "출고 희망 일자" + '</td>';
-   				row += '<td class="mo-tbl">' + a_end + '<br><p class="comment">*보관이사 또는 이용 중인 스토리지에서 물품을 출고하는 날짜입니다.</p></td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "보관이사 여부" + '</td>';
-   				row += '<td class="mo-tbl">' + a_whether + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "운송 물품 정보" + '</td>';
+   				row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;" colspan="2">' + '고객 기본정보' + '</td>';
+   				row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;" colspan="2">' + '상담원 추가입력' + '</td>';
+   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이름" + '</td>';
+   				row += '<td class="mo-tbl">' + a_name + '</td></tr>';
+   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "물품정보" + '</td>';
+   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
+   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</td>';
+   				row += '<td class="mo-tbl">' + a_tel + '</td></tr>';
+   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</td>';
+   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
+   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업일자" + '</td>';
+   				row += '<td class="mo-tbl">' + a_start + '</td></tr>';
+   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "차량사이즈" + '</td>';
+   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
+   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "운송시간" + '</td>';
+   				row += '<td class="mo-tbl">' + a_end + '</td></tr>';
+   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "기사배정" + '</td>';
+   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
+   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이전주소" + '</td>';
    				row += '<td class="mo-tbl">' + a_prod + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 지점" + '</td>';
-   				row += '<td class="mo-tbl">' + a_store + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 중인 스토리지 번호" + '</td>';
-   				row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
-   				row += '<tr><td class="mo-tbl" colspan="2"><p style="color: red; font-size: 9pt; line-height: 1.3em;">접수 된 신청건은 세부 일정 조율과 상담을 위해 물품 운송팀에서 확인 후,<br>'
-   				+'고객님께 직접 연락을 드립니다. 만일 취소나 변경사항이 생길 경우 고객센터로 문의주시면<br>신속하게 처리를 도와드립니다.</p></td></tr>';
+   				row += '<td class="mo-tbl" style="vertical-align:top;" colspan="2">' + "사후관리 (사진업로드)" + '</td>';
+   				
    				
    				tbl.append(row);
    				
