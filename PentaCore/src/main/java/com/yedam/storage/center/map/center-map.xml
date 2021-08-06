@@ -19,6 +19,7 @@
 			SELECT ROW_NUMBER() OVER(ORDER by question_group DESC, question_parents ASC) AS
 			row_num , a.*
 			FROM question a
+			WHERE store_code = 'CS'
 		)
 		WHERE row_num BETWEEN #{firstRecordIndex} AND #{lastRecordIndex}
 	</select>
@@ -28,8 +29,9 @@
 	<!-- 내가쓴글 조회 -->
 	<select id="replyList" parameterType="com.yedam.storage.center.vo.CenterVO" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT question_num, question_parents, question_content, store_code, member_id, question_date, question_group FROM question
-		WHERE question_group in (select question_group from question where member_id = #{member_id})
+		WHERE question_group in (select question_group from question where member_id = #{member_id} AND store_code = 'CS')
 		ORDER BY question_group desc, question_parents asc
+		
 	</select>
 	
 	<!-- 문의작성 -->

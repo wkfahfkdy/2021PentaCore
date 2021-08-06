@@ -28,8 +28,6 @@ public class TransController {
 	public String customer(Model model, TransVO vo) {
 
 		model.addAttribute("customerListAll", transDAO.coustomerListAll(vo));
-	//	List<TransVO> vo2 = transDAO.coustomerListAll(vo);
-	//	System.out.println(vo2);
 		System.out.println(vo);
 		
 		return "empty/empty/customer";
