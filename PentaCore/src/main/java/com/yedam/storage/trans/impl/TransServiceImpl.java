@@ -20,6 +20,12 @@ public class TransServiceImpl implements TransService {
 		return sqlSession.selectList("coustomerListAll", vo);
 	}
 
+	@Override
+	public TransVO myCoustomerSelect(TransVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }
