@@ -75,7 +75,7 @@
 		    <div class="modal-storeInfo"></div>
 		</div>
 		<div style="margin: 1em 0em;">
-			<button class="back-btn" type="button" onclick="history.back()">뒤로가기</button>
+			<button class="back-btn" type="button" onclick="history.back()">돌아가기</button>
 		</div>
 	</div>
 <script>
