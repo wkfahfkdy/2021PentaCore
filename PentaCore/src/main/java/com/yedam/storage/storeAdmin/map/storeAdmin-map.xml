@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.storage.storeAdmin.map.StoreAdminMapper">
+
+
+<!-- 
+	private String use_num;
+	private Date use_start;
+	private Date use_end;
+	private String info_num;
+	private String store_code;
+	private String offer_code;
+	private String member_id;
+ -->
+
+
+<select id="usingStrorageList" parameterType="StoreAdminVO" resultType="StoreAdminVO" >
+		select u.*,m.member_name
+		from use_storage u join member m on u.member_id = m.member_id
+		where use_end > sysdate
+</select>
+
+
+</mapper>
+
+
+
+<!-- 
+ 로그인 
+<select id="loginCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
+		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd} and member_disable = 'N'
+</select>
+
+회원가입	
+<insert id="memberInsert" parameterType="hashmap" >
+		insert into member values(#{member_id},#{member_pwd},#{member_name},#{member_addr},#{member_tel},#{member_email},#{member_birth},'N')
+</insert>	
+
+(멤버 수정)
+<update id="memberPwUpdate" parameterType="hashmap">
+		update member set member_pwd=#{member_pwd} where member_id=#{member_id}
+</update>
+-->
+	

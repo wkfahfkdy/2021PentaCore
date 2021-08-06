@@ -48,37 +48,37 @@
 	<div class="wrap">
 		<div class="box">
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='schedule'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href=''">
 					<h2>스토리지 현황</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='customer'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/customerManage'">
 					<h2>고객관리</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='customer'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href=''">
 					<h2>투어관리</h2></button>
 			</div>
 		</div>
 		<div></div>
 		<div class="box">
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='schedule'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href=''">
 					<h2>공지사항</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='customer'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href=''">
 					<h2>1:1 문의</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='customer'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href=''">
 					<h2>물품운송</h2></button>
 			</div>
 		</div>
 		<div></div>
 		<div class="box2">
 			<div class="btn">
-				<button type="button" id="btn2" class="btn btn-primary btn-lg" onclick="location.href='schedule'">
+				<button type="button" id="btn2" class="btn btn-primary btn-lg" onclick="location.href=''">
 					<h4>쿠폰등록</h4></button>
 			</div>
 		</div>
