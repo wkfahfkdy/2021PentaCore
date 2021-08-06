@@ -146,7 +146,6 @@ public class HomeController {
 				String sumEndDate = transDate.format(date) + "T" + subEndTime;
 				list.get(i).setStart(sumStartDate);
 				list.get(i).setEnd(sumEndDate);
-				
 			}
 			// 확인해야할 값 store_code, member_name, start, end << 확인ㅇ. 존재함
 			// System.out.println("vo 조립 확인 : " + list);

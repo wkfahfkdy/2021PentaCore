@@ -146,7 +146,10 @@
         	$('#hiddenOfferStorageCode').attr('value','a10'); // storage_code 값 슬림으로 다시 초기화
         	totalVolume = 0; // 현재 고객 가격 다 초기화
         	slider.slideTo($('.swiper-slide').data("id")*1 , 1000); // index 0 으로 이동
-        	$('#nowInfo').html('<br>총 물품 : 현재 아무것도 없습니다 <br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다')
+        	$('#nowInfo').html('<br>총 물품 : 현재 아무것도 없습니다 <br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
+        	$('#fixedStorageName').html("슬림");
+        	$('#fixedPrice').html("");
+        	$('#fixedDiscountPrice').html("현재가격54000원");
         });
       	
       	// ---- 포장서비스 ---- // 
@@ -193,14 +196,16 @@
       	// 견적서 뽑기
 		$('#offerInsertBtn').click(function () {
             	// 이용기간 radio 체크 안되있을때
-            	if($('#hiddenOfferDate').val() == "" || $('#hiddenOfferDate').val() == " "){
-            		alert("이용기간을 체크해주세요");
+            	if($('#hiddenOfferDate').val() == "" || $('#hiddenOfferDate').val() == " " || $('#hiddenOfferStart').val() == ""){
+            		alert("이용날짜 및 이용기간을 체크해주세요");
+            		$('#datePick').focus();
             		return false;
             	}
             	
             	// product 비어있을때
     	        if($('#hiddenOfferProduct').val() == ""){
     	      		alert("선택 된 물품이 없습니다.");
+    	      		$('.count').focus();
 					return false;
     	      	} else{
     	      		$('#offerProduct').html($('#hiddenOfferProduct').val());
@@ -210,6 +215,7 @@
     	        	// 세탁서비스가 아무것도 없거나 삭제하고 지우고 값이 공백일때
             		if($('#hiddenOfferLaundryProduct').val() == "" || $('#hiddenOfferLaundryProduct').val() == " "){
             			alert("세탁서비스 신청상태에서 선택 된 세탁류가 없습니다");
+            			$('.totalLaundryCount').focus();
             			return false;
             		}else {
             			$('#offerLaundry').html($('#hiddenOfferLaundryProduct').val());
@@ -223,6 +229,7 @@
             	// 지점 선택 안했을때랑 선택했는데 쿠폰 선택을 안했을 경우
             	if($('#hiddenCouponCode').val() == "" || $('#hiddenCouponCode').val() == " "){
             		alert("지점 선택 후 쿠폰사용 유무를 입력해주세요.");
+            		$('#choice-store').focus();
             		return false;
             	} else{
             		if(($('.swiper-slide-active').data("index")) == "f20"){
@@ -243,6 +250,7 @@
             	if($('input:radio[name="pickupService"]:checked').val() == "Y"){
             		if(parseInt($('#floor').val()) == 0) {
             			alert("0층이 어디있노 인간아");
+            			$('#floor').focus();
             			return false;
             		} else{
             			if($('input:radio[name="boxService"]:checked').val() == "Y"){
@@ -996,7 +1004,7 @@ input[type='number'] {
 			                                기타 &nbsp;&nbsp;<input type="checkbox">
 			                           </label></li>
 			                           <li class="active dropdown"><label class="offerLabel" style="padding : 0">
-			                                 <input  type="text" value="다락 사용 목적을 입력해주세요." style="margin:0">
+			                                 <input  type="text" placeholder='아이디를 입력하세요.' style="margin:0; border:0; color: black; background: none;">
 			                           </label></li>
 			                            
 			                        </ul>
@@ -1146,7 +1154,7 @@ input[type='number'] {
 				            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
 						   		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float:left; width: 100%; maring: 0 auto; ">
 						   			<h4>서비스 추가</h4>
-						   			<h5 style="display: inline-block; margin-bottom: 50px;">프리미엄 서비스	(* 월 요금 5000원 추가금 발생)
+						   			<h5 style="display: inline-block; margin-bottom: 50px;">프리미엄 서비스	<b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b>
 						   			<label class="offerLabel" style="margin-left: 70px;">
 							   				신청&nbsp;&nbsp;<input type="radio" name=premium value="Y">
 							   			</label>
@@ -1307,11 +1315,11 @@ input[type='number'] {
 								    				<td id="offerPremium"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">스토리지 이용 예상 월 이용금액</td>
+								    				<td style="padding: 10px; font-weight: bold;">예상 월 이용금액</td>
 								    				<td id="offerPrice"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">스토리지 이용 예상 첫달 이용금액</td>
+								    				<td style="padding: 10px; font-weight: bold;">예상 첫달 이용금액</td>
 								    				<td id="offerFirstPrice"></td>
 								    			</tr>
 								    			<tr>
@@ -1380,8 +1388,8 @@ input[type='number'] {
 							</div>
 				         	<!-- 스토리지 Price는 스토리지 정보 forEach 에 있음-->
 				         	<!-- 모달 및 필요한 정보들의 hidden -->
-				         	<input type="hidden" id="hiddenLaundryTotalPrice"> <!-- 세탁물 총 가격 -->
-				         	<input type="hidden" id="hiddenBoxPrice"> <!-- 박스가격 -->
+				         	<input type="hidden" id="hiddenLaundryTotalPrice" value="0"> <!-- 세탁물 총 가격 -->
+				         	<input type="hidden" id="hiddenBoxPrice" value="0"> <!-- 박스가격 -->
 				         	<input type="hidden" id="hiddenStoreName"> <!-- 모달 지점 이름 넣어주기 위한 Hidden -->
 				         	<input type="hidden" id="hiddenStoreAddr"> <!-- 주소값 -->
 				         	<input type="hidden" id="hiddenStoreWay"> <!-- 오시는길 -->
