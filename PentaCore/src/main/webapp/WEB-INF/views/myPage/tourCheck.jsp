@@ -166,8 +166,8 @@
 			<h3>지점 투어 신청 내역 조회</h3>
 		</div>
 		<div class="tour-list">
-			<div align="right" style="margin-bottom: 1em;">
-				*투어를 취소하실 일정의 투어취소 여부를 더블 클릭하신 뒤 버튼을 눌러주시면 취소처리가 완료됩니다.&nbsp;&nbsp;
+			<div align="right" style="margin-bottom: 1em; color: #00c0e2;">
+				*투어를 취소하실 일정의 투어취소 여부를 더블 클릭하신 뒤 선택 후, 옆의 취소 버튼을 눌러주시면 취소처리가 완료됩니다.&nbsp;&nbsp;
 				<button id="cancel-btn">투어취소</button>
 			</div>
 			<div id="tourGrid" align="center"></div>

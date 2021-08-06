@@ -52,6 +52,7 @@
 		FROM offer o, store s
 		WHERE o.store_code = s.store_code
     	AND member_id = #{member_id}
+    	ORDER BY o.offer_code desc
 	</select>
 	
 	<!-- 셀프 견적서 상세 -->

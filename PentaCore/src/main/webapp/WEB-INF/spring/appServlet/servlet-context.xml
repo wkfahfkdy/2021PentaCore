@@ -41,7 +41,7 @@
    
    <!--CK EDITOR 업로드 패스 설정: 물리적 업로드 경로-->
    <beans:bean class="java.lang.String" id="uploadPath">
-   		<beans:constructor-arg value="C:/Users/hello/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PentaCore/resources"></beans:constructor-arg>
+   		<beans:constructor-arg value="C:\Users\hello\git\2021PentaCore\PentaCore\src\main\webapp\resources\ckUpload"></beans:constructor-arg>
    </beans:bean>
    
    <!-- MultiPartResolver -->
