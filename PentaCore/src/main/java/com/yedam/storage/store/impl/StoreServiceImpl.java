@@ -20,5 +20,6 @@ public class StoreServiceImpl implements StoreService {
 		
 		return map.selectList("SelectStoreAddr");
 	}
+	
 
 }

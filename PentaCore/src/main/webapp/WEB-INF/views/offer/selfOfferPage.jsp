@@ -205,7 +205,7 @@
             	// product 비어있을때
     	        if($('#hiddenOfferProduct').val() == ""){
     	      		alert("선택 된 물품이 없습니다.");
-    	      		$('.count').focus();
+    	      		$('.productName').focus();
 					return false;
     	      	} else{
     	      		$('#offerProduct').html($('#hiddenOfferProduct').val());
@@ -229,7 +229,7 @@
             	// 지점 선택 안했을때랑 선택했는데 쿠폰 선택을 안했을 경우
             	if($('#hiddenCouponCode').val() == "" || $('#hiddenCouponCode').val() == " "){
             		alert("지점 선택 후 쿠폰사용 유무를 입력해주세요.");
-            		$('#choice-store').focus();
+            		$('#normalPrice').focus();
             		return false;
             	} else{
             		if(($('.swiper-slide-active').data("index")) == "f20"){
