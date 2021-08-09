@@ -52,7 +52,7 @@
 					<h2>스토리지 현황</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/customerManage'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/customerManage2'">
 					<h2>고객관리</h2></button>
 			</div>
 			<div class="btn">

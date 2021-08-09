@@ -9,5 +9,6 @@ import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 @MapperScan
 public interface StoreAdminMapper {
 	
-	public List<StoreAdminVO> usingStrorageList();
+	public List<StoreAdminVO> usingStrorageList(); 
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 }

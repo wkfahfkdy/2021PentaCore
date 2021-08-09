@@ -18,6 +18,11 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Override
 	public List<StoreAdminVO> usingStrorageList() {
 		return sqlSession.selectList("usingStrorageList");
+	}
+
+	@Override
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo) {
+		return sqlSession.selectList("usingStrorageListPaging",vo);
 	} 
 
 }

@@ -20,6 +20,9 @@ ul{
     font-size: 14px;
 }
 
+.serive {
+height : 410.66px;
+}
 
 
 .pagination {
@@ -94,6 +97,50 @@ ul{
 
 
 
+         
+          
+       <%--   <div class="def-section services-1">
+		<div class="container">
+		<form action="reviewDetail" id="ifrm">
+		<input type="hidden" id="review_num" name="review_num">
+			<div class="row">
+				 <c:forEach items="${reviewList }" var="reviewVO" varStatus="status">
+				<!-- === SERVICE ITEM === -->
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<div class="service-1">
+						<div class="service-1-image">
+							<img
+								src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
+								alt="Image" width="70%">
+						</div>
+						<div class="service-1-title">
+							<h3>${reviewVO.review_title }</h3>
+						</div>
+						<div class="service-1-text" >
+							<p align="center">
+								${reviewVO.review_content }
+							</p>
+						</div>
+						<div class="service-1-button">
+							<a href="05_service_detail.html">
+								<div class="my-btn my-btn-default">
+									<div class="my-btn-bg-top"></div>
+									<div class="my-btn-bg-bottom"></div>
+									<div class="my-btn-text">
+										상세보기
+									</div>
+								</div>
+							</a>
+						</div>					
+					</div>
+				</div>
+				</c:forEach>
+			</div>
+			</form>
+		</div>
+	</div>  --%>
+
+
 		<div class="container">
 		
 		<form action="reviewDetail" id="ifrm">
@@ -102,16 +149,17 @@ ul{
                  <c:forEach items="${reviewList }" var="reviewVO" varStatus="status">
 				<!-- === SERVICE ITEM === -->	
 				
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" height="100%">
 				
 					<div class="service">				
-						<div class="service-icon">
+						<div>
 							<img
 								src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
-								alt="Image" width="100%">
+								alt="Image" width="80%">
 						</div>
-						<h3>${reviewVO.review_title }</h3>
 						<div class="service-text">
+						<h5>${reviewVO.review_title }</h5>
+						
 							<p>${reviewVO.review_content }</p>
 						</div>
 						
@@ -143,26 +191,7 @@ ul{
              </div>
              
              </form>
-         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         </div> 
 
 
 		<jsp:include page="../review/paging.jsp" flush="true">

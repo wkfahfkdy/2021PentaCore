@@ -14,11 +14,68 @@
  -->
 
 
-<select id="usingStrorageList" parameterType="StoreAdminVO" resultType="StoreAdminVO" >
+<select id="usingStrorageList" resultType="StoreAdminVO" >
 		select u.*,m.member_name
 		from use_storage u join member m on u.member_id = m.member_id
 		where use_end > sysdate
 </select>
+
+ 
+<select id="expiredStrorageList" resultType="StoreAdminVO" >
+		<![CDATA[ 
+		select u.*,m.member_name
+		from use_storage u join member m on u.member_id = m.member_id
+		where use_end <= sysdate
+		]]>
+</select>
+
+
+	<select id="usingStrorageListPaging" parameterType="StoreAdminVO"  resultType="StoreAdminVO">
+		      
+		      
+			Select * from (
+
+						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
+						from use_storage u join member m on u.member_id = m.member_id
+                		where use_end > sysdate)
+                
+				        WHERE NUM BETWEEN #{firstCnt} AND #{lastCnt}		
+						
+	</select>
+	
+	
+	<select id="expiredStrorageListPaging" parameterType="StoreAdminVO"  resultType="StoreAdminVO">
+		      
+		    <![CDATA[  
+			Select * from (
+
+						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
+						from use_storage u join member m on u.member_id = m.member_id
+                		where use_end <= sysdate)
+                
+				        WHERE NUM BETWEEN #{firstCnt2} AND #{lastCnt2}		
+			]]>
+						
+	</select>
+	
+
+
+	 <select id ="selectReview" parameterType="string" resultType="StoreAdminVO">
+			SELECT 	r.review_num, r.review_title, r.review_content,
+
+				'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
+			    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
+			    s.store_name
+			    
+				from review r join member m on (r.member_id = m.member_id)
+				join store s on (r.store_code = s.store_code) 
+       			WHERE review_num = #{p}
+				order by r.review_num desc
+	
+	</select>
+	
+	
+	
 
 
 </mapper>

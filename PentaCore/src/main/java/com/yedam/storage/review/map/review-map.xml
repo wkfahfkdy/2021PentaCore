@@ -32,25 +32,35 @@ private String member_disable;
 	<select id="reviewListPaging" parameterType="com.yedam.storage.review.vo.ReviewVO"  resultType="com.yedam.storage.review.vo.ReviewVO">
 		      
 		      
-		      SELECT    r.review_num, r.review_title, 
+			Select * from (
 
+						select ROW_NUMBER() OVER (ORDER BY r.review_num desc) AS NUM, r.review_num, 
+						
+						case 
+				        when  length(substr(r.review_title,1,6)) > 5  then substr(r.review_title,1,6)||'..'
+				        else substr(r.review_title,1,6)
+				        end review_title,
+				        
+				        <![CDATA[
 				        case 
-				        when  length(substr(r.review_content,1,40)) > 39  then substr(r.review_content,1,40)||'..'
+				        when  length(substr(REGEXP_REPLACE(r.review_content, '<[^>]*>', ''),1,40)) > 39  then substr(REGEXP_REPLACE(r.review_content, '<[^>]*>', ''),1,40)||'..'
 				        else substr(r.review_content,1,40)
-				        end review_content,
+				        end review_content]]>,
 				
 								'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
 							    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
 							    s.store_name
 							    
 								from review r join member m on (r.member_id = m.member_id)
-								join store s on (r.store_code = s.store_code) 
-				        WHERE review_num BETWEEN #{firstCnt} AND #{lastCnt}
-						order by r.review_num desc
+								join store s on (r.store_code = s.store_code))
+                
+                
+				        WHERE NUM BETWEEN #{firstCnt} AND #{lastCnt}		
+						
 	</select>
 
-	
-	<select id ="selectReview" parameterType="string" resultType="com.yedam.storage.review.vo.ReviewVO">
+
+	 <select id ="selectReview" parameterType="string" resultType="com.yedam.storage.review.vo.ReviewVO">
 			SELECT 	r.review_num, r.review_title, r.review_content,
 
 				'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
@@ -64,19 +74,8 @@ private String member_disable;
 	
 	</select>
 
-	<!-- 
-	<select id="reviewList" parameterType="int" resultType="com.yedam.storage.review.vo.ReviewVO">
-		SELECT 	r.review_num, r.review_title, r.review_content,
-				TO_DATE(r.review_date,'YYYY/MM/DD') review_date ,
-			    r.store_code, r.member_id, m.member_name,
-			    s.store_name
-				
-				from review r join member m on (r.member_id = m.member_id)
-				join store s on (r.store_code = s.store_code) 
-				where r.review_num between  ( select MAX(review_num) from review ) -#{count} -5 
-				and ( select MAX(review_num) from review ) -#{count}
-				order by r.review_num desc
-	</select> -->
+	 
+
 	
 	
 	
@@ -136,7 +135,7 @@ private String member_disable;
        			FROM users u JOIN wish w
 				ON (u.user_id = w.user_id)
         		where u.user_id = #{user_Id}
-	</select>
+	</select> -->
 	
-	-->
+	
 </mapper>

@@ -10,7 +10,7 @@ public interface StoreAdminService {
 	
 	
 	public List<StoreAdminVO> usingStrorageList();
-	
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 	
 	
 	/*

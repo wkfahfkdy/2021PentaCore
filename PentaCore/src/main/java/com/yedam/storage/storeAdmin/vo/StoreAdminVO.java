@@ -18,6 +18,7 @@ public class StoreAdminVO {
 	 */
 
 	//고객관리부분
+	private String num;
 	private String use_num;
 	private Date use_start;
 	private Date use_end;
@@ -25,4 +26,9 @@ public class StoreAdminVO {
 	private String store_code;
 	private String offer_code;
 	private String member_id;
+	private String member_name;
+	
+	private int firstCnt;
+	private int lastCnt;
+	
 }
