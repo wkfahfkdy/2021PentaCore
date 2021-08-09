@@ -73,11 +73,124 @@ public class HomeController {
 		return "common/section";
 	}
 	
-	// 캘린더 API TEST
+	// 월간 캘린더 API TEST
 	@RequestMapping("calendarTest")
-	public String calendarTest() {
+	public String calendarTest(Model model) {
+		
+		// TOUR TABLE에서 TOUR_DATE와 TOUR_TIME을 가져오고 합쳐야한다.
+		// Map에서 TOUR_DATE를 가져올때 TO_CHAR을 이용하여 'YYYY-MM-DD'로 가져와야한다
+		// 예시 - TOUR_DATE : 2021-08-04, TOUR_TIME : PM 15:00 ~ 16:00
+		// 		> String time = vo.gettour_time
+		// 		> String subStartTime = time.substring(3,8); // 21.08.05 기준 데이터 1개 있어서 값 18:00 하나 나옴
+		//		> String subEndTime = time.substring(11,16); // 19:00 나올 듯?
+		// 		> String date = vo.gettour_date + "T" + subtime
+		//		> 하면 나올 것 같다
+		//					*** 주의점 : 21.08.05 기준 입력 데이터는 'AM 11:00 ~ 12:00'과 같이 입력되어있는데
+		//								위와같이 들어가지 않을 시에 substring(x,y) 값을 수정해주어야 함
+		// 가져와야 하는 값 : store_id / member_name(id로 join) / tour_date / tour_time
+		// 각각 calendarId / title / start, end(투어는 1시간이므로 가져올 때 subtime +1을 해서 subtiem2에 담던말던)
+		// 아무튼 여기서 list로 넘겨서 jsp에서 c:forEach로 json type으로 바꾸고 스케쥴하면 나올 것 같다...
+		
+/*		
+		// 테스트 중에 여기서 에러가 난다면 로그인을 안해서 에러가 나는 것
+		UserDetails userDetails =
+				(UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// 지점관리자 페이지에 있을 것이므로 지점관리자 ID를 가져와서 해당 지점 코드 값 가져오기
+		String id = userDetails.getUsername();
+		String store_code = memberDAO.empStoreCode(id);
+		
+		TourVO vo = new TourVO();
+		vo.setStore_code(store_code);
+		// 지점코드로 해당 지점 투어 일정 리스트 가져오기
+		List<TourVO> list = tourDAO.tourManageEx(vo);
+		
+		
+		for(int i = 0; i < list.size(); i++) {
+			// 생각해보니 고객 이름도 필요함
+			MemberVO vo2 = new MemberVO();
+			vo2 = memberDAO.tourMemberName(list.get(i).getMember_id());
+			// 이름 집어넣고
+			list.get(i).setMember_name(vo2.getMember_name());
+			// 시간 값 가져와서 조립 시작
+			// 근데 여기와서 생각해보니 이렇게 하지말고 처음부터 가져올때 sql에서 조립하는게 나을듯
+			String time =  list.get(i).getTour_time();
+			String subStartTime = time.substring(3,8); // 21.08.05 오전 기준으로 데이터 1개 있어서 값 18:00과
+			String subEndTime = time.substring(11,16); // 19:00이 나온다
+			Date date = list.get(i).getTour_date();
+			SimpleDateFormat transDate = new SimpleDateFormat("yyyy-MM-dd");
+			// 아무튼 TOAST Calendar에서 요구하는 형태로 조립
+			String sumStartDate = transDate.format(date) + "T" + subStartTime;
+			String sumEndDate = transDate.format(date) + "T" + subEndTime;
+			list.get(i).setStart(sumStartDate);
+			list.get(i).setEnd(sumEndDate);
+		}
+		// 확인해야할 값 store_code, member_name, start, end << 확인ㅇ. 존재함
+		// System.out.println("vo 조립 확인 : " + list);
+			
+		model.addAttribute("list", list);
+*/	
 		
 		return "test/calendar";
+	}
+	
+	// 주간 캘린더 API TEST
+	@RequestMapping("calendarTest2")
+	public String calendarTest2(Model model) {
+		
+		// TOUR TABLE에서 TOUR_DATE와 TOUR_TIME을 가져오고 합쳐야한다.
+		// Map에서 TOUR_DATE를 가져올때 TO_CHAR을 이용하여 'YYYY-MM-DD'로 가져와야한다
+		// 예시 - TOUR_DATE : 2021-08-04, TOUR_TIME : PM 15:00 ~ 16:00
+		// 		> String time = vo.gettour_time
+		// 		> String subStartTime = time.substring(3,8); // 21.08.05 기준 데이터 1개 있어서 값 18:00 하나 나옴
+		//		> String subEndTime = time.substring(11,16); // 19:00 나올 듯?
+		// 		> String date = vo.gettour_date + "T" + subtime
+		//		> 하면 나올 것 같다
+		//					*** 주의점 : 21.08.05 기준 입력 데이터는 'AM 11:00 ~ 12:00'과 같이 입력되어있는데
+		//								위와같이 들어가지 않을 시에 substring(x,y) 값을 수정해주어야 함
+		// 가져와야 하는 값 : store_id / member_name(id로 join) / tour_date / tour_time
+		// 각각 calendarId / title / start, end(투어는 1시간이므로 가져올 때 subtime +1을 해서 subtiem2에 담던말던)
+		// 아무튼 여기서 list로 넘겨서 jsp에서 c:forEach로 json type으로 바꾸고 스케쥴하면 나올 것 같다...
+		
+		
+		// 테스트 중에 여기서 에러가 난다면 로그인을 안해서 에러가 나는 것
+		UserDetails userDetails =
+				(UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// 지점관리자 페이지에 있을 것이므로 지점관리자 ID를 가져와서 해당 지점 코드 값 가져오기
+		String id = userDetails.getUsername();
+		String store_code = memberDAO.empStoreCode(id);
+		
+		TourVO vo = new TourVO();
+		vo.setStore_code(store_code);
+		// 지점코드로 해당 지점 투어 일정 리스트 가져오기
+		List<TourVO> list = tourDAO.tourManageEx(vo);
+		
+		
+		for(int i = 0; i < list.size(); i++) {
+			// 생각해보니 고객 이름도 필요함
+			MemberVO vo2 = new MemberVO();
+			vo2 = memberDAO.tourMemberName(list.get(i).getMember_id());
+			// 이름 집어넣고
+			list.get(i).setMember_name(vo2.getMember_name());
+			// 시간 값 가져와서 조립 시작
+			// 근데 여기와서 생각해보니 이렇게 하지말고 처음부터 가져올때 sql에서 조립하는게 나을듯
+			String time =  list.get(i).getTour_time();
+			String subStartTime = time.substring(3,8); // 21.08.05 오전 기준으로 데이터 1개 있어서 값 18:00과
+			String subEndTime = time.substring(11,16); // 19:00이 나온다
+			Date date = list.get(i).getTour_date();
+			SimpleDateFormat transDate = new SimpleDateFormat("yyyy-MM-dd");
+			// 아무튼 TOAST Calendar에서 요구하는 형태로 조립
+			String sumStartDate = transDate.format(date) + "T" + subStartTime;
+			String sumEndDate = transDate.format(date) + "T" + subEndTime;
+			list.get(i).setStart(sumStartDate);
+			list.get(i).setEnd(sumEndDate);
+		}
+		// 확인해야할 값 store_code, member_name, start, end << 확인ㅇ. 존재함
+		// System.out.println("vo 조립 확인 : " + list);
+			
+		model.addAttribute("list", list);
+		
+		
+		return "test/calendar2";
 	}
 	
 	// 카카오 지도 API TEST 이동

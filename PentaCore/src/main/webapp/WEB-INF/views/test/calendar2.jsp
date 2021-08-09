@@ -1,89 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!--  
-	테스트 변경사항 : dropdown-menu -> dropdown-menu2
-			이유 : 기존 tiles - header 에서도 dropdown-menu 사용으로 인해서 css가 맞지않음
--->
-
-<!-- 나중에 실제작 시 js 및 css 위치 변경 필요? -->
-<link rel="stylesheet" type="text/css" href="resources/fullcanlendar/tui-calendar.css" />
-<link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css">
-<link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">
-<link href='resources/fullcanlendar/icons.css' rel='stylesheet' type="text/css"/>
+<!-- fullCalendar  -->
+<link href="resources/full/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+<script src="resources/full/js/mobiscroll.javascript.min.js"></script>
 
 </head>
 <body>
-<div id="menu">
-  <span class="dropdown" style="display:none;">
-      <span id="dropdownMenu-calendarType" class="btn btn-default btn-sm dropdown-toggle" type="label" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="true" disabled>
-          <i id="calendarTypeIcon" class="calendar-icon ic_view_month" style="margin-right: 4px;"></i>
-          <span id="calendarTypeName">Monthly</span>&nbsp;
-          <i class="calendar-icon tui-full-calendar-dropdown-arrow"></i>
-      </span>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu-calendarType"></ul>
-  </span>		            
-    <span id="renderRange" class="render-range"></span>
-    <span id="menu-navi">
-	    <button type="button" class="btn btn-default btn-sm move-today" data-action="move-today">Today</button>
-	    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-prev">
-	    	<i class="calendar-icon ic-arrow-line-left" data-action="move-prev"></i>
-	    </button>
-	    <button type="button" class="btn btn-default btn-sm move-day" data-action="move-next">
-	    	<i class="calendar-icon ic-arrow-line-right" data-action="move-next"></i>
-		</button>
-	</span>
+<!-- jstl 추가하기 -->
+<!-- fullCalendar -->
+<div align="center" style=" padding-bottom:100px"> 
+	<div id="demo-desktop-week-view""></div>
 </div>
-<div id="calendar"></div>
-
-
-<script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
-<script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
-<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
-<script src="resources/fullcanlendar/tui-calendar.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js"></script>
-<script src="resources/fullcanlendar/calendars.js"></script>
-
+<div id="my_offer" align="center">
+    <a class="modal_close_btn">닫기</a>
+    <div class="modal-header"></div>
+    <div class="modal-body"></div>
+</div>
+<!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar.jsp에도 같이 추가 -->
+<c:set var="bgcolor" value="<%=new String[]{\"#000080\", \"#05abf7\", \"#f70ca5\"}%>"></c:set>
 <script>
-var cal;
-
-cal = new tui.Calendar(document.getElementById('calendar'), {
-    defaultView: 'week',
-    useCreationPopup: false,
-    useDetailPopup: false,
-    // calendars: CalendarList,
-
-
-});
-
-cal.createSchedules([
-    {
-        
-        calendarId: '1',
-        title: '대구 달성군 동동읍 고양이로5959 3층 302호',
-        body: '이거랑 저거',
-        category: 'time',
-        start: '2021-08-04T09:00:00',
-        end: '2021-08-04T18:00:00+09:00'
+var inst = mobiscroll.eventcalendar('#demo-desktop-week-view', {
+    theme: 'ios',
+    themeVariant: 'light',
+    clickToCreate: true,
+    dragToCreate: false,
+    dragToMove: false,
+    dragToResize: false,
+    width: '80%',
+    height:'700px',
+    view: {
+        schedule: { type: 'week' }
     },
-    {
-        
-        calendarId: '1',
-        title: '대구 중구 중앙로역 6번 출구',
-        body: '저거랑 그거랑 거기꺼',
-        category: 'time',
-        bgColor : '#bbdc00',
-        start: '2021-08-05T09:00:00+09:00',
-        end: '2021-08-05T18:00:00+09:00',
-        isReadOnly: true    // schedule is read-only
-    }
-]);
-
+    onEventClick: function (event, inst) {
+    	// 모달창 같은 기능
+    	mobiscroll.confirm({
+    		title: event.event.title,
+    		// <br> 같은 태그 안먹힘
+    		message: event.event.start + ' ~ ' + event.event.end
+    	});
+    },
+    data: [
+		<c:forEach items="${list}" var="list" varStatus="status">
+		{
+			start: '${list.start}',
+			end: '${list.end}',
+			title: '${list.member_name}',
+			color: '${bgcolor[status.index%3]}'
+		}
+		<c:if test="${not status.last}">,
+		</c:if>
+	</c:forEach>
+	]
+});
 
 </script>
 </body>
