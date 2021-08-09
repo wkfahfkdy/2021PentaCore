@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.review.common.Paging;
@@ -42,6 +44,7 @@ public class StoreAdminController {
 		return storeAdminDAO.selectStorageInfo(vo);
 	}
 	
+	// 지점 공지사항 리스트
 	@RequestMapping("storeNotice")
 	public String noticeList(HttpServletRequest req, StoreAdminVO vo, Model model) {
 		HttpSession session = req.getSession();
@@ -52,7 +55,32 @@ public class StoreAdminController {
 		model.addAttribute("storeNotice", storeAdminDAO.storeNoticeList(vo));
 		return "storeAdmin/storeNoticeList";
 	}
-
+	
+	// 지점 공지사항 등록 form 페이지 이동
+	@RequestMapping("noticeForm")
+	public String noticeForm(StoreAdminVO vo) {
+		return "storeAdmin/noticeForm";
+	}
+	
+	// 지점 공지사항 등록
+	@RequestMapping("registNotice")
+	public String registNotice(HttpServletRequest req, StoreAdminVO vo) {
+		HttpSession session = req.getSession();
+		String s_code = (String)session.getAttribute("stCode");
+		vo.setStore_code(s_code);
+		storeAdminDAO.registNotice(vo);
+		return "redirect:storeNotice";
+	}
+	
+	// 지점 공지사항 상세 및 수정 페이지 모달로 전송
+	@ResponseBody
+	@RequestMapping(value="storeNoticeSelect/{notice_num}", method=RequestMethod.GET)
+	public StoreAdminVO storeNoticeSelect(@PathVariable int notice_num, Model model, StoreAdminVO vo) {
+		vo.setNotice_num(notice_num);
+		
+		return storeAdminDAO.storeNoticeSelect(vo);
+	}
+	
 	//고객관리 페이지 이동
 	@RequestMapping("store/customerManage")
 	public String LoginIdCheck(Model model , StoreAdminVO vo , HttpServletRequest req) {
@@ -97,25 +125,11 @@ public class StoreAdminController {
 			return list;
 		}
 	
-				
-	
-	
-	
 	@RequestMapping("store/customerManage2")
 	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "storeAdmin/customerManage2";
 	}	
 	
-	@RequestMapping("noticeForm")
-	public String noticeForm() {
-		return "storeAdmin/noticeForm";
-	}
-	
-	@RequestMapping("registNotice")
-	public String registNotice(StoreAdminVO vo) {
-		storeAdminDAO.registNotice(vo);
-		return "storeAdmin/enterStoreAdmin";
-	}
 			
 			
 		

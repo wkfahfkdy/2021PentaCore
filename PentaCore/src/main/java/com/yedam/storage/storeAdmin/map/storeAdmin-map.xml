@@ -58,8 +58,25 @@
 
 <insert id="registNotice" parameterType="StoreAdminVO">
 	insert into notice(notice_num, notice_title, notice_content, notice_date, store_code)
-	values(notice_seq, #{notice_title}, #{notice_content}, sysdate, #{store_code})
+	values(notice_seq.nextval, #{notice_title}, #{notice_content}, sysdate, #{store_code})
 </insert>
+
+<select id="storeNoticeSelect" parameterType="StoreAdminVO" resultType="StoreAdminVO">
+	select * 
+	from notice
+	where notice_num = #{notice_num}
+</select>
+
+<update id="storeNoticeEdit" parameterType="StoreAdminVO">
+	update notice 
+	set notice_title = #{notice_title}, notice_content = #{notice_content}
+	where notice_num = #{notice_num}
+</update>
+
+<delete id="storeNoticeDelete" parameterType="StoreAdminVO">
+	delete from notice
+	where notice_num = #{notice_num}
+</delete>
  
 <select id="expiredStrorageList" resultType="StoreAdminVO" >
 		<![CDATA[ 
