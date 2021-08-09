@@ -9,5 +9,6 @@ public interface TransMap {
 	public List<TransVO> customerListAll(TransVO vo);
 	public TransVO myCustomerSelect(TransVO vo);
 	public List<TransVO> cuStorage(TransVO vo); 
+	public int customerInsert(TransVO vo);
 	
 }

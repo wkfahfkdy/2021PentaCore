@@ -1,10 +1,12 @@
 package com.yedam.storage.trans.web;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,19 +36,28 @@ public class TransController {
 	}
 	
 	// 모달창 list
-	@RequestMapping(value="myCustomer/{apply_code}", method=RequestMethod.GET)
+	@RequestMapping(value="myCustomer", method=RequestMethod.GET)
 	@ResponseBody
-	public TransVO myCustomerSelect(@PathVariable String apply_code, Model model, TransVO vo) {
-		
-
-		vo.setApply_code(apply_code);
-		System.out.println(apply_code);
-
-		model.addAttribute("cuStorage", transDAO.cuStorage(vo));
+	public Map<String, Object> myCustomerSelect(Model model, TransVO vo) {
 		System.out.println("123");
-		System.out.println(vo);
-		
-		return transDAO.myCustomerSelect(vo);
+		System.out.println(vo.getApply_code() + vo.getStore_code());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("cus", transDAO.myCustomerSelect(vo));
+		map.put("list", transDAO.cuStorage(vo));
+		System.out.println("1 : " + transDAO.myCustomerSelect(vo));
+		System.out.println("2 : " + transDAO.cuStorage(vo));
+		return map;
 	}
+	
+	//추가입력
+	@RequestMapping("customerInsert")
+	public String customerInsert(TransVO vo) {
+		
+		transDAO.customerInsert(vo);
+		
+		return "redirect:customer";
+	}
+	
+	
 	
 }

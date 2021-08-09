@@ -15,4 +15,7 @@ public interface TransService {
 	// 스토리지 셀렉트박스
 	public List<TransVO> cuStorage(TransVO vo);
 	
+	// 추가정보 입력
+	public int customerInsert(TransVO vo);
+	
 }

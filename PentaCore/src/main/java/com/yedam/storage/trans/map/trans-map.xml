@@ -4,13 +4,14 @@
 
 	<!-- 신청내역 -->
 	<select id="customerListAll" resultType="com.yedam.storage.trans.vo.TransVO">
-		SELECT a.member_name, b.apply_code, b.apply_addr, b.apply_start, b.apply_end, c.store_name
+		SELECT a.member_name, b.apply_code, b.apply_addr, b.apply_start, b.apply_end, c.store_name, c.store_code
 		FROM member a join convey_apply b
 		ON (a.member_id = b.member_id)
 		JOIN store c
 		ON (b.store_code = c.store_code)
 	</select>
 	
+	<!-- 신청내역 한건조회 -->
 	<select id="myCustomerSelect" resultType="com.yedam.storage.trans.vo.TransVO" parameterType="com.yedam.storage.trans.vo.TransVO">
 		SELECT a.member_name, a.member_tel, b.apply_code, b.apply_start, b.apply_end, b.apply_product, b.apply_addr, c.store_name
 		FROM member a JOIN convey_apply b
@@ -20,10 +21,27 @@
 		WHERE b.apply_code = #{apply_code}
 	</select>
 	
-	<select id="cuStorage" resultType="com.yedam.storage.trans.vo.TransVO" parameterType="com.yedam.storage.trans.vo.TransVO">
-		SELECT * from storage_info
-		WHERE info_use = 'N'
-		and store_code = 'ST002'
+	<!-- 셀렉트박스 -->
+	<select id="cuStorage" resultType="String" parameterType="com.yedam.storage.trans.vo.TransVO">
+		SELECT TO_CHAR(I.INFO_NUM || S.STORAGE_NAME) AS storage_name
+		FROM STORAGE_INFO I, STORAGE S
+		WHERE I.STORAGE_CODE = S.STORAGE_CODE
+		AND I.INFO_USE = 'N'
+		AND I.STORE_CODE = #{store_code}
+		ORDER BY 1 ASC
 	</select>
+	
+	<!-- 신청내역 추가입력 -->
+	<update id="customerInsert" parameterType="com.yedam.storage.trans.vo.TransVO">
+		UPDATE convey_list SET
+		convey_after = #{convey_after} ,
+		info_num = substr(#{info_num},1,5), 
+		member_name = #{member_name}, 
+		convey_memo = #{convey_memo}, 
+		convey_car = #{convey_car}, 
+		convey_driver = #{convey_driver},
+		convey_time = #{convey_time}
+		WHERE apply_code = #{apply_code}
+	</update>
 
-</mapper>
+</mapper>	
