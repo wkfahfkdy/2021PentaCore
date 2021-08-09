@@ -113,18 +113,6 @@ public class StoreAdminController {
 				model.addAttribute("usingStorageList", storeAdminDAO.usingStrorageListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
 				return "storeAdmin/customerManage";
 	}
-			
-	@RequestMapping("noticeForm")
-	public String noticeForm() {
-		return "storeAdmin/noticeForm";
-	}
-	
-	@RequestMapping("registNotice")
-	public String registNotice(StoreAdminVO vo) {
-		storeAdminDAO.registNotice(vo);
-		return "storeAdmin/enterStoreAdmin";
-	}
-			
 	
 	/////////////////////////////////전형민////////////////////////////////////////////
 	//지점관리자 홈으로 이동
