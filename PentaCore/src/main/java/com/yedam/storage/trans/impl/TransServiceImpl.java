@@ -15,17 +15,23 @@ public class TransServiceImpl implements TransService {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<TransVO> coustomerListAll(TransVO vo) {
+	public List<TransVO> customerListAll(TransVO vo) {
 		// 운송팀 list
-		return sqlSession.selectList("coustomerListAll", vo);
+		return sqlSession.selectList("customerListAll", vo);
 	}
 
 	@Override
-	public TransVO myCoustomerSelect(TransVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+	public TransVO myCustomerSelect(TransVO vo) {
+		// list 상세조회
+		return sqlSession.selectOne("myCustomerSelect", vo);
 	}
 
+	@Override
+	public List<TransVO> cuStorage(TransVO vo) {
+		// select 
+		return sqlSession.selectList("cuStorage", vo);
+	}
 	
+
 	
 }

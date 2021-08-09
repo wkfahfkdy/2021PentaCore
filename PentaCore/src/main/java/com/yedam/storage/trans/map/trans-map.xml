@@ -3,21 +3,27 @@
 <mapper namespace="com.yedam.storage.trans.map.TransMap">
 
 	<!-- 신청내역 -->
-	<select id="coustomerListAll" resultType="com.yedam.storage.trans.vo.TransVO">
-		SELECT a.member_name, b.apply_addr, b.apply_start, b.apply_end, c.store_name
+	<select id="customerListAll" resultType="com.yedam.storage.trans.vo.TransVO">
+		SELECT a.member_name, b.apply_code, b.apply_addr, b.apply_start, b.apply_end, c.store_name
 		FROM member a join convey_apply b
 		ON (a.member_id = b.member_id)
 		JOIN store c
 		ON (b.store_code = c.store_code)
 	</select>
 	
-	<select id="myCoustomerSelect" resultType="com.yedam.storage.trans.vo.TransVO" parameterType="com.yedam.storage.trans.vo.TransVO">
-		SELECT a.member_name, a.member_tel, b.apply_code, b.apply_start, b.apply_end, b.apply_product, c.store_name
+	<select id="myCustomerSelect" resultType="com.yedam.storage.trans.vo.TransVO" parameterType="com.yedam.storage.trans.vo.TransVO">
+		SELECT a.member_name, a.member_tel, b.apply_code, b.apply_start, b.apply_end, b.apply_product, b.apply_addr, c.store_name
 		FROM member a JOIN convey_apply b
 		ON (a.member_id = b.member_id)
 		JOIN store c
 		ON (b.store_code = c.store_code)
 		WHERE b.apply_code = #{apply_code}
+	</select>
+	
+	<select id="cuStorage" resultType="com.yedam.storage.trans.vo.TransVO" parameterType="com.yedam.storage.trans.vo.TransVO">
+		SELECT * from storage_info
+		WHERE info_use = 'N'
+		and store_code = 'ST002'
 	</select>
 
 </mapper>
