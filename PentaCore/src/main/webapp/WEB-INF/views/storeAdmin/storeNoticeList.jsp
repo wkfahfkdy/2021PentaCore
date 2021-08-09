@@ -29,9 +29,61 @@
 		font-size: 12pt;
 		padding: 0.4em;
     }
+    
+    #storeNt-modal {
+        display: none;
+        width: 60%;
+        padding: 30px 50px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
+    }
+
+    #storeNt-modal .modal_close_btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    
+    #storeNt-modal .modal-body{
+    	font-size: 10pt;
+    	border: 1px solid #00c0e2;
+    	border-radius: 0.3em;
+    }
+    
+   	input[type="text"] {
+		background: white;
+		border: 1px solid #5fd3e8;
+		border-radius: 0.3em;
+		width: 80%;
+		height: 2.5em;
+		padding: 5px;
+		margin: 2em 0em;
+	}
+	
+	#cke_editor1 {	/* 시도때도 없이 나오는 CK에디터 머리 참수 */
+		display: none;
+	}
+	
+	div.modal-body img {	/* Modal창 안에 표시되는 내용의 이미지 사이즈 강제 조정*/
+		max-width: 100%;
+		height: auto;
+	}
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<!-- 게시판 오픈소스 : ckEditor4 -->
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script>
+$(function() {
+	CKEDITOR.replace('notice_content', {
+		filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/imageUpload',
+		enterMode : CKEDITOR.ENTER_BR,
+		shiftEnterMode : CKEDITOR.ENTER_P,
+		width: '90%'
+	});
+})
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -40,6 +92,12 @@
 	</div>
 	<div>
 		<div id="storeNtGrid"></div>
+		<div id="storeNt-modal">
+			<a class="modal_close_btn">닫기</a>
+			<div class="modal-header"></div>
+			<div class="modal-body"></div>
+			<textarea id="notice_content" name="notice_content"></textarea>
+		</div>
 	</div>
 	<div class="bts">
 		<button type="button" class="apply-btn" onclick="location.href='noticeForm'">글쓰기</button>&nbsp;&nbsp;
@@ -47,7 +105,7 @@
 	</div>
 </div>
 <script>
-// 문의 내역 그리드 생성
+// 지점별 공지사항 그리드 생성
 $(document).ready(function() {
 	const Grid = tui.Grid;
 	
@@ -68,6 +126,7 @@ $(document).ready(function() {
 		const storeNtGrid = new Grid({
 		el : document.getElementById('storeNtGrid'),
 		data: stNoticeData,
+		rowHeaders: ['checkbox'],
 		columns : [
 		{
 			header: '글번호',
@@ -93,84 +152,51 @@ $(document).ready(function() {
 		type: 'scroll'
 		}
 	});
-		
-	//Grid 컬럼 클릭 시 모달로 견적서 조회 요청
+	
+	// Grid 컬럼 클릭 시 모달로 공지 내용 확인 및 수정
 	storeNtGrid.on('dblclick', function(ev) {
 		var target = ev;
 		
-		var myAsk = askGrid.getValue(ev.rowKey,'notice_num');
-		console.log(myAsk);
+		var snNum = storeNtGrid.getValue(ev.rowKey,'notice_num');
+		console.log(snNum);
 		
 		$.ajax({
-			url: '',
+			url: 'storeNoticeSelect/'+snNum,
 			type: 'GET',
 			dataType: 'json',
 			success: function(result) {
 				console.log(result);
-				showAsk(result);
+				showSnotice(result);
 			},
 			error: function(xhr,status, msg) {
 				alert("상태값 : "+status+" Http 에러메시지 : "+msg);
 			}
 		})
 		
-		function showAsk(data) {
-			modal('storeNtGrid');
-			
-			var q_code;
-			var q_parents;
-			var q_title;
-			var q_content;
-			var q_store;
-			var q_date;
- 			var title;
+		function showSnotice(data) {
+			modal('storeNt-modal');
 
- 			var tbl =$('<table width="100%" />');
-			
-			$.each(data,function(idx, item){
-				console.log(item);
-				console.log(idx);
-				q_code = item.question_num;
-				q_parents = item.question_parents;
-				q_title = item.question_title;
-				q_content = item.question_content;
-				q_store = item.store_name;
-				q_date = item.question_date;
-				console.log(q_code, q_parents, q_title, q_content, q_store, q_date);
+			var noNum = data.notice_num;
+			var noTitle = data.notice_title;
+			var noContent = data.notice_content;
+			var noDate = data.notice_date;
 
-				if(q_title == null)
-					title = '<h4>제목이 없습니다.</h4>';
-				else
-					title = '<h4>'+ q_title + '</h4>';
-					
-				var row = '<tr>';
-					
-					if(q_parents == 1) {
-						row += '<td width="20%" style="padding: 0.3em;">작성일자</td>';
-						row += '<td width="80%">'+ q_date + '</td></tr>';
-						row += '<tr style="border-bottom: 1px solid lightgray;">'+
-								'<td colspan="2" width="60%" align="center" style="line-height: 2.5em; padding-bottom: 1em;">'
-								+ q_content + '</td></tr>';
-					} else {
-						if(q_content != null){
-						row += '<tr><td style="padding: 0.3em;"><img src="resources/assets/images/re.png">&nbsp;답변 </td><td>' + q_date + '</td></tr>';
-						row += '<tr style="border-bottom: 1px dashed lightgray;"><td colspan="2" style="padding: 0.3em;">' + q_content + '</td></tr>';
-						}
-						else {
-							row += '아직 등록된 답변이 없습니다.';
-						}
-					}
-				tbl.append(row);
-				if(idx == 0){
-					$(".modal-header").append(title);
-				}
-			})
-				$(".modal-body").append(tbl);
+			var title = '<input type="text" id="notice_title" name="notice_title" value="' + noTitle + '" />';
+			
+			var tbl =$('<table width="100%" />');
+			var row = '<tr>';
+			row += '<th style="width: 20%;">글번호</th>';
+			row += '<td class="offer-row">' + noNum + '</td></tr>';
+			row += '<tr><th style="width: 20%;">작성일자</th></tr>';
+			row += '<td class="offer-row">' + noDate + '</td></tr>';
+			row += '<tr><th colspan="2">내용</th></tr>';
+			tbl.append(row);
+			
+			$(".modal-header").append(title);
+			$(".modal-body").append(tbl);
+			document.getElementById("notice_content").value=noContent;
 		}
 
-	});	// Modal로 견적서 상세 보기 요청 끝
-		
-		// Modal 세부 함수			
 		function modal(id) {
 		    var zIndex = 9999;
 		    var modal = document.getElementById(id);
@@ -220,6 +246,8 @@ $(document).ready(function() {
 		    for (var k in styles) this.style[k] = styles[k];
 		    return this;
 		};
+	})
+
 })
 </script>
 </body>

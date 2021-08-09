@@ -74,14 +74,13 @@
 	<form id="frm" action="registNotice" method="POST" enctype="multipart/form-data">
 		<div>
 			<b>제목</b>&nbsp;&nbsp;<input type="text" name="notice_title" />
-			<input type="hidden" name="store_code" value="{stCode}" />
 		</div>
 		<div align="center">
 			<textarea id="notice_content" name="notice_content"></textarea>
 		</div>
 		<div style="margin: 1em 0em;">
 			<button class="apply-btn" type="button" onclick="formCheck()">등록</button>&nbsp;&nbsp;
-			<button class="back-btn" type="button" onclick="history.back();">돌아가기</button>
+			<button class="back-btn" type="button" onclick="location.href='storeNotice'">돌아가기</button>
 		</div>
 	</form>
 </div>
