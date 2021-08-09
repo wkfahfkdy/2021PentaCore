@@ -6,6 +6,29 @@
 <head>
 <meta charset="UTF-8">
 <title>스토리지 현황</title>
+<script type="text/javascript">
+	function useStorageInfo(offer_code, store_code){
+		console.log(offer_code +  store_code);
+		$.ajax({
+			url: 'usedStorage',
+			dataType: 'JSON',
+			data: {
+				offer_code : offer_code,
+				store_code : store_code
+			},
+			contentType: 'application/json; charset = UTF-8',
+			success: function(data){
+				console.log(data);
+				$('#memberId').html(data.member_name);
+				$('#memberUseDate').html(data.use_start + '  ~  ' + data.use_end);
+				$('#memberStorageInfo').html(data.offer_product);
+			},
+			error : function(err){
+				console.log(err);
+			}
+		})
+	}
+</script>
 <style type="text/css">
 	.storageList {
 		width: 30%; 
@@ -39,7 +62,7 @@
 													<p>${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}</p>	
 												</c:when>
 												<c:otherwise>
-													<p><a onclick="location.href='usedStorage?offer_code=${storageInfoList.offer_code}'" data-toggle="modal" data-target="#storageInfo">${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}</a></p>
+													<p><a onclick="useStorageInfo('${storageInfoList.offer_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#storageInfo">${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}</a></p>
 												</c:otherwise>
 											</c:choose>
 										</div>
@@ -62,7 +85,20 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	        	
+	        	<table id="infoStorage">
+	        		<tr>
+	        			<th style="width: 33%; font-size: 16pt; padding:30px;">고객명</th>
+	        			<td id="memberId"></td>
+	        		</tr>
+	        		<tr>
+	        			<th style="width: 33%; font-size: 16pt; padding:30px;">사용기간</th>
+	        			<td id="memberUseDate"></td>
+	        		</tr>
+	        		<tr>
+	        			<th style="width: 33%; font-size: 16pt; padding:30px;">보관물품</th>
+	        			<td id='memberStorageInfo'></td>
+	        		</tr>
+	        	</table>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

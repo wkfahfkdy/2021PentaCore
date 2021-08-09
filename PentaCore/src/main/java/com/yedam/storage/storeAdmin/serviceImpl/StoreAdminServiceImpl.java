@@ -51,6 +51,11 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		// 지점별 공지사항 등록
 		return sqlSession.insert("registNotice", vo);
 	}
+	// 클릭시 스토리지 현황 정보
+	@Override
+	public StoreAdminVO selectStorageInfo(StoreAdminVO vo) {
+		return map.selectStorageInfo(vo);
+	}
 
 
 }

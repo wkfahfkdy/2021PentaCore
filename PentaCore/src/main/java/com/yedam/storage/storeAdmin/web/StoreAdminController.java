@@ -12,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yedam.storage.store.service.StoreService;
 import com.yedam.storage.review.common.Paging;
-import com.yedam.storage.review.vo.ReviewVO;
 import com.yedam.storage.storeAdmin.serviceImpl.StoreAdminServiceImpl;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
@@ -24,8 +22,6 @@ public class StoreAdminController {
 	@Autowired
 	private StoreAdminServiceImpl storeAdminDAO;
 	
-	@Autowired
-	private StoreService storeDAO;
 	
 	// enterStoreAdmin -> StorageInfoPage (각 지점에 대한 스토리지 현황을 위해 Store_code를 불러온다)
 	@RequestMapping("storageInfo")
@@ -40,8 +36,10 @@ public class StoreAdminController {
 	
 	// 사용중인 스토리지 정보
 	@RequestMapping("usedStorage")
-	public String usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
-		return null;
+	@ResponseBody
+	public StoreAdminVO usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
+		System.out.println(vo.getOffer_code() + vo.getStore_code());
+		return storeAdminDAO.selectStorageInfo(vo);
 	}
 	
 	@RequestMapping("storeNotice")

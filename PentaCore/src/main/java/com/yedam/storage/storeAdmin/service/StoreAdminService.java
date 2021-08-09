@@ -7,7 +7,8 @@ import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
 public interface StoreAdminService {
 
-	
+	// 스토리지 현황 클릭시 정보
+	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
 	
 	public List<StoreAdminVO> usingStrorageList();
 	
@@ -20,6 +21,8 @@ public interface StoreAdminService {
 	
 	// 지점별 공지사항 등록
 	public int registNotice(StoreAdminVO vo);
+	
+	
 	
 	/*
 		public MemberVO loginCheck(MemberVO vo);
