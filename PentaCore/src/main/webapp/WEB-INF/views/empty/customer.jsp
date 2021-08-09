@@ -8,21 +8,154 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
 <style type="text/css">
-
 	.wrap {
-		width: 100%;
-		text-align: center;
+			margin: auto;
+			text-align: center;
+			padding: 30px 10px;
+			width: 90%;
+		}
+		
+	.customer-list {
+		padding: 30px 50px;
+		
 	}
 	
+	.customer-Reg {
+		padding: 30px 50px;
+	}	
 	
-	.list-info > a {
+	.list-info {
 		text-align: right;
+		color: gray;
 	}
 	
-	.convey-list {
-		width: 80%;
+	input[type="text"] {
+		background: white;
+		border: 1px solid #5fd3e8;
+		border-radius: 0.3em;
+		width: 100%;
+		height: 25px;
+		padding: 5px;
 	}
+	
+	.customer-form {
+		display: table;
+		border-top: 2px lightgray solid;
+		padding-top: 20px;
+		width: 100%;
+		
+	}
+	
+	.form-memtitle {
+		display: table-cell;
+		width: 15%;
+		padding: 3px;
+		padding-left: 30px;
+	}
+	
+	.form-memtitle>.title {
+		text-align: left;
+		width: 100%;
+		height: 31px;
+		padding: 3px;
+	}
+	
+	.form-memdata {
+		display: table-cell;
+		width: 35%
+	}
+	
+	.form-memdata>.mem-data {
+		padding: 3px;
+		width: 100%;
+		text-align: left;
+	}
+	
+	.form-contitle {
+		display: table-cell;
+		width: 15%;
+		padding: 3px;
+		padding-left: 30px;
+	}
+	
+	.form-contitle>.con-title {
+		padding: 3px;
+		text-align: left;
+		height: 4.6em;
+	}
+	
+	.form-condata {
+		display: table-cell;
+		width: 35%;
+	}
+	
+	.form-condata>.con-data {
+		padding: 3px;
+		text-align: left;
+	}
+	
+	#my_customer {	/*모달창*/
+        display: none;
+        width: 55%;
+        height: 65%;
+        padding: 30px 30px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
+    }
 
+    #my_customer #btn1 {	/*모달창 신청버튼*/
+        position: absolute;
+        top: 460px;
+        right: 420px;
+    }
+    
+    #my_customer #btn2 {	/*모달창 신청버튼*/
+        position: absolute;
+        top: 460px;
+        right: 340px;
+    }
+    
+    .comment {	/*모달 내용 작은 코멘트*/
+    	font-size:9pt;
+    	color:#00c0e2;
+    	margin: 0 0 0;
+    }
+    
+    .mo-tbl {	/*모달 테이블 내용*/
+    	padding: 3px;
+    }
+    
+    .store-pick {
+    	display: table;
+    	width: 100%;
+    }
+    
+    .store-list {
+    	display: table-cell;
+    	width: 45%;
+    }
+    
+    .store-mAp {
+    	display: table-cell;
+    	width: 55%;
+    }
+    
+    #choice-btn, .apply-btn {
+    	background-color: #00c0e2;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }
+    
+    .back-btn {
+    	background-color: #006DFC;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 12pt;
+		padding: 0.4em;
+    }   
 </style>
 </head>
 <body>
@@ -36,9 +169,10 @@
 			<a>* 더블클릭으로 추가정보를 입력해주세요.</a>
 			</div>
 			<div id="customerGrid" align="center"></div>
-			<div id="customer" align="center">
-			    <a class="modal_close_btn">닫기</a>
+			<div id="my_customer" align="center">
 			    <div class="modal-body"></div>
+			    <button class="btn btn-default btn-lg" id="btn1"><a class="modal_close_btn">확인</a></button>
+			    <button class="btn btn-default btn-lg" id="btn2"><a class="modal_close_btn">닫기</a></button>
 		    </div>
 		</div>
       </div>
@@ -53,6 +187,7 @@
     	const customerData = [
     		<c:forEach items="${customerListAll}" var="list" varStatus="status">
     		{
+    			apply_code: '${list.apply_code}',
     			member_name: '${list.member_name}',
     			apply_addr: '${list.apply_addr}',
     			apply_start: '<fmt:formatDate value="${list.apply_start}" pattern="yyyy-MM-dd" />',
@@ -69,6 +204,12 @@
     		el : document.getElementById('customerGrid'),
     		data: customerData,
     		columns : [
+       		{
+       			width: 100,
+       			header: '신청코드',
+       			name: 'apply_code',
+       			align: 'center'
+       		},
     		{
     			width: 100,
     			header: '신청자명',
@@ -109,14 +250,15 @@
    		});
     		
    		//Grid 컬럼 클릭 시 모달로 견적서 조회 요청
+	
    		customerGrid.on('dblclick', function(ev) {
-   			var target = ev;
-   			
-   			var myCustomer = customerGrid.getValue(ev.rowKey,'apply_code');
-   			console.log(myCustomer);
+  			var target = ev;
+  			
+  			var myCustomer = customerGrid.getValue(ev.rowKey,'apply_code');
+  			console.log(myCustomer);
    			
    			$.ajax({
-   				url: 'myCustomer/'+myCustomer,
+   				url: 'myCustomer/'+ myCustomer,
    				type: 'GET',
    				dataType: 'json',
    				success: function(result) {
@@ -129,44 +271,74 @@
    			})
    			
    			function showCustomer(data) {
+   				console.log(data);
    				modal('my_customer');
 
    				var a_code = data.apply_code;	// 코드
    				var a_name = data.member_name;	// 이름 
-   				var a_tel = data.mamber_tel;	// 연락처
+   				var a_tel = data.member_tel;	// 연락처
    				var a_start = data.apply_start;	// 픽업일
    				var a_end = data.apply_end;		// 운송일
-   				var a_prod = data.apply_product;	// 이전주소
    				var a_store = data.store_name;	// 지점명
-
+   				var a_addr = data.apply_addr;
+   				var a_product = data.apply_product;
+   				
    				var title = '<h4>운송정보</h4>';
    				
    				var tbl =$('<table />');
    				var row = '<tr>';
-   				row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;" colspan="2">' + '고객 기본정보' + '</td>';
-   				row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;" colspan="2">' + '상담원 추가입력' + '</td>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이름" + '</td>';
-   				row += '<td class="mo-tbl">' + a_name + '</td></tr>';
-   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "물품정보" + '</td>';
-   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</td>';
-   				row += '<td class="mo-tbl">' + a_tel + '</td></tr>';
-   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</td>';
-   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업일자" + '</td>';
-   				row += '<td class="mo-tbl">' + a_start + '</td></tr>';
-   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "차량사이즈" + '</td>';
-   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "운송시간" + '</td>';
-   				row += '<td class="mo-tbl">' + a_end + '</td></tr>';
-   				row += '<td class="mo-tbl" style="vertical-align:top;">' + "기사배정" + '</td>';
-   				row += '<td class="mo-tbl">' + '<input type="text">' + '</td></tr>';
-   				row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이전주소" + '</td>';
-   				row += '<td class="mo-tbl">' + a_prod + '</td></tr>';
-   				row += '<td class="mo-tbl" style="vertical-align:top;" colspan="2">' + "사후관리 (사진업로드)" + '</td>';
-   				
+   				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '고객 기본정보' + '</h5>' + '</th>';
+   				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '상담원 추가입력' + '<h5>' + '</th>';
+   				row += '<tr><th class="mo-tbl" style="width: 10%; vertical-align:top;">' + "이름" + '</th>';
+   				row += '<td class="mo-tbl">' + a_name + '</td>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;">' + "신청코드" + '</th>';
+   				row += '<td class="mo-tbl">' + a_code + '</td>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
+   				row += '<td class="mo-tbl">' + a_tel + '</td>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "픽업일" + '</th>';
+   				row += '<td class="mo-tbl">' + a_start + '</td>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;">' + "운송차량" + '</th>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "운송일" + '</th>';
+   				row += '<td class="mo-tbl">' + a_end + '</td>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;">' + "기사배정" + '</th>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이전주소" + '</th>';
+   				row += '<td class="mo-tbl">' + a_addr + '</td>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;">' + "배송주소" + '</th>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "지점명" + '</th>';
+   				row += '<td class="mo-tbl">' + a_store + '</td>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;">' + "스토리지" + '</th>';
+   				row += '<td class="mo-tbl">' + 
+   						'<select id="cuStorage" name="cuStorage">' + 
+   							'<c:forEach items="${info_num}" var="info">' + 
+   								'<option value="${info.info_num}">'+ ${info.storage_code} + '</option>'+
+   							'</c:forEach>'+
+   						'</select></td></tr>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이사규모" + '</th>';
+   				row += '<td class="mo-tbl">' + a_product + '</td>';
+   				row += '<th class="mo-tbl"style="vertical-align:top;">' + "배송시간" + '</th>';
+   				row += '<td class="mo-tbl">' +
+   						'<select id="convey_time" name="convey_time">' +
+   							'<option value="AM 11:00 ~ 12:00">' + "AM 11:00 ~ 12:00" + '</option>' +
+   							'<option value="PM 12:00 ~ 13:00">' + "PM 12:00 ~ 13:00" + '</option>' +
+   							'<option value="PM 13:00 ~ 14:00">' + "PM 13:00 ~ 14:00" + '</option>' +
+   							'<option value="PM 14:00 ~ 15:00">' + "PM 14:00 ~ 15:00" + '</option>' +
+   							'<option value="PM 15:00 ~ 16:00">' + "PM 15:00 ~ 16:00" + '</option>' +
+   							'<option value="PM 16:00 ~ 17:00">' + "PM 16:00 ~ 17:00" + '</option>' +
+   							'<option value="PM 17:00 ~ 18:00">' + "PM 17:00 ~ 18:00" + '</option>' +
+   							'<option value="PM 18:00 ~ 19:00">' + "PM 18:00 ~ 19:00" + '</option>' +
+   							'<option value="PM 19:00 ~ 20:00">' + "PM 19:00 ~ 20:00" + '</option>' +
+   						'</select></td></tr>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;" colspan="2"></th>';
+   				row += '<th class="mo-tbl" style="vertical-align:top;" colspan="2">' + "사후관리 (사진업로드)" + '</th>';
    				
    				tbl.append(row);
+   				
+   				
    				
    				$(".modal-body").append(title);
    				$(".modal-body").append(tbl);
@@ -174,7 +346,7 @@
 
    		});	// Modal로 견적서 상세 보기 요청 끝
    			
-   			// Modal 세부 함수			
+   			// Modal 세부 함수			 
    			function modal(id) {
    			    var zIndex = 9999;
    			    var modal = document.getElementById(id);
