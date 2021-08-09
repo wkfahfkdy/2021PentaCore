@@ -37,6 +37,8 @@ public class StoreAdminVO {
 	private String store_code;
 	private String offer_code;
 	private String member_id;
+	private String member_tel;
+	
 	// Storage_Info
 	private String info_use;
 	private String storage_code;
@@ -53,5 +55,12 @@ public class StoreAdminVO {
 	
 	private int firstCnt;
 	private int lastCnt;
+	
+	//고객관리부분 offer
+	private String offer_product;
+	private String offer_premium;
+	private String offer_wash;
+	private String laundry_consign;
+	private String laundry_collect;
 	
 }

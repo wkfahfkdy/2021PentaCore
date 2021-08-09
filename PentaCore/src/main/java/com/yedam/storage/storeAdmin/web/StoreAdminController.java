@@ -43,6 +43,10 @@ public class StoreAdminController {
 		System.out.println(vo.getOffer_code() + vo.getStore_code());
 		return storeAdminDAO.selectStorageInfo(vo);
 	}
+			@RequestMapping("store/usedStorage")
+			public String usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
+				return "storeAdmin";
+			}
 	
 	// 지점 공지사항 리스트
 	@RequestMapping("storeNotice")
@@ -112,25 +116,68 @@ public class StoreAdminController {
 				model.addAttribute("paging", paging);//페이징에 필요한 값
 				model.addAttribute("usingStorageList", storeAdminDAO.usingStrorageListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
 				return "storeAdmin/customerManage";
+	}
 			
-	
+	@RequestMapping("noticeForm")
+	public String noticeForm() {
+		return "storeAdmin/noticeForm";
 	}
 	
-	// 카카오 지도 API TEST - DATA
-		@RequestMapping("store/usingList")
+	@RequestMapping("registNotice")
+	public String registNotice(StoreAdminVO vo) {
+		storeAdminDAO.registNotice(vo);
+		return "storeAdmin/enterStoreAdmin";
+	}
+			
+	
+	/////////////////////////////////전형민////////////////////////////////////////////
+	//지점관리자 홈으로 이동
+	@RequestMapping("store/enterStoreAdmin")
+	public String storeAdminHome() {
+	return "storeAdmin/enterStoreAdmin";
+	}
+	
+	
+	// 이용중인 사용자 리스트
+	@RequestMapping("store/usingList")
+	@ResponseBody
+	public List<StoreAdminVO> usingList() {
+	// Store - 지점명, 지점주소 (StoreConlloer)
+	List<StoreAdminVO> list = storeAdminDAO.usingStrorageList();
+	return list;
+	}
+	
+	// 사용종료 사용자 리스트
+		@RequestMapping("store/expiredList")
 		@ResponseBody
-		public List<StoreAdminVO> usingList() {
-			// Store - 지점명, 지점주소 (StoreConlloer)
-			List<StoreAdminVO> list = storeAdminDAO.usingStrorageList();
-			return list;
+		public List<StoreAdminVO> expiredList() {
+		// Store - 지점명, 지점주소 (StoreConlloer)
+		List<StoreAdminVO> list = storeAdminDAO.expiredStrorageList();
+		return list;
 		}
 	
 	@RequestMapping("store/customerManage2")
 	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "storeAdmin/customerManage2";
+	return "storeAdmin/customerManage2";
+	}
+	
+
+	@RequestMapping("store/storageUserDetail")
+	public String storageUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		String use_num = request.getParameter("use_num");
+		StoreAdminVO rvo = storeAdminDAO.storageUserDetail(use_num);
+		
+		model.addAttribute("selectUserVO", rvo);
+		
+		return "storeAdmin/storageUserDetail";
 	}	
 	
+	@RequestMapping("store/expiredUserDetail")
+	public String expiredUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		String member_id = request.getParameter("memberId");
+		return "storeAdmin/storageUserDetail";		
+	}
+	
+	/////////////////////////////////전형민////////////////////////////////////////////		
 			
-			
-		
 }

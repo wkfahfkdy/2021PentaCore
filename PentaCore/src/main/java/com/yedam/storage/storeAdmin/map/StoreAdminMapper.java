@@ -1,6 +1,8 @@
 package com.yedam.storage.storeAdmin.map;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
@@ -20,9 +22,14 @@ public interface StoreAdminMapper {
 	// 공지사항 삭제
 	public int storeNoticeDelete(StoreAdminVO vo);
 	
+	//지점 고객관리 
 	public List<StoreAdminVO> usingStrorageList(); 
 	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 	
 	// 스토리지 클릭시 select
 	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
+	public List<StoreAdminVO> expiredStrorageList();
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);  
+	public StoreAdminVO storageUserDetail(@Param("p") String use_num );
+	
 }

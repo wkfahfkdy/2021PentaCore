@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form id="logout" action="/logout" method="POST">
+<form id="logout" action="${pageContext.request.contextPath }/logout/logout" method="POST">
 	<!-- <input name="${_csrf.parameterName }" type="hidden" value="${_csrf.token}" /> -->
 </form>
 
@@ -83,7 +83,7 @@
 							
 							<li >
 								<sec:authorize access="isAuthenticated()">
-									<form id="logout" action="logout" method="post">
+									<form id="logout" action="${pageContext.request.contextPath }/logout" method="post">
 										<button style="margin:17px 30px;"><a>LOGOUT</a></button>
 									</form>	
 								</sec:authorize>
