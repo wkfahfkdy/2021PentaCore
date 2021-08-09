@@ -20,6 +20,23 @@
 		where use_end > sysdate
 </select>
 
+<!-- 스토리지 현황 페이지 SQL -->
+<select id="StorageList" resultType="StoreAdminVO" parameterType="StoreAdminVO">
+	SELECT B.STORAGE_CODE, B.INFO_NUM, S.STORAGE_NAME, A.OFFER_CODE,
+		    CASE
+		        WHEN B.INFO_USE = 'Y' THEN '사용중(' || TO_CHAR(A.USE_END) || ')까지'
+		        WHEN B.INFO_USE = 'N' THEN '미사용'
+		    END AS INFO_USE
+	FROM STORAGE S,(SELECT * FROM USE_STORAGE WHERE STORE_CODE = #{store_code} ) A RIGHT OUTER JOIN (SELECT * FROM STORAGE_INFO WHERE STORE_CODE = #{store_code} ) B
+	ON A.INFO_NUM = B.INFO_NUM
+	WHERE B.STORAGE_CODE = S.STORAGE_CODE
+	ORDER BY B.INFO_NUM ASC
+</select>
+
+<select id="StorageInfo" resultType="StoreAdminVO">
+	SELECT STORAGE_NAME, STORAGE_CODE
+	FROM STORAGE
+</select>
 
 </mapper>
 

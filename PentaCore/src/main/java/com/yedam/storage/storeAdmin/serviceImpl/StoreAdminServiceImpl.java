@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.storage.storeAdmin.map.StoreAdminMapper;
 import com.yedam.storage.storeAdmin.service.StoreAdminService;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
@@ -15,9 +16,23 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Autowired
+	private StoreAdminMapper map;
+	
 	@Override
 	public List<StoreAdminVO> usingStrorageList() {
 		return sqlSession.selectList("usingStrorageList");
 	} 
+	
+	// 스토리지 현황 리스트
+	@Override
+	public List<StoreAdminVO> selectStorageInfoList(StoreAdminVO vo) {
+		return map.StorageList(vo);
+	}
 
+	@Override
+	public List<StoreAdminVO> storageName() {
+		return map.StorageInfo();
+	}
+	
 }

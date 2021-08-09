@@ -1,5 +1,8 @@
 package com.yedam.storage.store.vo;
 
+import lombok.Data;
+
+@Data
 public class StoreVO {
 
 	/*
@@ -23,67 +26,5 @@ public class StoreVO {
 	private String store_addr;
 	private int humidity;
 	private int temperature;
-	
-	public String getStore_tel() {
-		return store_tel;
-	}
-	public void setStore_tel(String store_tel) {
-		this.store_tel = store_tel;
-	}
-	public String getStore_bus() {
-		return store_bus;
-	}
-	public void setStore_bus(String store_bus) {
-		this.store_bus = store_bus;
-	}
-	public String getStore_subway() {
-		return store_subway;
-	}
-	public void setStore_subway(String store_subway) {
-		this.store_subway = store_subway;
-	}
-	public String getStore_email() {
-		return store_email;
-	}
-	public void setStore_email(String store_email) {
-		this.store_email = store_email;
-	}
-	public String getStore_code() {
-		return store_code;
-	}
-	public void setStore_code(String store_code) {
-		this.store_code = store_code;
-	}
-	public String getStore_name() {
-		return store_name;
-	}
-	public void setStore_name(String store_name) {
-		this.store_name = store_name;
-	}
-	public String getStore_addr() {
-		return store_addr;
-	}
-	public void setStore_addr(String store_addr) {
-		this.store_addr = store_addr;
-	}
-	public int getHumidity() {
-		return humidity;
-	}
-	public void setHumidity(int humidity) {
-		this.humidity = humidity;
-	}
-	public int getTemperature() {
-		return temperature;
-	}
-	public void setTemperature(int temperature) {
-		this.temperature = temperature;
-	}
-	
-	@Override
-	public String toString() {
-		return "StoreVO [store_tel=" + store_tel + ", store_bus=" + store_bus + ", store_subway=" + store_subway
-				+ ", store_email=" + store_email + ", store_code=" + store_code + ", store_name=" + store_name
-				+ ", store_addr=" + store_addr + ", humidity=" + humidity + ", temperature=" + temperature + "]";
-	}
 	
 }

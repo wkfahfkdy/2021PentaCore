@@ -11,7 +11,9 @@ public interface StoreAdminService {
 	
 	public List<StoreAdminVO> usingStrorageList();
 	
-	
+	// 스토리지 현황 메인페이지
+	public List<StoreAdminVO> selectStorageInfoList(StoreAdminVO vo);
+	public List<StoreAdminVO> storageName();
 	
 	/*
 		public MemberVO loginCheck(MemberVO vo);
