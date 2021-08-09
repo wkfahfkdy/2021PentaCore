@@ -57,7 +57,6 @@ public class StoreAdminVO {
 	private int lastCnt;
 	
 	//고객관리부분 offer
-	private String offer_product;
 	private String offer_premium;
 	private String offer_wash;
 	private String laundry_consign;

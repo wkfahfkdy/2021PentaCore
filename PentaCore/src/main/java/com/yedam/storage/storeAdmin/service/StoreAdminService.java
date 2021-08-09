@@ -66,6 +66,5 @@ public interface StoreAdminService {
 	//지점 고객관리 
 	public List<StoreAdminVO> usingStrorageList(); 
 	public List<StoreAdminVO> expiredStrorageList();
-	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo); 
 	public StoreAdminVO storageUserDetail(@Param("p") String use_num );
 }

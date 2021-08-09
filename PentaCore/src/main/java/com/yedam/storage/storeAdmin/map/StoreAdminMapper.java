@@ -24,7 +24,6 @@ public interface StoreAdminMapper {
 	
 	//지점 고객관리 
 	public List<StoreAdminVO> usingStrorageList(); 
-	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 	
 	// 스토리지 클릭시 select
 	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);

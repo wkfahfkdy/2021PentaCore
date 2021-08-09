@@ -43,10 +43,6 @@ public class StoreAdminController {
 		System.out.println(vo.getOffer_code() + vo.getStore_code());
 		return storeAdminDAO.selectStorageInfo(vo);
 	}
-			@RequestMapping("store/usedStorage")
-			public String usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
-				return "storeAdmin";
-			}
 	
 	// 지점 공지사항 리스트
 	@RequestMapping("storeNotice")
