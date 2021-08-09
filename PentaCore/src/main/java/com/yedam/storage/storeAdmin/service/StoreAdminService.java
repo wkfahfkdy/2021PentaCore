@@ -16,6 +16,7 @@ public interface StoreAdminService {
 	public List<StoreAdminVO> storageName();
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 	
 	// 지점별 공지사항 등록
 	public int registNotice(StoreAdminVO vo);

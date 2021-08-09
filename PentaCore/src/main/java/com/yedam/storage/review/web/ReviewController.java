@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yedam.storage.review.common.Paging;
+import com.yedam.storage.paging.paging;
 import com.yedam.storage.review.serviceImpl.ReviewServiceImpl;
 import com.yedam.storage.review.vo.ReviewVO;
 
@@ -41,7 +41,7 @@ public class ReviewController {
 			vo.setLastCnt(lastCnt);
 			
 			List<ReviewVO> total = reviewDAO.reviewList();//전체 검색결과
-			Paging paging = new Paging();
+			paging paging = new paging();
 			paging.setPageNo(pageCnt);//요청받은 페이지
 			paging.setPageSize(8);//한페이지에 보여줄 값
 			paging.setTotalCount(total.size());//페이지에 필요한 변수 생성
@@ -60,6 +60,12 @@ public class ReviewController {
 			public String reviewDetail(Model model , HttpServletRequest req ) {
 			String review_num = req.getParameter("review_num");
 			ReviewVO rvo = reviewDAO.selectReview(review_num);
+			
+			String content = rvo.getReview_content().substring(0,3);
+			
+			
+			model.addAttribute("imageCheck",content); //사용자가 이미지 파일 첨부했으면 상세보기에 지점사진 안들어가게하기.
+			
 			
 			model.addAttribute("reviewVO",rvo);
 			model.addAttribute("review_num", review_num);// 리뷰 번호 넘기기

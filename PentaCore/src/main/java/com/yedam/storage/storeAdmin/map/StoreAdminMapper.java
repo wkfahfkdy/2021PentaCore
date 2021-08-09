@@ -10,8 +10,6 @@ import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 @MapperScan
 public interface StoreAdminMapper {
 	
-	public List<StoreAdminVO> usingStrorageList();
-	
 	public List<StoreAdminVO> StorageList(StoreAdminVO vo);
 	public List<StoreAdminVO> StorageInfo();
 	// 지점별 공지사항 리스트
@@ -19,4 +17,7 @@ public interface StoreAdminMapper {
 	
 	// 지점별 공지사항 등록
 	public int registNotice(StoreAdminVO vo);
+	
+	public List<StoreAdminVO> usingStrorageList(); 
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 }

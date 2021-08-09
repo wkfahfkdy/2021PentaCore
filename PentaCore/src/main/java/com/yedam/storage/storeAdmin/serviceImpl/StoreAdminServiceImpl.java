@@ -28,6 +28,11 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo) {
 		// 지점별 공지사항 리스트
 		return sqlSession.selectList("storeNoticeList", vo);
+	}
+
+	@Override
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo) {
+		return sqlSession.selectList("usingStrorageListPaging",vo);
 	} 
 	
 	// 스토리지 현황 리스트
