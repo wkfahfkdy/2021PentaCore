@@ -11,6 +11,7 @@
 		margin: auto;
 		text-align: center;
 		padding: 50px 30px;
+		width: 80%;
 	}
 	
 	#myReport {
@@ -30,6 +31,8 @@
     
     #myReport .modal-body{
     	font-size: 10pt;
+    	border: 1px solid #00c0e2;
+    	border-radius: 0.3em;
     }
     
    	.back-btn {
@@ -39,6 +42,12 @@
 		font-size: 11pt;
 		padding: 0.4em;
     }
+    
+    .report-row {
+    	width: 20%;
+    	padding: 0.5em;
+    }
+    
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -51,6 +60,7 @@
 	<div id="reportGrid" align="center"></div>
 	<div id="myReport">
 		<a class="modal_close_btn">닫기</a>
+		<div class="modal-header"></div>
 		<div class="modal-body"></div>
 	</div>	
 	<div style="margin: 1em 0em;">
@@ -97,14 +107,14 @@ $(document).ready(function() {
 			{
 				header:  '제목',
 				name: 'condition_title',
-				align: 'center',
-				width: 600
+				align: 'center'
 				
 			},
 			{
 				header: '등록 날짜',
 				name: 'condition_date',
 				align: 'center',
+				width: 200
 			}
 		],
 		
@@ -149,27 +159,27 @@ $(document).ready(function() {
 			var oProduct = data.offer_product;	// 보관 중인 품목
 			var rComment = data.condition_comment;	// 사진 및 코멘트
 
-			var title = '${loginName}님의 ' + rTitle;
+			var title = '<h4><font style="color: #00c0e2;">${loginName}</font>님의 ' + rTitle + '</h4>';
 			
-			var tbl =$('<table border="1" />');
+			var tbl =$('<table width="100%" />');
 			var row = '<tr>';
-			row += '<td>' + '보고서 코드' + '</td>';
-			row += '<td>' + rCode + '</td>';
-			row += '<td>' + "이용 지점명" + '</td>';
+			row += '<th class="report-row">보고서 코드</th>';
+			row += '<td style="width: 10%;">' + rCode + '</td>';
+			row += '<th class="report-row">이용 지점명</th>';
 			row += '<td>' + sName + '</td>';
-			row += '<td>' + "보고서 등록일" + '</td>';
+			row += '<th class="report-row">보고서 등록일</th>';
 			row += '<td>' + rDate + '</td></tr>';
-			row += '<tr><td>' + "이용 중인<br>스토리지 번호" + '</td>';
+			row += '<tr><th class="report-row">이용 중인<br>스토리지 번호</th>';
 			row += '<td>' + uNum + '</td>';
-			row += '<td>' + "이용 기간" + '</td>';
-			row += '<td colspan="4">' + uStart + " ~ " + uEnd + '</td></tr>';
-			row += '<tr><td>' + "보관 품목 정보" + '</td>';
-			row += '<td colspan="6">' + oProduct + '</td></tr>';
-			row += '<tr><td colspan="7">' + "상태 보고" + '</td></tr>';
+			row += '<th class="report-row">이용 기간</th>';
+			row += '<td colspan="4" style="text-align: left;">' + uStart + " ~ " + uEnd + '</td></tr>';
+			row += '<tr><th class="report-row">보관 품목 정보</th>';
+			row += '<td colspan="6" style="text-align: left;">' + oProduct + '</td></tr>';
+			row += '<tr><th colspan="7" style="text-align: center; padding: 1em;">보관 물품 상태 컨디션</th></tr>';
 			row += '<tr><td colspan="7">' + rComment + '</td></tr>';
 			tbl.append(row);
 			
-			$(".modal-body").append(title);
+			$(".modal-header").append(title);
 			$(".modal-body").append(tbl);
 		}
 					
@@ -195,6 +205,7 @@ $(document).ready(function() {
 		    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
 		    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
 		        bg.remove();
+		        $('.modal-header').empty();
 		        $('.modal-body').empty();
 		        modal.style.display = 'none';
 		    });

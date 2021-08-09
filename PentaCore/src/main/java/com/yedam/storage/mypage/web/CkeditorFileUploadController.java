@@ -28,7 +28,7 @@ public class CkeditorFileUploadController { //reviewRegist
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
-	@RequestMapping(value="reviewRegist", method=RequestMethod.POST)
+	@RequestMapping(value="imageUpload", method=RequestMethod.POST)
 	@ResponseBody
 	public void ckUpload(HttpServletRequest req, HttpServletResponse res, @RequestParam MultipartFile upload) throws Exception{
 			logger.info("ckUpload 진입 =========================================1");

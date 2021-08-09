@@ -11,7 +11,11 @@ public interface StoreAdminService {
 	
 	public List<StoreAdminVO> usingStrorageList();
 	
+	// 지점별 공지사항 리스트
+	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);
 	
+	// 지점별 공지사항 등록
+	public int registNotice(StoreAdminVO vo);
 	
 	/*
 		public MemberVO loginCheck(MemberVO vo);

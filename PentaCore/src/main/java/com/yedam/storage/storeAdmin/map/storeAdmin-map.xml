@@ -20,6 +20,18 @@
 		where use_end > sysdate
 </select>
 
+<!-- 지점 공지사항 페이지 -->
+
+<select id="storeNoticeList" parameterType="StoreAdminVO" resultType="StoreAdminVO">
+	select * 
+	from notice
+	where store_code = #{store_code}
+</select> 
+
+<insert id="registNotice" parameterType="StoreAdminVO">
+	insert into notice(notice_num, notice_title, notice_content, notice_date, store_code)
+	values(notice_seq, #{notice_title}, #{notice_content}, sysdate, #{store_code})
+</insert>
 
 </mapper>
 
