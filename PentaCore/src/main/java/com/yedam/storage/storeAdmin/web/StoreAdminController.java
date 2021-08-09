@@ -44,6 +44,7 @@ public class StoreAdminController {
 		return storeAdminDAO.selectStorageInfo(vo);
 	}
 	
+	//====================== 최반야 ====================================
 	// 지점 공지사항 리스트
 	@RequestMapping("storeNotice")
 	public String noticeList(HttpServletRequest req, StoreAdminVO vo, Model model) {
@@ -80,6 +81,35 @@ public class StoreAdminController {
 		
 		return storeAdminDAO.storeNoticeSelect(vo);
 	}
+	
+	// 지점 공지사항 수정
+	@ResponseBody
+	@RequestMapping("editNotice")
+	public String storeNoticeEdit(StoreAdminVO vo) {
+		String result = "";
+		
+		int up = storeAdminDAO.storeNoticeEdit(vo);
+		
+		if(up > 0)
+			result = "update success";
+		
+		return result;
+	}
+	
+	// 지점 공지사항 삭제
+	@ResponseBody
+	@RequestMapping(value="deleteNotice/{notice_num}", method=RequestMethod.GET)
+	public String storeNoticeDelete(StoreAdminVO vo) {
+		String result = "";
+		
+		int del = storeAdminDAO.storeNoticeDelete(vo);
+		
+		if(del > 0)
+			result = "delete success";
+		return result;
+	}
+	
+	//====================== 최반야 ====================================
 	
 	//고객관리 페이지 이동
 	@RequestMapping("store/customerManage")

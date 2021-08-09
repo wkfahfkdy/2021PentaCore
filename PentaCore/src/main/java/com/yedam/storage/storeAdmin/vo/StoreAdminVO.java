@@ -50,6 +50,7 @@ public class StoreAdminVO {
 	private int notice_num;
 	private String notice_title;
 	private String notice_content;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date notice_date;
 	private String member_name;
 	
