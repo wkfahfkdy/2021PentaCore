@@ -33,6 +33,7 @@ public class TransVO {
 	private String info_num;
 	private String info_use;
 	private String storage_code;
+	private String storage_name;
 	
 
 }

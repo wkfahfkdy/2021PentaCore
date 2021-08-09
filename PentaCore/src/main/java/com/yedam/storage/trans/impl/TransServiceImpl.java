@@ -28,8 +28,14 @@ public class TransServiceImpl implements TransService {
 
 	@Override
 	public List<TransVO> cuStorage(TransVO vo) {
-		// select 
+		// select Box
 		return sqlSession.selectList("cuStorage", vo);
+	}
+
+	@Override
+	public int customerInsert(TransVO vo) {
+		// 추가입력
+		return sqlSession.insert("customerInsert", vo);
 	}
 	
 

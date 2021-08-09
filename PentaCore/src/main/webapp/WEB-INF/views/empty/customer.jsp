@@ -171,13 +171,19 @@
 			<div id="customerGrid" align="center"></div>
 			<div id="my_customer" align="center">
 			    <div class="modal-body"></div>
-			    <button class="btn btn-default btn-lg" id="btn1"><a class="modal_close_btn">확인</a></button>
+			    <button class="btn btn-default btn-lg" id="btn1"><a onclick="submit()">확인</a></button>
 			    <button class="btn btn-default btn-lg" id="btn2"><a class="modal_close_btn">닫기</a></button>
 		    </div>
 		</div>
       </div>
       
     <script type="text/javascript">
+    
+    function submit() {
+    	
+    	frm.submit();
+    }
+    
     
     $(document).ready(function(){
     	var list = '<c:out value="${customerListAll}"/>'
@@ -192,7 +198,8 @@
     			apply_addr: '${list.apply_addr}',
     			apply_start: '<fmt:formatDate value="${list.apply_start}" pattern="yyyy-MM-dd" />',
     			apply_end: '<fmt:formatDate value="${list.apply_end}" pattern="yyyy-MM-dd" />',
-    			store_name: '${list.store_name}'
+    			store_name: '${list.store_name}',
+    			store_code: '${list.store_code}'
     		}
     			<c:if test="${not status.last}">,</c:if>
     			</c:forEach>
@@ -255,11 +262,16 @@
   			var target = ev;
   			
   			var myCustomer = customerGrid.getValue(ev.rowKey,'apply_code');
-  			console.log(myCustomer);
+  			var store_code = customerGrid.getValue(ev.rowKey,'store_code');
+  			console.log(store_code	);
    			
    			$.ajax({
-   				url: 'myCustomer/'+ myCustomer,
+   				url: 'myCustomer',
    				type: 'GET',
+   				data: {
+   					apply_code: myCustomer,
+   					store_code: store_code
+   				},
    				dataType: 'json',
    				success: function(result) {
    					console.log(result);
@@ -269,54 +281,62 @@
    					alert("상태값 : "+status+" Http 에러메시지 : "+msg);
    				}
    			})
-   			
+
    			function showCustomer(data) {
    				console.log(data);
    				modal('my_customer');
 
-   				var a_code = data.apply_code;	// 코드
-   				var a_name = data.member_name;	// 이름 
-   				var a_tel = data.member_tel;	// 연락처
-   				var a_start = data.apply_start;	// 픽업일
-   				var a_end = data.apply_end;		// 운송일
-   				var a_store = data.store_name;	// 지점명
-   				var a_addr = data.apply_addr;
-   				var a_product = data.apply_product;
+   				var a_code = data.cus.apply_code;	// 코드
+   				var a_name = data.cus.member_name;	// 이름 
+   				var a_tel = data.cus.member_tel;	// 연락처
+   				var a_start = data.cus.apply_start;	// 픽업일
+   				var a_end = data.cus.apply_end;		// 운송일
+   				var a_store = data.cus.store_name;	// 지점명
+   				var a_addr = data.cus.apply_addr;
+   				var a_product = data.cus.apply_product;
+   				var b_storage_name = data.list;
+   				console.log(b_storage_name);
+   				var option ="";
+   				for(let i = 0; i<data.list.length; i++){
+		   			option += '<option value='+data.list[i]+'>'+ data.list[i] + '</option>'
+		   		}
    				
    				var title = '<h4>운송정보</h4>';
    				
+   				var frm = $('<form id="frm" name="frm" action="customerInsert" method="POST">');
    				var tbl =$('<table />');
    				var row = '<tr>';
    				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '고객 기본정보' + '</h5>' + '</th>';
    				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '상담원 추가입력' + '<h5>' + '</th>';
    				row += '<tr><th class="mo-tbl" style="width: 10%; vertical-align:top;">' + "이름" + '</th>';
    				row += '<td class="mo-tbl">' + a_name + '</td>';
+   				row += '<input type="hidden" name="member_name" value='+a_name+'>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "신청코드" + '</th>';
    				row += '<td class="mo-tbl">' + a_code + '</td>';
+   				row += '<input type="hidden" name="apply_code" value='+a_code+'>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
    				row += '<td class="mo-tbl">' + a_tel + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_memo"/>' + '</td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "픽업일" + '</th>';
    				row += '<td class="mo-tbl">' + a_start + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "운송차량" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
-   				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "운송일" + '</th>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_car"/>' + '</td></tr>';
+   				row += '<tr><th class="mo-tbl" style="vertical-align:top;" value="c_name">' + "운송일" + '</th>';
    				row += '<td class="mo-tbl">' + a_end + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "기사배정" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_driver" />' + '</td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이전주소" + '</th>';
    				row += '<td class="mo-tbl">' + a_addr + '</td>';
+   				row += '<input type="hidden" name="convey_before" value='+a_addr+'>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "배송주소" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' />' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_after"/>' + '</td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "지점명" + '</th>';
    				row += '<td class="mo-tbl">' + a_store + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "스토리지" + '</th>';
    				row += '<td class="mo-tbl">' + 
-   						'<select id="cuStorage" name="cuStorage">' + 
-   							'<c:forEach items="${info_num}" var="info">' + 
-   								'<option value="${info.info_num}">'+ ${info.storage_code} + '</option>'+
-   							'</c:forEach>'+
+   						'<select id="cuStorage" name="info_num">'
+	   						+option+
    						'</select></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이사규모" + '</th>';
    				row += '<td class="mo-tbl">' + a_product + '</td>';
@@ -337,11 +357,11 @@
    				row += '<th class="mo-tbl" style="vertical-align:top;" colspan="2">' + "사후관리 (사진업로드)" + '</th>';
    				
    				tbl.append(row);
-   				
+   				frm.append(tbl);
    				
    				
    				$(".modal-body").append(title);
-   				$(".modal-body").append(tbl);
+   				$(".modal-body").append(frm);
    			}
 
    		});	// Modal로 견적서 상세 보기 요청 끝
