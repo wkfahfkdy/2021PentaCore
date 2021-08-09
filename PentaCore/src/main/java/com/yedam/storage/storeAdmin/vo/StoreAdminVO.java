@@ -36,4 +36,10 @@ public class StoreAdminVO {
 	private String info_use;
 	private String storage_code;
 	private String storage_name;
+	
+	// 지점별 공지사항 등록
+	private int notice_num;
+	private String notice_title;
+	private String notice_content;
+	private Date notice_date;
 }

@@ -120,7 +120,7 @@
 <script>
 	$(function() {
 		CKEDITOR.replace('question_content', {
-			filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/reviewRegist',
+			filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/imageUpload',
 			enterMode : CKEDITOR.ENTER_BR,
 			shiftEnterMode : CKEDITOR.ENTER_P,
 			height: '30em'

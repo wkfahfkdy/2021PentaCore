@@ -62,7 +62,7 @@
 		<div></div>
 		<div class="box">
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href=''">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='storeNotice'">
 					<h2>공지사항</h2></button>
 			</div>
 			<div class="btn">
