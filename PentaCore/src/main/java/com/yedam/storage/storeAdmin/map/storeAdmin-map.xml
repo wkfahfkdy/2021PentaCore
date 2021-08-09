@@ -14,11 +14,7 @@
  -->
 
 
-<select id="usingStrorageList" resultType="StoreAdminVO" >
-		select u.*,m.member_name
-		from use_storage u join member m on u.member_id = m.member_id
-		where use_end > sysdate
-</select>
+
 
 <!-- 스토리지 현황 페이지 SQL -->
 <select id="StorageList" resultType="StoreAdminVO" parameterType="StoreAdminVO">
@@ -50,11 +46,28 @@
 	values(notice_seq, #{notice_title}, #{notice_content}, sysdate, #{store_code})
 </insert>
  
+ 
+ 
+<!-- 전형민 -->
+<select id="usingStrorageList" resultType="StoreAdminVO" >
+
+ 
+		Select * from (
+
+						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
+						from use_storage u join member m on u.member_id = m.member_id
+                		where use_end > sysdate)
+		
+		
+</select>
+ 
 <select id="expiredStrorageList" resultType="StoreAdminVO" >
 		<![CDATA[ 
-		select u.*,m.member_name
-		from use_storage u join member m on u.member_id = m.member_id
-		where use_end <= sysdate
+		Select * from (
+
+						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
+						from use_storage u join member m on u.member_id = m.member_id
+                		where use_end <= sysdate)
 		]]>
 </select>
 
@@ -87,21 +100,31 @@
 						
 	</select>
 	
-
-
-	 <select id ="selectReview" parameterType="string" resultType="StoreAdminVO">
-			SELECT 	r.review_num, r.review_title, r.review_content,
-
-				'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
-			    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
-			    s.store_name
-			    
-				from review r join member m on (r.member_id = m.member_id)
-				join store s on (r.store_code = s.store_code) 
-       			WHERE review_num = #{p}
-				order by r.review_num desc
 	
-	</select>
+	 <select id ="storageUserDetail" parameterType="string" resultType="StoreAdminVO">
+			SELECT a.member_id, a.member_name, a.member_tel, b.*, o.offer_product,o.offer_premium, o.offer_wash,
+   				l.laundry_consign, l.laundry_collect
+				FROM member a JOIN use_storage b
+				ON (a.member_id = b.member_id)
+				JOIN offer o
+				ON (b.offer_code = o.offer_code) 
+			    full outer join laundry l 
+			    on l.offer_code = o.offer_code
+				WHERE b.use_num = #{p}
+	
+	</select> 
+	
+ <!--전형민 -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 	
+
+
 	
 	
 	

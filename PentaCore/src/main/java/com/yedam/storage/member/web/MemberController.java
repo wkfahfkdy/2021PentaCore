@@ -62,12 +62,7 @@ public class MemberController {
 	        session.setAttribute("loginMemberId", Id);
 	        
 	        }
-	        
-	        if(employeeVO != null) {
-		        session.setAttribute("employeeVO", employeeVO);
-		    }
-		        
-	        System.out.println("asdsad"+ employeeVO.getEmployee_name());
+		   
 	        
 	        return Id;
 	}

@@ -39,10 +39,10 @@ public class StoreAdminController {
 	}
 	
 	// 사용중인 스토리지 정보
-	@RequestMapping("usedStorage")
-	public String usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
-		return null;
-	}
+			@RequestMapping("store/usedStorage")
+			public String usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
+				return "storeAdmin";
+			}
 	
 	@RequestMapping("storeNotice")
 	public String noticeList(HttpServletRequest req, StoreAdminVO vo, Model model) {
@@ -54,60 +54,6 @@ public class StoreAdminController {
 		model.addAttribute("storeNotice", storeAdminDAO.storeNoticeList(vo));
 		return "storeAdmin/storeNoticeList";
 	}
-
-	//고객관리 페이지 이동
-	@RequestMapping("store/customerManage")
-	public String LoginIdCheck(Model model , StoreAdminVO vo , HttpServletRequest req) {
-				
-		
-				//이용중인 고객 리스트  
-		
-				String page = req.getParameter("page");
-				//요청받은 페이지번호
-				if(page == null) {
-					page = "1";
-				}
-				//10개씩 페이징
-				int pageCnt = Integer.parseInt(page);
-				int firstCnt = (pageCnt - 1) * 5 + 1; // 1 , 11 ,21
-				int lastCnt = (pageCnt * 5); // 10 , 20 , 30
-				vo.setFirstCnt(firstCnt);
-				vo.setLastCnt(lastCnt);
-				
-				List<StoreAdminVO> total = storeAdminDAO.usingStrorageList();//전체 검색결과
-				Paging paging = new Paging();
-				paging.setPageNo(pageCnt);//요청받은 페이지
-				paging.setPageSize(8);//한페이지에 보여줄 값
-				paging.setTotalCount(total.size());//페이지에 필요한 변수 생성
-				
-				
-				
-			    
-				model.addAttribute("paging", paging);//페이징에 필요한 값
-				model.addAttribute("usingStorageList", storeAdminDAO.usingStrorageListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
-				return "storeAdmin/customerManage";
-			
-	
-	}
-	
-	// 카카오 지도 API TEST - DATA
-		@RequestMapping("store/usingList")
-		@ResponseBody
-		public List<StoreAdminVO> usingList() {
-			// Store - 지점명, 지점주소 (StoreConlloer)
-			List<StoreAdminVO> list = storeAdminDAO.usingStrorageList();
-			return list;
-		}
-	
-				
-	
-	
-	
-	@RequestMapping("store/customerManage2")
-	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "storeAdmin/customerManage2";
-	}	
-	
 	@RequestMapping("noticeForm")
 	public String noticeForm() {
 		return "storeAdmin/noticeForm";
@@ -119,6 +65,55 @@ public class StoreAdminController {
 		return "storeAdmin/enterStoreAdmin";
 	}
 			
-			
+	
+	/////////////////////////////////전형민////////////////////////////////////////////
+	//지점관리자 홈으로 이동
+	@RequestMapping("store/enterStoreAdmin")
+	public String storeAdminHome() {
+	return "storeAdmin/enterStoreAdmin";
+	}
+	
+	
+	// 이용중인 사용자 리스트
+	@RequestMapping("store/usingList")
+	@ResponseBody
+	public List<StoreAdminVO> usingList() {
+	// Store - 지점명, 지점주소 (StoreConlloer)
+	List<StoreAdminVO> list = storeAdminDAO.usingStrorageList();
+	return list;
+	}
+	
+	// 사용종료 사용자 리스트
+		@RequestMapping("store/expiredList")
+		@ResponseBody
+		public List<StoreAdminVO> expiredList() {
+		// Store - 지점명, 지점주소 (StoreConlloer)
+		List<StoreAdminVO> list = storeAdminDAO.expiredStrorageList();
+		return list;
+		}
+	
+	@RequestMapping("store/customerManage2")
+	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
+	return "storeAdmin/customerManage2";
+	}
+	
+
+	@RequestMapping("store/storageUserDetail")
+	public String storageUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		String use_num = request.getParameter("use_num");
+		StoreAdminVO rvo = storeAdminDAO.storageUserDetail(use_num);
 		
+		model.addAttribute("selectUserVO", rvo);
+		
+		return "storeAdmin/storageUserDetail";
+	}	
+	
+	@RequestMapping("store/expiredUserDetail")
+	public String expiredUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		String member_id = request.getParameter("memberId");
+		return "storeAdmin/storageUserDetail";		
+	}
+	
+	/////////////////////////////////전형민////////////////////////////////////////////		
+			
 }

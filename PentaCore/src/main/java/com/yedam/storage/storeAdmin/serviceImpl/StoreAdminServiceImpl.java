@@ -19,21 +19,13 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Autowired
 	private StoreAdminMapper map;
 	
-	@Override
-	public List<StoreAdminVO> usingStrorageList() {
-		return sqlSession.selectList("usingStrorageList");
-	}
-
+	
 	@Override
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo) {
 		// 지점별 공지사항 리스트
 		return sqlSession.selectList("storeNoticeList", vo);
 	}
 
-	@Override
-	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo) {
-		return sqlSession.selectList("usingStrorageListPaging",vo);
-	} 
 	
 	// 스토리지 현황 리스트
 	@Override
@@ -50,6 +42,31 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public int registNotice(StoreAdminVO vo) {
 		// 지점별 공지사항 등록
 		return sqlSession.insert("registNotice", vo);
+	}
+	
+	
+	
+	//전형민
+	@Override
+	public List<StoreAdminVO> usingStrorageList() {
+		return sqlSession.selectList("usingStrorageList");
+	}
+
+	
+	@Override
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo) {
+		return sqlSession.selectList("usingStrorageListPaging",vo);
+	} 
+
+	@Override
+	public List<StoreAdminVO> expiredStrorageList() {
+		return sqlSession.selectList("expiredStrorageList");
+	}
+
+
+	@Override
+	public StoreAdminVO storageUserDetail(String use_num) {
+		return sqlSession.selectOne("storageUserDetail",use_num);
 	}
 
 
