@@ -43,5 +43,19 @@
 		convey_time = #{convey_time}
 		WHERE apply_code = #{apply_code}
 	</update>
+	
+	<!-- 사후관리 사진 + 메모등록 -->
+	<update id="customerFileup" parameterType="com.yedam.storage.trans.vo.TransVO">
+		UPDATE convey_list 
+		SET convey_file = #{convey_file}
+		WHERE apply_code = #{apply_code}	
+	</update>
+	
+	<!-- 사후관리 보기 -->
+	<select id="FileupSelect" resultType="com.yedam.storage.trans.vo.TransVO" parameterType="com.yedam.storage.trans.vo.TransVO">
+		SELECT convey_file
+		FROM convey_list
+		WHERE apply_code = #{apply_code}
+	</select>
 
 </mapper>	
