@@ -107,4 +107,36 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return sqlSession.selectOne("storageUserDetail", use_num);
 	}
 
+	// ================반야 -> 1:1 문의 관리=================
+	@Override
+	public List<StoreAdminVO> customerAskList(StoreAdminVO vo) {
+		// 1:1 문의 내역
+		return sqlSession.selectList("customerAskList",vo);
+	}
+
+	@Override
+	public int answerAsk(StoreAdminVO vo) {
+		// 1:1 문의 답변 등록
+		return sqlSession.insert("answerAsk", vo);
+	}
+
+	@Override
+	public int editnAnswer(StoreAdminVO vo) {
+		// 문의 답변 수정
+		return sqlSession.update("editnAnswer", vo);
+	}
+
+	@Override
+	public int deleteAnswer(StoreAdminVO vo) {
+		// 문의 답변 삭제
+		return sqlSession.delete("deleteAnswer", vo);
+	}
+
+	@Override
+	public List<StoreAdminVO> customerAskSelect(StoreAdminVO vo) {
+		// 문의 상세 조회
+		return sqlSession.selectList("customerAskSelect", vo);
+	}
+	// =================================================
+
 }

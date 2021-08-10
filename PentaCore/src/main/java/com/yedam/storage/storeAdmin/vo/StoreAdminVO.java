@@ -62,4 +62,13 @@ public class StoreAdminVO {
 	private String laundry_consign;
 	private String laundry_collect;
 	
+	
+	// 1:1 문의 관리
+	private int question_num;
+	private String question_title;
+	private String question_content;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date question_date;
+	private int question_parents;
+	private int question_group;
 }

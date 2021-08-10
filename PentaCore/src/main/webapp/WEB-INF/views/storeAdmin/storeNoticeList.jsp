@@ -158,7 +158,8 @@
 		<h3>공지사항 리스트</h3>
 	</div>
 	<div>
-		<div id="storeNtGrid"></div>
+		<div id="storeNtGrid">
+	</div>
 		<div id="storeNt-modal">
 			<form id="frm">
 			<input type="hidden" id="notice_num" name="notice_num" value="" />
@@ -175,7 +176,7 @@
 	</div>
 	<div>
 		<button type="button" class="apply-btn" onclick="location.href='noticeForm'">글쓰기</button>&nbsp;&nbsp;
-		<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='store/enterStoreAdmin'">돌아가기</button>
+		<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='home'">돌아가기</button>
 	</div>
 </div>
 <script>

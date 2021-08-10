@@ -330,7 +330,7 @@ $(document).ready(function() {
 						row += '<tr style="border-bottom: 1px dashed lightgray;"><td colspan="2" style="padding: 0.3em;">' + q_content + '</td></tr>';
 						}
 						else {
-							row += '아직 등록된 답변이 없습니다.';
+							row += '<tr><td>아직 등록된 답변이 없습니다.</td></tr>';
 						}
 					}
 				tbl.append(row);
