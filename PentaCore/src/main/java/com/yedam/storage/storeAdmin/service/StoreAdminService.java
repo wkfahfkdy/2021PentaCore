@@ -8,15 +8,20 @@ import org.apache.ibatis.annotations.Param;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
 public interface StoreAdminService {
-
+	// 동영
 	// 스토리지 현황 클릭시 정보
 	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
-	
 	
 	// 스토리지 현황 메인페이지
 	public List<StoreAdminVO> selectStorageInfoList(StoreAdminVO vo);
 	public List<StoreAdminVO> storageName();
-	
+	// 미사용 고객 정보 service
+	public List<StoreAdminVO> selectOfferInfo(StoreAdminVO vo);
+	// 현재 예약되어 있는 정보 List
+	public List<StoreAdminVO> offerInfoList(StoreAdminVO vo);
+	// 미사용중인 스토리지 정보 출력
+	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo);
+	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);
 	//public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);

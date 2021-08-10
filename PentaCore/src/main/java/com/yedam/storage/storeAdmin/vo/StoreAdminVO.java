@@ -29,9 +29,9 @@ public class StoreAdminVO {
 	//고객관리부분
 	private String num;
 	private String use_num;
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date use_start;
-	@JsonFormat(pattern = "yyyy-mm-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date use_end;
 	private String info_num;
 	private String store_code;
@@ -44,7 +44,6 @@ public class StoreAdminVO {
 	private String storage_code;
 	private String storage_name;
 	private String offer_product;
-	
 	
 	// 지점별 공지사항 등록
 	private int notice_num;

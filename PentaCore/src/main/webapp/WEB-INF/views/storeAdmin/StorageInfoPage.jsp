@@ -7,8 +7,63 @@
 <meta charset="UTF-8">
 <title>스토리지 현황</title>
 <script type="text/javascript">
+	$(document).ready(function() {
+		pageInitOfferInfoList();
+		// 모달
+        /* $("#unUsedMember").click(function() {
+            $("#unUsedStorage").modal("show");
+        });
+
+		$("#modal_close_btn").click(function() {
+            $("#unUsedStorage").modal("hide");
+        }); */
+       
+         // 빈 스토리지 Select Option 바뀔때마다 value 값 변경
+        $('#unUseStorageList').change(function() {
+        	 console.log($('#unUseStorageList').val());
+        });
+         
+     	// member Select Option 바뀔때마다 보여지는 값 다르게
+		$('#memberIdSelect').change(function() {
+			// OfferInfoCode => 숨겨져있는 td안의 offer_product 와 start end 일
+			var OfferInfoCode = $('#memberIdSelect').val();
+			$('.do').hide();
+			$('#' + OfferInfoCode).show();
+        });
+     	
+	});
+	
+	// 페이지 로딩 후 현재 예약되어 있는 정보를 담아주는 function
+	function pageInitOfferInfoList(){
+		var store_code = $('#hiddenStoreCode').val();
+		$.ajax({
+			url: 'ajaxOfferInfoList',
+			dataType: 'json',
+			contentType: 'application/json; charset = UTF-8',
+			data: {
+				store_code : store_code
+			},
+			method: 'GET',
+			success: function(data){
+				for(var i = 0; i<data.length; i++){
+					var tdTagId = '#' + data[i].offer_code + data[i].storage_code;
+					$(tdTagId).html(
+							'<p>보관물품 : '+ data[i].offer_product +'</p><br />'
+							+'<p>이용기간 : '+ data[i].use_start +' - '+ data[i].use_end +'</p>'
+					);
+				}
+				$('.do').hide();
+				$('#' + data[0].offer_code + data[0].storage_code).show();
+			},
+			error: function(err){
+				console.log(err);
+			}
+		})
+		
+	}
+	
+	// 사용중인 스토리지 정보 출력 FUNCTION
 	function useStorageInfo(offer_code, store_code){
-		console.log(offer_code +  store_code);
 		$.ajax({
 			url: 'usedStorage',
 			dataType: 'JSON',
@@ -18,7 +73,6 @@
 			},
 			contentType: 'application/json; charset = UTF-8',
 			success: function(data){
-				console.log(data);
 				$('#memberId').html(data.member_name);
 				$('#memberUseDate').html(data.use_start + '  ~  ' + data.use_end);
 				$('#memberStorageInfo').html(data.offer_product);
@@ -27,9 +81,75 @@
 				console.log(err);
 			}
 		})
+	};
+	// 미사용 중인 스토리지 할당 FUNCTION
+	
+	function unUseStorage(storage_code, store_code){
+		$.ajax({
+			url: 'offerInfo',
+			dataType : 'JSON',
+			data: {
+				storage_code : storage_code,
+				store_code : store_code
+			},
+			contentType: 'application/json; charset = UTF-8',
+			success: function(data){
+				// 눌렀을때 예약정보 조회가 없으면 modal숨기고 alert 창 띄우고
+				if(data.selectOfferInfo.length == 0){
+					$("#unUsedStorage").modal("hide");
+					alert("이 스토리지에 해당하는 예약이 없습니다");
+					return false;
+					// 예약정보가 있으면 select option 만들어주는 function 호출
+				} else{
+					assignment(data);
+				};
+			},
+			error : function(err){
+				console.log(err);
+			}
+		})
+	}
+	
+	function assignment(data){
+		var tdTagId = "";
+		
+		var unUseStorageSelectOption = "";
+		var memberSelectOprion = "";
+		
+		var offer_code = "";
+		var member_id =""
+		// Empty Storage Select Option
+		for(var i = 0; i<data.unUseStorage.length; i++){
+			unUseStorageSelectOption += '회원 : <option value='+data.unUseStorage[i].info_num+'>'+ data.unUseStorage[i].storage_name + '</option>'
+			
+		}
+		// memberId Select Option
+		for(var j = 0; j<data.selectOfferInfo.length; j++){
+			member_id += data.selectOfferInfo[j].member_id;
+			offer_code += data.selectOfferInfo[j].offer_code;
+			memberSelectOprion += '<option value='+data.selectOfferInfo[j].offer_code + data.selectOfferInfo[j].storage_code+'>'+ data.selectOfferInfo[j].member_id + '</option>'
+		}
+		console.log(member_id + offer_code);
+		// 예약 되어 있는 멤버 select Option Append
+		$('#memberIdSelect').html(memberSelectOprion);
+		// 미사용 select Option Append
+		$('#unUseStorageList').html(unUseStorageSelectOption);
+		
 	}
 </script>
 <style type="text/css">
+
+
+	#unUsedMember:visited {
+		color: #F93407;
+		font-weight: bold;
+	}
+	
+	#unUsedMember:hover{
+		color: #F93C3C;
+		font-weight: bold;
+	}
+	
 	.storageList {
 		width: 30%; 
 		border-radius: 5px;
@@ -45,8 +165,16 @@
 </style>
 </head>
 <body>
+	<input type="hidden" value="${employeeVO.store_code }" id="hiddenStoreCode">
 	<div class="def-section services-1">
 		<div class="container">
+			<div class="my-btn my-btn-grey" onclick="location.href='home'" align="center">
+					<div class="my-btn-bg-top"></div>
+					<div class="my-btn-bg-bottom"></div>
+					<div class="my-btn-text">
+						돌아가기
+					</div>
+			</div>
 			<div class="row">
 				<c:forEach items="${storageName}" var="storageName">
 					<div id="${storageName.storage_code}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 storageList">
@@ -59,10 +187,18 @@
 										<div class="service-1-text">
 											<c:choose>
 												<c:when test="${storageInfoList.info_use eq '미사용'}">
-													<p>${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}</p>	
+													<p>
+														<a id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#unUsedStorage">
+															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
+														</a>
+													</p>	
 												</c:when>
 												<c:otherwise>
-													<p><a onclick="useStorageInfo('${storageInfoList.offer_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#storageInfo">${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}</a></p>
+													<p>
+														<a onclick="useStorageInfo('${storageInfoList.offer_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#storageInfo">
+															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
+														</a>
+													</p>
 												</c:otherwise>
 											</c:choose>
 										</div>
@@ -74,12 +210,12 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal -->
+	<!-- 이용중인 회원 정보 Modal -->
 	<div class="modal fade" id="storageInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle">스토리지 정보</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -106,5 +242,51 @@
 	    </div>
 	  </div>
 	</div>
+	<!-- 이용중인 회원 정보 Modal -->
+	<!-- 사용안하고 있는 스토리지 할당 Modal -->
+	<div class="modal fade bd-example-modal-lg" id="unUsedStorage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table style="width: 100%; text-align: ceneter">
+						<tr>
+							<td style="font-size: 16pt; padding:30px; text-align: center">
+								<h4>회원 ID</h4>
+								<select name="member_id" id="memberIdSelect">
+									
+								</select>
+							</td>
+						</tr>
+						<tr>
+						<c:forEach items="${offerInfoList }" var="offerInfoList">
+							<td style="font-size: 16pt; padding:30px; text-align: center" id="${offerInfoList.offer_code }${offerInfoList.storage_code}" class="do">
+									
+							</td>
+						</c:forEach>
+						</tr>
+						<tr>
+							<td style="width: 100%; font-size: 16pt; padding:30px; text-align: center">
+								<h4>현재 비어있는 스토리지</h4>
+								<select name="info_num" id="unUseStorageList">
+									
+								</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="modal_close_btn" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+					<button type="button" class="btn btn-primary">SAVE</button>
+				</div>
+			</div>
+		 </div>
+	</div>
+	<!-- 사용안하고 있는 스토리지 할당 Modal -->
+	<!-- DB처리 -->
 </body>
 </html>
