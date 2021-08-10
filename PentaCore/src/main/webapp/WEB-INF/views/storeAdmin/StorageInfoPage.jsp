@@ -9,28 +9,32 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		pageInitOfferInfoList();
-		// 모달
-        /* $("#unUsedMember").click(function() {
-            $("#unUsedStorage").modal("show");
-        });
-
-		$("#modal_close_btn").click(function() {
-            $("#unUsedStorage").modal("hide");
-        }); */
        
          // 빈 스토리지 Select Option 바뀔때마다 value 값 변경
         $('#unUseStorageList').change(function() {
-        	 console.log($('#unUseStorageList').val());
+        	var info_num = $('#unUseStorageList').val();
+        	$('#hiddenInfoNum').val(info_num);
         });
          
      	// member Select Option 바뀔때마다 보여지는 값 다르게
 		$('#memberIdSelect').change(function() {
 			// OfferInfoCode => 숨겨져있는 td안의 offer_product 와 start end 일
 			var OfferInfoCode = $('#memberIdSelect').val();
+			var offerCode = ($('#offerCode' + OfferInfoCode).val());
+			$('#hiddenOfferCode').val(offerCode);
 			$('.do').hide();
 			$('#' + OfferInfoCode).show();
         });
      	
+     	// use_storage DB Update 작업
+     	$('#storageSaveBtn').click(function(){
+     		if($('#hiddenInfoNum').val() == "" || $('#hiddenOfferCode').val() == ""){
+     			alert("회원 ID 및 스토리지를 선택해주세요");
+     			return false;
+     		} else {
+     			$('#updateUseStorageTable').submit();
+     		}
+     	})
 	});
 	
 	// 페이지 로딩 후 현재 예약되어 있는 정보를 담아주는 function
@@ -83,7 +87,6 @@
 		})
 	};
 	// 미사용 중인 스토리지 할당 FUNCTION
-	
 	function unUseStorage(storage_code, store_code){
 		$.ajax({
 			url: 'offerInfo',
@@ -109,31 +112,31 @@
 			}
 		})
 	}
-	
+	// offerInfo Ajax 성공 후 호출되는 함수
 	function assignment(data){
-		var tdTagId = "";
-		
+		// 각 비어있는 스토리지 담을거
 		var unUseStorageSelectOption = "";
+		// DB 처리에 필요한 offer_code 구분화
+		var hiddenOfferCode = "";
+		// 그 스토리지에 해당되는 member_id
 		var memberSelectOprion = "";
-		
-		var offer_code = "";
-		var member_id =""
 		// Empty Storage Select Option
 		for(var i = 0; i<data.unUseStorage.length; i++){
-			unUseStorageSelectOption += '회원 : <option value='+data.unUseStorage[i].info_num+'>'+ data.unUseStorage[i].storage_name + '</option>'
-			
+			unUseStorageSelectOption += '<option value='+data.unUseStorage[i].info_num+'>'+ data.unUseStorage[i].storage_name + '</option>'
 		}
 		// memberId Select Option
 		for(var j = 0; j<data.selectOfferInfo.length; j++){
-			member_id += data.selectOfferInfo[j].member_id;
-			offer_code += data.selectOfferInfo[j].offer_code;
+			// member option 만들어주고
 			memberSelectOprion += '<option value='+data.selectOfferInfo[j].offer_code + data.selectOfferInfo[j].storage_code+'>'+ data.selectOfferInfo[j].member_id + '</option>'
+			// 그 밑에 td에 hidden 만들어서 member select 값 바뀔때 마다 form 안에 있는 offer_code를 바꾸어줌
+			hiddenOfferCode += '<input type="hidden" class="offerCode" id=offerCode'+data.selectOfferInfo[j].offer_code + data.selectOfferInfo[j].storage_code+' value='+ data.selectOfferInfo[j].offer_code +'>'
 		}
-		console.log(member_id + offer_code);
 		// 예약 되어 있는 멤버 select Option Append
 		$('#memberIdSelect').html(memberSelectOprion);
 		// 미사용 select Option Append
 		$('#unUseStorageList').html(unUseStorageSelectOption);
+		$('#hiddenTr').html(hiddenOfferCode);
+		
 		
 	}
 </script>
@@ -271,22 +274,34 @@
 						</tr>
 						<tr>
 							<td style="width: 100%; font-size: 16pt; padding:30px; text-align: center">
+							
 								<h4>현재 비어있는 스토리지</h4>
+								<input type="hidden" class="offerCode">
 								<select name="info_num" id="unUseStorageList">
-									
+										
 								</select>
+							</td>
+						</tr>
+						<tr>
+							<td id="hiddenTr">
+								<!-- Append hidden offer_code -->
 							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" id="modal_close_btn" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
-					<button type="button" class="btn btn-primary">SAVE</button>
+					<button type="button" class="btn btn-primary" id="storageSaveBtn">SAVE</button>
 				</div>
 			</div>
 		 </div>
 	</div>
 	<!-- 사용안하고 있는 스토리지 할당 Modal -->
 	<!-- DB처리 -->
+	<form id="updateUseStorageTable" method="post" action="updateUseStorage">
+		<input type="hidden" name="store_code" value="${employeeVO.store_code }">
+		<input type="hidden" name="info_num" id="hiddenInfoNum" value="">
+		<input type="hidden" name="offer_code" id="hiddenOfferCode" value="">
+	</form>
 </body>
 </html>

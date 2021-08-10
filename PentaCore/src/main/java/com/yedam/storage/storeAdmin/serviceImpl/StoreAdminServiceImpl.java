@@ -52,6 +52,13 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo) {
 		return map.unUseStorageList(vo);
 	}
+	
+	// use_storage update 작업
+	@Override
+	public int useStroageUpdate(StoreAdminVO vo) {
+		return map.updateUseStorage(vo);
+	}
+	
 	// end
 	// 공지 파트 시작
 
@@ -145,6 +152,5 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public int insertReport(StoreAdminVO vo) {
 		return sqlSession.insert("insertReport",vo);
 	}
-
 
 }

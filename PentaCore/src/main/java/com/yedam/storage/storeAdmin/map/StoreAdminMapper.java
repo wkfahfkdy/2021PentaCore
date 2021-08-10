@@ -14,6 +14,7 @@ public interface StoreAdminMapper {
 	public List<StoreAdminVO> offerInfoList(StoreAdminVO vo);
 	public List<StoreAdminVO> selectOfferInfo(StoreAdminVO vo);
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo);
+	public int updateUseStorage(StoreAdminVO vo);
 	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);

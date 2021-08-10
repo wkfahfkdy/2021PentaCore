@@ -21,6 +21,8 @@ public interface StoreAdminService {
 	public List<StoreAdminVO> offerInfoList(StoreAdminVO vo);
 	// 미사용중인 스토리지 정보 출력
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo);
+	// use_storage update 작업
+	public int useStroageUpdate(StoreAdminVO vo);
 	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);

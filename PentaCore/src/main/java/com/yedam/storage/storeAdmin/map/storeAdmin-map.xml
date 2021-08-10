@@ -44,13 +44,14 @@
 	ORDER BY U.USE_NUM ASC
 </select>
 
-<!-- 현재 그 지점의 예약 되어있는 리스트 -->
+<!-- 현재 그 지점의 예약 되어있는 리스트 (수정 INFO_NUM 이 NULL인 사람들만 Select 하게 만듬 == 이미 예약되어있는데 클릭하면 그 정보가 떠서)-->
 <select id="offerInfoList"  parameterType="StoreAdminVO" resultType="StoreAdminVO">
 	SELECT M.MEMBER_ID , O.OFFER_PRODUCT, nvl(O.OFFER_RENTAL, 'X')as offer_rental, O.STORAGE_CODE,U.USE_START, U.USE_END, U.STORE_CODE, O.OFFER_CODE
 	FROM MEMBER M, OFFER O, USE_STORAGE U
 	WHERE M.MEMBER_ID = U.MEMBER_ID
 	AND O.OFFER_CODE = U.OFFER_CODE
 	AND U.STORE_CODE = #{store_code}
+	AND U.INFO_NUM IS NULL
 	ORDER BY U.USE_NUM ASC
 </select>
 
@@ -61,6 +62,7 @@
 	AND O.OFFER_CODE = U.OFFER_CODE
 	AND U.STORE_CODE = #{store_code}
 	AND O.STORAGE_CODE = #{storage_code}
+	AND U.INFO_NUM IS NULL
 	ORDER BY U.USE_NUM ASC
 </select>
 
@@ -70,8 +72,15 @@
 	WHERE I.STORAGE_CODE = S.STORAGE_CODE
 	AND I.INFO_USE = 'N'
 	AND I.STORE_CODE = #{store_code}
+	AND I.STORAGE_CODE = #{storage_code}
 	ORDER BY 1 ASC
 </select>
+
+<update id="updateUseStorage" parameterType="StoreAdminVO">
+	UPDATE USE_STORAGE 
+	SET INFO_NUM = #{info_num} 
+	WHERE OFFER_CODE = #{offer_code}
+</update>
 
 <!-- ============================== 동영 ================================ -->
 

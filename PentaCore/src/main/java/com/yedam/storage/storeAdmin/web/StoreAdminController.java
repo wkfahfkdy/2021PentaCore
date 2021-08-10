@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.storage.review.common.Paging;
 import com.yedam.storage.storeAdmin.service.StoreAdminService;
@@ -66,6 +68,14 @@ public class StoreAdminController {
 		map.put("selectOfferInfo", storeService.selectOfferInfo(vo));
 		map.put("unUseStorage", storeService.unUseStorageList(vo));
 		return map;
+	}
+	
+	@RequestMapping("updateUseStorage")
+	public String updateUseStorage(StoreAdminVO vo, RedirectAttributes red) {
+		storeService.useStroageUpdate(vo);
+		System.out.println(vo.getStore_code());
+		red.addAttribute("store_code", vo.getStorage_code());
+		return "redirect:storageInfo";
 	}
 	// ===================== 정동영 ===================================
 	//====================== 최반야 ====================================
