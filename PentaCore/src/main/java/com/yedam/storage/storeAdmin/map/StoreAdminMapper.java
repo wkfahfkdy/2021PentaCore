@@ -29,7 +29,7 @@ public interface StoreAdminMapper {
 	//지점 고객관리 
 	public List<StoreAdminVO> usingStrorageList(); 
 	
-	// 스토리지 클릭시 select
+	// 고객관리 스토리지 클릭시 select   
 	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
 	public List<StoreAdminVO> expiredStrorageList();
 	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);  
@@ -48,4 +48,7 @@ public interface StoreAdminMapper {
 	// 문의 상세 조회
 	public List<StoreAdminVO> customerAskSelect(StoreAdminVO vo);
 	// =============끝=======================
+	// 고객관리 스토리지 이용자 보고서
+	public int insertReport(StoreAdminVO vo);
+	
 }

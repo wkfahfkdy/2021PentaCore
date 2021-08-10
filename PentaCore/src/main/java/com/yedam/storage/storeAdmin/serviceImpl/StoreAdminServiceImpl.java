@@ -102,6 +102,8 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return sqlSession.selectList("expiredStrorageList");
 	}
 
+	
+	// ------------------------------------------------전형민
 	@Override
 	public StoreAdminVO storageUserDetail(String use_num) {
 		return sqlSession.selectOne("storageUserDetail", use_num);
@@ -138,5 +140,11 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return sqlSession.selectList("customerAskSelect", vo);
 	}
 	// =================================================
+
+	@Override
+	public int insertReport(StoreAdminVO vo) {
+		return sqlSession.insert("insertReport",vo);
+	}
+
 
 }
