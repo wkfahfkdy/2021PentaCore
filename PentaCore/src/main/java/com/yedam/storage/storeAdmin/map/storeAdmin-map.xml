@@ -99,7 +99,8 @@
 		]]>
 </select>
 
-
+<!-- 사용보류 -->
+<!-- 
 	<select id="usingStrorageListPaging" parameterType="StoreAdminVO"  resultType="StoreAdminVO">
 		      
 		      
@@ -127,7 +128,7 @@
 			]]>
 						
 	</select>
-	
+	 -->
 	
 	 <select id ="storageUserDetail" parameterType="string" resultType="StoreAdminVO">
 			SELECT a.member_id, a.member_name, a.member_tel, b.*, o.offer_product,o.offer_premium, o.offer_wash,
@@ -142,22 +143,19 @@
 	
 	</select> 
 	
+	<insert id="insertReport" parameterType="StoreAdminVO">
+	insert into CONDITION_LIST 
+	values(#{condition_title},sysdate,cd_seq.nextval,#{use_num},#{condition_comment})  
+	</insert>
+	
+	<!-- <update id="updateLaundry" parameterType="StoreAdminVO">
+	update laundry set laundry_consign = #{laundry_consign} and laundry_collect = #{laundry_collect} where laundry_code=#{laundry_code}
+	</update> -->
+	
  <!--전형민 -->
  
  
  
- 
- 
- 
- 
- 	
-
-
-	
-	
-	
-
-
 </mapper>
 
 

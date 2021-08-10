@@ -80,7 +80,7 @@ public class StoreAdminController {
 		vo.setNotice_num(notice_num);
 		
 		return storeAdminDAO.storeNoticeSelect(vo);
-	}
+	}  
 	
 	// 지점 공지사항 수정
 	@ResponseBody
@@ -111,6 +111,7 @@ public class StoreAdminController {
 	
 	//====================== 최반야 ====================================
 	
+	/*
 	//고객관리 페이지 이동
 	@RequestMapping("store/customerManage")
 	public String LoginIdCheck(Model model , StoreAdminVO vo , HttpServletRequest req) {
@@ -143,7 +144,7 @@ public class StoreAdminController {
 				model.addAttribute("usingStorageList", storeAdminDAO.usingStrorageListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
 				return "storeAdmin/customerManage";
 	}
-	
+	*/
 	/////////////////////////////////전형민////////////////////////////////////////////
 	//지점관리자 홈으로 이동
 	@RequestMapping("store/enterStoreAdmin")
@@ -153,7 +154,7 @@ public class StoreAdminController {
 	
 	
 	// 이용중인 사용자 리스트
-	@RequestMapping("store/usingList")
+	@RequestMapping("usingList")
 	@ResponseBody
 	public List<StoreAdminVO> usingList() {
 	// Store - 지점명, 지점주소 (StoreConlloer)
@@ -162,7 +163,7 @@ public class StoreAdminController {
 	}
 	
 	// 사용종료 사용자 리스트
-		@RequestMapping("store/expiredList")
+		@RequestMapping("expiredList")
 		@ResponseBody
 		public List<StoreAdminVO> expiredList() {
 		// Store - 지점명, 지점주소 (StoreConlloer)
@@ -170,13 +171,13 @@ public class StoreAdminController {
 		return list;
 		}
 	
-	@RequestMapping("store/customerManage2")
+	@RequestMapping("customerManage")
 	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
-	return "storeAdmin/customerManage2";
+	return "storeAdmin/customerManage";
 	}
 	
 
-	@RequestMapping("store/storageUserDetail")
+	@RequestMapping("storageUserDetail")
 	public String storageUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		String use_num = request.getParameter("use_num");
 		StoreAdminVO rvo = storeAdminDAO.storageUserDetail(use_num);
@@ -186,11 +187,26 @@ public class StoreAdminController {
 		return "storeAdmin/storageUserDetail";
 	}	
 	
-	@RequestMapping("store/expiredUserDetail")
+	@RequestMapping("expiredUserDetail")
 	public String expiredUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		String member_id = request.getParameter("memberId");
 		return "storeAdmin/storageUserDetail";		
 	}
+	
+	
+	// 고객관리 보고서 입력
+		@ResponseBody
+		@RequestMapping("insertReport")
+		public String insertReport(StoreAdminVO vo) {
+			String result = "";
+			
+			int up = storeAdminDAO.insertReport(vo);
+			
+			if(up > 0)
+				result = "insert success";
+			
+			return result;
+		}
 	
 	/////////////////////////////////전형민////////////////////////////////////////////		
 			

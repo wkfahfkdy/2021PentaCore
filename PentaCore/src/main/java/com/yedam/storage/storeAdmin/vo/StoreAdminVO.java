@@ -23,6 +23,14 @@ public class StoreAdminVO {
 	INFO_USE              VARCHAR2(1) 
 	STORAGE_CODE          VARCHAR2(5) 
 	STORE_CODE            VARCHAR2(5) 
+	
+	=== 컨디션 리스트 ===
+			CONDITION_TITLE	VARCHAR2(2000 BYTE)	Yes		1	제목
+			CONDITION_DATE	DATE	Yes		2	작성일자
+			CONDITION_NUM	VARCHAR2(5 BYTE)	No		3	컨디션 리스트 넘버
+			USE_NUM	VARCHAR2(5 BYTE)	Yes		4	리스트 넘버
+			CONDITION_COMMENT	VARCHAR2(2000 BYTE)	Yes		5	사진 및 코멘트
+	
 	 */
 
 	
@@ -62,5 +70,15 @@ public class StoreAdminVO {
 	private String offer_wash;
 	private String laundry_consign;
 	private String laundry_collect;
+	
+			
+	//컨디션 리스트
+	//private String use_num
+	private String condition_num;
+	private Date condition_date;
+	private String condition_title;
+	private String condition_comment;
+	
+	
 	
 }

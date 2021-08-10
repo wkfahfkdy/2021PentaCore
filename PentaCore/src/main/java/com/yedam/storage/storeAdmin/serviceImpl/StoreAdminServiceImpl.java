@@ -69,7 +69,7 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return map.selectStorageInfo(vo);
 	}
 	
-	//전형민
+	// ------------------------------------------------전형민
 	@Override
 	public List<StoreAdminVO> usingStrorageList() {
 		return sqlSession.selectList("usingStrorageList");
@@ -90,6 +90,11 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Override
 	public StoreAdminVO storageUserDetail(String use_num) {
 		return sqlSession.selectOne("storageUserDetail",use_num);
+	}
+
+	@Override
+	public int insertReport(StoreAdminVO vo) {
+		return sqlSession.insert("insertReport",vo);
 	}
 
 
