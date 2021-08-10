@@ -14,7 +14,7 @@
 			width: 80%;
 		}
 		
-   .apply-btn {
+   .apply-btn, #edit-btn {
     	background-color: #00c0e2;
 		border-radius: 0.3em;
 		color: white;
@@ -22,7 +22,7 @@
 		padding: 0.4em;
     }
 		
-	.back-btn {
+	.back-btn, #del-btn {
     	background-color: #006DFC;
 		border-radius: 0.3em;
 		color: white;
@@ -47,8 +47,10 @@
     
     #storeNt-modal .modal-body{
     	font-size: 10pt;
-    	border: 1px solid #00c0e2;
-    	border-radius: 0.3em;
+    }
+    
+    .modal-header {
+    	padding: 1em;
     }
     
    	input[type="text"] {
@@ -58,7 +60,7 @@
 		width: 80%;
 		height: 2.5em;
 		padding: 5px;
-		margin: 2em 0em;
+		margin: 1em 0em;
 	}
 	
 	#cke_editor1 {	/* 시도때도 없이 나오는 CK에디터 머리 참수 */
@@ -75,14 +77,79 @@
 <!-- 게시판 오픈소스 : ckEditor4 -->
 <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script>
-$(function() {
-	CKEDITOR.replace('notice_content', {
-		filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/imageUpload',
-		enterMode : CKEDITOR.ENTER_BR,
-		shiftEnterMode : CKEDITOR.ENTER_P,
-		width: '90%'
-	});
-})
+	$(function() {
+		CKEDITOR.replace('notice_content', {
+			filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/imageUpload',
+			enterMode : CKEDITOR.ENTER_BR,
+			shiftEnterMode : CKEDITOR.ENTER_P,
+			width: '100%'
+		});
+	})
+	
+	//CK 에디터 이미지 업로드시 업로드 탭으로 바로 시작하게 하기
+	CKEDITOR.on('dialogDefinition', function (ev) {
+            var dialogName = ev.data.name;
+            var dialog = ev.data.definition.dialog;
+            var dialogDefinition = ev.data.definition;
+           
+            if (dialogName == 'image') {
+                dialog.on('show', function (obj) {
+                    this.selectPage('Upload'); //업로드텝으로 시작
+                });
+                dialogDefinition.removeContents('advanced'); // 자세히탭 제거
+                dialogDefinition.removeContents('Link'); // 링크탭 제거
+            }
+        });
+	
+	// 공지사항 수정 함수
+	function editNotice() {
+		var data = $("form[id=frm]").serialize();
+		//CK에디터 수정한 내용 받아오기...
+		var myText = CKEDITOR.instances['notice_content'].getData();
+		console.log(data+myText);
+		
+		if(confirm('수정하시겠습니까?')){
+			$.ajax({
+				url: 'editNotice',
+				type: 'POST',
+				data: data+myText,
+				success: function(result) {
+					console.log(result);
+					alert('수정이 완료되었습니다.');
+					location.reload();
+				},
+				
+				error: function(xhr, status, msg) {
+					alert('수정에 실패하였습니다. 상태값 : ' + status + '에러메시지 : ' + msg);
+				}
+			})
+		} else {
+			return false;
+		}
+	}
+	
+	// 공지사항 삭제 함수
+	function deleteNotice() {
+		var notice_num = $('#frm #notice_num').val();  
+		console.log(notice_num);
+		
+		if(confirm('삭제하시겠습니까?')){
+			$.ajax({
+				url: 'deleteNotice/'+notice_num,
+				type: 'GET',
+				success: function(result) {
+					console.log(result);
+					alert('삭제가 완료되었습니다.');
+					location.reload();
+				},
+				error: function(xhr, status, msg) {
+					alert('삭제에 실패하였습니다. 상태값 : ' + status + '에러메시지 : ' + msg);
+				}
+			})
+		} else {
+			return false;
+		}
+	}
 </script>
 </head>
 <body>
@@ -93,15 +160,22 @@ $(function() {
 	<div>
 		<div id="storeNtGrid"></div>
 		<div id="storeNt-modal">
-			<a class="modal_close_btn">닫기</a>
-			<div class="modal-header"></div>
-			<div class="modal-body"></div>
-			<textarea id="notice_content" name="notice_content"></textarea>
+			<form id="frm">
+			<input type="hidden" id="notice_num" name="notice_num" value="" />
+				<a class="modal_close_btn">닫기</a>
+				<div class="modal-header"></div>
+				<div class="modal-body"></div>
+				<textarea id="notice_content" name="notice_content"></textarea>
+				<div class="modal-footer">
+					<button id="edit-btn" type="button" onclick="editNotice()">수정</button>&nbsp;
+					<button id="del-btn" type="button" onclick="deleteNotice()">삭제</button>
+				</div>
+			</form>
 		</div>
 	</div>
-	<div class="bts">
+	<div>
 		<button type="button" class="apply-btn" onclick="location.href='noticeForm'">글쓰기</button>&nbsp;&nbsp;
-		<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="history.back()">돌아가기</button>
+		<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='store/enterStoreAdmin'">돌아가기</button>
 	</div>
 </div>
 <script>
@@ -132,6 +206,7 @@ $(document).ready(function() {
 			header: '글번호',
 			name: 'notice_num',
 			align: 'center',
+			width: 100
 		},
 		{
 			header: '글 제목',
@@ -142,6 +217,7 @@ $(document).ready(function() {
 			header: '작성일',
 			name: 'notice_date',
 			align: 'center',
+			width: 200
 		}
 		],
 		
@@ -175,7 +251,7 @@ $(document).ready(function() {
 		
 		function showSnotice(data) {
 			modal('storeNt-modal');
-
+			
 			var noNum = data.notice_num;
 			var noTitle = data.notice_title;
 			var noContent = data.notice_content;
@@ -185,16 +261,19 @@ $(document).ready(function() {
 			
 			var tbl =$('<table width="100%" />');
 			var row = '<tr>';
-			row += '<th style="width: 20%;">글번호</th>';
-			row += '<td class="offer-row">' + noNum + '</td></tr>';
-			row += '<tr><th style="width: 20%;">작성일자</th></tr>';
-			row += '<td class="offer-row">' + noDate + '</td></tr>';
-			row += '<tr><th colspan="2">내용</th></tr>';
+			row += '<th style="width: 10%;">글번호</th>';
+			row += '<td style="text-align: left;">' + noNum + '</td>';
+			row += '<th style="width: 20%;">작성일자</th>';
+			row += '<td style="text-align: left;">' + noDate + '</td></tr>';
 			tbl.append(row);
 			
 			$(".modal-header").append(title);
 			$(".modal-body").append(tbl);
-			document.getElementById("notice_content").value=noContent;
+			//CK에디터용 기본 값 붙이기
+			CKEDITOR.instances['notice_content'].setData(noContent);
+			// input type hidden value값 붙이기
+			$('#notice_num').attr('value',noNum);
+			
 		}
 
 		function modal(id) {
@@ -247,7 +326,6 @@ $(document).ready(function() {
 		    return this;
 		};
 	})
-
 })
 </script>
 </body>

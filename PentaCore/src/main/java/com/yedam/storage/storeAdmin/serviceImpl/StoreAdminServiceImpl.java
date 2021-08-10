@@ -42,13 +42,13 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Override
 	public int storeNoticeEdit(StoreAdminVO vo) {
 		// 공지사항 수정
-		return 0;
+		return sqlSession.insert("storeNoticeEdit", vo);
 	}
 	
 	@Override
 	public int storeNoticeDelete(StoreAdminVO vo) {
 		// 공지 삭제
-		return 0;
+		return sqlSession.delete("storeNoticeDelete", vo);
 	}
 	// 공지 파트 끝
 	
