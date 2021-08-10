@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.trans.service.TransService;
@@ -19,6 +20,7 @@ public class TransController {
 	@Autowired
 	private TransService transDAO;
 	
+	// 스케줄
 	@RequestMapping("schedule")
 	public String schedule() {
 		
@@ -57,7 +59,28 @@ public class TransController {
 		
 		return "redirect:customer";
 	}
+
+	// 사후관리 페이지이동
+	@RequestMapping("FileupSelect")
+	public String FileupPage(@RequestParam("apply_code") String apply_code, Model model, TransVO vo) {
+		
+		model.addAttribute("apply_code", apply_code);
+		System.out.println(apply_code);
+		model.addAttribute("FileupSelect", transDAO.FileupSelect(vo));
+		System.out.println(vo);
+		
+		return "empty/empty/customerFileup";
+	}
 	
 	
-	
+	// file upload
+	@RequestMapping("customerFileup")
+	public String customerFileup(TransVO vo) {
+		
+		System.out.println("123");
+		transDAO.customerFileup(vo);
+		
+		
+		return "redirect:customer";
+	}
 }

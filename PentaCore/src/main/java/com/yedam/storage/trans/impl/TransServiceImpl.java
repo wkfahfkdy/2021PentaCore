@@ -35,7 +35,19 @@ public class TransServiceImpl implements TransService {
 	@Override
 	public int customerInsert(TransVO vo) {
 		// 추가입력
-		return sqlSession.insert("customerInsert", vo);
+		return sqlSession.update("customerInsert", vo);
+	}
+
+	@Override
+	public int customerFileup(TransVO vo) {
+		// 사후관리 사진+메모 등록
+		return sqlSession.update("customerFileup", vo);
+	}
+
+	@Override
+	public TransVO FileupSelect(TransVO vo) {
+		// 사후관리 상세내역
+		return sqlSession.selectOne("FileupSelect", vo);
 	}
 	
 

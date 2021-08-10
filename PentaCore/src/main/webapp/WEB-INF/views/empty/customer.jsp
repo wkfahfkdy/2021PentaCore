@@ -170,16 +170,16 @@
 			</div>
 			<div id="customerGrid" align="center"></div>
 			<div id="my_customer" align="center">
-			    <div class="modal-body"></div>
-			    <button class="btn btn-default btn-lg" id="btn1"><a onclick="submit()">확인</a></button>
+			    <div class="modal-body"></div>	    
+			    <button class="btn btn-default btn-lg" id="btn1" onclick=location.href="submit()" value="확인"></button>
 			    <button class="btn btn-default btn-lg" id="btn2"><a class="modal_close_btn">닫기</a></button>
 		    </div>
 		</div>
       </div>
-      
     <script type="text/javascript">
     
     function submit() {
+    	
     	
     	frm.submit();
     }
@@ -199,7 +199,8 @@
     			apply_start: '<fmt:formatDate value="${list.apply_start}" pattern="yyyy-MM-dd" />',
     			apply_end: '<fmt:formatDate value="${list.apply_end}" pattern="yyyy-MM-dd" />',
     			store_name: '${list.store_name}',
-    			store_code: '${list.store_code}'
+    			store_code: '${list.store_code}',
+   				fileBtn: '<button type="button" onclick="location.href=\'FileupSelect?apply_code=${list.apply_code}\'">사진등록</button>'
     		}
     			<c:if test="${not status.last}">,</c:if>
     			</c:forEach>
@@ -244,6 +245,12 @@
     			width: 150,
     			header: '희망지점',
     			name: 'store_name',
+    			align: 'center'
+    		},
+    		{	
+    			width: 100,
+    			header: '사후관리',
+    			name: 'fileBtn',
     			align: 'center'
     		}
     		],
@@ -353,8 +360,7 @@
    							'<option value="PM 18:00 ~ 19:00">' + "PM 18:00 ~ 19:00" + '</option>' +
    							'<option value="PM 19:00 ~ 20:00">' + "PM 19:00 ~ 20:00" + '</option>' +
    						'</select></td></tr>';
-   				row += '<th class="mo-tbl" style="vertical-align:top;" colspan="2"></th>';
-   				row += '<th class="mo-tbl" style="vertical-align:top;" colspan="2">' + "사후관리 (사진업로드)" + '</th>';
+   						
    				
    				tbl.append(row);
    				frm.append(tbl);
