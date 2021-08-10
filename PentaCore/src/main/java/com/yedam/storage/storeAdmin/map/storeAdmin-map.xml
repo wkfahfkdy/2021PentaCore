@@ -15,7 +15,7 @@
 
 
 
-
+<!-- ============================== 동영 ================================ -->
 <!-- 스토리지 현황 페이지 SQL -->
 <select id="StorageList" resultType="StoreAdminVO" parameterType="StoreAdminVO">
 	SELECT B.STORAGE_CODE, B.INFO_NUM, S.STORAGE_NAME, A.OFFER_CODE,
@@ -44,6 +44,36 @@
 	ORDER BY U.USE_NUM ASC
 </select>
 
+<!-- 현재 그 지점의 예약 되어있는 리스트 -->
+<select id="offerInfoList"  parameterType="StoreAdminVO" resultType="StoreAdminVO">
+	SELECT M.MEMBER_ID , O.OFFER_PRODUCT, nvl(O.OFFER_RENTAL, 'X')as offer_rental, O.STORAGE_CODE,U.USE_START, U.USE_END, U.STORE_CODE, O.OFFER_CODE
+	FROM MEMBER M, OFFER O, USE_STORAGE U
+	WHERE M.MEMBER_ID = U.MEMBER_ID
+	AND O.OFFER_CODE = U.OFFER_CODE
+	AND U.STORE_CODE = #{store_code}
+	ORDER BY U.USE_NUM ASC
+</select>
+
+<select id="selectOfferInfo" parameterType="StoreAdminVO" resultType="StoreAdminVO">
+	SELECT M.MEMBER_ID , O.OFFER_PRODUCT, nvl(O.OFFER_RENTAL, 'X'), O.STORAGE_CODE,U.USE_START, U.USE_END, U.STORE_CODE, O.OFFER_CODE
+	FROM MEMBER M, OFFER O, USE_STORAGE U
+	WHERE M.MEMBER_ID = U.MEMBER_ID
+	AND O.OFFER_CODE = U.OFFER_CODE
+	AND U.STORE_CODE = #{store_code}
+	AND O.STORAGE_CODE = #{storage_code}
+	ORDER BY U.USE_NUM ASC
+</select>
+
+<select id="unUseStorageList" parameterType="StoreAdminVO" resultType="StoreAdminVO">
+	SELECT I.*,TO_CHAR(I.INFO_NUM || S.STORAGE_NAME) AS storage_name
+	FROM STORAGE_INFO I, STORAGE S
+	WHERE I.STORAGE_CODE = S.STORAGE_CODE
+	AND I.INFO_USE = 'N'
+	AND I.STORE_CODE = #{store_code}
+	ORDER BY 1 ASC
+</select>
+
+<!-- ============================== 동영 ================================ -->
 
 <!-- 지점 공지사항 페이지 -->
 <select id="storeNoticeList" parameterType="StoreAdminVO" resultType="StoreAdminVO">

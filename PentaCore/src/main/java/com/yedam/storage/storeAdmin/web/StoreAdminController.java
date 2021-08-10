@@ -1,6 +1,8 @@
 package com.yedam.storage.storeAdmin.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.review.common.Paging;
+import com.yedam.storage.storeAdmin.service.StoreAdminService;
 import com.yedam.storage.storeAdmin.serviceImpl.StoreAdminServiceImpl;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
@@ -23,9 +26,11 @@ public class StoreAdminController {
 
 	@Autowired
 	private StoreAdminServiceImpl storeAdminDAO;
+	@Autowired
+	private StoreAdminService storeService;
 	
-	
-	// enterStoreAdmin -> StorageInfoPage (각 지점에 대한 스토리지 현황을 위해 Store_code를 불러온다)
+	// ===================== 정동영 ===================================
+	// enterStoreAdmin -> StorageInfoPage (각 지점에 대한 스토리지 현황을 위해 Store_code를 불러온다) + 현재 예약되어있는 정보 List
 	@RequestMapping("storageInfo")
 	public String storageInfo(Model model, HttpServletRequest req, StoreAdminVO vo) {
 		String store_code = req.getParameter("store_code");
@@ -33,17 +38,36 @@ public class StoreAdminController {
 		vo.setStore_code(store_code);
 		model.addAttribute("StorageInfoList", storeAdminDAO.selectStorageInfoList(vo));
 		model.addAttribute("storageName", storeAdminDAO.storageName());
+		// 현재 예약되어있는 정보 List
+		model.addAttribute("offerInfoList", storeService.offerInfoList(vo));
 		return "storeAdmin/StorageInfoPage";
 	}
 	
 	// 사용중인 스토리지 정보
 	@RequestMapping("usedStorage")
 	@ResponseBody
-	public StoreAdminVO usedStorage(Model model, HttpServletRequest req, StoreAdminVO vo) {
+	public StoreAdminVO usedStorage(Model model,  StoreAdminVO vo) {
 		System.out.println(vo.getOffer_code() + vo.getStore_code());
 		return storeAdminDAO.selectStorageInfo(vo);
 	}
 	
+	// 현재 예약되어 있는 정보 (Ajax)
+	@RequestMapping("ajaxOfferInfoList")
+	@ResponseBody
+	public List<StoreAdminVO> offerInfoList(StoreAdminVO vo){
+		return storeService.offerInfoList(vo);
+	}
+	
+	// 미사용 스토리지 및 스토리지 예약을 한 정보 (Ajax)
+	@RequestMapping("offerInfo")
+	@ResponseBody
+	public Map<String, Object> offerInfo(Model model, StoreAdminVO vo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("selectOfferInfo", storeService.selectOfferInfo(vo));
+		map.put("unUseStorage", storeService.unUseStorageList(vo));
+		return map;
+	}
+	// ===================== 정동영 ===================================
 	//====================== 최반야 ====================================
 	// 지점 공지사항 리스트
 	@RequestMapping("storeNotice")
