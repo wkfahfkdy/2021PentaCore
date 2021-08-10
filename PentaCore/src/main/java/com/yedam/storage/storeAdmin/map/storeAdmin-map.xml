@@ -45,33 +45,33 @@
 </select>
 
 
-<!-- 지점 공지사항 페이지 -->
+<!-- 최반야 : 지점 공지사항 페이지 -->
 <select id="storeNoticeList" parameterType="StoreAdminVO" resultType="StoreAdminVO">
-	select * 
-	from notice
-	where store_code = #{store_code}
+	SELECT * 
+	FROM notice
+	WHERE store_code = #{store_code}
 </select> 
 
 <insert id="registNotice" parameterType="StoreAdminVO">
-	insert into notice(notice_num, notice_title, notice_content, notice_date, store_code)
-	values(notice_seq.nextval, #{notice_title}, #{notice_content}, sysdate, #{store_code})
+	INSERT INTO notice(notice_num, notice_title, notice_content, notice_date, store_code)
+	VALUES(notice_seq.nextval, #{notice_title}, #{notice_content}, sysdate, #{store_code})
 </insert>
 
 <select id="storeNoticeSelect" parameterType="StoreAdminVO" resultType="StoreAdminVO">
-	select * 
-	from notice
-	where notice_num = #{notice_num}
+	SELECT * 
+	FROM notice
+	WHERE notice_num = #{notice_num}
 </select>
 
 <update id="storeNoticeEdit" parameterType="StoreAdminVO">
-	update notice 
-	set notice_title = #{notice_title}, notice_content = #{notice_content}
-	where notice_num = #{notice_num}
+	UPDATE notice 
+	SET notice_title = #{notice_title}, notice_content = #{notice_content}
+	WHERE notice_num = #{notice_num}
 </update>
 
 <delete id="storeNoticeDelete" parameterType="StoreAdminVO">
-	delete from notice
-	where notice_num = #{notice_num}
+	DELETE FROM notice
+	WHERE notice_num = #{notice_num}
 </delete>
  
  
@@ -144,12 +144,32 @@
 	
  <!--전형민 -->
  
- 
- 
- 
- 
- 
- 
+ <!-- 최반야 - 1:1 문의 관리 -->
+ <!-- 문의 내역 리스트 -->
+ <select id="customerAskList" parameterType="StoreAdminVO" resultType="StoreAdminVO">
+ 	SELECT question_num, question_title, question_date
+ 	FROM question
+ 	WHERE store_code = #{store_code}
+ 	ORDER BY question_group DESC
+ </select>
+ <!-- 문의 상세 조회 -->
+ <select id="customerAskSelect" parameterType="StoreAdminVO" resultType="StoreAdminVO">
+ 	SELECT * 
+ 	FROM question
+ 	WHERE question_group IN
+ 		(SELECT question_group
+ 		FROM question
+ 		WHERE question_num = #{question_num})
+ 	ORDER BY question_group DESC, question_parents ASC
+ </select>
+ <!-- 문의 답변 달기 -->
+ <insert id="answerAsk" parameterType="StoreAdminVO">
+ 	insert into question(question_num, question_parents, question_content, store_code, 
+ 						member_id, question_date, question_group)
+	values(question_seq.nextval, 2, #{question_content}, #{store_code}, 
+		#{member_id}, sysdate, #{question_group})
+ </insert>
+ <!-- 최반야 - 1:1 문의 관리 끝 -->
  	
 
 

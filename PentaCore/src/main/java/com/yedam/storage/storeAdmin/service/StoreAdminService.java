@@ -67,4 +67,19 @@ public interface StoreAdminService {
 	public List<StoreAdminVO> usingStrorageList(); 
 	public List<StoreAdminVO> expiredStrorageList();
 	public StoreAdminVO storageUserDetail(@Param("p") String use_num );
+	
+	// ==============반야====================
+	// 1:1 문의 관리
+	// 문의 내역
+	public List<StoreAdminVO> customerAskList(StoreAdminVO vo);
+	// 문의 답변 등록
+	public int answerAsk(StoreAdminVO vo);
+	// 답변 수정
+	public int editnAnswer(StoreAdminVO vo);
+	// 답변 삭제
+	public int deleteAnswer(StoreAdminVO vo);
+	// 문의 상세 조회
+	public List<StoreAdminVO> customerAskSelect(StoreAdminVO vo);
+	// =============끝=======================
+	
 }

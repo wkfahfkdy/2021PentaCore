@@ -193,5 +193,32 @@ public class StoreAdminController {
 	}
 	
 	/////////////////////////////////전형민////////////////////////////////////////////		
-			
+	//===============최반야 > 1:1 문의 관리 ============================
+	
+	// 1:1 문의 관리 페이지 로딩
+	@RequestMapping("supervisionAsk")
+	public String supervisionAsk(StoreAdminVO vo, HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		String s_code = (String) session.getAttribute("stCode");
+		vo.setStore_code(s_code);
+		System.out.println(s_code);
+		
+		model.addAttribute("customerAskList",storeAdminDAO.customerAskList(vo));
+		
+		return "storeAdmin/answerAsk";
+	}
+	
+	// 1:1 문의 상세
+	@ResponseBody
+	@RequestMapping(value="custormerAskSelect/{question_num}", method=RequestMethod.GET)
+	public List<StoreAdminVO> custormerAskSelect(@PathVariable int question_num, StoreAdminVO vo, HttpServletRequest req) {
+		vo.setQuestion_num(question_num);
+		
+		List<StoreAdminVO> custormerAskSelect = storeAdminDAO.customerAskSelect(vo);
+		
+		return custormerAskSelect;
+	}
+	
+	
+	//==============최반야 > 1:1 문의 관리 끝 ==========================
 }
