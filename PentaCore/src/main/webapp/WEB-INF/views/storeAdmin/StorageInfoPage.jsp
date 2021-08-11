@@ -34,6 +34,26 @@
      		} else {
      			$('#updateUseStorageTable').submit();
      		}
+     	});
+     	
+     	// 온도
+     	$('input[id="humidityValue"]').change(function(){
+     		var humidity = $(this).val()
+     		$('#hiddenHumidiry').val(humidity);
+     	});
+     // 온도
+     	$('input[id="temperatureValue"]').change(function(){
+     		var temperature = $(this).val()
+     		$('#hiddenTemperature').val(temperature);
+     	});
+     // 온습도 업데이트
+     	$('#temHumUpdateBtn').click(function (){
+     		if($('#hiddenTemperature').val() == "" || $('#hiddenHumidiry').val() = ""){
+     			alert("온습도를 입력해주세요");
+     			return false;
+     		}else {
+     			$('#temHumUpdate').submit();
+     		}
      	})
 	});
 	
@@ -122,7 +142,7 @@
 		var memberSelectOprion = "";
 		// Empty Storage Select Option
 		for(var i = 0; i<data.unUseStorage.length; i++){
-			unUseStorageSelectOption += '<option value='+data.unUseStorage[i].info_num+'>'+ data.unUseStorage[i].storage_name + '</option>'
+			unUseStorageSelectOption += '<option selected="selected" value='+data.unUseStorage[i].info_num+'>'+ data.unUseStorage[i].storage_name + '</option>'
 		}
 		// memberId Select Option
 		for(var j = 0; j<data.selectOfferInfo.length; j++){
@@ -136,7 +156,9 @@
 		// 미사용 select Option Append
 		$('#unUseStorageList').html(unUseStorageSelectOption);
 		$('#hiddenTr').html(hiddenOfferCode);
-		
+		// select option에 1개면 암만 눌러도 hidden 값 변경 안되서 0번째방의 값을 넣어줌
+		$('#hiddenInfoNum').val(data.unUseStorage[0].info_num);
+		$('#hiddenOfferCode').val(data.selectOfferInfo[0].offer_code);
 		
 	}
 </script>
@@ -176,9 +198,17 @@
 					<div class="my-btn-bg-bottom"></div>
 					<div class="my-btn-text">
 						돌아가기
-					</div>
+					</div>	
+			</div>
+			<div class="my-btn my-btn-primary" data-toggle="modal" data-target="#temHumStore" style="margin: 0px 50px;">
+					<div class="my-btn-bg-top"></div>
+					<div class="my-btn-bg-bottom"></div>
+					<div class="my-btn-text">
+						온습도 관리
+					</div>	
 			</div>
 			<div class="row">
+				<h4 align="center">스토리지 현황</h4>
 				<c:forEach items="${storageName}" var="storageName">
 					<div id="${storageName.storage_code}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 storageList">
 						<div class="service-1">
@@ -213,6 +243,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="def-section services-1">
+		<div class="container">
+			<div class="row">
+				
+			</div>
+		</div>
+	</div>
+	
 	<!-- 이용중인 회원 정보 Modal -->
 	<div class="modal fade" id="storageInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -261,7 +299,7 @@
 							<td style="font-size: 16pt; padding:30px; text-align: center">
 								<h4>회원 ID</h4>
 								<select name="member_id" id="memberIdSelect">
-									
+									<option>현재 비어있는 스토리지</option>
 								</select>
 							</td>
 						</tr>
@@ -278,7 +316,7 @@
 								<h4>현재 비어있는 스토리지</h4>
 								<input type="hidden" class="offerCode">
 								<select name="info_num" id="unUseStorageList">
-										
+										<option>현재 비어있는 스토리지</option>
 								</select>
 							</td>
 						</tr>
@@ -296,7 +334,42 @@
 			</div>
 		 </div>
 	</div>
-	<!-- 사용안하고 있는 스토리지 할당 Modal -->
+	<!-- 온습도 -->
+	<div class="modal fade" id="temHumStore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">${stroeTemHumInfo.store_name } 온습도 관리</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	    	<div class="modal-body" style="display: table; width: 100%">
+	    		
+	    		<div style="display: table-cell; width: 45%;">
+					<!-- 여기오는 컨트롤러에 store테이블 온습도 정보 가져오기 -->
+					<h5>현재 온도 : ${stroeTemHumInfo.humidity }°C</h5><br><br>
+					<h5>현재 습도 : ${stroeTemHumInfo.temperature }%</h5>
+	    		</div>
+				<div style="display: table-cell; width: 45%; float: rigth; margin: 0px 50px;">
+					<h5>변경하실 온습도</h5>
+					온도 = <input type="number" id="humidityValue" style="margin:10px 0px;"><br>
+					습도 = <input type="number" id="temperatureValue">
+					<form action="temHumUpdate" id="temHumUpdate">
+						<input type="hidden" name="store_code" value="${employeeVO.store_code }">
+						<input type="hidden" name="humidity" id="hiddenHumidiry" value="">
+						<input type="hidden" name="temperature" id="hiddenTemperature" value="">	
+					</form>
+				</div>
+	      	</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="temHumUpdateBtn">Save</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 온습도 -->
 	<!-- DB처리 -->
 	<form id="updateUseStorageTable" method="post" action="updateUseStorage">
 		<input type="hidden" name="store_code" value="${employeeVO.store_code }">

@@ -82,6 +82,12 @@
 	WHERE OFFER_CODE = #{offer_code}
 </update>
 
+<select id="storeTemHumInfo" parameterType="com.yedam.storage.store.vo.StoreVO" resultType="com.yedam.storage.store.vo.StoreVO">
+	SELECT HUMIDITY, TEMPERATURE, STORE_NAME
+	FROM STORE
+	WHERE STORE_CODE = #{store_code}
+</select>
+
 <!-- ============================== 동영 ================================ -->
 
 <!-- 최반야 : 지점 공지사항 페이지 -->
