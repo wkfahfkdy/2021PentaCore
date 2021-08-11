@@ -6,8 +6,6 @@ import com.yedam.storage.trans.vo.TransVO;
 
 public interface TransService {
 	
-	
-	
 	public List<TransVO> customerListAll(TransVO vo); // 신청내역 all
 	public List<TransVO> cuStorage(TransVO vo); // 스토리지 셀렉트박스
 	public TransVO myCustomerSelect(TransVO vo); // 신청내역 상세정보

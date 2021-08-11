@@ -181,6 +181,10 @@
 	loginStore : ${loginStore } <br>
 	
 	
+	<h1>나와?? ${humdity }</h1>
+	<h1>${temperature }</h1>
+	
+	
 	<!-- 
 	<div class="slide_box">
 		<ul  class="slide_wrap">
