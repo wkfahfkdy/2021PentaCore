@@ -1,6 +1,8 @@
 package com.yedam.storage.storeAdmin.web;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -242,27 +244,14 @@ public class StoreAdminController {
 		 * String member_id = request.getParameter("memberId"); */
 		return "storeAdmin/storageUserDetail";		
 	}
-	
+	//세탁물 위탁날짜 입력
 	@RequestMapping("laundryConsignUpdate")
 	@ResponseBody
-	public String userLoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	public String laundryConsignUpdate(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ParseException {
 		 
-		/*
-		 * Date laundry_consign = vo.getLaundry_consign(); String offer_code =
-		 * request.getParameter("offer_code");
-		 * 
-		 * StoreAdminVO rvo = new StoreAdminVO();
-		 * rvo.setLaundry_consign(laundry_consign); rvo.setOffer_code(offer_code);
-		 */
-		
-		// Date consignDate = request.getParameter("laundry_consign");
+		String laundry_consign = request.getParameter("laundry_consign");
 
-		/*
-		 * SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 * 
-		 * Date to = transFormat.parse(from);
-		 */
-
+		vo.setLaundry_consign(laundry_consign);
 
 		
 		
@@ -275,9 +264,27 @@ public class StoreAdminController {
 				result = "update success";
 			
 			return result;
-	   
-		 
 	}
+	
+	//세탁물 회수날짜 입력
+		@RequestMapping("laundryCollectUpdate")
+		@ResponseBody
+		public String userLoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ParseException {
+			 
+			String laundry_collect = request.getParameter("laundry_collect");
+
+			vo.setLaundry_collect(laundry_collect);
+			
+				System.out.println(vo.getLaundry_collect());
+				String result = "";
+				
+			 	int i = storeAdminDAO.updateLaundryCollect(vo);
+				
+				if(i > 0)
+					result = "update success";
+				
+				return result;
+		}
 	
 	
 	

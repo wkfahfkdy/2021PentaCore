@@ -182,7 +182,7 @@
 	 -->
 	
 	 <select id ="storageUserDetail" parameterType="string" resultType="StoreAdminVO">
-			SELECT a.member_id, a.member_name, a.member_tel, b.*, o.offer_product,o.offer_premium, o.offer_wash,
+			SELECT DISTINCT a.member_id, a.member_name, a.member_tel, b.*, o.offer_product,o.offer_premium, o.offer_wash,
    				l.laundry_consign, l.laundry_collect
 				FROM member a JOIN use_storage b
 				ON (a.member_id = b.member_id)
@@ -200,11 +200,11 @@
 	</insert>
 	
 	<update id="updateLaundryConsign" parameterType="StoreAdminVO">
-	update laundry set laundry_consign = #{laundry_consign} where offer_code=#{offer_code}
+	update laundry set laundry_consign = to_date(#{laundry_consign},'yyyy-mm-dd hh24:mi:ss') where offer_code= #{offer_code}
 	</update>
 	
 	<update id="updateLaundryCollect" parameterType="StoreAdminVO">
-	update laundry set laundry_collect = #{laundry_collect} where offer_code=#{offer_code}
+	update laundry set laundry_collect = to_date(#{laundry_collect},'yyyy-mm-dd hh24:mi:ss') where offer_code= #{offer_code}
 	</update> 
 	
  <!--전형민 -->

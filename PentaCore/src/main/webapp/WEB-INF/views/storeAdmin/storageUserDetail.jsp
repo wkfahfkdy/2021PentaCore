@@ -164,7 +164,6 @@ $(function() {
 		var getOffer_code = '${selectUserVO.offer_code }';
 		var getLaundry_consign = $('#apply_start2').val();
 		
-		console.log(getLaundry_consign);
 		$.ajax({
 			url : 'laundryConsignUpdate',
 			data : {
@@ -173,7 +172,36 @@ $(function() {
 			},
 			type : 'post',
 			success : function(success) {
-				alert('위탁날짜가 입력되었습니다..');
+				alert('위탁날짜가 입력되었습니다.');
+				location.reload();
+			},
+			error : function(err) {
+				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+			}
+		});
+	});
+});
+
+</script>
+
+<!-- 세탁물 회수날짜 입력 -->
+<script>
+$(function() {
+	$('#laundryCollect').on('click', function()  {
+		
+		var getOffer_code = '${selectUserVO.offer_code }';
+		var getLaundry_collect = $('#apply_end2').val();
+		
+		$.ajax({
+			url : 'laundryCollectUpdate',
+			data : {
+				laundry_collect : getLaundry_collect,
+				offer_code : getOffer_code
+			},
+			type : 'post',
+			success : function(success) {
+				alert('회수날짜가 입력되었습니다.');
+				location.reload();
 			},
 			error : function(err) {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
@@ -185,6 +213,60 @@ $(function() {
 </script>
 
 
+<!-- 세탁물 위탁날짜 수정 -->
+<script>
+$(function() {
+	$('#laundryConsignChange').on('click', function()  {
+		
+		var getOffer_code = '${selectUserVO.offer_code }';
+		var getLaundry_consign = $('#apply_start').val();
+		
+		$.ajax({
+			url : 'laundryConsignUpdate',
+			data : {
+				laundry_consign : getLaundry_consign,
+				offer_code : getOffer_code
+			},
+			type : 'post',
+			success : function(success) {
+				alert('위탁날짜가 수정되었습니다.');
+				location.reload();
+			},
+			error : function(err) {
+				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+			}
+		});
+	});
+});
+</script>
+
+<!-- 세탁물 회수날짜 입력 -->
+<script>
+$(function() {
+	$('#laundryCollectChange').on('click', function()  {
+		
+		var getOffer_code = '${selectUserVO.offer_code }';
+		var getLaundry_collect = $('#apply_end').val();
+		
+		$.ajax({
+			url : 'laundryCollectUpdate',
+			data : {
+				laundry_collect : getLaundry_collect,
+				offer_code : getOffer_code
+			},
+			type : 'post',
+			success : function(success) {
+				alert('회수날짜가 수정되었습니다.');
+				location.reload();
+			},
+			error : function(err) {
+				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+			}
+		});
+	});
+});
+
+</script>
 
 
 
@@ -296,7 +378,7 @@ $(function() {
 				<tr>
 				<th>세탁관리</th>
 				<td>${selectUserVO.offer_wash }</td>
-				<td><button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" id="laundryInfoInput" name="premiumReport"><b>확인</b></button></td>
+				<td></td>
 				</tr>
 				
 				<tr>
@@ -311,7 +393,7 @@ $(function() {
 				</td>
 				<td>
 				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryConsignChange" name="laundryConsignChange" value="">수정</button>				    
+				id="laundryConsignChange" name="laundryConsignChange" value=""><b>수정</b></button>				    
 				 </td>
 				</c:when>
 				
@@ -324,7 +406,7 @@ $(function() {
 					</td>
 					<td>
 					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryConsign" name="laundryConsign" value="">입력</button>
+				id="laundryConsign" name="laundryConsign" value=""><b>입력</b></button>
 					</td>
 				</c:otherwise>
 				</c:choose>
@@ -346,12 +428,13 @@ $(function() {
 				</td>
 				<td>
 				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryCollectChange" name="laundryCollectChange" value="">수정</button>				    
+				id="laundryCollectChange" name="laundryCollectChange" value=""><b>수정</b></button>				    
 				 </td>
 				</c:when>
 				
 				
 				<c:otherwise>
+				<c:if test="${!empty selectUserVO.laundry_consign}">
 				<td>
 				<div class="form-condata">
 					<div class="con-data"><input type="date" id="apply_end2" name="apply_end2" /></div>	
@@ -359,8 +442,9 @@ $(function() {
 					</td>
 					<td>
 					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryCollect" name="laundryCollect" value="">입력</button>
+				id="laundryCollect" name="laundryCollect" value=""><b>입력</b></button>
 					</td>
+					</c:if>
 				</c:otherwise>
 				</c:choose>
 				
