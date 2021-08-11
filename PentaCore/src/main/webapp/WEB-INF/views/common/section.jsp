@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -171,11 +172,25 @@
 	<!-- =========================
 		END MAIN SLIDER
 	============================== -->
-	<h1>앙~</h1> <br>
+	
+	<!-- 세션받아오는값 -->	
 	loginId : ${loginId } <br>
 	loginName : ${loginName } <br>
 	loginTel : ${loginTel } <br>
 	loginAddr : ${loginAddr } <br>
 	loginStore : ${loginStore } <br>
+	
+	
+	<!-- 
+	<div class="slide_box">
+		<ul  class="slide_wrap">
+			<c:forEach items="${SelectStoreAddr }" var="list">
+				<li class="slide_item">${list.store_name }</li>
+				<li class="slide_item">${list.humdity }</li>
+				<li class="slide_item">${list.temperature }</li>
+			</c:forEach>
+		</ul>
+	</div>
+	 -->
 </body>
 </html>
