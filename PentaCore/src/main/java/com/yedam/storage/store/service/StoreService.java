@@ -6,4 +6,5 @@ import com.yedam.storage.store.vo.StoreVO;
 
 public interface StoreService {
 	public List<StoreVO> SelectStoreAddr();
+	public List<StoreVO> htSelect();
 }

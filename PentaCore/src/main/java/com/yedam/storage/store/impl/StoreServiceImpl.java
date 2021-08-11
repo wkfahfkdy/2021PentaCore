@@ -5,11 +5,13 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.yedam.storage.store.service.StoreService;
 import com.yedam.storage.store.vo.StoreVO;
 
 @Repository
+@Service("storeDAO")
 public class StoreServiceImpl implements StoreService {
 
 	@Autowired
@@ -19,6 +21,12 @@ public class StoreServiceImpl implements StoreService {
 	public List<StoreVO> SelectStoreAddr() {
 		
 		return map.selectList("SelectStoreAddr");
+	}
+
+	@Override
+	public List<StoreVO> htSelect() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

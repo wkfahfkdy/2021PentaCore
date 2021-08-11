@@ -171,8 +171,8 @@
 			<div id="customerGrid" align="center"></div>
 			<div id="my_customer" align="center">
 			    <div class="modal-body"></div>	    
-			    <button class="btn btn-default btn-lg" id="btn1" onclick=location.href="submit()" value="확인"></button>
-			    <button class="btn btn-default btn-lg" id="btn2"><a class="modal_close_btn">닫기</a></button>
+			    <button class="btn btn-default btn-lg" id="btn1" onclick="submit()" value="확인">확인</button>
+			    <button class="btn btn-default btn-lg" id="btn2" ><a class="modal_close_btn">닫기</a></button>
 		    </div>
 		</div>
       </div>
@@ -200,7 +200,10 @@
     			apply_end: '<fmt:formatDate value="${list.apply_end}" pattern="yyyy-MM-dd" />',
     			store_name: '${list.store_name}',
     			store_code: '${list.store_code}',
-   				fileBtn: '<button type="button" onclick="location.href=\'FileupSelect?apply_code=${list.apply_code}\'">사진등록</button>'
+    			convey_file: '${list.convey_file}',
+    			convey_after: '${list.convey_after}',
+   				fileBtn: '<button type="button" onclick="location.href=\'FileupSelect?apply_code=${list.apply_code}\'"> <c:choose> <c:when test = "${list.convey_file eq null}"> 사진등록 </c:when> <c:when test = "${list.convey_file ne null}"> 완료 </c:when> </c:choose> </button>',
+ 				insertBtn: '<button type="button"> <c:choose> <c:when test = "${list.convey_after eq null}"> 추가입력 </c:when> <c:when test = "${list.convey_after ne null}"> 완료 </c:when> </c:choose> </button>'
     		}
     			<c:if test="${not status.last}">,</c:if>
     			</c:forEach>
@@ -245,6 +248,12 @@
     			width: 150,
     			header: '희망지점',
     			name: 'store_name',
+    			align: 'center'
+    		},
+    		{
+    			width: 100,
+    			header: '추가입력',
+    			name: 'insertBtn',
     			align: 'center'
     		},
     		{	
@@ -302,7 +311,13 @@
    				var a_addr = data.cus.apply_addr;
    				var a_product = data.cus.apply_product;
    				var b_storage_name = data.list;
-   				console.log(b_storage_name);
+   				
+   				var b_memo = data.cus.convey_memo;
+   				var b_car = data.cus.convey_car;
+   				var b_driver = data.cus.convey_driver;
+   				var b_after = data.cus.convey_after;
+   				var b_info = data.cus.info_num;
+   				var b_time = data.cus.convey_time;
    				var option ="";
    				for(let i = 0; i<data.list.length; i++){
 		   			option += '<option value='+data.list[i]+'>'+ data.list[i] + '</option>'
@@ -324,20 +339,20 @@
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
    				row += '<td class="mo-tbl">' + a_tel + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_memo"/>' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_memo" value='+b_memo+'></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "픽업일" + '</th>';
    				row += '<td class="mo-tbl">' + a_start + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "운송차량" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_car"/>' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_car" value='+b_car+'></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;" value="c_name">' + "운송일" + '</th>';
    				row += '<td class="mo-tbl">' + a_end + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "기사배정" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_driver" />' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_driver" value='+b_driver+'></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이전주소" + '</th>';
    				row += '<td class="mo-tbl">' + a_addr + '</td>';
    				row += '<input type="hidden" name="convey_before" value='+a_addr+'>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "배송주소" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type=\'text\' name="convey_after"/>' + '</td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_after" value='+b_after+'></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "지점명" + '</th>';
    				row += '<td class="mo-tbl">' + a_store + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "스토리지" + '</th>';
@@ -350,15 +365,8 @@
    				row += '<th class="mo-tbl"style="vertical-align:top;">' + "배송시간" + '</th>';
    				row += '<td class="mo-tbl">' +
    						'<select id="convey_time" name="convey_time">' +
-   							'<option value="AM 11:00 ~ 12:00">' + "AM 11:00 ~ 12:00" + '</option>' +
-   							'<option value="PM 12:00 ~ 13:00">' + "PM 12:00 ~ 13:00" + '</option>' +
-   							'<option value="PM 13:00 ~ 14:00">' + "PM 13:00 ~ 14:00" + '</option>' +
-   							'<option value="PM 14:00 ~ 15:00">' + "PM 14:00 ~ 15:00" + '</option>' +
-   							'<option value="PM 15:00 ~ 16:00">' + "PM 15:00 ~ 16:00" + '</option>' +
-   							'<option value="PM 16:00 ~ 17:00">' + "PM 16:00 ~ 17:00" + '</option>' +
-   							'<option value="PM 17:00 ~ 18:00">' + "PM 17:00 ~ 18:00" + '</option>' +
-   							'<option value="PM 18:00 ~ 19:00">' + "PM 18:00 ~ 19:00" + '</option>' +
-   							'<option value="PM 19:00 ~ 20:00">' + "PM 19:00 ~ 20:00" + '</option>' +
+   							'<option value="AM 08:00 ~ 12:00">' + "AM 08:00 ~ 12:00" + '</option>' +
+   							'<option value="PM 13:00 ~ 17:00">' + "PM 13:00 ~ 17:00" + '</option>' +
    						'</select></td></tr>';
    						
    				
