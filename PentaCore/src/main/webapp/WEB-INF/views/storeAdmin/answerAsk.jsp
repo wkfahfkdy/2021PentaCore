@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -55,7 +56,7 @@
 <div class="wrap">
 	<h3>1:1문의 관리</h3>
 	<div style="padding-bottom: 1em;" align="right">
-		<button type="button" class="back-btn">뒤로가기</button>
+		<button type="button" class="back-btn" onclick="location.href='home'">뒤로가기</button>
 	</div>
 	<div id="gridArea">
 		<!-- 그리드 호출 -->
@@ -81,7 +82,7 @@ $(document).ready(function() {
 		{
 			question_num: '${list.question_num}',
 			question_title: '${list.question_title}',
-			question_date: '${list.question_date}',
+			question_date: '<fmt:formatDate value="${list.question_date}" pattern="yy-MM-dd" />',
 		}
 			<c:if test="${not status.last}">,</c:if>
 			</c:forEach>
@@ -132,6 +133,10 @@ $(document).ready(function() {
 			dataType: 'json',
 			success: function(result) {
 				console.log(result);
+				// 문의 띄워주는 거 내용 초기화 해버려
+				$('#askTitle').empty();
+				$('#tbl').empty();
+				// 나타나라 문의문의
 				showQuestion(result);
 			},
 			error: function(xhr, status, msg) {
@@ -166,21 +171,18 @@ $(document).ready(function() {
 					row += '<th style="width: 4em;">작성자</th><td style="text-align: left;">' + member_id + '</td>'
 					row += '<th style="text-align: right;">등록일</th><td>' + q_date + '</td></tr>';
 					row += '<tr><td colspan="6" style="padding: 3em 0em; border-top: 1px lightgray solid; border-bottom: 1px lightgray solid;">' + q_content + '</td></tr>';
-				} else {
-					if(group_cnt == 1){
-						row += '<tr><td colspan="6">아직 등록된 답변이 없습니다.</td></tr>';
+					if(group_cnt <= 1){
+						row += '<tr><td colspan="6" style="padding: 2em 0em;"><b>아직 등록된 답변이 없습니다.</b></td></tr>';
 						row += '<tr><input type="hidden" name="question_group" value="'+ q_group +'"/><td style="width: 3em;"><b>답변</b></td>'
 						+ '<td colspan="4" style="padding: 2em 0em;"><textarea id="question_content" name="question_content"></textarea></td>'
 						+'<td style="width: 8em;"><button id="answer" class="apply-btn" type="button">답글 등록</button></td></tr>';
-						
-					} else {
-						row += '<tr><td colspan="3" style="padding: 1em 2em; text-align: left;"><img src="resources/assets/images/re.png"></td><td colspan="3" style="padding: 0em 2em; text-align: right;">' + q_date +'</td></tr>';
-						row += '<tr><td colspan="6" style="text-align: left; padding: 0em 2em;">' + q_content + '</td></tr>';
-						row += '<tr><input type="hidden" name="question_group" value="'+ q_group +'"/><td style="width: 3em;"><b>답변</b></td>'
-						+ '<td colspan="4" style="padding: 2em 0em;"><textarea id="question_content" name="question_content"></textarea></td>'
-						+'<td style="width: 8em;"><button id="answer" class="apply-btn" type="button">답글 등록</button></td></tr>';
-						
 					}
+				} else {
+					row += '<tr><td colspan="3" style="padding: 1em 2em; text-align: left;"><img src="resources/assets/images/re.png"></td><td colspan="3" style="padding: 0em 2em; text-align: right;">' + q_date +'</td></tr>';
+					row += '<tr><td colspan="6" style="text-align: left; padding: 0em 2em;">' + q_content + '</td></tr>';
+					row += '<tr><input type="hidden" name="question_group" value="'+ q_group +'"/><td style="width: 3em;"><b>답변</b></td>'
+					+ '<td colspan="4" style="padding: 2em 0em;"><textarea id="question_content" name="question_content"></textarea></td>'
+					+'<td style="width: 8em;"><button id="answer" class="apply-btn" type="button">답글 등록</button></td></tr>';
 				}
 				
 				$('#tbl').append(row);
@@ -200,13 +202,14 @@ $(document).ready(function() {
 					data: data,
 					success: function(result) {
 						console.log(result);
+						alert('답변이 등록되었습니다.');
 						location.reload();
 					},
 					error: function(xhr, status, msg) {
 						alert('답변 등록에 실패하였습니다. 상태값 : ' + status +' 에러메시지 : ' + msg);
 					}
 				})
-			})
+			}) // 답변 등록 끝
 		}	// showQuestion 끝
 	})	// 더블클릭 이벤트 끝
 })

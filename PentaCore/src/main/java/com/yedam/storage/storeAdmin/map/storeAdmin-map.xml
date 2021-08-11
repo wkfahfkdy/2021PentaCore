@@ -209,6 +209,7 @@
  	SELECT question_num, question_title, question_date
  	FROM question
  	WHERE store_code = #{store_code}
+ 	AND question_parents = 1
  	ORDER BY question_group DESC
  </select>
  <!-- 문의 상세 조회 -->
