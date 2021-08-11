@@ -40,9 +40,60 @@
 	.btn-group-lg>.btn, .btn-lg {
     font-size: 12px;
     padding: 7px 16px;
-}
+	}
+
+    #coupon-modal {
+        display: none;
+        width: 60%;
+        padding: 30px 50px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
+    }
+
+    #coupon-modal .modal_close_btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    
+    #coupon-modal .modal-body{
+    	font-size: 10pt;
+    }
+    
+    .modal-header {
+    	padding: 1em;
+    }
+    
 
 </style>
+
+<script>
+//쿠폰 입력
+function insertCoupon() {
+	var data = $('#frm').serialize();
+	
+	if(confirm('입력하시겠습니까?')){
+		$.ajax({
+			url: 'insertCoupon',
+			type: 'POST',
+			data: data,
+			success: function(result) {
+				console.log(result);
+				alert('입력이 완료되었습니다.');
+				location.reload();
+			},
+			
+			error: function(xhr, status, msg) {
+				alert('입력에 실패하였습니다. 광고차단앱 사용시 입력이 불가합니다. 상태값 : ' + status + '에러메시지 : ' + msg);
+			}
+		})
+	} else {
+		return false;
+	}
+}
+</script>
+
 </head>
 <body>
 	<div class="wrap">
@@ -81,6 +132,110 @@
 					<h4>쿠폰등록</h4></button>
 			</div>
 		</div>
+		
+		<div id="coupon-modal">
+			<form id="frm">
+				<a class="modal_close_btn">닫기</a>
+				<div class="modal-header"></div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button id="edit-btn" type="button" onclick="insertCoupon()">입력</button>
+				</div>
+			</form>
+		</div>
+		
 	</div>
+	
+	
+<!-- 보고서 모달 여는 script -->
+<script>
+$(function() {
+	$('#btn2').on('click', function showCouponInsert()  {
+			
+			
+			modal('coupon-modal');
+			
+
+			var title = '<h3 align="center">'쿠폰등록'</h3>';
+			var date = year + "/" + month + "/" + day;
+			
+			var tbl =$('<table width="100%" />');
+			
+			tbl.append(row);
+			var row = '<tr>';
+			row += '<th style="width: 10%;">할인율</th>'
+			row += '<td style="text-align: left;">' + 
+			'<select class="custom-select" name="coupon_discount" id="coupon_discount"> <option selected></option>'
+			
+			<% for (int i=1; i<=10; i++) { %>
+				'<option value= "' <%=1-0.5*i%> '">'<%=5*i%>'프로 할인</option>'
+				<% } %>
+ 
+			'</select></td></tr>';
+			tbl.append(row);
+			
+			
+			//$(".modal-header").append(title);
+			$(".modal-body").append(title);
+			$(".modal-body").append(tbl);
+			//CK에디터용 기본 값 붙이기
+			//CKEDITOR.instances['condition_comment'].setData(noContent);
+			
+		
+			
+	})
+
+		function modal(id) {
+		    var zIndex = 9999;
+		    var modal = document.getElementById(id);
+	
+		    // 모달 div 뒤에 희끄무레한 레이어
+		    var bg = document.createElement('div');
+		    bg.setStyle({
+		        position: 'fixed',
+		        zIndex: zIndex,
+		        left: '0px',
+		        top: '0px',
+		        width: '100%',
+		        height: '100%',
+		        overflow: 'auto',
+		        // 레이어 색갈은 여기서 바꾸면 됨
+		        backgroundColor: 'rgba(0,0,0,0.4)'
+		    });
+		    document.body.append(bg);
+	
+		    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+		    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+		        bg.remove();
+		        $('.modal-header').empty();
+		        $('.modal-body').empty();
+		        modal.style.display = 'none';
+		    });
+	
+		    modal.setStyle({
+		        position: 'fixed',
+		        display: 'block',
+		        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+	
+		        // 시꺼먼 레이어 보다 한칸 위에 보이기
+		        zIndex: zIndex + 1,
+	
+		        // div center 정렬
+		        top: '50%',
+		        left: '50%',
+		        transform: 'translate(-50%, -50%)',
+		        msTransform: 'translate(-50%, -50%)',
+		        webkitTransform: 'translate(-50%, -50%)'
+		    });
+		}
+	
+		// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+		Element.prototype.setStyle = function(styles) {
+		    for (var k in styles) this.style[k] = styles[k];
+		    return this;
+		};
+	});
+</script>	
+	
 </body>
 </html>

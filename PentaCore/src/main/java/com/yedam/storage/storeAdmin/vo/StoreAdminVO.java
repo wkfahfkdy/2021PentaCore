@@ -67,8 +67,8 @@ public class StoreAdminVO {
 	//고객관리부분 offer
 	private String offer_premium;
 	private String offer_wash;
-	private Date laundry_consign;
-	private Date laundry_collect;
+	private String laundry_consign;
+	private String laundry_collect;
 	
 	
 	// 1:1 문의 관리
