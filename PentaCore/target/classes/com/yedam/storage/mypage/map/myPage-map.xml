@@ -187,7 +187,7 @@
 	
 	<!-- My Page 1:1 문의 상세 : Modal창으로 데이터 전달 -->
 	<select id="myAskSelect" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT q.*, s.store_name
+		SELECT (select count(*) from question where question_group = q.question_group) group_cnt, q.*, s.store_name
 		FROM question q, store s
 		WHERE q.store_code = s.store_code
 		AND question_group IN

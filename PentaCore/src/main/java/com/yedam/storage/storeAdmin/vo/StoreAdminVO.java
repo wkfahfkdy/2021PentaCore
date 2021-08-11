@@ -79,6 +79,7 @@ public class StoreAdminVO {
 	private Date question_date;
 	private int question_parents;
 	private int question_group;
+	private int group_cnt;
 			
 	//컨디션 리스트
 	//private String use_num

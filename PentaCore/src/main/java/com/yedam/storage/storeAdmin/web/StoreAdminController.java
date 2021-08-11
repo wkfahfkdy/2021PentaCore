@@ -269,6 +269,27 @@ public class StoreAdminController {
 		return custormerAskSelect;
 	}
 	
+	// 1:1 문의 답변 등록
+	@ResponseBody
+	@RequestMapping(value="answerAsk", method=RequestMethod.POST)
+	public String answerAsk(HttpServletRequest req, StoreAdminVO vo) {
+		HttpSession session = req.getSession();
+		String empId = (String) session.getAttribute("empId");
+		String s_code = (String) session.getAttribute("stCode");
+		System.out.println(empId+"====="+s_code);
+		vo.setMember_id(empId);
+		vo.setStore_code(s_code);
+		
+		String result = "";
+
+		int answer = storeAdminDAO.answerAsk(vo);
+		
+		if(answer > 0)
+			result = "success";
+		
+		return result;
+	}
+	
 	
 	//==============최반야 > 1:1 문의 관리 끝 ==========================
 }

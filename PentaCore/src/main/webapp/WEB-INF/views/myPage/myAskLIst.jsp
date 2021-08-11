@@ -296,6 +296,7 @@ $(document).ready(function() {
 			var q_content;
 			var q_store;
 			var q_date;
+			var group_cnt;
  			var title;
 
  			var tbl =$('<table width="100%" />');
@@ -309,6 +310,7 @@ $(document).ready(function() {
 				q_content = item.question_content;
 				q_store = item.store_name;
 				q_date = item.question_date;
+				group_cnt = item.group_cnt;
 				console.log(q_code, q_parents, q_title, q_content, q_store, q_date);
 
 				if(q_title == null)
@@ -325,7 +327,7 @@ $(document).ready(function() {
 								'<td colspan="2" width="60%" align="center" style="line-height: 2.5em; padding-bottom: 1em;">'
 								+ q_content + '</td></tr>';
 					} else {
-						if(q_content != null){
+						if(group_cnt > 1){
 						row += '<tr><td style="padding: 0.3em;"><img src="resources/assets/images/re.png">&nbsp;답변 </td><td>' + q_date + '</td></tr>';
 						row += '<tr style="border-bottom: 1px dashed lightgray;"><td colspan="2" style="padding: 0.3em;">' + q_content + '</td></tr>';
 						}
