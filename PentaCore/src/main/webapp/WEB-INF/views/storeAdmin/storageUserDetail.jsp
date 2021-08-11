@@ -156,9 +156,31 @@ function deleteReport() {
 } */
 </script>
 
+<!-- 세탁물 위탁날짜 입력 -->
+<script>
+$(function() {
+	$('#laundryConsign').on('click', function()  {
+		
+		$.ajax({
+			url : 'laundryConsignUpdate',
+			data : {
+				laundry_consign : $('#apply_start2').val(),
+				offer_code : ${selectUserVO.offer_wash }
+			},
+			type : 'post',
+			success : function(success) {
+				alert('위탁날짜가 입력되었습니다..');
+			},
+			error : function(err) {
+				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+			}
+		});
+	});
+});
+
+</script>
 
 
-<!-- 보고서 모달 여는 script -->
 
 
 
@@ -260,7 +282,7 @@ function deleteReport() {
 				<td><button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" id="premiumReportInsert" name="premiumReportInsert"><b>보고서 등록</b></button></td>
 				</tr>
 				
-				<!-- 세탁서비스 신청 했을때  -->
+				
 				<c:choose>
 				<c:when test="${selectUserVO.offer_wash eq 'Y'}">
 				
@@ -269,48 +291,78 @@ function deleteReport() {
 				<td>${selectUserVO.offer_wash }</td>
 				<td><button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" id="laundryInfoInput" name="premiumReport"><b>확인</b></button></td>
 				</tr>
+				
 				<tr>
 				<th>위탁날짜</th>
 				
-				<td>
 				<c:choose>
+				
 				<c:when test="${!empty selectUserVO.laundry_consign }">
-					<input type="text" id="laundry_consign" name="laundry_consign" value="${selectUserVO.laundry_consign }" />
+				<td>
+					<p>${selectUserVO.laundry_consign }</p>
+					<div class="con-data"><input type="date" id="apply_start" name="apply_start" /></div>
+				</td>
+				<td>
+				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
+				id="laundryConsignChange" name="laundryConsignChange" value="">수정</button>				    
+				 </td>
 				</c:when>
+				
+				
 				<c:otherwise>
+				<td>
 				<div class="form-condata">
-					<div class="con-data"><input type="date" id="apply_start" name="apply_start" /></div>	
+					<div class="con-data"><input type="date" id="apply_start2" name="apply_start2" /></div>	
 					</div>
+					</td>
+					<td>
+					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
+				id="laundryConsign" name="laundryConsign" value="">입력</button>
+					</td>
 				</c:otherwise>
 				</c:choose>
-				</td>
 				
-				<td></td>
+				
+				
 				</tr>
 				
 				<tr>
 				<th>회수날짜</th>
 				
-				<td>
+				
+				
 				<c:choose>
 				<c:when test="${!empty selectUserVO.laundry_collect}">
-					<input type="text" id="laundry_collect" name="laundry_collect" value="${selectUserVO.laundry_collect }" />
-				</c:when>
-				<c:otherwise>
-				<div class="form-condata">
+				<td>
+					<p>${selectUserVO.laundry_collect }</p>
 					<div class="con-data"><input type="date" id="apply_end" name="apply_end" /></div>
+				</td>
+				<td>
+				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
+				id="laundryCollectChange" name="laundryCollectChange" value="">수정</button>				    
+				 </td>
+				</c:when>
+				
+				
+				<c:otherwise>
+				<td>
+				<div class="form-condata">
+					<div class="con-data"><input type="date" id="apply_end2" name="apply_end2" /></div>	
 					</div>
+					</td>
+					<td>
+					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
+				id="laundryCollect" name="laundryCollect" value="">입력</button>
+					</td>
 				</c:otherwise>
 				</c:choose>
-				</td>
 				
-				<td></td>
 				</tr>	
 				
 				</c:when>	
 				
 				
-				<!-- 세탁서비스 신청 안했을때  -->
+				
 				<c:otherwise>
 				
 				<tr>
@@ -346,6 +398,8 @@ function deleteReport() {
 
 </body>
 
+
+<!-- 보고서 모달 여는 script -->
 <script>
 $(function() {
 	$('#premiumReportInsert').on('click', function showReport()  {

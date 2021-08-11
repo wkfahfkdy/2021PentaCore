@@ -187,9 +187,13 @@
 	values(#{condition_title},sysdate,cd_seq.nextval,#{use_num},#{condition_comment})  
 	</insert>
 	
-	<!-- <update id="updateLaundry" parameterType="StoreAdminVO">
-	update laundry set laundry_consign = #{laundry_consign} and laundry_collect = #{laundry_collect} where laundry_code=#{laundry_code}
-	</update> -->
+	<update id="updateLaundryConsign" parameterType="StoreAdminVO">
+	update laundry set laundry_consign = #{laundry_consign} where offer_code=#{offer_code}
+	</update>
+	
+	<update id="updateLaundryCollect" parameterType="StoreAdminVO">
+	update laundry set laundry_collect = #{laundry_collect} where offer_code=#{offer_code}
+	</update> 
 	
  <!--전형민 -->
  

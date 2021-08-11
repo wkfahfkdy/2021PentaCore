@@ -93,7 +93,7 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	}
 	// 공지 파트 끝
 
-	// 전형민
+	// ------------------------------------------------전형민
 	@Override
 	public List<StoreAdminVO> usingStrorageList() {
 		return sqlSession.selectList("usingStrorageList");
@@ -108,13 +108,24 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public List<StoreAdminVO> expiredStrorageList() {
 		return sqlSession.selectList("expiredStrorageList");
 	}
-
 	
-	// ------------------------------------------------전형민
+
+	@Override
+	public int updateLaundryConsign(StoreAdminVO vo) {
+		return sqlSession.update("updateLaundryConsign",vo);
+	} 
+
+	@Override
+	public int updateLaundryCollect(StoreAdminVO vo) {
+		return sqlSession.update("updateLaundryCollect",vo);
+	}
+
 	@Override
 	public StoreAdminVO storageUserDetail(String use_num) {
 		return sqlSession.selectOne("storageUserDetail", use_num);
 	}
+	
+	// ------------------------------------------------전형민
 
 	// ================반야 -> 1:1 문의 관리=================
 	@Override
@@ -152,5 +163,6 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public int insertReport(StoreAdminVO vo) {
 		return sqlSession.insert("insertReport",vo);
 	}
+
 
 }

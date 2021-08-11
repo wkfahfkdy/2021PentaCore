@@ -27,14 +27,18 @@ public interface StoreAdminMapper {
 	// 공지사항 삭제
 	public int storeNoticeDelete(StoreAdminVO vo);
 	
+	// ==============형민====================
 	//지점 고객관리 
-	public List<StoreAdminVO> usingStrorageList(); 
-	
+	public List<StoreAdminVO> usingStrorageList();  
 	// 고객관리 스토리지 클릭시 select   
+	
 	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
 	public List<StoreAdminVO> expiredStrorageList();
 	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);  
 	public StoreAdminVO storageUserDetail(@Param("p") String use_num );
+	public int updateLaundryConsign(StoreAdminVO vo);
+	public int updateLaundryCollect(StoreAdminVO vo);
+	// ==============형민====================
 	
 	// ==============반야====================
 	// 1:1 문의 관리
