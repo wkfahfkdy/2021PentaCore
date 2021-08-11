@@ -38,16 +38,26 @@ public interface StoreAdminService {
 	public StoreAdminVO storeNoticeSelect(StoreAdminVO vo);
 	// 공지사항 수정
 	public int storeNoticeEdit(StoreAdminVO vo);
+
 	// 공지사항 삭제
 	public int storeNoticeDelete(StoreAdminVO vo);
-	
-	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
-	
-	//지점 고객관리 
-	public List<StoreAdminVO> usingStrorageList(); 
+
+	// ==============형민====================
+	// 지점 고객관리
+	public List<StoreAdminVO> usingStrorageList();
+	// 고객관리 스토리지 클릭시 select
+
 	public List<StoreAdminVO> expiredStrorageList();
-	public StoreAdminVO storageUserDetail(@Param("p") String use_num );
-	
+
+	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
+
+	public StoreAdminVO storageUserDetail(@Param("p") String use_num);
+
+	public int updateLaundryConsign(StoreAdminVO vo);
+
+	public int updateLaundryCollect(StoreAdminVO vo);
+	// ==============형민====================
+
 	// ==============반야====================
 	// 1:1 문의 관리
 	// 문의 내역

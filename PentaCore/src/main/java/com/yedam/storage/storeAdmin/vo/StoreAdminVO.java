@@ -1,6 +1,6 @@
 package com.yedam.storage.storeAdmin.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -67,8 +67,8 @@ public class StoreAdminVO {
 	//고객관리부분 offer
 	private String offer_premium;
 	private String offer_wash;
-	private String laundry_consign;
-	private String laundry_collect;
+	private Date laundry_consign;
+	private Date laundry_collect;
 	
 	
 	// 1:1 문의 관리

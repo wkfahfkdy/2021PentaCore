@@ -1,5 +1,7 @@
 package com.yedam.storage.storeAdmin.web;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -232,9 +234,49 @@ public class StoreAdminController {
 	
 	@RequestMapping("expiredUserDetail")
 	public String expiredUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
-		String member_id = request.getParameter("memberId");
+		/* 
+		 * 수정필요
+		 * 
+		 * String member_id = request.getParameter("memberId"); */
 		return "storeAdmin/storageUserDetail";		
 	}
+	
+	@RequestMapping("laundryConsignUpdate")
+	@ResponseBody
+	public String userLoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+		 
+		/*
+		 * Date laundry_consign = vo.getLaundry_consign(); String offer_code =
+		 * request.getParameter("offer_code");
+		 * 
+		 * StoreAdminVO rvo = new StoreAdminVO();
+		 * rvo.setLaundry_consign(laundry_consign); rvo.setOffer_code(offer_code);
+		 */
+		
+		// Date consignDate = request.getParameter("laundry_consign");
+
+		/*
+		 * SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 * 
+		 * Date to = transFormat.parse(from);
+		 */
+
+
+		
+		
+			System.out.println(vo.getLaundry_consign());
+			String result = "";
+			
+		 	int i = storeAdminDAO.updateLaundryConsign(vo);
+			
+			if(i > 0)
+				result = "update success";
+			
+			return result;
+	   
+		 
+	}
+	
 	
 	
 	// 고객관리 보고서 입력
