@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.storage.review.common.Paging;
+import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.service.StoreAdminService;
 import com.yedam.storage.storeAdmin.serviceImpl.StoreAdminServiceImpl;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
@@ -34,14 +35,15 @@ public class StoreAdminController {
 	// ===================== 정동영 ===================================
 	// enterStoreAdmin -> StorageInfoPage (각 지점에 대한 스토리지 현황을 위해 Store_code를 불러온다) + 현재 예약되어있는 정보 List
 	@RequestMapping("storageInfo")
-	public String storageInfo(Model model, HttpServletRequest req, StoreAdminVO vo) {
-		String store_code = req.getParameter("store_code");
-		System.out.println(store_code);
+	public String storageInfo(@RequestParam("store_code") String store_code , Model model, StoreAdminVO vo, StoreVO vo1) {
 		vo.setStore_code(store_code);
+		vo1.setStore_code(store_code);
 		model.addAttribute("StorageInfoList", storeAdminDAO.selectStorageInfoList(vo));
 		model.addAttribute("storageName", storeAdminDAO.storageName());
 		// 현재 예약되어있는 정보 List
 		model.addAttribute("offerInfoList", storeService.offerInfoList(vo));
+		// 현재 지점의 온습도 저보
+		model.addAttribute("stroeTemHumInfo", storeService.storeTemHumInfo(vo1));
 		return "storeAdmin/StorageInfoPage";
 	}
 	
@@ -70,14 +72,21 @@ public class StoreAdminController {
 		return map;
 	}
 	
+	// use_storage 업데이트
 	@RequestMapping("updateUseStorage")
-	public String updateUseStorage(StoreAdminVO vo, RedirectAttributes red) {
+	public String updateUseStorage(@RequestParam("store_code") String store_code , StoreAdminVO vo, RedirectAttributes red) {
 		storeService.useStroageUpdate(vo);
-		System.out.println(vo.getStore_code());
-		red.addAttribute("store_code", vo.getStorage_code());
+		red.addAttribute("store_code", store_code);
 		return "redirect:storageInfo";
 	}
-	// ===================== 정동영 ===================================
+	
+	// 온습도 관리 update
+	@RequestMapping("temHumUpdate")
+	public String updateStoreTemHum(@RequestParam("store_code") String store_code , StoreVO vo, RedirectAttributes red) {
+		return null;
+	}
+	
+	//================= 정동영 ===================================
 	//====================== 최반야 ====================================
 	// 지점 공지사항 리스트
 	@RequestMapping("storeNotice")

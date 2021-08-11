@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.map.StoreAdminMapper;
 import com.yedam.storage.storeAdmin.service.StoreAdminService;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
@@ -51,6 +52,12 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Override
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo) {
 		return map.unUseStorageList(vo);
+	}
+	
+	// 지점별 온습도 정보 select
+	@Override
+	public StoreVO storeTemHumInfo(StoreVO vo) {
+		return map.storeTemHumInfo(vo);
 	}
 	
 	// use_storage update 작업

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
 public interface StoreAdminService {
@@ -23,6 +24,9 @@ public interface StoreAdminService {
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo);
 	// use_storage update 작업
 	public int useStroageUpdate(StoreAdminVO vo);
+	// 온습도 정보 select
+	public StoreVO storeTemHumInfo(StoreVO vo);
+	// 온습도 정보 update
 	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);
