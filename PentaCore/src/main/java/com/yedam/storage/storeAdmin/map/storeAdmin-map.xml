@@ -209,8 +209,8 @@
  </select>
  <!-- 문의 상세 조회 -->
  <select id="customerAskSelect" parameterType="StoreAdminVO" resultType="StoreAdminVO">
- 	SELECT * 
- 	FROM question
+ 	SELECT (select count(*) from question where question_group = q.question_group) group_cnt, q.*
+ 	FROM question q
  	WHERE question_group IN
  		(SELECT question_group
  		FROM question

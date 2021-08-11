@@ -81,6 +81,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 					// 직원 session 값 저장
 					request.getSession().setAttribute("employeeVO", vo4);
 					request.getSession().setAttribute("stCode", vo4.getStore_code());
+					request.getSession().setAttribute("empId", vo4.getEmployee_id());
 				}
 	}
 

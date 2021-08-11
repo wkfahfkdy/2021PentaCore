@@ -13,9 +13,8 @@
 			width: 80%;
 		}
 		
-	#askArea {
-		margin-top: 2em;
-		padding: 1em;
+	#tbl {
+		white-space: pre;
 	}
 	
 	.back-btn {
@@ -28,6 +27,25 @@
     
     #askTitle {
     	margin: 2em 0em;
+    }
+    
+    .apply-btn {
+    	background-color: #00c0e2;
+		border-radius: 0.3em;
+		color: white;
+		font-size: 10pt;
+		padding: 0.4em;
+		width: 6em;
+		height: 3em;
+    }
+    
+    textarea {
+    	width: 100%;
+    	height: 10em;
+    	resize: none;
+    	background: white;
+    	border: 1px solid #5fd3e8;
+    	border-radius: 0.3em;
     }
 </style>
 </head>
@@ -46,8 +64,10 @@
 	<hr>
 	<div id="askArea">
 		<!-- 1:1문의 내역 상세 및 답글 등록 -->
-		<div id="askTitle"></div>
-		<table id="tbl" width="100%"/>
+		<form id="frm">
+			<div id="askTitle"></div>
+			<table id="tbl" width="100%"/>
+		</form>
 	</div>
 </div>
 <script>
@@ -124,7 +144,7 @@ $(document).ready(function() {
 			// 나타나라 문의문의
 			$('#askArea').show();
 			
-			var q_code, q_parents, q_title, q_content, q_date, title;
+			var q_code, q_parents, q_title, q_content, q_date, title, group_cnt, member_id, q_group;
 			
 			$.each(data, function(idx, item) {
 				console.log(item);
@@ -134,30 +154,59 @@ $(document).ready(function() {
 				q_title = item.question_title;
 				q_content = item.question_content;
 				q_date = item.question_date;
-				console.log(q_code, q_parents, q_title, q_content, q_date);
+				group_cnt = item.group_cnt;
+				member_id = item.member_id;
+				q_group = item.question_group;
+				console.log(q_code, q_parents, q_title, q_content, q_date, group_cnt, member_id);
 				
 				title = '<h4>' + q_title + '</h4>';
 				var row = '<tr>';
 				if(q_parents == 1){
-					row += '<th>글번호</th><td>' + q_code + '</td>';
-					row += '<th>등록일</th><td>' + q_date + '</td></tr>';
-					row += '<tr><td colspan="4">' + q_content + '</td></tr>';
+					row += '<th>글번호</th><td style="text-align: left; padding-left: 1em; width: 5em;">' + q_code + '</td>';
+					row += '<th style="width: 4em;">작성자</th><td style="text-align: left;">' + member_id + '</td>'
+					row += '<th style="text-align: right;">등록일</th><td>' + q_date + '</td></tr>';
+					row += '<tr><td colspan="6" style="padding: 3em 0em; border-top: 1px lightgray solid; border-bottom: 1px lightgray solid;">' + q_content + '</td></tr>';
 				} else {
-					if(q_content != null){
-						row += '<tr><td><img src="resources/assets/images/re.png">&nbsp;답변</td><td>' + q_date +'</td></tr>';
-						row += '<tr><td>' + q_content + '</td></tr>';
+					if(group_cnt == 1){
+						row += '<tr><td colspan="6">아직 등록된 답변이 없습니다.</td></tr>';
+						row += '<tr><input type="hidden" name="question_group" value="'+ q_group +'"/><td style="width: 3em;"><b>답변</b></td>'
+						+ '<td colspan="4" style="padding: 2em 0em;"><textarea id="question_content" name="question_content"></textarea></td>'
+						+'<td style="width: 8em;"><button id="answer" class="apply-btn" type="button">답글 등록</button></td></tr>';
+						
 					} else {
-						row += '<tr><td>아직 등록된 답변이 없습니다.</td></tr>';
+						row += '<tr><td colspan="3" style="padding: 1em 2em; text-align: left;"><img src="resources/assets/images/re.png"></td><td colspan="3" style="padding: 0em 2em; text-align: right;">' + q_date +'</td></tr>';
+						row += '<tr><td colspan="6" style="text-align: left; padding: 0em 2em;">' + q_content + '</td></tr>';
+						row += '<tr><input type="hidden" name="question_group" value="'+ q_group +'"/><td style="width: 3em;"><b>답변</b></td>'
+						+ '<td colspan="4" style="padding: 2em 0em;"><textarea id="question_content" name="question_content"></textarea></td>'
+						+'<td style="width: 8em;"><button id="answer" class="apply-btn" type="button">답글 등록</button></td></tr>';
+						
 					}
 				}
-				row += '<td colspan="3"><textarea id="question_content" name="qustion_content"></textarea></td>'
-					+'<td><button id="apply-btn">답글 등록</button></td></tr>';
-					
+				
 				$('#tbl').append(row);
 				if(idx == 0) {
 					$('#askTitle').append(title);
 				}
 			}) // each 끝
+			
+			// 답변 등록
+			$('#answer').on('click', function () {
+				var data = $("form[id=frm]").serialize();
+				console.log(data);
+				
+				$.ajax({
+					url: 'answerAsk',
+					type: 'POST',
+					data: data,
+					success: function(result) {
+						console.log(result);
+						location.reload();
+					},
+					error: function(xhr, status, msg) {
+						alert('답변 등록에 실패하였습니다. 상태값 : ' + status +' 에러메시지 : ' + msg);
+					}
+				})
+			})
 		}	// showQuestion 끝
 	})	// 더블클릭 이벤트 끝
 })
