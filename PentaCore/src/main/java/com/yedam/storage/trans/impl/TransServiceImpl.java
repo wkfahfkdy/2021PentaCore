@@ -49,6 +49,17 @@ public class TransServiceImpl implements TransService {
 		// 사후관리 상세내역
 		return sqlSession.selectOne("FileupSelect", vo);
 	}
+
+	@Override
+	public List<TransVO> conveyFullList() {
+		// 캘린더 운송 리스트
+		return sqlSession.selectList("conveyFullList");
+	}
+
+	@Override
+	public List<TransVO> conveyStoreList(TransVO vo) {
+		return sqlSession.selectList("conveyStoreList", vo);
+	}
 	
 
 	

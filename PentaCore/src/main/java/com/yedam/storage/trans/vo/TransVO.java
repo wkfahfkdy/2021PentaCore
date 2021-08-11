@@ -35,5 +35,8 @@ public class TransVO {
 	private String storage_code;
 	private String storage_name;
 	
+	private String start;
+	private String end;
+	
 
 }

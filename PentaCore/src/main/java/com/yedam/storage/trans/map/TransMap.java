@@ -12,5 +12,7 @@ public interface TransMap {
 	public TransVO FileupSelect(TransVO vo);
 	public int customerInsert(TransVO vo);
 	public int customerFileup(TransVO vo);
+	public List<TransVO> conveyFullList();
+	public List<TransVO> conveyStoreList(TransVO vo);
 	
 }

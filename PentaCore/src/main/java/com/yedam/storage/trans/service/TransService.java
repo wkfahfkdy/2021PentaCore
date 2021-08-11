@@ -14,5 +14,7 @@ public interface TransService {
 	public TransVO FileupSelect(TransVO vo); // 사후관리 파일업로드
 	public int customerInsert(TransVO vo); // 추가정보 입력
 	public int customerFileup(TransVO vo); // 사후관리 사진+메모 등록
+	public List<TransVO> conveyFullList(); // 캘린더 전체 운송 리스트
+	public List<TransVO> conveyStoreList(TransVO vo); // 캘린더 지점 운송 리스트
 	
 }

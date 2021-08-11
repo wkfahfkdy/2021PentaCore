@@ -43,58 +43,67 @@
 </style>
 </head>
 <body>
-<!-- jstl 추가하기 -->
 <!-- fullCalendar -->
 <div align="center" style=" padding-bottom:100px"> 
-	<div id="demo-desktop-week-view""></div>
+	<div id="demo-desktop-month-view"></div>
 </div>
 <div id="my_offer" align="center">
     <a class="modal_close_btn">닫기</a>
     <div class="modal-header"></div>
     <div class="modal-body"></div>
 </div>
-<!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar.jsp에도 같이 추가 -->
+<!-- jstl 추가하기 -->
+<!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar2.jsp에도 같이 추가 -->
 <c:set var="bgcolor" value="<%=new String[]{\"#000080\", \"#05abf7\", \"#f70ca5\"}%>"></c:set>
 <script>
-var inst = mobiscroll.eventcalendar('#demo-desktop-week-view', {
+var inst = mobiscroll.eventcalendar('#demo-desktop-month-view', {
     theme: 'ios',
     themeVariant: 'light',
-    clickToCreate: true,
+    clickToCreate: false,
     dragToCreate: false,
     dragToMove: false,
     dragToResize: false,
     width: '80%',
-    height:'700px',
+    height: '700px',
     view: {
-        schedule: { type: 'week' }
+        calendar: { labels: true }
     },
     onEventClick: function (event, inst) {
     	modal('my_offer');
 		var tbl =$('<table />');
 		var row = '<tr>';
-		row += '<td>'+event.event.title+'</td></tr>';
+		row += '<td>'+event.event.store+'</td></tr>';
+		row += '<td>'+event.event.addr1+'</td></tr>';
+		row += '<td>'+event.event.addr2+'</td></tr>';
+		row += '<td>'+event.event.driver+'</td></tr>';
+		row += '<td>'+event.event.memo+'</td></tr>';
+		row += '<td>'+event.event.time+'</td></tr>';
 		
 		tbl.append(row);
 		$(".modal-body").append(tbl);
     },
     data: [
 		<c:forEach items="${list}" var="list" varStatus="status">
-		{
-			start: '${list.start}',
-			end: '${list.end}',
-			title: '${list.member_name}',
-			color: '${bgcolor[status.index%3]}'
-			// 아래부터는 커스텀 변수
-			// 예시 : store: '지점 : ' + '${list.store_name}',
-			// 여기 적고, 위의 modal에서 event.event.store로 추가
-		}
-		<c:if test="${not status.last}">,
-		</c:if>
-	</c:forEach>
-	]
+			{
+				start: '${list.start}',
+				end: '${list.end}',
+				title: '${list.member_name}',
+				color: '${bgcolor[status.index%3]}',
+				// 아래부터는 커스텀 변수
+				store: '지점 : ' + '${list.store_name}',
+				addr1: '운송 전 주소지 : ' + '${list.convey_before}',
+				addr2: '운송 후 주소지 : ' + '${list.convey_after}',
+				driver: '기사 : ' + '${list.convey_driver}',
+				memo: '특이사항 : ' + '${list.convey_memo}',
+				time: '시간 : ' + '${list.start}'.substr(11,16) + ' ~ ' + '${list.end}'.substr(11,16)
+			}
+			<c:if test="${not status.last}">,
+			</c:if>
+			</c:forEach>
+		]
+    
 });
-
-
+	
 //Modal 세부 함수			
 function modal(id) {
     var zIndex = 9999;
