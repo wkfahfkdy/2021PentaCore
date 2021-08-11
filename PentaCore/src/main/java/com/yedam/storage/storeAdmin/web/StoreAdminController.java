@@ -243,7 +243,19 @@ public class StoreAdminController {
 		 * StoreAdminVO rvo = new StoreAdminVO();
 		 * rvo.setLaundry_consign(laundry_consign); rvo.setOffer_code(offer_code);
 		 */
-			
+		
+		// Date consignDate = request.getParameter("laundry_consign");
+
+		/*
+		 * SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 * 
+		 * Date to = transFormat.parse(from);
+		 */
+
+
+		
+		
+			System.out.println(vo.getLaundry_consign());
 			String result = "";
 			
 		 	int i = storeAdminDAO.updateLaundryConsign(vo);

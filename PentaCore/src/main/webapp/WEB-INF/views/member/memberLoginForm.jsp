@@ -546,7 +546,7 @@ $(function() {
 				        </form>
 					</div>
 				
-					<!-- =================================== 아아디 보여주기 ======================================== -->
+					<!-- =================================== 아이디 보여주기 ======================================== -->
 					
 					<div id="idShow" class="modal" align ="center">
 				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">

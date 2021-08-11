@@ -161,11 +161,15 @@ function deleteReport() {
 $(function() {
 	$('#laundryConsign').on('click', function()  {
 		
+		var getOffer_code = '${selectUserVO.offer_code }';
+		var getLaundry_consign = $('#apply_start2').val();
+		
+		console.log(getLaundry_consign);
 		$.ajax({
 			url : 'laundryConsignUpdate',
 			data : {
-				laundry_consign : $('#apply_start2').val(),
-				offer_code : ${selectUserVO.offer_wash }
+				laundry_consign : getLaundry_consign,
+				offer_code : getOffer_code
 			},
 			type : 'post',
 			success : function(success) {
@@ -220,6 +224,7 @@ $(function() {
 <br>
 <br>
 </div>
+<form id="frm" action="" method="post" >
 <table>
 <tr>
 <td>
@@ -250,6 +255,8 @@ $(function() {
 	</div>
 	</td>
 	<td width="100em"></td>
+	
+	
 	<td>
 	
 	 
@@ -380,6 +387,7 @@ $(function() {
 	
 	</tr>
 </table>
+</form>
 </div>
 
 
