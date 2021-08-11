@@ -109,6 +109,7 @@
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
+		font-weight: bold;
 		padding: 0.4em;
     }
     
@@ -126,6 +127,7 @@
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
+		font-weight: bold;
 		padding: 0.4em;
     }   
 </style>

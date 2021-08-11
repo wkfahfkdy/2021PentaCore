@@ -37,6 +37,11 @@
         top: 10px;
         right: 10px;
     }
+    
+    div.modal-body img {	/* Modal창 안에 표시되는 내용의 이미지 사이즈 강제 조정*/
+		max-width: 100%;
+		height: auto;
+	}
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>

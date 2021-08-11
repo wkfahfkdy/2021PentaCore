@@ -32,6 +32,7 @@
     	font-size: 10pt;
     	border: 1px solid #00c0e2;
     	border-radius: 0.3em;
+    	height: 90%;
     }
     
     .modal-header {
@@ -43,6 +44,7 @@
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
+		font-weight: bold;
 		padding: 0.4em;
     }   
     

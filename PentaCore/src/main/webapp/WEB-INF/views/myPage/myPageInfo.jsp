@@ -67,8 +67,9 @@
 		border-color: #00c0e2;
 		border-radius: 0.3em;
 		color: white;
-		font-size: 13pt;
-		padding: 0.3em;
+		font-size: 12pt;
+		font-weight: bold;
+		padding: 0.5em;
 	}
 	
 	.btns {
@@ -108,10 +109,7 @@
 			<c:choose>
 				<c:when test="${!empty noticeSelectList }">
 					<table style="width: 100% ">
-					<caption><a href="noticeList">이용 지점 공지사항</a>&nbsp;&nbsp;&nbsp;&nbsp;
-							<p style="font-size: 9pt; font-weight: normal;">
-								*^^*
-							</p></caption>
+					<caption><a href="noticeList">이용 지점 공지사항</a></caption>
 						<tr>
 							<th>no.</th><th>제목</th><th>작성일</th>
 						</tr>
@@ -121,7 +119,7 @@
 								${nt.notice_num }
 							</td>
 							<td style="width: 60%">
-								${nt.notice_title }
+								<a href="">${nt.notice_title }</a>
 							</td>
 							<td style="width: 30%">
 								<fmt:formatDate value="${nt.notice_date }" type="date" pattern="yy-MM-dd"/> 

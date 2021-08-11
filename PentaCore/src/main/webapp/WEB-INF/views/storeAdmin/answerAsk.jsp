@@ -23,6 +23,7 @@
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
+		font-weight: bold;
 		padding: 0.4em;
     }
     
@@ -35,6 +36,7 @@
 		border-radius: 0.3em;
 		color: white;
 		font-size: 10pt;
+		font-weight: bold;
 		padding: 0.4em;
 		width: 6em;
 		height: 3em;

@@ -39,7 +39,8 @@
     	background-color: #006DFC;
 		border-radius: 0.3em;
 		color: white;
-		font-size: 11pt;
+		font-size: 12pt;
+		font-weight: bold;
 		padding: 0.4em;
     }
     
