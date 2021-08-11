@@ -41,14 +41,14 @@
      		var humidity = $(this).val()
      		$('#hiddenHumidiry').val(humidity);
      	});
-     // 온도
+     // 습도
      	$('input[id="temperatureValue"]').change(function(){
      		var temperature = $(this).val()
      		$('#hiddenTemperature').val(temperature);
      	});
      // 온습도 업데이트
      	$('#temHumUpdateBtn').click(function (){
-     		if($('#hiddenTemperature').val() == "" || $('#hiddenHumidiry').val() = ""){
+     		if($('#hiddenTemperature').val() == "" || $('#hiddenHumidiry').val() == ""){
      			alert("온습도를 입력해주세요");
      			return false;
      		}else {
@@ -207,8 +207,8 @@
 						온습도 관리
 					</div>	
 			</div>
-			<div class="row">
-				<h4 align="center">스토리지 현황</h4>
+			<div class="row" style="margin-top : 30px;">
+				<h4 align="center">${stroeTemHumInfo.store_name } 스토리지 현황 (온도 : ${stroeTemHumInfo.humidity }°C / 습도 : ${stroeTemHumInfo.temperature }%)</h4>
 				<c:forEach items="${storageName}" var="storageName">
 					<div id="${storageName.storage_code}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 storageList">
 						<div class="service-1">

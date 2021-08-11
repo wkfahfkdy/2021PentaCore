@@ -85,7 +85,9 @@ public class StoreAdminController {
 	// 온습도 관리 update
 	@RequestMapping("temHumUpdate")
 	public String updateStoreTemHum(@RequestParam("store_code") String store_code , StoreVO vo, RedirectAttributes red) {
-		return null;
+		storeService.storeTemHumUpdate(vo);
+		red.addAttribute("store_code", store_code);
+		return "redirect:storageInfo";
 	}
 	
 	//================= 정동영 ===================================

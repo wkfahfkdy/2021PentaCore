@@ -66,6 +66,11 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return map.updateUseStorage(vo);
 	}
 	
+	@Override
+	public int storeTemHumUpdate(StoreVO vo) {
+		return map.storeTemHumUpdate(vo);
+	}
+	
 	// end
 	// 공지 파트 시작
 
@@ -170,6 +175,5 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public int insertReport(StoreAdminVO vo) {
 		return sqlSession.insert("insertReport",vo);
 	}
-
 
 }

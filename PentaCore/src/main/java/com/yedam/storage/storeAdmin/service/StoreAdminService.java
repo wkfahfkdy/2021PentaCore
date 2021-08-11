@@ -27,6 +27,7 @@ public interface StoreAdminService {
 	// 온습도 정보 select
 	public StoreVO storeTemHumInfo(StoreVO vo);
 	// 온습도 정보 update
+	public int storeTemHumUpdate(StoreVO vo);
 	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);

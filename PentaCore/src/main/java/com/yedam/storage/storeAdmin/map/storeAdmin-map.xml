@@ -88,6 +88,12 @@
 	WHERE STORE_CODE = #{store_code}
 </select>
 
+<update id="storeTemHumUpdate" parameterType="com.yedam.storage.store.vo.StoreVO">
+	UPDATE STORE 
+	SET HUMIDITY = #{humidity}, TEMPERATURE = #{temperature} 
+	WHERE STORE_CODE = #{store_code}
+</update>
+
 <!-- ============================== 동영 ================================ -->
 
 <!-- 최반야 : 지점 공지사항 페이지 -->

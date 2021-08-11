@@ -163,6 +163,8 @@
       		}else { // N 도중에 누르면 다 초기화
       			$('#hiddenFloorValue').removeAttr("value");
       			$('#hiddenBoxCount').removeAttr("value");
+      			$("#hiddenPickupDate").val("");
+      			$("#hiddenPickuptime").val("AM 08:00 ~ 12:00");
       			parseInt($('#floor').val(0));
       			parseInt($('#boxCount').val(0));
       			$("input:radio[name='pickupService']").removeAttr('checked');
@@ -246,11 +248,14 @@
     	      		}
             	}
             	
-            	// 픽업 서비스 신청했는데 층수가 0층일때 + 박스 신청했는데 갯수가 0일때 alert
+            	// 픽업 서비스 신청했는데 층수가 0층일때 + 희망날짜 / 시간 설정안했을때 + 박스 신청했는데 갯수가 0일때 alert
             	if($('input:radio[name="pickupService"]:checked').val() == "Y"){
             		if(parseInt($('#floor').val()) == 0) {
             			alert("0층이 어디있노 인간아");
             			$('#floor').focus();
+            			return false;
+            		} else if($('#hiddenPickupDate').val() == "" || $('#hiddenPickuptime').val() == ""){
+            			alert("픽업서비스 희망날짜와 시간을 선택해주세요.");
             			return false;
             		} else{
             			if($('input:radio[name="boxService"]:checked').val() == "Y"){
@@ -261,7 +266,7 @@
             			}
             			pickupServiceFnc(); // 층수 + 박스value를 #hiddenOfferPickup에 Append 해줌
             			
-            			$('#offerPickup').html($('#hiddenOfferPickup').val());
+            			$('#offerPickup').html('정보 및 수량 : ' + $('#hiddenOfferPickup').val() + ' / 희망날짜 : ' + $('#hiddenPickupDate').val() + ' / 희망시간 :  ' + $('#hiddenPickuptime').val());
             			$('#offerOtherPrice').html(parseInt($('#hiddenBoxPrice').val()) + "원"); 
             		}
             	} else {
@@ -336,6 +341,19 @@
       		console.log($(this).val());
       		$('#hiddenOfferStart').val($(this).val());
       	})
+      	
+      	// pickup_date
+      	$('#pickupDate').change(function() {
+      		console.log($(this).val());
+      		$('#hiddenPickupDate').val($(this).val());
+      	})
+      	
+      	// pickup_time
+      	$('#pickupTimeSelect').change(function() {
+      		console.log($(this).val());
+      		$('#hiddenPickuptime').val($(this).val());
+      	})
+      	
       	// DB 처리
       	$('#insertOfferBtn').click(function(){
       		$('#offerModal').modal('hide');
@@ -374,11 +392,13 @@
 			}
 		});
    })
-   
+   // 견적뽑기 누르면 호출되는 함수 (포장서비스의 값들을 다 가공해줌)
    function pickupServiceFnc(){
 	   var floor = $('#hiddenFloorValue').val();
 	   var box = $('#hiddenBoxCount').val();
 	   $('#hiddenOfferPickup').val(floor + box);
+	   $('#hiddenPickupDate').val($('#pickupDate').val());
+	   $('#hiddenPickuptime').val($('#pickupTimeSelect').val());
    }
    
    function couponList(){
@@ -820,7 +840,7 @@
 #pickupService >  td {
     font-family: Montserrat;
 	font-weight: bold;
-    font-size: 17px;
+    font-size: 15px;
     width: 50%;
 }
 
@@ -828,8 +848,8 @@
 	padding: 20px;
     font-family: Montserrat;
 	font-weight: bold;
-    font-size: 17px;
-    width: 20%;
+    font-size: 15px;
+    width: 30%;
     height: 20%;
 }
 
@@ -1245,12 +1265,16 @@ input[type='number'] {
 									<tr>
 										<th id="pickupServiceThTag">층수</th><td><input type="number" id="floor" value="0">&nbsp;&nbsp;<b>층</b></td>
 									</tr>
-									<!-- <tr>
-										<th id="pickupServiceThTag">포장서비스</th>
+									<tr>
+										<th id="pickupServiceThTag">희망날짜 / 시간</th>
 										<td>
-											
+											<input type="date" id="pickupDate" value="">
+											<select id="pickupTimeSelect">
+												<option value="AM 08:00 ~ 12:00">AM 08:00 ~ 12:00</option>
+												<option value="PM 13:00 ~ 17:00">PM 13:00 ~ 17:00</option>
+											</select>
 										</td>
-									</tr> -->
+									</tr>
 									<tr>
 										<th id="pickupServiceThTag">박스구매</th>
 										<td>
@@ -1291,59 +1315,59 @@ input[type='number'] {
 								    	<div class="modal-body">
 								    		<table id="modalTable">
 								    			<tr id="modalTrTag">
-								    				<td style="width: 30%; padding: 10px; font-weight: bold;">사이즈</td>
+								    				<td style="width: 30%; padding: 5px; font-weight: bold;">사이즈</td>
 								    				<td id="offerStorageSize"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">이용기간</td>
+								    				<td style="padding: 5px; font-weight: bold;">이용기간</td>
 								    				<td id="offerDate"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">이용지점</td>
+								    				<td style="padding: 5px; font-weight: bold;">이용지점</td>
 								    				<td id="offerStore"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">렌탈용품</td>
+								    				<td style="padding: 5px; font-weight: bold;">렌탈용품</td>
 								    				<td id="offerRental"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">보관용품</td>
+								    				<td style="padding: 5px; font-weight: bold;">보관용품</td>
 								    				<td id="offerProduct"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">프리미엄서비스 신청</td>
+								    				<td style="padding: 5px; font-weight: bold;">프리미엄서비스 신청</td>
 								    				<td id="offerPremium"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">예상 월 이용금액</td>
+								    				<td style="padding: 5px; font-weight: bold;">예상 월 이용금액</td>
 								    				<td id="offerPrice"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">예상 첫달 이용금액</td>
+								    				<td style="padding: 5px; font-weight: bold;">예상 첫달 이용금액</td>
 								    				<td id="offerFirstPrice"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">세탁 서비스</td>
+								    				<td style="padding: 5px; font-weight: bold;">세탁 서비스</td>
 								    				<td id="offerLaundry"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">세탁 서비스 총 가격</td>
+								    				<td style="padding: 5px; font-weight: bold;">세탁 서비스 총 가격</td>
 								    				<td id="offerLaundryPrice"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">픽업 서비스</td>
+								    				<td style="padding: 5px; font-weight: bold;">픽업 서비스</td>
 								    				<td id="offerPickup"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">기타 가격 (박스)</td>
+								    				<td style="padding: 5px; font-weight: bold;">기타 가격 (박스)</td>
 								    				<td id="offerOtherPrice"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">쿠폰 / 할인</td>
+								    				<td style="padding: 5px; font-weight: bold;">쿠폰 / 할인</td>
 								    				<td id="offerCoupon"></td>
 								    			</tr>
 								    			<tr>
-								    				<td style="padding: 10px; font-weight: bold;">총 가격</td>
+								    				<td style="padding: 5px; font-weight: bold;">총 가격</td>
 								    				<td id="offerTotalPrice"></td>
 								    			</tr>
 								    		</table>
@@ -1406,6 +1430,8 @@ input[type='number'] {
 						    	<input type="hidden" name="store_code" id="hiddenStoreCode">
 							    <input type="hidden" name="offer_price" id="hiddenOfferDiscountPrice"> <!-- 얘가 모달창에서 보여질 총 Total 가격 + 디비로 넘길거 -->
 							    <input type="hidden" name="offer_product" id="hiddenOfferProduct">
+							    <input type="hidden" name="pickup_date" id="hiddenPickupDate" value="">
+							    <input type="hidden" name="pickup_time" id="hiddenPickuptime" value="AM 08:00 ~ 12:00">
 							    <input type="hidden" name="offer_rental" id="hiddenOfferRental" value="">
 							    <input type="hidden" name="offer_wash" id="hiddenOfferWash" value="N">
 							    <input type="hidden" name="offer_premium" id="hiddenOfferPremium" value="N">

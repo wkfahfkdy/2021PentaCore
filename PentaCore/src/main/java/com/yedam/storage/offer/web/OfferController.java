@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.yedam.storage.offer.service.OfferService;
 import com.yedam.storage.offer.vo.OfferVO;
-import com.yedam.storage.product.impl.ProductServiceImpl;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.product.vo.ProductVO;
 
@@ -22,8 +19,6 @@ public class OfferController {
 
 	@Autowired
 	private ProductService productDAO;
-	@Autowired
-	private ProductServiceImpl impl;
 	@Autowired
 	private OfferService offerService;
 	
