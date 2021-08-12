@@ -352,7 +352,7 @@
    				row += '<td class="mo-tbl">' + a_addr + '</td>';
    				row += '<input type="hidden" name="convey_before" value='+a_addr+'>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "배송주소" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_after" value='+b_after+'></input></td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_after" value="'+b_after+'"></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "지점명" + '</th>';
    				row += '<td class="mo-tbl">' + a_store + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "스토리지" + '</th>';
