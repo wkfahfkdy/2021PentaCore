@@ -306,7 +306,7 @@ public class StoreAdminController {
 	//===============최반야 > 1:1 문의 관리 ============================
 	
 	// 1:1 문의 관리 페이지 로딩
-	@RequestMapping("supervisionAsk")
+	@RequestMapping("store/supervisionAsk")
 	public String supervisionAsk(StoreAdminVO vo, HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
 		String s_code = (String) session.getAttribute("stCode");

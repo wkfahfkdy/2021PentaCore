@@ -117,7 +117,7 @@ function insertCoupon() {
 					<h2>공지사항</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='supervisionAsk'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/supervisionAsk'">
 					<h2>1:1 문의</h2></button>
 			</div>
 			<div class="btn">

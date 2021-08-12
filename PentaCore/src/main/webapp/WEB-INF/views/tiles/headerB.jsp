@@ -36,7 +36,7 @@
 						<img src="resources/img/logo.png" alt="" 
 							onclick="location.href='home'"/>
 					</div>
-					<div class="logo-text" onclick="location.href='home'">
+					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath }/home'">
 						MY <span class="color-primary">STORAGE</span>
 					</div>
 					<div class="logo-text">
@@ -79,7 +79,7 @@
 						<!-- LOGIN 했을때 -->
 						<sec:authorize access="isAuthenticated()">
 							<li>
-								<a onclick="location.href='home'">지점관리자</a>
+								<a onclick="location.href='${pageContext.request.contextPath }/home'">지점관리자</a>
 							</li>
 							
 							<li class="main-menu-separator"></li>
