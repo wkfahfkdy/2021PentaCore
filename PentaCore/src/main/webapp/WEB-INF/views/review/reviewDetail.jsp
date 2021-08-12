@@ -69,7 +69,6 @@ p .font {
 			</p>
 			<c:if test="${imageCheck ne '<im' }">
 			<p>
-			${imageCheck }
 			<img
 								src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
 								alt="Image" width="60%">

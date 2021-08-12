@@ -31,7 +31,7 @@
 
 	
 <script>
-
+//스토리지 이용중인 고객
 $.ajax({
 	url:'usingList',	// HomeController > 나중에 위치 변경
 	dataType:'json',
@@ -101,8 +101,8 @@ $.ajax({
 </script>
 
 
-	<script>
-
+<script>
+//스토리지 이용만료 고객
 $.ajax({
 	url:'expiredList',	// HomeController > 나중에 위치 변경
 	dataType:'json',
@@ -148,13 +148,14 @@ $.ajax({
 	
 		recruitGrid
 		.on(
-				'click',
+				'dblclick',
 				function(ev) {
 					var target = ev
 					// 클릭 시 console에 사용자 출력
 					var contents = recruitGrid.getValue(ev.rowKey,
 							'use_num');
 					console.log(contents);
+
 					frm.use_num.value = contents;
 					console.log(frm.use_num.value);
 					
@@ -162,10 +163,10 @@ $.ajax({
 
 				});
 		
-	}, // success 닫힘
-error: function(err){
-	console.log(err);
-}
+		}, // success 닫힘
+	error: function(err){
+		console.log(err);
+	}
 });
 
 	</script>
@@ -183,7 +184,7 @@ error: function(err){
 		</div>
 		</form>
 		
-		<form id="frm2" name="frm2"  action="storageExpiredUserDetail">
+		<form id="frm2" name="frm2"  action="storageUserDetail">
 		<div class="subtitle with-square"><h5>사용종료 고객 리스트</h5></div>
 		<div class="bs-example" style="align:center; width: 60%; height:20%; margin-left: 20%; text-align: left;">
 		<!-- 지점명, 지점주소 - TOAST GRID / 무한스크롤, 클릭 시 지도 위치 변경되도록, 지점명 및 주소 검색 가능하도록 filter 추가 -->

@@ -10,8 +10,6 @@ import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
 public interface StoreAdminService {
 	// 동영
-	// 스토리지 현황 클릭시 정보
-	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
 	
 	// 스토리지 현황 메인페이지
 	public List<StoreAdminVO> selectStorageInfoList(StoreAdminVO vo);
@@ -44,11 +42,15 @@ public interface StoreAdminService {
 	public int storeNoticeDelete(StoreAdminVO vo);
 
 	// ==============형민====================
-	// 지점 고객관리
-	public List<StoreAdminVO> usingStrorageList();
-	// 고객관리 스토리지 클릭시 select
+	// -- 지점 고객관리
+	// 스토리지 이용중 고객
+	public List<StoreAdminVO> usingStrorageList(@Param("p") String store_code);
 
-	public List<StoreAdminVO> expiredStrorageList();
+	// 스토리지 이용만료 고객
+	public List<StoreAdminVO> expiredStrorageList(@Param("p") String store_code);
+
+	// 고객관리 스토리지 클릭시 select
+	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
 
 	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);
 
@@ -57,6 +59,11 @@ public interface StoreAdminService {
 	public int updateLaundryConsign(StoreAdminVO vo);
 
 	public int updateLaundryCollect(StoreAdminVO vo);
+	
+	// 고객관리 스토리지 이용자 보고서
+	public int insertReport(StoreAdminVO vo);
+	// 쿠폰 입력
+	public int insertCoupon(StoreAdminVO vo);
 	// ==============형민====================
 
 	// ==============반야====================
@@ -73,6 +80,5 @@ public interface StoreAdminService {
 	public List<StoreAdminVO> customerAskSelect(StoreAdminVO vo);
 	// =============끝=======================
 	
-	// 고객관리 스토리지 이용자 보고서
-	public int insertReport(StoreAdminVO vo);
+	
 }

@@ -164,6 +164,7 @@ $(function() {
 		var getOffer_code = '${selectUserVO.offer_code }';
 		var getLaundry_consign = $('#apply_start2').val();
 		
+		if(confirm('입력하시겠습니까?')){
 		$.ajax({
 			url : 'laundryConsignUpdate',
 			data : {
@@ -179,6 +180,9 @@ $(function() {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 			}
 		});
+		} else {
+			return false;
+		}
 	});
 });
 
@@ -192,6 +196,7 @@ $(function() {
 		var getOffer_code = '${selectUserVO.offer_code }';
 		var getLaundry_collect = $('#apply_end2').val();
 		
+		if(confirm('입력하시겠습니까?')){
 		$.ajax({
 			url : 'laundryCollectUpdate',
 			data : {
@@ -207,6 +212,9 @@ $(function() {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 			}
 		});
+		} else {
+			return false;
+		}
 	});
 });
 
@@ -221,6 +229,7 @@ $(function() {
 		var getOffer_code = '${selectUserVO.offer_code }';
 		var getLaundry_consign = $('#apply_start').val();
 		
+		if(confirm('수정하시겠습니까?')){
 		$.ajax({
 			url : 'laundryConsignUpdate',
 			data : {
@@ -236,6 +245,9 @@ $(function() {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 			}
 		});
+		} else {
+			return false;
+		}
 	});
 });
 </script>
@@ -248,6 +260,8 @@ $(function() {
 		var getOffer_code = '${selectUserVO.offer_code }';
 		var getLaundry_collect = $('#apply_end').val();
 		
+		
+		if(confirm('수정하시겠습니까?')){
 		$.ajax({
 			url : 'laundryCollectUpdate',
 			data : {
@@ -263,6 +277,9 @@ $(function() {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 			}
 		});
+		} else {
+			return false;
+		}
 	});
 });
 
