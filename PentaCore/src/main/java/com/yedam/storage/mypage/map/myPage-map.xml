@@ -13,7 +13,7 @@
 	<!-- My Page 메인 페이지 하단에서 보여줄 정보 : 현재 이용 중인 정보 -->
 	<select id="usedStorageList" resultType="MyPageVO" parameterType="MyPageVO">
 		SELECT u.*, s.storage_width, s.storage_height, s.storage_vertical, s.storage_name, o.offer_product,
-				o.offer_wash, o.offer_premium
+				o.offer_wash, o.offer_premium, t.store_name
 		FROM storage s JOIN offer o
 		ON (s.storage_code = o.storage_code)
 		JOIN use_storage u
