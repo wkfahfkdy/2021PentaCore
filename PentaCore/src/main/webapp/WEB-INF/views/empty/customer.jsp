@@ -179,13 +179,15 @@
     <script type="text/javascript">
     
     function submit() {
-    	
-    	
+    	// 첫번째 값은 누르면 잘나오고 select 값 변경 되고 submit 누르면 그 변경 된 값 들어감
+    	var storage = $('#cuStorage').val();
+    	$('#cuStorage').val(storage)
     	frm.submit();
     }
     
     
     $(document).ready(function(){
+    	
     	var list = '<c:out value="${customerListAll}"/>'
     	
     	const Grid = tui.Grid;
@@ -319,6 +321,14 @@
    				var b_info = data.cus.info_num;
    				var b_time = data.cus.convey_time;
    				var option ="";
+   				// 이것들이 null일때는 공백으로 표시하는거니까 이때는 select option을 만들어뿌고
+   				if(b_memo == null && b_car == null && b_driver == null && b_after == null){
+   					b_memo = "";
+   					b_car = "";
+   					b_driver = "";
+   					b_after = "";
+   				}
+   				
    				for(let i = 0; i<data.list.length; i++){
 		   			option += '<option value='+data.list[i]+'>'+ data.list[i] + '</option>'
 		   		}
@@ -339,18 +349,18 @@
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
    				row += '<td class="mo-tbl">' + a_tel + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_memo" value='+b_memo+'></input></td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_memo" value="'+b_memo+'"></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "픽업일" + '</th>';
    				row += '<td class="mo-tbl">' + a_start + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "운송차량" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_car" value='+b_car+'></input></td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_car" value="'+b_car+'"></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;" value="c_name">' + "운송일" + '</th>';
    				row += '<td class="mo-tbl">' + a_end + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "기사배정" + '</th>';
-   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_driver" value='+b_driver+'></input></td></tr>';
+   				row += '<td class="mo-tbl">' + '<input type="text" name="convey_driver" value="'+b_driver+'"></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이전주소" + '</th>';
    				row += '<td class="mo-tbl">' + a_addr + '</td>';
-   				row += '<input type="hidden" name="convey_before" value='+a_addr+'>';
+   				row += '<input type="hidden" name="convey_before" value="'+a_addr+'">';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "배송주소" + '</th>';
    				row += '<td class="mo-tbl">' + '<input type="text" name="convey_after" value="'+b_after+'"></input></td></tr>';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "지점명" + '</th>';
@@ -368,16 +378,15 @@
    							'<option value="AM 08:00 ~ 12:00">' + "AM 08:00 ~ 12:00" + '</option>' +
    							'<option value="PM 13:00 ~ 17:00">' + "PM 13:00 ~ 17:00" + '</option>' +
    						'</select></td></tr>';
-   						
    				
    				tbl.append(row);
    				frm.append(tbl);
-   				
+   				$('#convey_time').val("AM 08:00 ~ 12:00");
    				
    				$(".modal-body").append(title);
    				$(".modal-body").append(frm);
    			}
-
+			
    		});	// Modal로 견적서 상세 보기 요청 끝
    			
    			// Modal 세부 함수			 
@@ -429,7 +438,11 @@
    			    for (var k in styles) this.style[k] = styles[k];
    			    return this;
    			};
+   			
+   			
     });
+    
+    
 </script>
 </body>
 </html>
