@@ -297,6 +297,18 @@
 
 	</dependencies>
 	<build>
+		<!-- EC2에 올렸을 때, map 인식시켜줘야 함 -->
+		<resources>
+	         <resource>
+	            <directory>src/main/resources</directory>
+	         </resource>
+	         <resource>
+	            <directory>src/main/java</directory>
+	            <includes>
+	               <include>**/*.xml</include>
+	            </includes>
+	         </resource>
+	    </resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
