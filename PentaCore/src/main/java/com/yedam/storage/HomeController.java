@@ -58,9 +58,9 @@ public class HomeController {
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Model model, StoreVO vo) {
 		
-		model.addAttribute("htSelect", storeDAO.htSelect(vo));
+		model.addAttribute("list", storeDAO.htSelect(vo));
 		System.out.println("123");
-		System.out.println(vo);
+		System.out.println(storeDAO.htSelect(vo));
 		
 		// ~~.getAuthentication() = 우선 로그인 했을 때
 		if(SecurityContextHolder.getContext().getAuthentication() != null) {
