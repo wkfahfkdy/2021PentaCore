@@ -260,12 +260,12 @@ public class MyPageController {
 	// 보고서 상세 Modal 창으로 데이터 보내기
 	@RequestMapping(value = "myReport/{condition_num}", method=RequestMethod.GET)
 	@ResponseBody
-	public MyPageVO myReport(@PathVariable String condition_num, Model model, MyPageVO vo) {
+	public MyPageVO myReport(@PathVariable String condition_num, MyPageVO vo) {
 		vo.setCondition_num(condition_num);
 		
 		return MyPageDAO.reportSelect(vo);
 	}
-	//---------------------------------컨디션 보고서 페이지-----------------------------------------
+	//---------------------------------1:1문의 페이지-----------------------------------------
 	
 	// 1:1 문의 페이지 로드
 	@RequestMapping("myAsk")
@@ -306,5 +306,26 @@ public class MyPageController {
 		System.out.println(askSelect);
 		
 		return askSelect;
+	}
+	//---------------------------------세탁 물품 처리 현황 페이지-----------------------------------------
+	
+	// 세탁 처리 현황 리스트
+	@RequestMapping("myLaundry")
+	public String myLaundry(HttpServletRequest req, Model model, MyPageVO vo) {
+		HttpSession session = req.getSession();
+		String id = (String)session.getAttribute("loginId");
+		vo.setMember_id(id);
+		
+		model.addAttribute("myLaundry", MyPageDAO.myLaundry(vo));
+		return "myPage/myLaundry";
+	}
+	
+	// 세탁 처리 현황 내역
+	@ResponseBody
+	@RequestMapping(value="myLaundrySelect/{laundry_code}", method=RequestMethod.GET)
+	public MyPageVO myLaundrySelect(@PathVariable String laundry_code, MyPageVO vo) {
+		vo.setLaundry_code(laundry_code);
+		
+		return MyPageDAO.myLaundrySelect(vo);
 	}
 }

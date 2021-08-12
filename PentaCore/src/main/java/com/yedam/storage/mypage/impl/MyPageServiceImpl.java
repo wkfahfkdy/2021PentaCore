@@ -174,5 +174,19 @@ public class MyPageServiceImpl implements MyPageService {
 		// 1:1 문의 상세
 		return sqlSession.selectList("myAskSelect", vo) ;
 	}
+	
+	//--------------세탁 처리 내역 페이지-----------------	
+
+	@Override
+	public List<MyPageVO> myLaundry(MyPageVO vo) {
+		// 세탁 처리 내역 리스트
+		return sqlSession.selectList("myLaundry", vo);
+	}
+
+	@Override
+	public MyPageVO myLaundrySelect(MyPageVO vo) {
+		// 세탁 처리 내역 상세
+		return sqlSession.selectOne("myLaundrySelect", vo);
+	}
 
 }
