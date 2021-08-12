@@ -58,6 +58,8 @@ public class HomeController {
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Model model, StoreVO vo) {
 		
+		model.addAttribute("list", storeDAO.htSelect(vo));
+		
 		// ~~.getAuthentication() = 우선 로그인 했을 때
 		if(SecurityContextHolder.getContext().getAuthentication() != null) {
 			// CustomSuccessHandler에서는 Set<GrantedAuthority> 타입을 썼었는데 List도 된다. 원래는 Collection 타입이다.
