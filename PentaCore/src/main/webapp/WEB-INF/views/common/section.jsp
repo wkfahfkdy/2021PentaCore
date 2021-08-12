@@ -4,24 +4,11 @@
 <!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<!-- 온/습도 스와이프 -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <title>Document</title>
   <style>
-    html,
-    body {
-      position: relative;
-      height: 30px;
-    }
-
-    body {
-      background: #eee;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
-      margin: 0;
-      padding: 0;
-    }
-
+  	/* 온/습도 스와이프 시작 */
     .swiper-container {
       width: 100%;
       height: 30px;
@@ -58,14 +45,16 @@
       display: inline-block !important;
       margin: 6px 2px !important;
     }
+    
+    
+  	/* 리뷰스와이프 */
+
+  
   </style>
-
-
-
-
 </head>
 <body>
 	
+	<!-- 메인이미지슬라이드 -->
 	 <!-- =========================
 		MAIN SLIDER
 	============================== -->
@@ -99,51 +88,20 @@
 			
 			<div class="sp-slide">
 				
-				<!-- === slide overlay === -->	
-				<div class="main-slider-overlay"></div>
-				
 				<!-- === slide image === -->	
-                <img class="sp-image" src="resources/assets/slider-pro/css/images/blank.gif"
-				data-src="resources/media/main-slider/1.jpg"
-				data-retina="resources/media/main-slider/1.jpg" alt="" />
+                <img class="" src="${pageContext.request.contextPath }/resources/main/main1.png"
+				data-src="resources/main/main1.png"
+				data-retina="resources/main/main1.png" 
+				style="width: auto; height: 100%; margin-left: px; margin-left:0;"alt="" />
 				
 				<!-- === slide container === -->	
-				<div class="container">
-                    <div class="main-slider-content">
-        				<h2 class="sp-layer"
-                            data-position="centerCenter" data-vertical="-55"
-        					data-show-transition="left" data-hide-transition="left" data-show-delay="200" data-hide-delay="200">
-        					We are your reliable partner
-        				</h2>
-        
-        				<h2 class="sp-layer color-primary"
-                            data-position="centerCenter" data-vertical="10"
-        					data-show-transition="left" data-hide-transition="left" data-show-delay="400" data-hide-delay="400">
-        					Quality services of cargo
-        				</h2>
-            
-                        <a class="sp-layer main-button-2" href="#"
-                            data-position="centerCenter" data-vertical="280"
-            				data-show-transition="left" data-hide-transition="left" data-show-delay="600" data-hide-delay="600">
-							<div class="my-btn my-btn-primary">
-								<div class="my-btn-bg-top"></div>
-								<div class="my-btn-bg-bottom"></div>
-								<div class="my-btn-text">
-									GET A FREE QUOTE
-								</div>
-							</div>
-						</a>
-                         
-                    </div>
-                </div>
+				
 			</div>
 
             <!-- === SLIDER ITEM === -->	
 			
 			<div class="sp-slide">
 				
-				<!-- === slide overlay === -->	
-				<div class="main-slider-overlay"></div>
 				
 				<!-- === slide image === -->	
                 <img class="sp-image" src="resources/assets/slider-pro/css/images/blank.gif"
@@ -184,9 +142,6 @@
             <!-- === SLIDER ITEM === -->	
 			
 			<div class="sp-slide">
-				
-				<!-- === slide overlay === -->	
-				<div class="main-slider-overlay"></div>
 				
 				<!-- === slide image === -->	
                 <img class="sp-image" src="resources/assets/slider-pro/css/images/blank.gif"
@@ -231,8 +186,8 @@
 	============================== -->
 	
 	
-	<!-- swiper슬라이더 메인컨테이너 -->
-	<div class="swiper-container">
+	<!-- swiper슬라이더 메인컨테이너 온/습도 -->
+	<div class="swiper-container" style="padding: 3%">
 	  <!-- 보여지는 영역 -->
 		<div class="swiper-wrapper">
 			<!-- div class="swiper-slide" 를 추가하면된다 -->
@@ -241,7 +196,9 @@
 			</c:forEach>
 		</div>
 	</div>
-	  <script>
+	
+<script>
+	<!-- swiper슬라이더 메인컨테이너 온/습도 -->
     const swiper = new Swiper('.swiper-container', {
       //기본 셋팅
       //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
@@ -261,7 +218,6 @@
       // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
       // effect: 'fade',
 
-
       //자동 스크를링
       autoplay: {
         //시간 1000 이 1초
@@ -276,11 +232,16 @@
         //클릭 가능여부
         clickable: false,
       },
-
-      
-
     });
-  </script>
-
+</script>
+	
+	<!-- 메인img -->
+	<div >
+		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main2.png">
+		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main3.png">
+	</div>
+	
+	<!-- 리뷰스와이프 -->
+    
 </body>
 </html>
