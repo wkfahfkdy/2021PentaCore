@@ -332,10 +332,10 @@
    				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '상담원 추가입력' + '<h5>' + '</th>';
    				row += '<tr><th class="mo-tbl" style="width: 10%; vertical-align:top;">' + "이름" + '</th>';
    				row += '<td class="mo-tbl">' + a_name + '</td>';
-   				row += '<input type="hidden" name="member_name" value='+a_name+'>';
+   				row += '<input type="hidden" name="member_name" value="'+a_name+'">';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "신청코드" + '</th>';
    				row += '<td class="mo-tbl">' + a_code + '</td>';
-   				row += '<input type="hidden" name="apply_code" value='+a_code+'>';
+   				row += '<input type="hidden" name="apply_code" value="'+a_code+'">';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
    				row += '<td class="mo-tbl">' + a_tel + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
