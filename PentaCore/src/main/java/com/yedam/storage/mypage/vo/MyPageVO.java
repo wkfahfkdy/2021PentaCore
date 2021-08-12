@@ -22,6 +22,13 @@ public class MyPageVO {
 	private String storage_code;
 	private String offer_product;
 	private String offer_wash;
+	private String laundry_code;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date laundry_consign;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private Date laundry_collect;
+	private String laundry_company;
+	private String laundry_tel;
 	private String laundry_product;
 	private int laundry_count;
 	private String offer_rental;

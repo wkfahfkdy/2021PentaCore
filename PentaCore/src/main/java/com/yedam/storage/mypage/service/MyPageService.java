@@ -80,4 +80,12 @@ public interface MyPageService {
 	
 	// 1:1 문의 상세
 	public List<MyPageVO> myAskSelect(MyPageVO vo);
+	
+	//--------------세탁 처리 현황 페이지-------------------
+	
+	// 세탁 처리 현황 리스트
+	public List<MyPageVO> myLaundry(MyPageVO vo);
+	
+	// 세탁 처리 상세
+	public MyPageVO myLaundrySelect(MyPageVO vo);
 }

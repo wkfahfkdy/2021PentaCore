@@ -14,7 +14,7 @@
 		margin: auto;
 		margin-top: 20px;
 		margin-bottom: 50px;
-		width: 80%;
+		width: 70%;
 		min-height: 100%;
 	}
 	
@@ -34,16 +34,24 @@
 	.premium-service{
 		display: table-cell;
 		width: 30%;
-		text-align: center;
-		padding: 10px;
-		border-left: 2px lightgray solid;
+		text-align: left;
+		padding: 1em;
+		border-left: 2px #E6E6E6 dotted;
+	}
+	
+	.premium-title, .notice-title{
+		padding: 0em 1em;
+	}
+
+	.premium-row, .go-notice {
+		padding: 0em 2em;
 	}
 	
 	.notice-btns{	/*공지사항 및 기능버튼들 전체 div*/
 		display: table;
 		padding: 3em 2em;
 		width: 100%;
-		border-top: 1px lightgray solid;
+		border-top: 1px lightgray dashed;
 	}
 	
 	.func-btns{
@@ -55,8 +63,9 @@
 
 	.notice{
 		display: table-cell;
-		text-align: center;
-		border-left: 2px lightgray solid;
+		text-align: left;
+		border-left: 2px #E6E6E6 dotted;
+		padding: 1em;
 	}
 	
 	
@@ -109,12 +118,8 @@
 	.info-td {
 		padding: 5px;
 	}
+	
 </style>
-<script>
-	//세탁 물품 처리 현황
-	
-	
-</script>
 </head>
 <body>
 	<div class="wrap">
@@ -145,11 +150,11 @@
 									</td>
 								<tr>
 								<tr>
-									<td class="info-td"><b><font style="color: #006DFC;">${useInfo.store_name }</font> ${useInfo.info_num } ${useInfo.storage_name }</b>(${useInfo.storage_width }*${useInfo.storage_height }*${useInfo.storage_vertical }) 이용중 </td>
+									<td class="info-td"><b><font style="color: #006DFC; font-size: 12pt;">${useInfo.store_name }</font> ${useInfo.info_num } ${useInfo.storage_name }</b>(${useInfo.storage_width }*${useInfo.storage_height }*${useInfo.storage_vertical }) 이용중 </td>
 								</tr>
 								<tr>
 									<td class="info-td">
-										<font style="color: #00c0e2; font-weight: bold;">이용 중인 물품</font>
+										<font style="color: #00c0e2; font-weight: bold; font-size: 11pt;">이용 중인 물품</font>
 									</td>
 								</tr>
 								<tr>
@@ -159,7 +164,7 @@
 								</tr>
 								<tr>
 									<td class="info-td">
-										<font style="color: #00c0e2; font-weight: bold;">이용 중인 서비스</font>
+										<font style="color: #00c0e2; font-weight: bold; font-size: 11pt;">이용 중인 서비스</font>
 									</td>
 								</tr>
 								<tr>
@@ -183,23 +188,25 @@
 							</table>
 						</div>
 						<div class="premium-service">
-							<div>
-								<h4>Premium Service</h4>
+							<div class="premium-title">
+								<h3>Premium Service</h3>
 							</div>
 							<div>
 								<c:choose>
 									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'N' }">
-										이용 중인 서비스가 없습니다.
+										<b>이용 중인 서비스가 없습니다.</b>
 									</c:when>
 									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'Y' }">
 										<a href="conditionReport" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
 									</c:when>
 									<c:when test="${useInfo.offer_wash eq 'Y' and useInfo.offer_premium eq 'N' }">
-										<a href="#" onclick="" style="font-size: 13pt">세탁 물품 처리 현황</a>
+										<a href="myLaundry" style="font-size: 13pt">세탁 물품 처리 현황</a>
 									</c:when>
 									<c:otherwise>
-										<a href="conditionReport" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
-										<a href="#" onclick="" style="font-size: 13pt">세탁 물품 처리 현황</a>
+										<div class="premium-row">
+											<a href="conditionReport" style="font-size: 13pt">물품 컨디션 보고서 조회</a><br>
+											<a href="myLaundry" style="font-size: 13pt">세탁 물품 처리 현황</a>
+										</div>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -207,7 +214,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					${useService }
+					<font style="color:#006DFC; font-weight: bold;">${useService }</font>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -225,8 +232,12 @@
 				</div>
 			</div>
 			<div class="notice">
-				<h4>Store Notice</h4>
-				<h5><a href="noticeList">이용 지점 공지사항 바로가기</a></h5>
+				<div class="notice-title">
+					<h3>Store Notice</h3>
+				</div>
+				<div class="go-notice">
+					<h4><a href="noticeList">이용 지점 공지사항 바로가기</a></h4>
+				</div>
 			</div>
 		</div>
 	</div>
