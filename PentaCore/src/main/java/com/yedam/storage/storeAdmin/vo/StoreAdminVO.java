@@ -43,6 +43,7 @@ public class StoreAdminVO {
 	private Date use_end;
 	private String info_num;
 	private String store_code;
+	private String store_name;
 	private String offer_code;
 	private String member_id;
 	private String member_tel;
@@ -69,6 +70,21 @@ public class StoreAdminVO {
 	private String offer_wash;
 	private String laundry_consign;
 	private String laundry_collect;
+	
+	/*
+	 * 	COUPON_CODE	VARCHAR2(5 BYTE)	No		1	쿠폰코드
+		COUPON_NAME	VARCHAR2(60 BYTE)	Yes		2	쿠폰이름
+		COUPON_DISCOUNT	NUMBER(3,2)	Yes		3	쿠폰할인률
+		COUPON_START	DATE	Yes		4	쿠폰발급일자
+		COUPON_END	DATE	Yes		5	쿠폰유효기간
+		STORE_CODE	VARCHAR2(5 BYTE)	Yes		6	지점코드
+	 */
+	//coupon
+	private String coupon_code;
+	private String coupon_name;
+	private int coupon_discount;
+	private String coupon_start;
+	private String coupon_end;
 	
 	
 	// 1:1 문의 관리

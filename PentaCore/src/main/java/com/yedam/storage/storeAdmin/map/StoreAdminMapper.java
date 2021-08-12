@@ -32,16 +32,22 @@ public interface StoreAdminMapper {
 	public int storeNoticeDelete(StoreAdminVO vo);
 	
 	// ==============형민====================
-	//지점 고객관리 
-	public List<StoreAdminVO> usingStrorageList();  
-	// 고객관리 스토리지 클릭시 select   
+	// -- 지점 고객관리 
+	//스토리지 이용중 고객
+	public List<StoreAdminVO> usingStrorageList(@Param("p") String store_code);  
+	//스토리지 이용만료 고객
+	public List<StoreAdminVO> expiredStrorageList(@Param("p") String store_code);
 	
+	// 고객관리 스토리지 클릭시 select   
 	public StoreAdminVO selectStorageInfo(StoreAdminVO vo);
-	public List<StoreAdminVO> expiredStrorageList();
+	
 	public List<StoreAdminVO> usingStrorageListPaging(StoreAdminVO vo);  
 	public StoreAdminVO storageUserDetail(@Param("p") String use_num );
 	public int updateLaundryConsign(StoreAdminVO vo);
 	public int updateLaundryCollect(StoreAdminVO vo);
+	public int insertReport(StoreAdminVO vo);
+	public int insertCoupon(StoreAdminVO vo);
+	
 	// ==============형민====================
 	
 	// ==============반야====================
@@ -58,6 +64,6 @@ public interface StoreAdminMapper {
 	public List<StoreAdminVO> customerAskSelect(StoreAdminVO vo);
 	// =============끝=======================
 	// 고객관리 스토리지 이용자 보고서
-	public int insertReport(StoreAdminVO vo);
+	
 	
 }

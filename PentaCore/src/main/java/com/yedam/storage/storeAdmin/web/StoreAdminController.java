@@ -205,23 +205,33 @@ public class StoreAdminController {
 	// 이용중인 사용자 리스트
 	@RequestMapping("usingList")
 	@ResponseBody
-	public List<StoreAdminVO> usingList() {
+	public List<StoreAdminVO> usingList(HttpServletRequest request, HttpServletResponse response) {
 	// Store - 지점명, 지점주소 (StoreConlloer)
-	List<StoreAdminVO> list = storeAdminDAO.usingStrorageList();
+		HttpSession session = request.getSession();
+		String storeCode = (String) session.getAttribute("stCode");
+		
+	List<StoreAdminVO> list = storeAdminDAO.usingStrorageList(storeCode);
 	return list;
 	}
 	
 	// 사용종료 사용자 리스트
 		@RequestMapping("expiredList")
 		@ResponseBody
-		public List<StoreAdminVO> expiredList() {
+		public List<StoreAdminVO> expiredList(HttpServletRequest request, HttpServletResponse response) {
 		// Store - 지점명, 지점주소 (StoreConlloer)
-		List<StoreAdminVO> list = storeAdminDAO.expiredStrorageList();
+		HttpSession session = request.getSession();
+		String storeCode = (String) session.getAttribute("stCode");
+		
+		List<StoreAdminVO> list = storeAdminDAO.expiredStrorageList(storeCode);
 		return list;
 		}
 	
 	@RequestMapping("customerManage")
 	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
+		
+		
+		
+		
 	return "storeAdmin/customerManage";
 	}
 	
@@ -236,14 +246,6 @@ public class StoreAdminController {
 		return "storeAdmin/storageUserDetail";
 	}	
 	
-	@RequestMapping("expiredUserDetail")
-	public String expiredUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
-		/* 
-		 * 수정필요
-		 * 
-		 * String member_id = request.getParameter("memberId"); */
-		return "storeAdmin/storageUserDetail";		
-	}
 	//세탁물 위탁날짜 입력
 	@RequestMapping("laundryConsignUpdate")
 	@ResponseBody
@@ -288,20 +290,41 @@ public class StoreAdminController {
 	
 	
 	
-	// 고객관리 보고서 입력
+		// 고객관리 보고서 입력
 		@ResponseBody
 		@RequestMapping("insertReport")
 		public String insertReport(StoreAdminVO vo) {
 			String result = "";
-			
+
 			int up = storeAdminDAO.insertReport(vo);
-			
-			if(up > 0)
+
+			if (up > 0)
 				result = "insert success";
+
+			return result;
+		}
+
+		// 쿠폰정보 입력
+		@ResponseBody
+		@RequestMapping("insertCoupon")
+		public String insertCoupon(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response)  {
 			
+			//int getCoupon_discount= Integer.parseInt(request.getParameter("coupon_discount"));
+			//int coupon_discount =1-getCoupon_discount;
+			//String coupon_discountToString= String.valueOf(coupon_discount);
+
+			//vo.setCoupon_discount(coupon_discount);
+			String result = "";
+
+			int i = storeAdminDAO.insertCoupon(vo);
+
+			if (i > 0)
+				result = "insert success";
+
 			return result;
 		}
 	
+
 	/////////////////////////////////전형민////////////////////////////////////////////		
 	//===============최반야 > 1:1 문의 관리 ============================
 	

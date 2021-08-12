@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -44,7 +44,7 @@
 
     #coupon-modal {
         display: none;
-        width: 60%;
+        width: 25%;
         padding: 30px 50px;
         background-color: #fefefe;
         border: 1px solid #888;
@@ -61,28 +61,88 @@
     	font-size: 10pt;
     }
     
-    .modal-header {
+   /*  .modal-header {
     	padding: 1em;
+    } */
+    td {
+    text-align :center;
+    }
+    th {
+    text-align :center;
     }
     
+    input[type="text"] {
+      background: white;
+      border: 1px solid #5fd3e8;
+      border-radius: 0.3em;
+      width: 100%;
+      height: 25px;
+      padding: 5px;
+   }
 
 </style>
 
 <script>
 //쿠폰 입력
 function insertCoupon() {
-	var data = $('#frm').serialize();
+	//var data = $("form[id=frm]").serialize();
+	//data = decodeURIComponent(data);
+	
+	var coupon_name = $('#coupon_name').val();
+	var store_name = $('#store_name').val();
+	var coupon_discount = $('#coupon_discount1').val();
+	var coupon_start = $('#coupon_start').val();
+	var coupon_end = $('#coupon_end').val();
+	
+
+	
+	if ($('#coupon_name').val() == "") {
+		alert('쿠폰이름을 입력하세요.');
+		$('#coupon_name').focus();
+		return false;
+	}
+	
+	if ($('#store_name').val() == "") {
+		alert('지점이름을 입력하세요.');
+		$('#store_name').focus();
+		return false;
+	}
+	
+	if ($('#coupon_discount').val() == "") {
+		alert('쿠폰할인률을 입력하세요.');
+		$('#coupon_discount').focus();
+		return false;
+	}
+	
+	if ($('#coupon_start').val() == "") {
+		alert('쿠폰시작일을 입력하세요.');
+		$('#coupon_start').focus();
+		return false;
+	}
+	
+	if ($('#coupon_end').val() == "") {
+		alert('쿠폰종료일을 입력하세요.');
+		$('#coupon_end').focus();
+		return false;
+	}
 	
 	if(confirm('입력하시겠습니까?')){
 		$.ajax({
 			url: 'insertCoupon',
 			type: 'POST',
-			data: data,
+			data: { coupon_name:coupon_name,
+				store_name:store_name,
+				coupon_discount:coupon_discount,
+				coupon_start:coupon_start,
+				coupon_end:coupon_end,
+			
+			},
 			success: function(result) {
 				console.log(result);
 				alert('입력이 완료되었습니다.');
 				location.reload();
 			},
+			
 			
 			error: function(xhr, status, msg) {
 				alert('입력에 실패하였습니다. 광고차단앱 사용시 입력이 불가합니다. 상태값 : ' + status + '에러메시지 : ' + msg);
@@ -128,7 +188,7 @@ function insertCoupon() {
 		<div></div>
 		<div class="box2">
 			<div class="btn">
-				<button type="button" id="btn2" class="btn btn-primary btn-lg" onclick="location.href=''">
+				<button type="button" id="btn2" class="btn btn-primary btn-lg" >
 					<h4>쿠폰등록</h4></button>
 			</div>
 		</div>
@@ -156,34 +216,79 @@ $(function() {
 			modal('coupon-modal');
 			
 
-			var title = '<h3 align="center">'쿠폰등록'</h3>';
-			var date = year + "/" + month + "/" + day;
+			var title = '<h3 align="center">쿠폰등록</h3>';
 			
-			var tbl =$('<table width="100%" />');
+			var tbl =$('<table width="100%" align="center"/>');
 			
-			tbl.append(row);
+			//쿠폰이름
 			var row = '<tr>';
-			row += '<th style="width: 10%;">할인율</th>'
-			row += '<td style="text-align: left;">' + 
-			'<select class="custom-select" name="coupon_discount" id="coupon_discount"> <option selected></option>'
+			row += '<th style="width: 30%;">쿠폰이름</th>';
+			row += '<td style="text-align: center;"><input type="text" name="coupon_name" id="coupon_name" value="☆☆점 오픈 프로모션 ☆% 할인" />';
+			row +=	'</td>';
+			row +=	'</tr>';
 			
-			<% for (int i=1; i<=10; i++) { %>
-				'<option value= "' <%=1-0.5*i%> '">'<%=5*i%>'프로 할인</option>'
+			row += '<br><br>';
+			
+			//적용지점
+			row += '<tr>';
+			row += '<th style="width: 30%;">적용지점</th>';
+			row += '<td style="text-align: center;"><select class="custom-select" name="store_name" id="store_name">';
+			row += '<option selected>지점을 선택하세요</option>';
+			row += '<option value="중구점">중구점</option>';
+			row += '<option value="청라언덕점">청라언덕점</option>';
+			row += '<option value="상인점">상인점</option>';
+			row += '<option value="시지점">시지점</option>';
+			row += '<option value="경산영대점">경산영대점</option>';
+			row += '</select></td>';
+			row += '</tr>';
+			
+			row += '<br><br>';
+			
+			//할인율
+			row += '<tr>';
+			row += '<th style="width: 30%;">할인율</th>';
+			row += '<td style="text-align: center;"><select class="custom-select" name="coupon_discount1" id="coupon_discount1">';
+			row +='<option selected>할인율을 선택하세요</option>';
+				
+				
+				 <%for (int i=1; i<=10; i++) {%>
+				row += 
+				'<option value="<%=0.05*i%>"><%=5*i%>프로 할인</option>'
 				<% } %>
- 
-			'</select></td></tr>';
+				row +=	'</select></td>'; 
+			row +=	'</tr>';
+			
+			row += '<br><br>';
+			
+			//시작날짜
+			row += '<tr>';
+			row += '<th style="width: 30%;">시작날짜</th>';
+			row += '<td style="text-align: center;"><div class="con-data"><input type="date" id="coupon_start" name="coupon_start" /></div>';
+			row +=	'</td>';
+			row +=	'</tr>';
+			
+			row += '<br><br>';
+			
+			//종료날짜
+			row += '<tr>';
+			row += '<th style="width: 40%;">종료날짜</th>';
+			row += '<td style="text-align: center;"><div class="con-data"><input type="date" id="coupon_end" name="coupon_end" /></div>';
+			row +=	'</td>';
+			row +=	'</tr>';
+			
+			
 			tbl.append(row);
 			
 			
-			//$(".modal-header").append(title);
-			$(".modal-body").append(title);
+			$(".modal-header").append(title);
+			//$(".modal-body").append(title);
 			$(".modal-body").append(tbl);
 			//CK에디터용 기본 값 붙이기
 			//CKEDITOR.instances['condition_comment'].setData(noContent);
-			
+			//
 		
 			
-	})
+	});
 
 		function modal(id) {
 		    var zIndex = 9999;

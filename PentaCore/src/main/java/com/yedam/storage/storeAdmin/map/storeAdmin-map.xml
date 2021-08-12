@@ -128,59 +128,28 @@
  
  
 <!-- 전형민 -->
-<select id="usingStrorageList" resultType="StoreAdminVO" >
+<select id="usingStrorageList" parameterType="string" resultType="StoreAdminVO" >
 
  
 		Select * from (
 
 						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
 						from use_storage u join member m on u.member_id = m.member_id
-                		where use_end > sysdate)
+                		where use_end > sysdate and store_code =#{p} )  
 		
 		
 </select>
  
-<select id="expiredStrorageList" resultType="StoreAdminVO" >
+<select id="expiredStrorageList" parameterType="string" resultType="StoreAdminVO" >
 		<![CDATA[ 
 		Select * from (
 
 						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
 						from use_storage u join member m on u.member_id = m.member_id
-                		where use_end <= sysdate)
+                		where use_end <= sysdate and store_code =#{p} )
 		]]>
 </select>
 
-<!-- 사용보류 -->
-<!-- 
-	<select id="usingStrorageListPaging" parameterType="StoreAdminVO"  resultType="StoreAdminVO">
-		      
-		      
-			Select * from (
-
-						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
-						from use_storage u join member m on u.member_id = m.member_id
-                		where use_end > sysdate)
-                
-				        WHERE NUM BETWEEN #{firstCnt} AND #{lastCnt}		
-						
-	</select>
-	
-	
-	<select id="expiredStrorageListPaging" parameterType="StoreAdminVO"  resultType="StoreAdminVO">
-		      
-		    <![CDATA[  
-			Select * from (
-
-						select ROW_NUMBER() OVER (ORDER BY u.use_start asc ) AS NUM, u.* ,m.member_name			
-						from use_storage u join member m on u.member_id = m.member_id
-                		where use_end <= sysdate)
-                
-				        WHERE NUM BETWEEN #{firstCnt2} AND #{lastCnt2}		
-			]]>
-						
-	</select>
-	 -->
-	
 	 <select id ="storageUserDetail" parameterType="string" resultType="StoreAdminVO">
 			SELECT DISTINCT a.member_id, a.member_name, a.member_tel, b.*, o.offer_product,o.offer_premium, o.offer_wash,
    				l.laundry_consign, l.laundry_collect
@@ -196,7 +165,7 @@
 	
 	<insert id="insertReport" parameterType="StoreAdminVO">
 	insert into CONDITION_LIST 
-	values(#{condition_title},sysdate,cd_seq.nextval,#{use_num},#{condition_comment})  
+	values(#{condition_title},sysdate,'CD' || lpad(cd_seq.nextval,3,0),#{use_num},#{condition_comment})  
 	</insert>
 	
 	<update id="updateLaundryConsign" parameterType="StoreAdminVO">
@@ -206,6 +175,11 @@
 	<update id="updateLaundryCollect" parameterType="StoreAdminVO">
 	update laundry set laundry_collect = to_date(#{laundry_collect},'yyyy-mm-dd hh24:mi:ss') where offer_code= #{offer_code}
 	</update> 
+	
+	<insert id="insertCoupon" parameterType="StoreAdminVO">
+	INSERT INTO coupon VALUES( 'CP' || lpad(coupon_seq.nextval,3,0), #{coupon_name}, #{coupon_discount}, #{coupon_start}, #{coupon_end}, 
+	(select store_code from store where store_name = #{store_name} )) 
+	</insert>
 	
  <!--전형민 -->
  

@@ -8,5 +8,13 @@
 		select 	*
 		from 	store
 	</select>
+	
+	<!-- 메인화면 온습도 출력 -->
+	<select id="htSelect" resultType="com.yedam.storage.store.vo.StoreVO">
+		SELECT *
+		FROM store
+        WHERE STORE_BUS IS NOT NULL
+	</select>
+	
 
 </mapper>

@@ -2,6 +2,7 @@ package com.yedam.storage.storeAdmin.serviceImpl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,8 +108,8 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 
 	// ------------------------------------------------전형민
 	@Override
-	public List<StoreAdminVO> usingStrorageList() {
-		return sqlSession.selectList("usingStrorageList");
+	public List<StoreAdminVO> usingStrorageList(@Param("p") String store_code) {
+		return sqlSession.selectList("usingStrorageList",store_code);
 	}
 
 	@Override
@@ -117,8 +118,8 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	}
 
 	@Override
-	public List<StoreAdminVO> expiredStrorageList() {
-		return sqlSession.selectList("expiredStrorageList");
+	public List<StoreAdminVO> expiredStrorageList(@Param("p") String store_code) {
+		return sqlSession.selectList("expiredStrorageList",store_code);
 	}
 	
 
@@ -135,6 +136,16 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	@Override
 	public StoreAdminVO storageUserDetail(String use_num) {
 		return sqlSession.selectOne("storageUserDetail", use_num);
+	}
+	
+	@Override
+	public int insertReport(StoreAdminVO vo) {
+		return sqlSession.insert("insertReport",vo);
+	}
+	
+	@Override
+	public int insertCoupon(StoreAdminVO vo) {
+		return sqlSession.insert("insertCoupon",vo);
 	}
 	
 	// ------------------------------------------------전형민
@@ -171,9 +182,8 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	}
 	// =================================================
 
-	@Override
-	public int insertReport(StoreAdminVO vo) {
-		return sqlSession.insert("insertReport",vo);
-	}
+	
+
+	
 
 }
