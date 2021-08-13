@@ -14,8 +14,13 @@ private String member_disable;
 -->
 
 <!-- 로그인 -->
+<!-- 멤버아이디 비밀번호 체크-->
 <select id="loginCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
 		select * from member where member_id = #{member_id} and member_pwd = #{member_pwd} and member_disable = 'N'
+</select>
+<!-- 회원아이디 비밀번호 체크-->
+<select id="employeeLoginCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO" >
+		select * from employees where employee_id = #{member_id} and employee_pwd = #{member_pwd} and employee_disable = 'N'
 </select>
 
 <!-- 지점관리자로 로그인 -->

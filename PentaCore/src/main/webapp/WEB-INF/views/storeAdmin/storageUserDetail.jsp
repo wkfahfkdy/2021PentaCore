@@ -524,7 +524,7 @@ $(function() {
 			var member_name = '${selectUserVO.member_name }';
 			var use_num = '${selectUserVO.use_num }';
 
-			var title = '<input type="text" id="condition_title" name="condition_title" value="'+ member_name + '님 컨디션보고서" />';
+			var title = '<input type="text" id="condition_title" name="condition_title" value="컨디션보고서" />';
 			var date = year + "/" + month + "/" + day;
 			
 			var tbl =$('<table width="100%" />');

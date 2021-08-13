@@ -162,14 +162,33 @@ private String member_disable;
 			return false;
 		}
 		
-		frmMember.submit();
+		/* $.ajax({
+			url : 'memberLoginIdCheck1',
+			data : {
+				member_id : $('#member_id').val(),
+				member_pwd : $('#member_pwd').val() },
+			type : 'post',
+			success : function(id) {
+				console.log(id);
+				if (id == 'invalid') {
+					alert('이름과 패스워드를 다시 확인해주세요.');	
+				} else {
+					frmMember.submit();	
+				}
+			},
+			error : function(err) {
+				console.log(err);
+			}
+		});	 */
+		frmMember.submit();	
+		
 	}
 	
 
 </script>
 
 
-<!-- =================================== 아아디 찾기 모달 ======================================== -->
+<!-- =================================== 아이디 찾기 모달 ======================================== -->
 
 <script>
 //이메일 인증코드 전송시 이메일 공백확인
@@ -273,7 +292,6 @@ $(function() {
 			return false;
 		}
 		 */
-		//modal.style.display = "none";
 		//새로운 모달 띄워서 아이디 보여주기
 			        
 		idModal.submit(); 
@@ -287,7 +305,6 @@ $(function() {
 <script>
 function closeModal() {
 		document.getElementById('idShow').style.display='none';
-		location.reload()
 	}
 	
 </script>	
@@ -309,6 +326,7 @@ $(function() {
 });
 </script>
 
+<!-- 
 <script>
 //비밀번호 찾기 모달(이메일 확인)
 $(function() {
@@ -320,8 +338,6 @@ $(function() {
 			$('#member_email2').focus();
 		 	return false;
 		}
-		
-		consol.log(member_name+member_email);
 		
 		$.ajax ({
 				url : 'modalEmailCheck',  
@@ -348,7 +364,7 @@ $(function() {
 });
 
 
-</script>
+</script> -->
 
 <script>
 	//휴대폰 번호입력 ajax
@@ -420,14 +436,8 @@ $(function() {
 			pwModal.member_name.focus();
 			return false;
 		}
-		if (pwModal.member_email2.value == "") {
-			alert("이메일을 입력하세요.");
-			return false;
-		}
-		
-		if (frm.checkEmail2.value == "unChecked") {
-			alert("이메일을 인증 하세요");
-			frm.checkEmail2.focus();
+		if (pwModal.member_id2.value == "") {
+			alert("아이디를 입력하세요.");
 			return false;
 		}
 		if (pwModal.member_tel.value == "") {
@@ -444,6 +454,8 @@ $(function() {
 		*/
 		
 		//아작스 추가
+		
+		idModal.submit(); 
 		
 	});
 });
@@ -557,7 +569,7 @@ $(function() {
 				        </form>
 					</div>
 				
-					<!-- =================================== 아이디 보여주기 ======================================== -->
+					<%-- <!-- =================================== 아이디 보여주기 ======================================== -->
 					
 					<div id="idShow" class="modal" align ="center">
 				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">
@@ -587,7 +599,7 @@ $(function() {
 				               class="cancelbtn">Cancel</button>
 				            </div>
 				        </form>
-					</div>
+					</div> --%>
 				    
 				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
 				   
@@ -611,16 +623,11 @@ $(function() {
 								name="member_name2"></td>
 							</tr>
 							<tr>
-							<th width="100">이메일</th>
-							<td id="member_email_input2"  width="350" colspan="2">
-	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email2" name="member_email2" value="">
+							<th width="100">아이디</th>
+							<td width="300" colspan="2">
+	 						<input class="form-control" type="text" id="member_id2" name="member_id2">
 	 						</td>
-	 						<td>
-	 						<button class="btn btn-light" 
-	 						type="button" value="unChecked" id="checkEmail2" name="checkEmail2">이메일 확인</button>
-							</td>
 	 						</tr>
-	 						
 						
 							<tr>
 							<th width="100">휴대폰 번호</th>
