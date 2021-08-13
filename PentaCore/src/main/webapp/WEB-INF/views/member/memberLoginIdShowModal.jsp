@@ -273,21 +273,27 @@ $(function() {
 			return false;
 		}
 		 */
-		//modal.style.display = "none";
+		modal.style.display = "none";
 		//새로운 모달 띄워서 아이디 보여주기
 			        
-		idModal.submit(); 
+		window.location.href='memberLoginIdShowModal';
+     	// 팝업 호출
+     	//location.reload();
 	 	
 	});	
 });
 </script>
 
-
+<script>
+$( document ).ready(function() {
+	// 팝업 호출
+	document.getElementById('idShow').style.display='block'
+});
+</script>
 
 <script>
 function closeModal() {
 		document.getElementById('idShow').style.display='none';
-		location.reload()
 	}
 	
 </script>	
@@ -501,7 +507,7 @@ $(function() {
 						
 						<!-- =================================== 아이디 찾기 모달 ======================================== -->
 						<div id="id01" class="modal" align ="center">
-				        <form id="idModal"  name="idModal" class="modal-content animate" action="memberLoginIdShowModal" method="post">
+				        <form id="idModal"  name="idModal" class="modal-content animate" action="" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('id01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>

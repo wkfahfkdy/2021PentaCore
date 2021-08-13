@@ -42,7 +42,17 @@ public class MemberController {
 
 			return "member/memberLoginForm";
 		}
-		
+
+		// 로그인 페이지 이동
+		@RequestMapping("memberLoginIdShowModal")
+		public String memberLoginIdShowModal(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			String referer = request.getHeader("Referer");
+			session.setAttribute("redirectURI", referer);
+
+			return "member/memberLoginIdShowModal";
+		}
+
 	//로그인계정 정보 확인
 	@RequestMapping("/memberLoginIdCheck")
 	@ResponseBody

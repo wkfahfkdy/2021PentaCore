@@ -249,13 +249,17 @@ $(function() {
 			row += '<th style="width: 30%;">할인율</th>';
 			row += '<td style="text-align: center;"><select class="custom-select" name="coupon_discount1" id="coupon_discount1">';
 			row +='<option selected>할인율을 선택하세요</option>';
-				
-				
-				 <%for (int i=1; i<=10; i++) {%>
-				row += 
-				'<option value="<%=0.05*i%>"><%=5*i%>프로 할인</option>'
-				<% } %>
-				row +=	'</select></td>'; 
+			row += '<option value="0.95">5프로 할인</option>';
+			row += '<option value="0.9">10프로 할인</option>';
+			row += '<option value="0.85">15프로 할인</option>';
+			row += '<option value="0.8">20프로 할인</option>';
+			row += '<option value="0.75">25프로 할인</option>';
+			row += '<option value="0.7">30프로 할인</option>';
+			row += '<option value="0.65">35프로 할인</option>';
+			row += '<option value="0.6">40프로 할인</option>';
+			row += '<option value="0.55">45프로 할인</option>';
+			row += '<option value="0.5">50프로 할인</option>';
+			row += '</select></td>';
 			row +=	'</tr>';
 			
 			row += '<br><br>';
