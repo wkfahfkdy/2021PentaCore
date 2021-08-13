@@ -21,6 +21,16 @@
 		frm.submit();		
 	}
 	
+	function delFunction(question_num){
+		var delCheck = $('#' + question_num +'hiddenQuestionParants').val()
+		console.log(delCheck);
+		if(delCheck === undefined) {
+			$('#del').submit();
+		} else {
+			alert("답글이 있어 삭제가 불가능 합니다.");
+			return false;
+		}
+	}
 	
 </script>
 </head>
@@ -50,7 +60,7 @@
 						<td>
 							<form id="del" action="inquiryDelete" method="POST">
 								<input type ="hidden" name = "question_num" value="${vo.question_num}">
-								<input type="submit" style=" padding-top: -10px; cursor: pointer;" value="x" />
+								<button type="button" onclick="delFunction('${vo.question_num}')" style=" padding-top: -10px; cursor: pointer;" value="x" >삭제</button>
 							</form>
 						</td>	
 					</c:when>
@@ -58,6 +68,7 @@
 						<td>
 						<img src="resources/assets/images/re.png"> &nbsp;
 						 ${vo.question_content }</td>
+						 <input type ="hidden" id="${vo.question_group }hiddenQuestionParants" value="${vo.question_parents }">
 						<td style="text-align: right;">
 							<fmt:formatDate value="${vo.question_date }" pattern="yy-MM-dd HH:mm:ss" />
 						</td>
