@@ -82,7 +82,7 @@ public class StoreAdminVO {
 	//coupon
 	private String coupon_code;
 	private String coupon_name;
-	private int coupon_discount;
+	private double coupon_discount;
 	private String coupon_start;
 	private String coupon_end;
 	

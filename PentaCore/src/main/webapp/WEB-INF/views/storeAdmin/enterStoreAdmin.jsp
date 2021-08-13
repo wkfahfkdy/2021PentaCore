@@ -90,7 +90,7 @@ function insertCoupon() {
 	
 	var coupon_name = $('#coupon_name').val();
 	var store_name = $('#store_name').val();
-	var coupon_discount = $('#coupon_discount1').val();
+	var coupon_discount = $('#coupon_discount').val();
 	var coupon_start = $('#coupon_start').val();
 	var coupon_end = $('#coupon_end').val();
 	
@@ -134,7 +134,7 @@ function insertCoupon() {
 				store_name:store_name,
 				coupon_discount:coupon_discount,
 				coupon_start:coupon_start,
-				coupon_end:coupon_end,
+				coupon_end:coupon_end
 			
 			},
 			success: function(result) {
@@ -247,7 +247,7 @@ $(function() {
 			//할인율
 			row += '<tr>';
 			row += '<th style="width: 30%;">할인율</th>';
-			row += '<td style="text-align: center;"><select class="custom-select" name="coupon_discount1" id="coupon_discount1">';
+			row += '<td style="text-align: center;"><select class="custom-select" name="coupon_discount" id="coupon_discount">';
 			row +='<option selected>할인율을 선택하세요</option>';
 			row += '<option value="0.95">5프로 할인</option>';
 			row += '<option value="0.9">10프로 할인</option>';

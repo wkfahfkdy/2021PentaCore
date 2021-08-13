@@ -33,25 +33,37 @@ public class MemberController {
 	
 	// ------------------------------- 로그인 ------------------------------ //
 	
-	//로그인 페이지 이동
-		@RequestMapping("memberLoginForm")
-		public String loginForm(HttpServletRequest request, Model model) {
-			HttpSession session = request.getSession();
-			String referer = request.getHeader("Referer");
-			session.setAttribute("redirectURI", referer);
+	// 로그인 페이지 이동
+	@RequestMapping("memberLoginForm")
+	public String loginForm(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		String referer = request.getHeader("Referer");
+		session.setAttribute("redirectURI", referer);
 
-			return "member/memberLoginForm";
+		return "member/memberLoginForm";
+	}
+
+
+	// 로그인하는 아이디 패스워드 맞는지 확인
+	@RequestMapping("/memberLoginIdCheck1")
+	@ResponseBody
+	public String LoginIdCheck1(MemberVO vo, HttpServletRequest request, HttpServletResponse response, Model model)
+			throws IOException {
+
+		MemberVO rvo = memberDAO.loginCheck(vo);
+		MemberVO employeeVO = memberDAO.employeeLoginCheck(vo);
+
+		String id = "";
+
+		//HttpSession session = request.getSession();
+		if (rvo != null || employeeVO != null) {
+			id = "valid";
+		} else {
+			id = "invalid";
 		}
 
-		// 로그인 페이지 이동
-		@RequestMapping("memberLoginIdShowModal")
-		public String memberLoginIdShowModal(HttpServletRequest request, Model model) {
-			HttpSession session = request.getSession();
-			String referer = request.getHeader("Referer");
-			session.setAttribute("redirectURI", referer);
-
-			return "member/memberLoginIdShowModal";
-		}
+		return id;
+	}
 
 	//로그인계정 정보 확인
 	@RequestMapping("/memberLoginIdCheck")
@@ -108,11 +120,32 @@ public class MemberController {
 
 	// ------------------------------- 로그인 화면 아이디 찾기 Modal ------------------------------ //
 	
+	// 로그인 페이지 이동
+		@RequestMapping("memberLoginIdShowModal")
+		public String memberLoginIdShowModal(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			String referer = request.getHeader("Referer");
+			session.setAttribute("redirectURI", referer);
+
+			return "member/memberLoginIdShowModal";
+		}
 	
+	// ------------------------------- 로그인 화면 패스워드 찾기 Modal ------------------------------ //
 	
-	// ------------------------------- 패스워드 찾기 Modal ------------------------------ //
-	
-	
+	// 로그인 페이지 이동
+		@RequestMapping("memberLoginPwShowModal")
+		public String memberLoginPwShowModal(MemberVO vo, HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			
+			
+			MemberVO rvo = memberDAO.modalEmailCheck(vo); 
+			
+			
+			String referer = request.getHeader("Referer");
+			session.setAttribute("redirectURI", referer);
+
+			return "member/memberLoginPwShowModal";
+		}
 	
 	
 	// ------------------------------- 회원가입 ------------------------------ //

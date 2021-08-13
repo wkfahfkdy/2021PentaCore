@@ -12,6 +12,7 @@ public interface MemberMapper {
 	
 	//로그인 시
 	public MemberVO loginCheck(MemberVO vo);
+	public MemberVO employeeLoginCheck(MemberVO vo);
 	public MemberVO StoreAdminLoginCheck(MemberVO vo);
 	public MemberVO emailCheck(String p);
 	public MemberVO telCheck(String p);
