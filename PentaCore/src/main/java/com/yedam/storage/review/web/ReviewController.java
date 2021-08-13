@@ -71,6 +71,7 @@ public class ReviewController {
 			model.addAttribute("review_num", review_num);// 리뷰 번호 넘기기
 			
 			return "review/reviewDetail";
-			}	
+			}
+		
 	
 }

@@ -137,5 +137,11 @@ private String member_disable;
         		where u.user_id = #{user_Id}
 	</select> -->
 	
+	<!-- 메인의 리뷰 리스트 -->
+	<select id="mainPageReviewList" resultType="com.yedam.storage.review.vo.ReviewVO">
+		SELECT * 
+		FROM REVIEW
+		ORDER BY REVIEW_DATE DESC
+	</select>
 	
 </mapper>

@@ -23,6 +23,7 @@ import com.yedam.storage.member.serviceImpl.MemberServiceImpl;
 import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.product.service.ProductService;
 import com.yedam.storage.rental.service.RentalService;
+import com.yedam.storage.review.service.ReviewService;
 import com.yedam.storage.storage.service.StorageService;
 import com.yedam.storage.store.service.StoreService;
 import com.yedam.storage.store.vo.StoreVO;
@@ -54,12 +55,14 @@ public class HomeController {
 	private MemberServiceImpl memberDAO;
 	@Autowired
 	private TransService transDAO;
+	@Autowired
+	private ReviewService reviewDAO;
 	
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public String home(Model model, StoreVO vo) {
 		
 		model.addAttribute("list", storeDAO.htSelect(vo));
-		
+		model.addAttribute("reviewList", reviewDAO.mainPageReviewList());
 		// ~~.getAuthentication() = 우선 로그인 했을 때
 		if(SecurityContextHolder.getContext().getAuthentication() != null) {
 			// CustomSuccessHandler에서는 Set<GrantedAuthority> 타입을 썼었는데 List도 된다. 원래는 Collection 타입이다.

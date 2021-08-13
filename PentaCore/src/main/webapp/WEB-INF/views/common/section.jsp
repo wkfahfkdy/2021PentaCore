@@ -197,43 +197,6 @@
 		</div>
 	</div>
 	
-<script>
-	<!-- swiper슬라이더 메인컨테이너 온/습도 -->
-    const swiper = new Swiper('.swiper-container', {
-      //기본 셋팅
-      //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
-      direction: 'horizontal',
-      //한번에 보여지는 페이지 숫자
-      slidesPerView: 6,
-      //페이지와 페이지 사이의 간격
-      spaceBetween: 10,
-      //드레그 기능 true 사용가능 false 사용불가
-      debugger: true,
-      //마우스 휠기능 true 사용가능 false 사용불가
-      mousewheel: true,
-      //반복 기능 true 사용가능 false 사용불가
-      loop: true,
-      //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
-      centeredSlides: true,
-      // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
-      // effect: 'fade',
-
-      //자동 스크를링
-      autoplay: {
-        //시간 1000 이 1초
-        delay: 1000,
-        disableOnInteraction: false,
-      },
-
-      //페이징
-      pagination: {
-        //페이지 기능
-        el: '.swiper-pagination',
-        //클릭 가능여부
-        clickable: false,
-      },
-    });
-</script>
 	
 	<!-- 메인img -->
 	<div >
@@ -242,6 +205,118 @@
 	</div>
 	
 	<!-- 리뷰스와이프 -->
+    <!-- swiper슬라이더 메인컨테이너 온/습도 -->
+	<div id="swiper-container22" class="swiper-container do" style="padding: 3%; height: auto">
+		<h3>리뷰</h3>
+		<!-- <div class="single-post-comments" id="comments">
+			<h3>COMMENTS (5)</h3> -->
+	  		<!-- 보여지는 영역 -->
+			<div class="swiper-wrapper">
+				<!-- div class="swiper-slide" 를 추가하면된다 -->
+				<c:forEach items="${reviewList}" var="reviewList" end="2">
+					<div class="swiper-slide" style="width: 50%">
+						<div class="media" style="width: 50%;">
+							<div class="media-body">
+								<div class="media-body-top">
+									<div class="media-info">
+										<h4 class="media-heading">${reviewList.review_title }</h4>
+										<span class="media-date">${reviewList.review_date }</span>
+									</div>
+								<div class="media-reply">
+									<a onclick="location.href='reviewDetail?review_num=${reviewList.review_num}'"><div class="my-btn my-btn-default">
+										<div class="my-btn-bg-top"></div>
+										<div class="my-btn-bg-bottom"></div>
+										<div class="my-btn-text">
+											자세히 보기
+										</div>
+									</div></a>
+								</div>
+								</div>
+									${reviewList.review_content }
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="swiper-pagination2"></div>
+		</div>
+		
+	</div>
+    
+    
+    <script>
+		<!-- swiper슬라이더 메인컨테이너 온/습도 -->
+	    var swiper = new Swiper('.swiper-container', {
+	      //기본 셋팅
+	      //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
+	      direction: 'horizontal',
+	      //한번에 보여지는 페이지 숫자
+	      slidesPerView: 6,
+	      //페이지와 페이지 사이의 간격
+	      spaceBetween: 10,
+	      //드레그 기능 true 사용가능 false 사용불가
+	      debugger: true,
+	      //마우스 휠기능 true 사용가능 false 사용불가
+	      mousewheel: true,
+	      //반복 기능 true 사용가능 false 사용불가
+	      loop: true,
+	      //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+	      centeredSlides: true,
+	      // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
+	      // effect: 'fade',
+	
+	      //자동 스크를링
+	      autoplay: {
+	        //시간 1000 이 1초
+	        delay: 1000,
+	        disableOnInteraction: false,
+	      },
+	
+	      //페이징
+	      pagination: {
+	        //페이지 기능
+	        el: '.swiper-pagination',
+	        //클릭 가능여부
+	        clickable: false,
+	      },
+	    });
+	    
+	    var swiper = new Swiper('#swiper-container22', {
+	    	//기본 셋팅
+		      //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
+		      direction: 'horizontal',
+		      //한번에 보여지는 페이지 숫자
+		      slidesPerView: 1,
+		      //페이지와 페이지 사이의 간격
+		      spaceBetween: 20,
+		      //드레그 기능 true 사용가능 false 사용불가
+		      debugger: true,
+		    mousewheel : {
+		  		invert : false      // 마우스휠사용
+		  	},
+		      //반복 기능 true 사용가능 false 사용불가
+		      loop: true,
+		      //선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+		      centeredSlides: false,
+		      // 페이지 전환효과 slidesPerView효과와 같이 사용 불가
+		      // effect: 'fade',
+		
+		      //자동 스크를링
+		      autoplay: {
+		        //시간 1000 이 1초
+		        delay: 3000,
+		        disableOnInteraction: false,
+		      },
+		
+		      //페이징
+		      pagination: {
+		        //페이지 기능
+		        el: '.swiper-pagination',
+		        //클릭 가능여부
+		        clickable: false,
+		      },
+		});
+</script>
     
 </body>
 </html>
