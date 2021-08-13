@@ -171,7 +171,7 @@
 	}
 	
 	#unUsedMember:hover{
-		color: #F93C3C;
+		color:  rgb(52, 152, 219);
 		font-weight: bold;
 	}
 	
@@ -181,10 +181,14 @@
 		background-color: rgb(224, 224, 224);
 		margin: 10px 10px;
 	}
-	a:visited {
+	#useMember {
+		color: red;
+	}
+	
+	#useMember:visited {
 		color: #00c0e2;
 	}
-	a:hover {
+	#useMember:hover {
 		color:  rgb(52, 152, 219);
 	}
 </style>
@@ -228,7 +232,7 @@
 												</c:when>
 												<c:otherwise>
 													<p>
-														<a onclick="useStorageInfo('${storageInfoList.offer_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#storageInfo">
+														<a id="useMember" onclick="useStorageInfo('${storageInfoList.offer_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#storageInfo">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
 													</p>

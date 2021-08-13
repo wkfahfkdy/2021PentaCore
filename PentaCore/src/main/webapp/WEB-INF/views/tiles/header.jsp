@@ -83,7 +83,7 @@
 						
 						<!-- === top menu item === -->
 						<li>
-							<a onclick="location.href='selfOffer'">셀프견적</a>
+							<a onclick="LoginCheckToSelfOffer('${loginId }')">셀프견적</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
@@ -261,3 +261,13 @@
 	<!-- =========================
 	   END BLACK OVERLAY
 	============================== -->
+	<script>
+		function LoginCheckToSelfOffer(member_id){
+			if(member_id == ""){
+				alert("로그인 후 이용해주세요.");
+				location.href = "memberLoginForm";
+			}else {
+				location.href = "selfOffer";
+			}
+		}
+	</script>

@@ -147,7 +147,7 @@
         	totalVolume = 0; // 현재 고객 가격 다 초기화
         	slider.slideTo($('.swiper-slide').data("id")*1 , 1000); // index 0 으로 이동
         	$('#nowInfo').html('<br>총 물품 : 현재 아무것도 없습니다 <br /><br /> 고객님의 물품 총 부피는 = ' + totalVolume + 'cm³ 입니다');
-        	$('#fixedStorageName').html("슬림");
+        	$('#fixedStorageName').html("슬림 / " + $('#hiddenOfferDate').val() + '개월 약정'); // 
         	$('#fixedPrice').html("");
         	$('#fixedDiscountPrice').html("현재가격54000원");
         });
@@ -170,6 +170,7 @@
       			$("input:radio[name='pickupService']").removeAttr('checked');
 			 	$("input:radio[name='boxService']").removeAttr('checked');
 			 	$('#pickupInfo').hide();
+			 	$('#pickupBoxCount').hide();
       		}
       	});
       	// 박스 카운트
@@ -180,18 +181,23 @@
       			$('#pickupBoxCount').hide();
       			$('#hiddenBoxCount').removeAttr("value");
       			$('#boxCount').val("");
+      			$('#fixedOther').html("기타")
       		}
 	     });
       	// offer_date 넣어줄때 검증
       	$('input:radio[name="offerDate"]').change(function(){
       		if(($(this).val()) == 1){
   				$('#hiddenOfferDate').val("1");
+  				$('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름 및 약정
   			} else if($(this).val() == 3) {
   				$('#hiddenOfferDate').val("3");
+  				$('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름 및 약정
   			} else if($(this).val() == 6){
   				$('#hiddenOfferDate').val("6");
+  				$('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름 및 약정
   			} else if($(this).val() == 12){
   				$('#hiddenOfferDate').val("12");
+  				$('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름 및 약정
   			}
       	});
       	
@@ -251,7 +257,7 @@
             	// 픽업 서비스 신청했는데 층수가 0층일때 + 희망날짜 / 시간 설정안했을때 + 박스 신청했는데 갯수가 0일때 alert
             	if($('input:radio[name="pickupService"]:checked').val() == "Y"){
             		if(parseInt($('#floor').val()) == 0) {
-            			alert("0층이 어디있노 인간아");
+            			alert("Error : 403 Forbidden");
             			$('#floor').focus();
             			return false;
             		} else if($('#hiddenPickupDate').val() == "" || $('#hiddenPickuptime').val() == ""){
@@ -367,7 +373,7 @@
 	   $('#floor').change(function(){
 			var floor = parseInt($('#floor').val());
 			if(floor < -2){
-				alert("더 밑으로 가면 안된데이");
+				alert("지하 2층 이하는 상담문의 부탁드립니다.");
 				parseInt($('#floor').val(0));
 				$('#hiddenOfferPickup').attr("value", " ");
 			} else {
@@ -509,8 +515,8 @@
     	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
           $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
       };
-     	$('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-    	$('#hiddenOfferProduct').val(resetList);
+     	$('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름 및 약정
+    	$('#hiddenOfferProduct').val(resetList); 
       	$('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
       	$('#hiddenOfferPrice').val(storage_price);
       	$('#hiddenOfferDiscountPrice').val(storage_price)
@@ -583,7 +589,7 @@
       	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
             $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
         };
-        $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+        $('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름
          // 삭제 된 결과를 value에 담기
         $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
         $('#hiddenOfferProduct').val(delProduct);
@@ -629,7 +635,7 @@
 	    	  $('#fixedDiscountPrice').html("스토리지이용가격 : " + storage_price + '원'); // 감산될 가격
 	          $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
 	      };
-	      $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+	      $('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름
 		  $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
 		  $('#hiddenOfferRental').val(rentalList);
 		  $('#hiddenOfferPrice').val(storage_price);
@@ -695,8 +701,7 @@
 	          $('#fixedPrice').html("할인전가격 : " + storage_price + '원'); // 원래가격
 	      };
         // 삭제 된 결과를 value에 담기
-       $('#fixedStorageName').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-       
+       $('#fixedStorageName').html($('.swiper-slide-active').data("name") + ' / ' + $('#hiddenOfferDate').val() + '개월 약정'); // 스토리지 이름
        $('#hiddenOfferRental').val(delRental);
        $('#hiddenOfferStorageCode').val($('.swiper-slide-active').data("index"));
        $('#hiddenOfferPrice').val(storage_price);
@@ -1287,7 +1292,7 @@ input[type='number'] {
 							
 							<div align="center" style="padding: 0 85px;" id="pickupBoxCount">
 								<input type="number" id="boxCount" value="0">&nbsp;&nbsp;<b>개</b>
-								<h6>박스 규격 : (48cm x 38cm x 34cm)<br/>
+								<h6 style="text-align: left; width:50%">박스 규격 : (48cm x 38cm x 34cm)<br/>
 										고객님께서 직접 포장하시는 경우 박스를 출발지 주소로 택배 발송해 드립니다.<br/>
 										박스구매는 운송신청 최소 5일전에 신청해 주시기 바랍니다.<br/>
 										한묶음(10개)당 택배비용 6,600 원 발생<br/>
@@ -1448,17 +1453,17 @@ input[type='number'] {
 	  		</div>
 		</div>
   </div>
-  <div align="right" class="self-banner-bottom" style="position: fixed; bottom: 0px; width:19.4%; border-radius: 20px;">
+  <div align="right" class="self-banner-bottom" style="position: fixed; bottom: 0px; width:100%; border-radius: 4px; padding: 10px 0; justify-content: space-between;">
 		<div id="inner"  style="padding: 0px 20px;">
-			<div style="float: left;">
-				<h4 id="fixedStoreName">중구점</h4> <!-- 지점이름 -->
-				<h5 id="fixedStorageName">슬림</h5> <!-- 스토리지 이름 / 약정 -->
+			<div style="float: left; width: 25%; text-align: center;">
+				<h4 id="fixedStoreName" style="margin: 30px auto; font-size: 32px; font-weight: bold; ">중구점</h4> <!-- 지점이름 -->
+				<h5 id="fixedStorageName" style="font-size: 20px;">슬림</h5> <!-- 스토리지 이름 / 약정 -->
 			</div>
-			<div style="float: right;">
-				<h4 id="fixedDiscountPrice" style="display: inline-block;">현재가격54000원</h4> <!-- 감산된 가격-->
+			<div style="float: right; width: 25%; text-align: left; line-height: 1.2">
+				<h4 id="fixedDiscountPrice" style="display: inline-block; color: black; font-weight: bold; font-size: 22px;">현재가격54000원</h4> <!-- 감산된 가격-->
 				<h5 id="fixedPrice"></h5> <!-- 원래가격 --> 
-				<h4 id="fixedLaundry">세탁물품가격</h4>
-				<h4 id="fixedOther">기타</h4>
+				<h5 id="fixedLaundry">세탁물품가격</h5>
+				<h5 id="fixedOther">기타</h5>
 			</div>
 		</div>
 	
