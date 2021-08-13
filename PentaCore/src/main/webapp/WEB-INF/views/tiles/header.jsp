@@ -97,7 +97,7 @@
 									<a href="useForm">이용안내</a>
 								</li>
 								<li>
-									<a href="storeTour">스토리지투어예약</a>
+									<a onclick="storeTour('${loginId }')">스토리지투어예약</a>
 								</li>
 								<li>
 									<a href="keep">안심보관이사</a>
@@ -270,4 +270,14 @@
 				location.href = "selfOffer";
 			}
 		}
+		
+		function storeTour(member_id){
+			if(member_id == ""){
+				alert("로그인 후 이용해주세요.");
+				location.href = "memberLoginForm";
+			}else {
+				location.href = "storeTour";
+			}
+		}
+		
 	</script>

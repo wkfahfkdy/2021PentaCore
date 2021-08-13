@@ -272,7 +272,7 @@
 					</div>
 					<div class="form-memdata">
 						<div class="mem-data" style="line-height: 2.5em;"><input type="text" id="apply_addr" name="apply_addr" value="${loginAddr }" /></div>
-						<div class="mem-data" ><input type="text" id="apply_product" name="apply_product" value="ex) 원룸, 아파트21평 ..." /></div>
+						<div class="mem-data" ><input type="text" id="apply_product" name="apply_product" value="ex) 원룸, 아파트21평 ..." onfocus="this.value=''"/></div>
 						<div class="mem-data" style="padding-top: 0.7em;"><input type="date" id="apply_end" name="apply_end" /><br> </div>
 					</div>
 				</div>

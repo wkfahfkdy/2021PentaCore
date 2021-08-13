@@ -181,7 +181,7 @@
     function submit() {
     	// 첫번째 값은 누르면 잘나오고 select 값 변경 되고 submit 누르면 그 변경 된 값 들어감
     	var storage = $('#cuStorage').val();
-    	$('#cuStorage').val(storage)
+    	$('#cuStorage').val(storage);
     	frm.submit();
     }
     
