@@ -343,7 +343,7 @@ public class StoreAdminController {
 	
 	// 1:1 문의 상세
 	@ResponseBody
-	@RequestMapping(value="custormerAskSelect/{question_num}", method=RequestMethod.GET)
+	@RequestMapping(value="store/custormerAskSelect/{question_num}", method=RequestMethod.GET)
 	public List<StoreAdminVO> custormerAskSelect(@PathVariable int question_num, StoreAdminVO vo, HttpServletRequest req) {
 		vo.setQuestion_num(question_num);
 		
@@ -354,7 +354,7 @@ public class StoreAdminController {
 	
 	// 1:1 문의 답변 등록
 	@ResponseBody
-	@RequestMapping(value="answerAsk", method=RequestMethod.POST)
+	@RequestMapping(value="store/answerAsk", method=RequestMethod.POST)
 	public String answerAsk(HttpServletRequest req, StoreAdminVO vo) {
 		HttpSession session = req.getSession();
 		String empId = (String) session.getAttribute("empId");
