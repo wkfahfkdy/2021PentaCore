@@ -151,10 +151,10 @@ public class MyPageController {
 		HttpSession session = req.getSession();
 
 		String id = (String) session.getAttribute("loginId");
-		vo.setMember_id(id);
-		
-		model.addAttribute("storeTourListAll", MyPageDAO.storeTourListAll(vo));
-		
+		if(id != null) {
+			vo.setMember_id(id);
+			model.addAttribute("storeTourListAll", MyPageDAO.storeTourListAll(vo));
+		}
 		return "myPage/tourCheck";
 	}
 	

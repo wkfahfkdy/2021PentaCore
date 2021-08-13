@@ -100,7 +100,7 @@
 		    		<tr>
 		    			<td colspan="2" style="padding-top:0.8em; width: 100%; text-align: left;"><h4 id="sName"></h4></td>
 		    		</tr>
-		    		<tr><td rowspan="8" style="width: 60%;"><div id="map"></div></td><td class="store-row"><b>네비게이션</b></td></tr>
+		    		<tr><td rowspan="8" style="width: 60%;"><div id="map" style="height:300px"></div></td><td class="store-row"><b>네비게이션</b></td></tr>
 		    		<tr><td class="store-row" id="sAddr"></td></tr>
 		    		<tr><td class="store-row"><b>BUS</b></td></tr>
 		    		<tr><td class="store-row" id="sBus"></td></tr>
@@ -217,13 +217,13 @@ $(document).ready(function() {
 			
 			// KakaoMap
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		    mapOption = {
-		        center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666), // 지도의 중심좌표 (default 값)
-		        level: 3 // 지도의 확대 레벨
-		    }; 
-			
+			    mapOption = {
+			        center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666), // 지도의 중심좌표 (default 값)
+			        level: 3 // 지도의 확대 레벨
+			    };  
+			setTimeout(function() {
 			// 지도를 생성합니다    
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			var map = new kakao.maps.Map(mapContainer, mapOption);
 			
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new kakao.maps.services.Geocoder();
@@ -239,7 +239,7 @@ $(document).ready(function() {
 			    content : iwContent2,
 			    removable : iwRemoveable2
 			});
-		    
+			
 		    var content = navi;
 		    
 			// 주소로 좌표를 검색합니다
@@ -267,7 +267,7 @@ $(document).ready(function() {
 			        map.setCenter(coords);
 			    } 
 			}); 
-
+			}, 100);
 			var title = '<h3>견적서 상세내역</h3>';
 			
 			var tbl =$('<table width="100%" />');
