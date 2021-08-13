@@ -38,6 +38,8 @@ public class MyPageController {
 		
 		if(s_code != null) {
 			vo.setStore_code(s_code);
+			model.addAttribute("notice", notice);
+			model.addAttribute("useService", useService);
 			model.addAttribute("noticeSelectList", MyPageDAO.noticeSelectList(vo));
 			model.addAttribute("usedStorageList", MyPageDAO.usedStorageList(vo));
 			model.addAttribute("userReview", MyPageDAO.userReview(vo));

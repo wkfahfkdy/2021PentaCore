@@ -21,6 +21,8 @@
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
+        height: 80%;
+		overflow-y: auto; /*세로 스크롤 생성*/
     }
 
     #my-ask .modal_close_btn {	/*모달창 닫기버튼*/
@@ -28,6 +30,22 @@
         top: 10px;
         right: 10px;
     }
+    
+     #my-ask::-webkit-scrollbar {
+	    width: 10px;
+	  }
+
+	 #my-ask::-webkit-scrollbar-thumb {
+	    background-color: #00c0e2;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	  }
+	  #my-ask::-webkit-scrollbar-track {
+	    background-color: #CEF6F5;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	  }
     
     .ask-table {
     	display: table;

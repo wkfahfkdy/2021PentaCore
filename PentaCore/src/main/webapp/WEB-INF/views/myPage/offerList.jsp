@@ -241,9 +241,10 @@ $(document).ready(function() {
 			});
 			
 		    var content = navi;
+		    console.log(content);
 		    
 			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch(content, function(result, status) {
+			geocoder.addressSearch(navi, function(result, status) {
 			
 			    // 정상적으로 검색이 완료됐으면 
 			     if (status === kakao.maps.services.Status.OK) {
@@ -285,7 +286,11 @@ $(document).ready(function() {
 			row += '<tr><th>쿠폰/할인</th>';
 			row += '<td class="offer-row">' + coupon + '</td></tr>';
 			row += '<tr><th>픽업 서비스</th>';
-			row += '<td class="offer-row">' + pickup + '</td></tr>';
+			if(pickup != null){
+				row += '<td class="offer-row">' + pickup + '</td></tr>';
+			} else {
+				row += '<td class="offer-row">픽업 신청 없음</td></tr>';
+			}
 			row += '<tr><th style="color: #00c0e2;">프리미엄 서비스</th>';
 			row += '<td class="offer-row">' + premium + '</td></tr>';
 			row += '<tr><th style="color: #00c0e2;">세탁 서비스</th>';

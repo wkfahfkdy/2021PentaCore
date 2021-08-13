@@ -21,6 +21,8 @@
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
+        height: 80%;
+    	overflow-y: auto; /*세로 스크롤 생성*/
     }
 
     #myReport .modal_close_btn {
@@ -34,6 +36,22 @@
     	border: 1px solid #00c0e2;
     	border-radius: 0.3em;
     }
+	   
+	#myReport::-webkit-scrollbar {
+	    width: 10px;
+	}
+	
+	#myReport::-webkit-scrollbar-thumb {
+	    background-color: #00c0e2;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	}
+	#myReport::-webkit-scrollbar-track {
+	    background-color: #CEF6F5;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	}
     
    	.back-btn {
     	background-color: #006DFC;
@@ -48,6 +66,11 @@
     	width: 20%;
     	padding: 0.5em;
     }
+    
+    div.modal-body img {	/* Modal창 안에 표시되는 내용의 이미지 사이즈 강제 조정*/
+		max-width: 100%;
+		height: auto;
+	}
     
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
@@ -71,8 +94,6 @@
 <script>
 // 보관 컨디션 보고서 그리드 생성
 $(document).ready(function() {
-	var list = '<c:out value="${reportList}"/>';
-	
 	const Grid = tui.Grid;
 	
 	const reportData = [

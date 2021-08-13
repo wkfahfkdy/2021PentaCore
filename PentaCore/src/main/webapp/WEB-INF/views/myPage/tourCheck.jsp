@@ -346,6 +346,8 @@ $(document).ready(function() {
 			//checkedOnly: false 
 			// 이딴 놈은 있으면 귀찮음. 굉장히 귀찮음. 커서가 다른데 가야 뭐가 됨
 		});
+		alert('신청이 취소되었습니다.');
+		location.reload();
 	}
 	
 	// 업데이트 실행 이벤트

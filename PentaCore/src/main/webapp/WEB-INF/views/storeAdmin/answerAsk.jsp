@@ -58,7 +58,7 @@
 <div class="wrap">
 	<h3>1:1문의 관리</h3>
 	<div style="padding-bottom: 1em;" align="right">
-		<button type="button" class="back-btn" onclick="location.href='home'">뒤로가기</button>
+		<button type="button" class="back-btn" onclick="location.href='${pageContext.request.contextPath }/home'">뒤로가기</button>
 	</div>
 	<div id="gridArea">
 		<!-- 그리드 호출 -->
@@ -197,6 +197,12 @@ $(document).ready(function() {
 			$('#answer').on('click', function () {
 				var data = $("form[id=frm]").serialize();
 				console.log(data);
+				
+				if (frm.notice_content.text == "") {
+					alert("내용을 입력하세요.");
+					frm.notice_content.focus();
+					return false;
+				}
 				
 				$.ajax({
 					url: 'answerAsk',
