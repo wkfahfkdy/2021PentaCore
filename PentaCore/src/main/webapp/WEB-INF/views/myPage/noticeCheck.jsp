@@ -11,7 +11,7 @@
 			margin: auto;
 			text-align: center;
 			padding: 50px 10px;
-			width: 90%;
+			width: 80%;
 		}
 		
 	.back-btn {
@@ -25,12 +25,30 @@
     
    	#noticeDetail {
         display: none;
-        width: 60%;
+        width: 70%;
         padding: 30px 50px;
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
+        height: 80%;
+		overflow-y: auto; /*세로 스크롤 생성*/
     }
+    
+    #noticeDetail::-webkit-scrollbar {
+	    width: 10px;
+	  }
+
+	 #noticeDetail::-webkit-scrollbar-thumb {
+	    background-color: #00c0e2;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	  }
+	  #noticeDetail::-webkit-scrollbar-track {
+	    background-color: #CEF6F5;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	  }
 
     #noticeDetail .modal_close_btn {
         position: absolute;
@@ -95,14 +113,14 @@ $(document).ready(function() {
 			{
 				header:  '글 제목',
 				name: 'notice_title',
-				align: 'center',
-				width: 900
+				align: 'center'
 				
 			},
 			{
 				header: '올린 날짜',
 				name: 'notice_date',
 				align: 'center',
+				width: 100
 			}
 		],
 		

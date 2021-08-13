@@ -214,7 +214,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<font style="color:#006DFC; font-weight: bold;">${useService }</font>
+					<font style="color:#006DFC;"><h4>${useService }</h4></font>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -236,7 +236,14 @@
 					<h3>Store Notice</h3>
 				</div>
 				<div class="go-notice">
-					<h4><a href="noticeList">이용 지점 공지사항 바로가기</a></h4>
+					<c:choose>
+						<c:when test="${notice eq null }">
+							<h4><a href="noticeList">이용 지점 공지사항 바로가기</a></h4>
+						</c:when>
+						<c:otherwise>
+							<font style="color: blue;"><h4>${notice }</h4></font>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

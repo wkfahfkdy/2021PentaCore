@@ -170,6 +170,21 @@
 			$('#apply_end').focus();
 			return false;
 		}
+		if($('#apply_addr').val() == ""){
+			alert("운송 희망 주소를 입력하세요.");
+			$('#apply_addr').focus();
+			return false;
+		}
+		if($('#apply_product').val() == ""){
+			alert("운송 물품 정보를 입력하세요.");
+			$('#apply_product').focus();
+			return false;
+		}
+		if($('#apply').val() == ""){
+			alert("지점을 선택하세요.");
+			$('#choice-btn').focus();
+			return false;
+		}
 		
 		var data = $("form[id=frm]").serialize() ;
 		console.log(data);
@@ -217,7 +232,7 @@
 						<div class="title">이용 중인 지점</div>
 						<div class="title">이용 스토리지 번호</div>
 						<div class="title">이용 희망 지점</div>
-						<div class="title">픽업 희망 주소</div>
+						<div class="title">운송 희망 주소</div>
 						<div class="title">운송 물품 정보</div>
 					</div>
 					<div class="form-memdata">
