@@ -321,11 +321,11 @@ public class MyPageController {
 	}
 	
 	// 세탁 처리 현황 내역
-	@ResponseBody
-	@RequestMapping(value="myLaundrySelect/{laundry_code}", method=RequestMethod.GET)
-	public MyPageVO myLaundrySelect(@PathVariable String laundry_code, MyPageVO vo) {
-		vo.setLaundry_code(laundry_code);
-		
-		return MyPageDAO.myLaundrySelect(vo);
-	}
+//	@ResponseBody
+//	@RequestMapping(value="myLaundrySelect/{laundry_code}", method=RequestMethod.GET)
+//	public MyPageVO myLaundrySelect(@PathVariable String laundry_code, MyPageVO vo) {
+//		vo.setLaundry_code(laundry_code);
+//		
+//		return MyPageDAO.myLaundrySelect(vo);
+//	}
 }
