@@ -7,15 +7,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.storage.review.map.ReviewMapper;
 import com.yedam.storage.review.service.ReviewService;
 import com.yedam.storage.review.vo.ReviewVO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
-
+	
 	@Autowired
 	private SqlSession sqlSession;
-
+	@Autowired
+	private ReviewMapper map;
+	
 	
 	@Override
 	public List<ReviewVO> reviewList() {
@@ -32,6 +35,12 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewVO selectReview(String reviewNum) {
 		return sqlSession.selectOne("selectReview", reviewNum);
+	}
+
+	// 메인 페이지 리뷰 리스트
+	@Override
+	public List<ReviewVO> mainPageReviewList() {
+		return map.mainPageReviewList();
 	}
 	
 	

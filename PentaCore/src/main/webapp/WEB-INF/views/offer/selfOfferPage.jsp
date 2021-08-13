@@ -1260,7 +1260,7 @@ input[type='number'] {
 							<div>
 								<p style="display: inline-block; font-family: Montserrat; font-weight: bold; font-size: 12pt;">포장서비스</p>
 								<label class="offerLabel pickupYes">YES &nbsp;&nbsp;<input type="radio" name="pickupService" value="Y"></label>
-								<label class="offerLabel pickupNo">NO &nbsp;&nbsp;<input type="radio" name="pickupService" value="N"></label>
+								<label class="offerLabel pickupNo">NO &nbsp;&nbsp;<input type="radio" checked="checked" name="pickupService" value="N"></label>
 							</div>
 							<div style="padding: 0 85px;" id="pickupInfo">
 								<table border="0" id="pickupService">

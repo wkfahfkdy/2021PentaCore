@@ -15,4 +15,7 @@ public interface ReviewMapper {
 	public List<ReviewVO> reviewList();
 	public List<ReviewVO> reviewListPaging(ReviewVO vo);
 	public ReviewVO selectReview(@Param("p") String reviewNum);
+	
+	// 메인 리뷰 리스트
+	public List<ReviewVO> mainPageReviewList();
 }
