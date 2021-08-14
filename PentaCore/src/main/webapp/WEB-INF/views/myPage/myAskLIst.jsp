@@ -340,19 +340,17 @@ $(document).ready(function() {
 				var row = '<tr>';
 					
 					if(q_parents == 1) {
-						row += '<td width="20%" style="padding: 0.3em;">작성일자</td>';
+						row += '<td width="20%" style="padding: 0.3em; font-weight: bold;">작성일자</td>';
 						row += '<td width="80%">'+ q_date + '</td></tr>';
 						row += '<tr style="border-bottom: 1px solid lightgray;">'+
-								'<td colspan="2" width="60%" align="center" style="line-height: 2.5em; padding-bottom: 1em;">'
+								'<td colspan="2" width="60%" style="padding: 2em;">'
 								+ q_content + '</td></tr>';
+						if(group_cnt <= 1){
+							row += '<tr><td colspan="2" style="padding: 1em;"><b>아직 등록된 답변이 없습니다.<b></td></tr>';
+						}
 					} else {
-						if(group_cnt > 1){
-						row += '<tr><td style="padding: 0.3em;"><img src="resources/assets/images/re.png">&nbsp;답변 </td><td>' + q_date + '</td></tr>';
-						row += '<tr style="border-bottom: 1px dashed lightgray;"><td colspan="2" style="padding: 0.3em;">' + q_content + '</td></tr>';
-						}
-						else {
-							row += '<tr><td>아직 등록된 답변이 없습니다.</td></tr>';
-						}
+						row += '<tr><td style="padding: 1em;"><img src="resources/assets/images/re.png">&nbsp;<b>답변</b> </td><td>' + q_date + '</td></tr>';
+						row += '<tr style="border-bottom: 1px dashed lightgray;"><td colspan="2" style="padding: 1em 2em; word-wrap:break-word; white-space: pre-line;">' + q_content + '</td></tr>';
 					}
 				tbl.append(row);
 				if(idx == 0){

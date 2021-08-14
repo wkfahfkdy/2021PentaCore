@@ -198,9 +198,9 @@ $(document).ready(function() {
 				var data = $("form[id=frm]").serialize();
 				console.log(data);
 				
-				if ($('#notice_content').val() == "") {
+				if ($('#question_content').val() == "") {
 					alert("내용을 입력하세요.");
-					frm.notice_content.focus();
+					$('#question_content').focus();
 					return false;
 				}
 				
