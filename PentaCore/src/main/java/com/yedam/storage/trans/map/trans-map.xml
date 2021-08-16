@@ -73,6 +73,7 @@
 		      	STORE S
 		WHERE  	A.APPLY_CODE = L.APPLY_CODE
 		AND 	A.STORE_CODE = S.STORE_CODE
+		AND     L.CONVEY_TIME IS NOT NULL
 	</select>
 	
 	<!-- 지점 리스트 -->

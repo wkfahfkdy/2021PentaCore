@@ -88,7 +88,7 @@ public class TransController {
 	}
 
 	// 월간 캘린더 API TEST (운송관리)
-	@RequestMapping("trans/calendarTest")
+	@RequestMapping("trans/transCalendar")
 	public String calendarTest(Model model) {
 		
 		// CONVEY_APPLY TABLE과 CONVEY_LIST TABLE를 JOIN한 SQL문에서 APPLY_END와 CONVEY_TIME을 가져오고 합쳐야한다.

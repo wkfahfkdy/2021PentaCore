@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <!-- fullCalendar  -->
-<link href="resources/full/css/mobiscroll.javascript.min.css" rel="stylesheet" />
-<script src="resources/full/js/mobiscroll.javascript.min.js"></script>
+<link href="${pageContext.request.contextPath}/resources/full/css/mobiscroll.javascript.min.css" rel="stylesheet" />
+<script src="${pageContext.request.contextPath}/resources/full/js/mobiscroll.javascript.min.js"></script>
 <style>
 	#my_offer {	/*모달창*/
         display: none;

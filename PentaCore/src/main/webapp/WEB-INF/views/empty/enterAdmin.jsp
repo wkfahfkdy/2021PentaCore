@@ -32,7 +32,7 @@
 	<div class="wrap">
 		<div class="box">
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='trans/calendarTest'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='trans/transCalendar'">
 					<h2>지점예약 스케쥴관리</h2></button>
 			</div>
 			<div class="btn">
