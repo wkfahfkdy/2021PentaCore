@@ -311,6 +311,8 @@ function closeModal() {
 
 
 <!-- =================================== 비밀번호 찾기 모달 ======================================== -->
+
+<!-- 
 <script>
 //비밀번호 찾기 모달(이름입력 확인)
 $(function() {
@@ -325,7 +327,7 @@ $(function() {
 	});
 });
 </script>
-
+ -->
 <!-- 
 <script>
 //비밀번호 찾기 모달(이메일 확인)
@@ -423,8 +425,6 @@ $(function() {
 			});
 		});
 	});
-
-
 </script>
 
 
@@ -444,18 +444,30 @@ $(function() {
 			alert("휴대폰번호를 입력하세요.");
 			return false;
 		}
+
+		$.ajax ({
+			url : 'memberPwFindCheck',  
+			data: {
+				member_name : $('#member_name2').val(),
+				member_id : $('#member_id2').val(),
+				member_tel : $('#member_tel').val(),
+				},
+			type: 'post',
+			success: function(success) {
+				if(success > 0) {
+				alert('정상적으로 확인되었습니다.');
+				pwModal.submit(); 
+				} else {
+				alert('가입한 내역이 없습니다. 입력하신 정보를 다시 확인해주세요.');				
+				pwModal.member_name.focus();
+				}
+			},
+			error : function(err) {
+				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+			}
+	});
 		
-		/*
-		if (pwModal.checkSMS.value == "unChecked") {
-			alert("문자 인증을 하세요");
-			pwModal.smsKey.focus();
-			return false;
-		}    
-		*/
 		
-		//아작스 추가
-		
-		idModal.submit(); 
 		
 	});
 });
@@ -604,7 +616,7 @@ $(function() {
 				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
 				   
 				    <div id="pw01" class="modal" align ="center">
-				        <form id="pwModal" name="pwModal" class="modal-content animate" action="" method="post">
+				        <form id="pwModal" name="pwModal" class="modal-content animate" action="memberLoginPwShowModal" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>

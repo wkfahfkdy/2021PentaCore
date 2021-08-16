@@ -162,33 +162,14 @@ private String member_disable;
 			return false;
 		}
 		
-		/* $.ajax({
-			url : 'memberLoginIdCheck1',
-			data : {
-				member_id : $('#member_id').val(),
-				member_pwd : $('#member_pwd').val() },
-			type : 'post',
-			success : function(id) {
-				console.log(id);
-				if (id == 'invalid') {
-					alert('이름과 패스워드를 다시 확인해주세요.');	
-				} else {
-					frmMember.submit();	
-				}
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});	 */
-		frmMember.submit();	
-		
+		frmMember.submit();
 	}
 	
 
 </script>
 
 
-<!-- =================================== 아이디 찾기 모달 ======================================== -->
+<!-- =================================== 아아디 찾기 모달 ======================================== -->
 
 <script>
 //이메일 인증코드 전송시 이메일 공백확인
@@ -292,7 +273,6 @@ $(function() {
 			return false;
 		}
 		 */
-		//새로운 모달 띄워서 아이디 보여주기
 			        
 		idModal.submit(); 
 	 	
@@ -303,7 +283,6 @@ $(function() {
 
 
 <script>
-//id찾기 modal close
 function closeModal() {
 		document.getElementById('idShow').style.display='none';
 	}
@@ -312,8 +291,6 @@ function closeModal() {
 
 
 <!-- =================================== 비밀번호 찾기 모달 ======================================== -->
-
-<!-- 
 <script>
 //비밀번호 찾기 모달(이름입력 확인)
 $(function() {
@@ -328,8 +305,7 @@ $(function() {
 	});
 });
 </script>
- -->
-<!-- 
+
 <script>
 //비밀번호 찾기 모달(이메일 확인)
 $(function() {
@@ -367,7 +343,7 @@ $(function() {
 });
 
 
-</script> -->
+</script>
 
 <script>
 	//휴대폰 번호입력 ajax
@@ -426,7 +402,18 @@ $(function() {
 			});
 		});
 	});
+
+
 </script>
+
+<!-- =================================== 비밀번호 재설정창 보여주는 모달 자동실행 ======================================== -->
+<script>
+$( document ).ready(function() {
+	// 팝업 호출
+	document.getElementById('pwShow').style.display='block'
+});
+</script>
+
 
 
 <script>
@@ -437,83 +424,39 @@ $(function() {
 			pwModal.member_name.focus();
 			return false;
 		}
-		if (pwModal.member_id2.value == "") {
-			alert("아이디를 입력하세요.");
+		if (pwModal.member_email2.value == "") {
+			alert("이메일을 입력하세요.");
+			return false;
+		}
+		
+		/* 
+		if (frm.checkEmail2.value == "unChecked") {
+			alert("이메일을 인증 하세요");
+			frm.checkEmail2.focus();
 			return false;
 		}
 		if (pwModal.member_tel.value == "") {
 			alert("휴대폰번호를 입력하세요.");
 			return false;
-		}
+		} */
 		
+		/*
+		if (pwModal.checkSMS.value == "unChecked") {
+			alert("문자 인증을 하세요");
+			pwModal.smsKey.focus();
+			return false;
+		}    
+		*/
 		
-		pwModal.submit(); 
+		//아작스 추가
 		
 	});
 });
 </script>
-
-<script>
-//id찾기 modal close
-function pwCloseModal() {
-		document.getElementById('pwShow').style.display='none';
-	}
-	
-</script>	
 
 <!-- =================================== 비밀번호 찾기 모달 END======================================== -->
 
 
-<!-- =================================== 비밀번호 재설정창 보여주는 모달 자동실행 ======================================== -->
-<script>
-$( document ).ready(function() {
-	// 팝업 호출
-	document.getElementById('pwShow').style.display='block'
-});
-</script>
-
-<script>
-$(function() {
-	$('#updateNewPw').click(function() {
-
-		
-		if (pwShowModal.member_pwd2.value == "") {
-			alert("새로운 비밀번호를 입력하세요.");
-			return false;
-		}
-		if (pwShowModal.member_pwd3.value == "") {
-			alert("비밀번호를 확인하세요.");
-			return false;
-		}
-		if (pwShowModal.member_pwd2.value != pwShowModal.member_pwd3.value) {
-			alert("입력한 패스워드가 일치하지 않습니다.");
-			pwShowModal.member_pwd2.focus();
-			return false;
-		}
-		
-		$.ajax({
-			url : 'updateNewPwd',
-			data : {
-				member_pwd : $('#member_pwd2').val()
-			},
-			type : 'post',
-			success : function(success) {
-					if (success > 0) { 
-						alert('비밀번호가 성공적으로 재설정되었습니다.');
-						pwShowModal.submit(); 
-					} else {
-						alert('입력값을 재확인해주시기 바랍니다.');
-					}
-			},
-			error : function(err) {
-				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
-			}
-		});
-	});
-});
-</script>
-
-<!-- =================================== 비밀번호 재설정창 보여주는 모달 END ======================================== -->
 
 <script>
 /* 보안위해 로그인 후 다시 로그인 화면으로 못돌아가게 하기  */
@@ -619,7 +562,7 @@ $(function() {
 				        </form>
 					</div>
 				
-					<%-- <!-- =================================== 아이디 보여주기 ======================================== -->
+					<!-- =================================== 아이디 보여주기 ======================================== -->
 					
 					<div id="idShow" class="modal" align ="center">
 				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">
@@ -649,12 +592,12 @@ $(function() {
 				               class="cancelbtn">Cancel</button>
 				            </div>
 				        </form>
-					</div> --%>
+					</div>
 				    
 				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
 				   
 				    <div id="pw01" class="modal" align ="center">
-				        <form id="pwModal" name="pwModal" class="modal-content animate" action="memberLoginPwShowModal" method="post">
+				        <form id="pwModal" name="pwModal" class="modal-content animate" action="" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>
@@ -673,11 +616,16 @@ $(function() {
 								name="member_name2"></td>
 							</tr>
 							<tr>
-							<th width="100">아이디</th>
-							<td width="300" colspan="2">
-	 						<input class="form-control" type="text" id="member_id2" name="member_id2">
+							<th width="100">이메일</th>
+							<td id="member_email_input2"  width="350" colspan="2">
+	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email2" name="member_email2" value="">
 	 						</td>
+	 						<td>
+	 						<button class="btn btn-light" 
+	 						type="button" value="unChecked" id="checkEmail2" name="checkEmail2">이메일 확인</button>
+							</td>
 	 						</tr>
+	 						
 						
 							<tr>
 							<th width="100">휴대폰 번호</th>
@@ -715,49 +663,38 @@ $(function() {
 					</div>
 					
 					
-					 <!-- =================================== 비밀번호 재설정 창 보여주기 ======================================== -->
+					<!-- =================================== 비밀번호 보여주기 ======================================== -->
 					
 					<div id="pwShow" class="modal" align ="center">
-				        <form id="pwShowModal"  name="pwShowModal" class="modal-content animate" action="memberLoginForm" method="post">
+				        <form id="pwShowModal"  name="pwShowModal" class="modal-content animate" action="memberLoginPwShowModal" method="post">
 				            <div class="imgcontainer">
-				                <span id="closePwShow" onclick="pwCloseModal()" class="close"
+				                <span id="closeIdShow" onclick="closeModal()" class="close"
 				                    title="Close Modal">&times;</span>
-				                <h3>비밀번호 재설정</h3>
+				                <h3>비밀번호 찾기</h3>
 				                <br>
+				                <h5>회원님의 아이디는 아래와 같습니다.</h5>
 				            </div>
 				            <br><br>
 				
 				            <div align="center">
 				            <table style="border:1; border-collapse:collapse;">
 				            
-				            <tr>
-							<th width="100">새 비밀번호</th>
-							<td width="300">
-							<input class="form-control" type="password" id="member_pwd2"
-								name="member_pwd2"></td>
-							</tr>
-							
 							<tr>
-							<th width="100">새 비밀번호 확인</th>
-							<td width="300">
-							<input class="form-control" type="password" id="member_pwd3"
-								name="member_pwd3"></td>
+							<th width="150">아이디</th>
+							<td width="300" ><span class="input-group-text"
+										id="inputGroup-sizing-sm"> ${modalId} </span></td>
 							</tr>
 							
 				            </table>
 				
 				            <br><br>
-				            </div>
-				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm" id="updateNewPw">확인</button>
-							</div>
-				
-				            <br><br>
 				            
-				            <button type="button" onclick="document.getElementById('pwShow').style.display='none'"
+				            <button type="button" onclick="document.getElementById('idShow').style.display='none'"
 				               class="cancelbtn">Cancel</button>
-				            </form>
 				            </div>
+				        </form>
+					</div>
+					
 		    </body>
 <script>
 /* 모달창 띄우기 */
