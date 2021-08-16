@@ -95,12 +95,30 @@
 	
 	#my_convey {	/*모달창*/
         display: none;
-        width: 50%;
+        width: 70%;
         padding: 30px 50px;
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
+        height: 80%;
+		overflow-y: auto; /*세로 스크롤 생성*/
     }
+    
+    #my_convey::-webkit-scrollbar {
+	    width: 10px;
+	}
+	
+	#my_convey::-webkit-scrollbar-thumb {
+	    background-color: #00c0e2;
+	    border-radius: 10px;
+	    background-clip: padding-box;
+	    border: 2px solid transparent;
+	}
+	#my_convey::-webkit-scrollbar-track {
+	    background-color: #CEF6F5;
+	    border-radius: 10px;
+	    box-shadow: inset 0px 0px 5px white;
+	}
 
     #my_convey .modal_close_btn {	/*모달창 닫기버튼*/
         position: absolute;
@@ -149,12 +167,25 @@
     }
     
     .back-btn {
-    	background-color: #006DFC;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
 		padding: 0.4em;
     }   
+    
+    .modal-body {
+		border: 1px solid #00c0e2; 
+	 	border-radius: 0.3em;
+	 	width: 100%;
+	 	overflow: auto;
+	 	word-break: keep-all;
+	}
+    
+    div.modal-body img {	/* Modal창 안에 표시되는 내용의 이미지 사이즈 강제 조정*/
+		max-width: 80%;
+		height: auto;
+	}
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
@@ -395,33 +426,41 @@ $(document).ready(function() {
 			var a_use = data.use_num;
 			var a_store = data.store_name;
 			var a_addr = data.apply_addr;
+			var c_file = data.convey_file;
 
 			var title = '<h4>운송 신청 상세내역</h4>';
 			
-			var tbl =$('<table />');
+			var tbl =$('<table style="width:90%;" />');
 			var row = '<tr>';
-			row += '<td class="mo-tbl" style="width: 30%; padding-top: 30px;">' + '신청코드' + '</td>';
+			row += '<th class="mo-tbl" style="width: 30%; padding-top: 30px;">신청코드</th>';
 			row += '<td class="mo-tbl" style="width: 70%; padding-top: 30px;">' + a_code + '</td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 일자" + '</td>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">픽업 희망 일자</th>';
 			if(a_start == a_end){
 				row += '<td class="mo-tbl"><p class="comment">*보관 이사 시 픽업되는 날짜로, 단순 출고는 해당되지 않습니다.</p></td></tr>';
 			} else {
 				row += '<td class="mo-tbl">' + a_start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
 			}
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "픽업 희망 주소" + '</td>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">픽업 희망 주소</th>';
 			row += '<td class="mo-tbl">' + a_addr + '</td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "출고 희망 일자" + '</td>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">출고 희망 일자</th>';
 			row += '<td class="mo-tbl">' + a_end + '<br><p class="comment">*보관이사 또는 이용 중인 스토리지에서 물품을 출고하는 날짜입니다.</p></td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "보관이사 여부" + '</td>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">보관이사 여부</th>';
 			row += '<td class="mo-tbl">' + a_whether + '</td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "운송 물품 정보" + '</td>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">운송 물품 정보</th>';
 			row += '<td class="mo-tbl">' + a_prod + '</td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 지점" + '</td>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">이용 지점</th>';
 			row += '<td class="mo-tbl">' + a_store + '</td></tr>';
-			row += '<tr><td class="mo-tbl" style="vertical-align:top;">' + "이용 중인 스토리지 번호" + '</td>';
-			row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
-			row += '<tr><td class="mo-tbl" colspan="2"><p style="color: red; font-size: 9pt; line-height: 1.3em;">접수 된 신청건은 세부 일정 조율과 상담을 위해 물품 운송팀에서 확인 후,<br>'
-			+'고객님께 직접 연락을 드립니다. 만일 취소나 변경사항이 생길 경우 고객센터로 문의주시면<br>신속하게 처리를 도와드립니다.</p></td></tr>';
+			row += '<tr><th class="mo-tbl" style="vertical-align:top;">이용 중인 스토리지 번호</th>';
+			row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em; padding-bottom: 1em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
+			row += '<tr><th class="mo-tbl" colspan="2" style="border-top:1px lightgray solid; padding: 1em 0em;">운송 처리 결과</th></tr>';
+			if(c_file != null){
+				row += '<tr><td colspan="2">' + c_file + '</td></tr>';
+			} else {
+				row += '<tr><td style="padding: 1em 2em;" colspan="2"><b>아직 운송 결과가 업데이트 되지 않았습니다.</b></td></tr>'
+			}
+			row += '<tr><td class="mo-tbl" colspan="2"><font style="color: red; font-size: 9pt; line-height: 1.3em; font-weight: bold;">[안내]&nbsp;</font>'
+				+ '<font style="color: gray; font-size: 9pt; line-height: 1.3em;">접수 된 신청건은 세부 일정 조율과 상담을 위해 물품 운송팀에서 확인 후,<br>'
+			+'고객님께 직접 연락을 드립니다. 만일 취소나 변경사항이 생길 경우 고객센터로 문의주시면<br>신속하게 처리를 도와드립니다.</font></td></tr>';
 			
 			tbl.append(row);
 			

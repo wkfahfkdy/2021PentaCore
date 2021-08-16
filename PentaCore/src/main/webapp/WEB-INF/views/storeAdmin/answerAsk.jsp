@@ -180,7 +180,7 @@ $(document).ready(function() {
 						+'<td style="width: 8em;"><button id="answer" class="apply-btn" type="button">답글 등록</button></td></tr>';
 					}
 				} else {
-					row += '<tr><td colspan="3" style="padding: 1em 2em; text-align: left;"><img src="resources/assets/images/re.png"></td><td colspan="3" style="padding: 0em 2em; text-align: right;">' + q_date +'</td></tr>';
+					row += '<tr><td colspan="3" style="padding: 1em 2em; text-align: left;"><img src="${pageContext.request.contextPath }/resources/assets/images/re.png"></td><td colspan="3" style="padding: 0em 2em; text-align: right;">' + q_date +'</td></tr>';
 					row += '<tr><td colspan="6" style="text-align: left; padding: 0em 2em;">' + q_content + '</td></tr>';
 					row += '<tr><input type="hidden" name="question_group" value="'+ q_group +'"/><td style="width: 3em;"><b>답변</b></td>'
 					+ '<td colspan="4" style="padding: 2em 0em;"><textarea id="question_content" name="question_content"></textarea></td>'

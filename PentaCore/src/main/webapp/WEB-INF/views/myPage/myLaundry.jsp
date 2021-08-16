@@ -15,7 +15,7 @@
 	}
 	
     .back-btn {
-    	background-color: #006DFC;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;

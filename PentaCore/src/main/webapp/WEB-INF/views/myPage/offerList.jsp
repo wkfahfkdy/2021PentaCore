@@ -59,7 +59,7 @@
 	  }
     
     .back-btn {
-    	background-color: #006DFC;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -74,8 +74,9 @@
     
     .store-row {
     	width: 40%;
-		height: 2em; 
-		text-align: left;   
+		height: 1em; 
+		text-align: left;  
+		padding: 0em 1em; 
     }
 </style>
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
@@ -94,21 +95,23 @@
 		<div id="my_offer" align="center">
 		    <a class="modal_close_btn">닫기</a>
 		    <div class="modal-header"></div>
-		    <div class="modal-body"></div>
-		    <div class="modal-footer">
-		    	<table style="width: 100%">
-		    		<tr>
-		    			<td colspan="2" style="padding-top:0.8em; width: 100%; text-align: left;"><h4 id="sName"></h4></td>
-		    		</tr>
-		    		<tr><td rowspan="8" style="width: 60%;"><div id="map" style="height:300px"></div></td><td class="store-row"><b>네비게이션</b></td></tr>
-		    		<tr><td class="store-row" id="sAddr"></td></tr>
-		    		<tr><td class="store-row"><b>BUS</b></td></tr>
-		    		<tr><td class="store-row" id="sBus"></td></tr>
-		    		<tr><td class="store-row"><b>SUBWAY</b></td></tr>
-		    		<tr><td class="store-row" id="sSubway"></td></tr>
-		    		<tr><td class="store-row"><b>CONTACT</b></td></tr>
-		    		<tr><td class="store-row" id="sContact"></td></tr>
-		    	</table>
+		    <div style="border: 1px solid #00c0e2; border-radius: 0.3em">
+			    <div class="modal-body"></div>
+			    <div class="modal-footer">
+			    	<table style="width: 100%">
+			    		<tr>
+			    			<td colspan="2" style="padding-top:0.8em; width: 100%; text-align: left;"><h4 id="sName"></h4></td>
+			    		</tr>
+			    		<tr><td rowspan="8" style="width: 60%;"><div id="map" style="height:300px"></div></td><td class="store-row"><b>NAVIGATION</b></td></tr>
+			    		<tr><td class="store-row" id="sAddr" style="vertical-align: top;"></td></tr>
+			    		<tr><td class="store-row"><b>BUS</b></td></tr>
+			    		<tr><td class="store-row" id="sBus" style="vertical-align: top;"></td></tr>
+			    		<tr><td class="store-row"><b>SUBWAY</b></td></tr>
+			    		<tr><td class="store-row" id="sSubway" style="vertical-align: top;"></td></tr>
+			    		<tr><td class="store-row"><b>CONTACT</b></td></tr>
+			    		<tr><td class="store-row" id="sContact" style="vertical-align: top;"></td></tr>
+			    	</table>
+			    </div>
 		    </div>
 		</div>
 		<div style="margin: 1em 0em;">
@@ -289,10 +292,14 @@ $(document).ready(function() {
 			} else {
 				row += '<td class="offer-row">픽업 신청 없음</td></tr>';
 			}
-			row += '<tr><th style="color: #00c0e2;">프리미엄 서비스</th>';
+			row += '<tr><th style="color: #478FEB;">프리미엄 서비스</th>';
 			row += '<td class="offer-row">' + premium + '</td></tr>';
-			row += '<tr><th style="color: #00c0e2;">세탁 서비스</th>';
-			row += '<td class="offer-row">' + wash + '</td></tr>';
+			row += '<tr><th style="color: #478FEB;">세탁 서비스</th>';
+			if(wash != null){
+				row += '<td class="offer-row">' + wash + '</td></tr>';
+			} else {
+				row += '<td class="offer-row">N</td></tr>';
+			}
 			row += '<tr><th></th><td style="color: red;">*세탁 서비스와 프리미엄 서비스는 할인에서 제외됩니다.</td></tr>';
 			row += '<tr><th style="vertical-align: top;">예상 월 이용금액</th>';
 			if(price == 0){
@@ -300,10 +307,10 @@ $(document).ready(function() {
 						+ '<br>&nbsp;선택 옵션 가격만 계산되어 아래에 나타납니다.<br>'
 						+ '&nbsp;창고 이용 시작일까지 매장으로 방문하시어 창고 이용료 결제를 완료 하셔야 이용 가능합니다.</td>'
 			} else {
-				row += '<td>' + price.toLocaleString() + '원</td></tr>';
+				row += '<td>' + price.toLocaleString() + '&nbsp;원</td></tr>';
 			}
 			row += '<tr><th style="padding-bottom:0.8em;">' + "예상 첫달 이용금액" + '</th>';
-			row += '<td style="padding-bottom:0.8em;">' + totalPrice.toLocaleString() + '원</td></tr>';
+			row += '<td style="padding-bottom:0.8em;">' + totalPrice.toLocaleString() + '&nbsp;원</td></tr>';
 			tbl.append(row);
 			
 			$('#sName').html(storeName);
