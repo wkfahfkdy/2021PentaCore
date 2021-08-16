@@ -55,7 +55,7 @@
 					</div>
 					<div class="logo-text" onclick="location.href='home'">
 						<!-- MY <span class="color-primary">STORAGE</span> -->
-						<span id="logo">MY</span><span id="logo2">STORAGE</span>
+						<span id="logo">MY</span>&nbsp;<span id="logo2">STORAGE</span>
 					</div>
 				</div>
 				 
@@ -115,11 +115,6 @@
 								<li>
 									<a href="iqPaging">문의게시판</a>
 								</li>
-								<sec:authorize access="hasRole('ROLE_ADMIN')">
-									<li>
-										<a href="iqAdmin">문의게시판(관리자용)</a>
-									</li>
-								</sec:authorize>
 								<li>
 									<a href="faqList">FAQ</a>
 								</li>
@@ -153,10 +148,27 @@
 						
 						<!-- LOGIN 했을때 -->
 						<sec:authorize access="isAuthenticated()">
-							<li>
-								<a href="myPageInfo">MYPAGE</a>
-							</li>
-							
+						<li>
+							<a href="myPageInfo">MYPAGE</a>
+						</li> 
+						
+						<!-- ADMIN LOGIN -->
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="dropdown">
+							<a data-toggle="dropdown" href="myPageInfo">ADMIN</a>
+							<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="iqAdmin">문의게시판</a>
+									</li>
+									<li>
+										<a href="goStoreSelect">지점관리</a>
+									</li>
+									<li>
+										<a href="goTrans">운송관리</a>
+									</li>
+							</ul>
+						</li> 
+						</sec:authorize>
 							<li class="main-menu-separator"></li>
 							
 							<li >
@@ -174,7 +186,7 @@
 			</div>
 		</div>
 	</div>
-	 
+					
 	 <!-- =========================
 		END TOP MAIN NAVBAR
 	============================== -->
