@@ -150,7 +150,7 @@
 									</td>
 								<tr>
 								<tr>
-									<td class="info-td"><b><font style="color: #006DFC; font-size: 12pt;">${useInfo.store_name }</font> ${useInfo.info_num } ${useInfo.storage_name }</b>(${useInfo.storage_width }*${useInfo.storage_height }*${useInfo.storage_vertical }) 이용중 </td>
+									<td class="info-td"><b><font style="color:#478FEB ; font-size: 12pt;">${useInfo.store_name }</font> ${useInfo.info_num } ${useInfo.storage_name }</b>(${useInfo.storage_width }*${useInfo.storage_height }*${useInfo.storage_vertical }) 이용중 </td>
 								</tr>
 								<tr>
 									<td class="info-td">
@@ -214,7 +214,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<font style="color:#006DFC;"><h4>${useService }</h4></font>
+					<font style="color: #478FEB;"><h4>${useService }</h4></font>
 				</c:otherwise>
 			</c:choose>
 		</div>
@@ -241,7 +241,7 @@
 							<h4><a href="noticeList">이용 지점 공지사항 바로가기</a></h4>
 						</c:when>
 						<c:otherwise>
-							<font style="color: blue;"><h4>${notice }</h4></font>
+							<font style="color: #478FEB;"><h4>${notice }</h4></font>
 						</c:otherwise>
 					</c:choose>
 				</div>

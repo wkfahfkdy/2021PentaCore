@@ -81,14 +81,16 @@
 	
 	<!-- 물품 운송 신청 상세 -->
 	<select id="myConveySelect" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>
+		SELECT a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>, c.convey_file
 		FROM convey_apply a JOIN store s
 		ON (a.store_code = s.store_code)
 		<if test="use_num != null and use_num != ''">
 			JOIN use_storage u
 			ON (a.use_num = u.use_num)
 		</if> 
-		WHERE apply_code = #{apply_code}
+		JOIN convey_list c
+		ON (a.apply_code = c.apply_code)
+		WHERE a.apply_code = #{apply_code}
 	</select>
 	
 	<!-- 지점 정보 리스트: 지도Api용 리스트에서 사용 -->
