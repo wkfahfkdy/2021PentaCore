@@ -355,14 +355,14 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	    	<div class="modal-body" style="display: table; width: 100%">
+	    	<div class="modal-body" style="width: 100%">
 	    		
-	    		<div style="display: table-cell; width: 45%;">
+	    		<div style="display: inline-block; width: 100%;">
 					<!-- 여기오는 컨트롤러에 store테이블 온습도 정보 가져오기 -->
-					<h5>현재 온도 : ${stroeTemHumInfo.humidity }°C</h5><br><br>
+					<h5>현재 온도 : ${stroeTemHumInfo.humidity }°C</h5>
 					<h5>현재 습도 : ${stroeTemHumInfo.temperature }%</h5>
 	    		</div>
-				<div style="display: table-cell; width: 45%; float: rigth; margin: 0px 50px;">
+				<div style="display: block; width: 45%; margin: 0;">
 					<h5>변경하실 온습도</h5>
 					온도 = <input type="number" id="humidityValue" style="margin:10px 0px;"><br>
 					습도 = <input type="number" id="temperatureValue">

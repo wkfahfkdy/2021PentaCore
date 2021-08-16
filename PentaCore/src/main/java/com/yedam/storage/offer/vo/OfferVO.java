@@ -1,9 +1,6 @@
 package com.yedam.storage.offer.vo;
 
 import java.sql.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
 /*
@@ -13,17 +10,18 @@ OFFER_START              DATE
 OFFER_RENTAL             VARCHAR2(50)  
 OFFER_PICKUP             VARCHAR2(150) 
 OFFER_PRICE              NUMBER        
-OFFER_DATE               DATE          
+OFFER_DATE               NUMBER        
 OFFER_WASH               VARCHAR2(1)   
 OFFER_PREMIUM            VARCHAR2(1)   
-RENTAL_CODE              VARCHAR2(5)   
 STORAGE_CODE             VARCHAR2(5)   
 COUPON_CODE              VARCHAR2(5)   
 STORE_CODE               VARCHAR2(5)   
 LAUNDRY_PRODUCT          VARCHAR2(300) 
-LAUNDRY_COUNT            NUMBER        
 OFFER_PAY                VARCHAR2(1)   
 MEMBER_ID                VARCHAR2(20)  
+OFFER_ADDR               VARCHAR2(150) 
+PICKUP_DATE              DATE          
+PICKUP_TIME              VARCHAR2(20)  
  */
 @Data
 public class OfferVO {
@@ -43,7 +41,6 @@ public class OfferVO {
 	private String member_id;
 	private String storage_code;
 	private String offer_addr;
-	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date pickup_date;
 	private String pickup_time;
 }
