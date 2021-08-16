@@ -500,7 +500,6 @@ $(function() {
 			success : function(success) {
 					if (success > 0) { 
 						alert('비밀번호가 성공적으로 재설정되었습니다.');
-						pwShowModal.submit(); 
 					} else {
 						alert('입력값을 재확인해주시기 바랍니다.');
 					}
@@ -509,6 +508,7 @@ $(function() {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 			}
 		});
+		pwShowModal.submit(); 
 	});
 });
 </script>
