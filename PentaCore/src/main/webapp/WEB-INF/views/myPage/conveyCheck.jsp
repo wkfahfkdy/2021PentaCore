@@ -161,7 +161,7 @@
 <script>
 	function alertRegi() {
 		if($('#apply_start').val() == ""){
-			alert("픽업 날짜를 입력하세요.");
+			alert("픽업 날짜를 입력하세요. 단순 출고의 경우, 출고날짜와 동일한 날짜를 선택해주세요.");
 			$('#apply_start').focus();
 			return false;
 		}

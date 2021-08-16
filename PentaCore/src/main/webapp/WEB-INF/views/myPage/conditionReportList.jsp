@@ -16,7 +16,7 @@
 	
 	#myReport {
         display: none;
-        width: 60%;
+        width: 70%;
         padding: 30px 50px;
         background-color: #fefefe;
         border: 1px solid #888;

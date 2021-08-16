@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,6 +164,10 @@
 	}
 </script>
 <style type="text/css">
+	.wrap {
+		margin: auto;
+		width: 80%;
+	}
 
 
 	#unUsedMember:visited {
@@ -195,7 +200,7 @@
 </head>
 <body>
 	<input type="hidden" value="${store_code }" id="hiddenStoreCode">
-	<div class="def-section services-1">
+	<div class="def-section services-1" style="padding: 1em;">
 		<div class="container">
 			<div class="my-btn my-btn-grey" onclick="location.href='home'" align="center">
 					<div class="my-btn-bg-top"></div>
@@ -247,10 +252,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="def-section services-1">
+	<div class="def-section services-1" style="padding: 1em;">
 		<div class="container">
 			<div class="row">
-				
+				<h4>스토리지 미할당 대기 고객</h4>
+				<!-- 스토리지 할당 대기자 그리드 -->
+				<div id="bookingGrid"></div>
 			</div>
 		</div>
 	</div>
@@ -380,5 +387,74 @@
 		<input type="hidden" name="info_num" id="hiddenInfoNum" value="">
 		<input type="hidden" name="offer_code" id="hiddenOfferCode" value="">
 	</form>
+<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+<script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<script>
+$(document).ready(function() {
+const Grid = tui.Grid;
+	
+	const bookingData = [
+					<c:forEach items="${offerInfoList}" var="list" varStatus="status">
+					{
+						offer_code: '${list.offer_code}',
+						member_id: '${list.member_id}',
+						storage_name: '${list.storage_name}',
+						storage_code:'${list.storage_code}',
+						use_start: '<fmt:formatDate value="${list.use_start}" pattern="yyyy-MM-dd" />',
+						use_end: '<fmt:formatDate value="${list.use_end}" pattern="yyyy-MM-dd" />'
+					}
+					<c:if test="${not status.last}">,</c:if>
+					</c:forEach>
+				]
+	
+	console.log(bookingData);
+	
+	const bookingGrid = new Grid({
+		el : document.getElementById('bookingGrid'),
+		data: bookingData,
+		columns : [
+			{
+				header: '견적서코드',
+				name: 'offer_code',
+				align: 'center',
+				width: 100
+			},
+			{
+				header:  '신청 고객',
+				name: 'member_id',
+				align: 'center',
+				width: 100
+			},
+			{
+				header: '창고 사이즈',
+				name: 'storage_name',
+				align: 'center',
+			},
+			{
+				header: '사이즈 코드',
+				name: 'storage_code',
+				align: 'center',
+			},
+			{
+				header: '이용 시작일',
+				name: 'use_start',
+				align: 'center',
+			},
+			{
+				header: '이용 종료일',
+				name: 'use_end',
+				align: 'center',
+			}
+		],
+		
+		bodyHeight: 200,
+		width: 'auto',
+		pageOptions : {
+			userClient: true,
+			type: 'scroll'
+		}
+	});
+})
+</script>
 </body>
 </html>
