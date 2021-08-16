@@ -39,7 +39,9 @@ public class StoreAdminController {
 	// ===================== 정동영 ===================================
 	// enterStoreAdmin -> StorageInfoPage (각 지점에 대한 스토리지 현황을 위해 Store_code를 불러온다) + 현재 예약되어있는 정보 List
 	@RequestMapping("storageInfo")
-	public String storageInfo(@RequestParam("store_code") String store_code , Model model, StoreAdminVO vo, StoreVO vo1) {
+	public String storageInfo(HttpServletRequest req , Model model, StoreAdminVO vo, StoreVO vo1) {
+		HttpSession session = req.getSession();
+		String store_code = (String) session.getAttribute("store_code");
 		vo.setStore_code(store_code);
 		vo1.setStore_code(store_code);
 		model.addAttribute("StorageInfoList", storeAdminDAO.selectStorageInfoList(vo));

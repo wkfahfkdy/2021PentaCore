@@ -194,7 +194,7 @@
 </style>
 </head>
 <body>
-	<input type="hidden" value="${employeeVO.store_code }" id="hiddenStoreCode">
+	<input type="hidden" value="${store_code }" id="hiddenStoreCode">
 	<div class="def-section services-1">
 		<div class="container">
 			<div class="my-btn my-btn-grey" onclick="location.href='home'" align="center">
@@ -225,14 +225,14 @@
 											<c:choose>
 												<c:when test="${storageInfoList.info_use eq '미사용'}">
 													<p>
-														<a id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#unUsedStorage">
+														<a id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }')" data-toggle="modal" data-target="#unUsedStorage">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
 													</p>	
 												</c:when>
 												<c:otherwise>
 													<p>
-														<a id="useMember" onclick="useStorageInfo('${storageInfoList.offer_code}','${employeeVO.store_code }')" data-toggle="modal" data-target="#storageInfo">
+														<a id="useMember" onclick="useStorageInfo('${storageInfoList.offer_code}','${store_code }')" data-toggle="modal" data-target="#storageInfo">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
 													</p>
@@ -360,7 +360,7 @@
 					온도 = <input type="number" id="humidityValue" style="margin:10px 0px;"><br>
 					습도 = <input type="number" id="temperatureValue">
 					<form action="temHumUpdate" id="temHumUpdate">
-						<input type="hidden" name="store_code" value="${employeeVO.store_code }">
+						<input type="hidden" name="store_code" value="${store_code }">
 						<input type="hidden" name="humidity" id="hiddenHumidiry" value="">
 						<input type="hidden" name="temperature" id="hiddenTemperature" value="">	
 					</form>
@@ -376,7 +376,7 @@
 	<!-- 온습도 -->
 	<!-- DB처리 -->
 	<form id="updateUseStorageTable" method="post" action="updateUseStorage">
-		<input type="hidden" name="store_code" value="${employeeVO.store_code }">
+		<input type="hidden" name="store_code" value="${store_code }">
 		<input type="hidden" name="info_num" id="hiddenInfoNum" value="">
 		<input type="hidden" name="offer_code" id="hiddenOfferCode" value="">
 	</form>

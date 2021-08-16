@@ -9,6 +9,7 @@
 	<!-- 문의 -->
 	<select id="inquirySelectList" resultType="com.yedam.storage.center.vo.CenterVO">
 		SELECT * FROM question
+		WHERE store_code = 'CS'
 		ORDER BY question_group DESC, question_parents ASC
 	</select>
 	
@@ -21,7 +22,7 @@
 			FROM question a
 			WHERE store_code = 'CS'
 		)
-		WHERE row_num BETWEEN #{firstRecordIndex} AND #{lastRecordIndex}
+		WHERE row_num BETWEEN #{firstRecordIndex} AND #{lastRecordIndex}	
 	</select>
 	
 	

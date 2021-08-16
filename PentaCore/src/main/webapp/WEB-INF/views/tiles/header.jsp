@@ -135,6 +135,10 @@
 									<!-- 투어 예제 -->
 									<a href="tourTest">tourTest</a>
 								</li>
+								<li>
+									<!-- 어드민-지점관리 이동 테스트 용 -->
+									<a href="goStoreSelect">goStoreAdmin</a>
+								</li>
 							</ul>
 						</li> 
 						<li class="main-menu-separator"></li>

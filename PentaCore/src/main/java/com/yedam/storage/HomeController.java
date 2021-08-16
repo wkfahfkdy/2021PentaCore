@@ -4,7 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.mail.Store;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -285,5 +286,25 @@ public class HomeController {
 		model.addAttribute("couponeInfoList", couponDAO.selectCouponList());
 		return "offer/selfOfferPage";
 	} 
+	
+	@RequestMapping("goStoreSelect")
+	public String goStoreSelect() {
+		return "test/goStoreAdmin";
+	}
+		
+	
+	
+	@RequestMapping("goStoreAdmin")
+	public String goStoreAdmin(HttpServletRequest req) {
+		
+		String store_code = req.getParameter("store_code");
+		HttpSession session = req.getSession();
+		session.removeAttribute("stCode");
+		session.removeAttribute("store_code");
+		session.setAttribute("stCode", store_code);
+		session.setAttribute("store_code", store_code);
+		
+		return "storeAdmin/enterStoreAdmin";
+	}
 	
 }
