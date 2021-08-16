@@ -209,15 +209,29 @@
 						돌아가기
 					</div>	
 			</div>
-			<div class="my-btn my-btn-primary" data-toggle="modal" data-target="#temHumStore" style="margin: 0px 50px;">
-					<div class="my-btn-bg-top"></div>
-					<div class="my-btn-bg-bottom"></div>
-					<div class="my-btn-text">
-						온습도 관리
-					</div>	
-			</div>
 			<div class="row" style="margin-top : 30px;">
-				<h4 align="center">${stroeTemHumInfo.store_name } 스토리지 현황 (온도 : ${stroeTemHumInfo.humidity }°C / 습도 : ${stroeTemHumInfo.temperature }%)</h4>
+				<div style="display: table; width: 100%">
+					<div style="display:table-cell; width: 45%;">
+						<h4 style=" margin-left: 50px;">${stroeTemHumInfo.store_name } 스토리지 현황 (온도 : ${stroeTemHumInfo.humidity }°C / 습도 : ${stroeTemHumInfo.temperature }%)</h4>
+					</div>
+				
+					<div style="display: table-cell; width: 30%">
+						온도 = <input type="number" id="humidityValue" style="margin: 0; color: black;" placeholder="온도">
+						습도 = <input type="number" id="temperatureValue">
+						<form action="temHumUpdate" id="temHumUpdate">
+							<input type="hidden" name="store_code" value="${store_code }">
+							<input type="hidden" name="humidity" id="hiddenHumidiry" value="">
+							<input type="hidden" name="temperature" id="hiddenTemperature" value="">	
+						</form>
+					</div>
+					<div class="my-btn my-btn-primary" id="temHumUpdateBtn" style="display: table-cell; width: 3%; margin-right: 100px;">
+						<div class="my-btn-bg-top"></div>
+						<div class="my-btn-bg-bottom"></div>
+						<div class="my-btn-text">
+							SAVE
+						</div>	
+					</div>
+				</div>
 				<c:forEach items="${storageName}" var="storageName">
 					<div id="${storageName.storage_code}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 storageList">
 						<div class="service-1">
@@ -345,42 +359,6 @@
 			</div>
 		 </div>
 	</div>
-	<!-- 온습도 -->
-	<div class="modal fade" id="temHumStore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">${stroeTemHumInfo.store_name } 온습도 관리</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	    	<div class="modal-body" style="width: 100%">
-	    		
-	    		<div style="display: inline-block; width: 100%;">
-					<!-- 여기오는 컨트롤러에 store테이블 온습도 정보 가져오기 -->
-					<h5>현재 온도 : ${stroeTemHumInfo.humidity }°C</h5>
-					<h5>현재 습도 : ${stroeTemHumInfo.temperature }%</h5>
-	    		</div>
-				<div style="display: block; width: 45%; margin: 0;">
-					<h5>변경하실 온습도</h5>
-					온도 = <input type="number" id="humidityValue" style="margin:10px 0px;"><br>
-					습도 = <input type="number" id="temperatureValue">
-					<form action="temHumUpdate" id="temHumUpdate">
-						<input type="hidden" name="store_code" value="${store_code }">
-						<input type="hidden" name="humidity" id="hiddenHumidiry" value="">
-						<input type="hidden" name="temperature" id="hiddenTemperature" value="">	
-					</form>
-				</div>
-	      	</div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="temHumUpdateBtn">Save</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<!-- 온습도 -->
 	<!-- DB처리 -->
 	<form id="updateUseStorageTable" method="post" action="updateUseStorage">
 		<input type="hidden" name="store_code" value="${store_code }">
