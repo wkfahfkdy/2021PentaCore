@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -135,23 +136,93 @@ public class MemberController {
 			return "member/memberLoginIdShowModal";
 		}
 	
-	// ------------------------------- 로그인 화면 패스워드 찾기 Modal ------------------------------ //
-	
-	// 로그인 페이지 이동
+		// ------------------------------- 로그인 화면 패스워드 찾기 Modal ------------------------------ //
+
+		// 비밀번호 찾기 입력값 확인
+		@RequestMapping("memberPwFindCheck")
+		@ResponseBody
+		public int memberPwFindCheck(MemberVO vo, HttpServletRequest request, Model model) {
+
+			HttpSession session = request.getSession();
+
+			// 입력한 이름 가져오기
+			String name = request.getParameter("member_name");
+			vo.setMember_name(name);
+
+			// 입력한 휴대폰 번호 가져오기
+			String tel = request.getParameter("member_tel");
+			int telLength = tel.length();
+
+			if (telLength == 11) {
+				tel = vo.getMember_tel().substring(0, 3) + "-" + vo.getMember_tel().substring(3, 7) + "-"
+						+ vo.getMember_tel().substring(7);
+			} else if (telLength == 10) {
+				tel = vo.getMember_tel().substring(0, 3) + "-" + vo.getMember_tel().substring(3, 6) + "-"
+						+ vo.getMember_tel().substring(6);
+			}
+			vo.setMember_tel(tel);
+
+			// 입력한 아이디 가져오기
+			String member_id = request.getParameter("member_id");
+			vo.setMember_id(member_id);
+
+			// 해당 고객 DB에서 검색 -> rvo에 저장
+			MemberVO rvo = memberDAO.modalPwCheck(vo);
+			
+			int cnt = 0;
+			if (rvo != null) {
+			// 해당 고객의 아이디 가져옴(아이디에 새로운 비밀번호 업데이트 위해)
+			String pwdFindingId = rvo.getMember_id();
+			session.setAttribute("pwdFindingId", pwdFindingId);
+			cnt = 1;
+			}
+			return cnt;
+		}
+
+		// 비밀번호 재설정 창 이동
 		@RequestMapping("memberLoginPwShowModal")
 		public String memberLoginPwShowModal(MemberVO vo, HttpServletRequest request, Model model) {
+			
 			HttpSession session = request.getSession();
-			
-			
-			MemberVO rvo = memberDAO.modalEmailCheck(vo); 
-			
-			
 			String referer = request.getHeader("Referer");
 			session.setAttribute("redirectURI", referer);
 
 			return "member/memberLoginPwShowModal";
 		}
-	
+		
+		// 새롭게 입력한 비밀번호로 업데이트
+		@RequestMapping("updateNewPwd")
+		@ResponseBody
+		public int updateNewPwd(MemberVO vo, HttpServletRequest request, Model model) {
+			
+			
+			
+			HttpSession session = request.getSession();
+			String id = (String) session.getAttribute("pwdFindingId");
+			
+			// 비밀번호 암호화
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
+			String EncodePwd = encoder.encode(request.getParameter("member_pwd"));
+			
+			
+			HashMap<String, Object> param = new HashMap<>();
+			
+			param.put("member_id", id);
+			param.put("member_pwd", EncodePwd);
+			
+			int cnt= 0;
+			
+			memberDAO.memberPwUpdate(param);
+			
+			if (memberDAO.memberPwUpdate(param) != 0) {
+				cnt = 1;
+			}
+
+			return cnt;
+			
+			
+		
+		}
 	
 	// ------------------------------- 회원가입 ------------------------------ //
 	

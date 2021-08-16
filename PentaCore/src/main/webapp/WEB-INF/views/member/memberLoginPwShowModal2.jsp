@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,33 +162,14 @@ private String member_disable;
 			return false;
 		}
 		
-		/* $.ajax({
-			url : 'memberLoginIdCheck1',
-			data : {
-				member_id : $('#member_id').val(),
-				member_pwd : $('#member_pwd').val() },
-			type : 'post',
-			success : function(id) {
-				console.log(id);
-				if (id == 'invalid') {
-					alert('이름과 패스워드를 다시 확인해주세요.');	
-				} else {
-					frmMember.submit();	
-				}
-			},
-			error : function(err) {
-				console.log(err);
-			}
-		});	 */
-		frmMember.submit();	
-		
+		frmMember.submit();
 	}
 	
 
 </script>
 
 
-<!-- =================================== 아이디 찾기 모달 ======================================== -->
+<!-- =================================== 아아디 찾기 모달 ======================================== -->
 
 <script>
 //이메일 인증코드 전송시 이메일 공백확인
@@ -293,7 +273,6 @@ $(function() {
 			return false;
 		}
 		 */
-		//새로운 모달 띄워서 아이디 보여주기
 			        
 		idModal.submit(); 
 	 	
@@ -312,8 +291,6 @@ function closeModal() {
 
 
 <!-- =================================== 비밀번호 찾기 모달 ======================================== -->
-
-<!-- 
 <script>
 //비밀번호 찾기 모달(이름입력 확인)
 $(function() {
@@ -328,8 +305,7 @@ $(function() {
 	});
 });
 </script>
- -->
-<!-- 
+
 <script>
 //비밀번호 찾기 모달(이메일 확인)
 $(function() {
@@ -367,7 +343,7 @@ $(function() {
 });
 
 
-</script> -->
+</script>
 
 <script>
 	//휴대폰 번호입력 ajax
@@ -426,7 +402,18 @@ $(function() {
 			});
 		});
 	});
+
+
 </script>
+
+<!-- =================================== 비밀번호 재설정창 보여주는 모달 자동실행 ======================================== -->
+<script>
+$( document ).ready(function() {
+	// 팝업 호출
+	document.getElementById('pwShow').style.display='block'
+});
+</script>
+
 
 
 <script>
@@ -437,38 +424,31 @@ $(function() {
 			pwModal.member_name.focus();
 			return false;
 		}
-		if (pwModal.member_id2.value == "") {
-			alert("아이디를 입력하세요.");
+		if (pwModal.member_email2.value == "") {
+			alert("이메일을 입력하세요.");
+			return false;
+		}
+		
+		/* 
+		if (frm.checkEmail2.value == "unChecked") {
+			alert("이메일을 인증 하세요");
+			frm.checkEmail2.focus();
 			return false;
 		}
 		if (pwModal.member_tel.value == "") {
 			alert("휴대폰번호를 입력하세요.");
 			return false;
-		}
-
-		$.ajax ({
-			url : 'memberPwFindCheck',  
-			data: {
-				member_name : $('#member_name2').val(),
-				member_id : $('#member_id2').val(),
-				member_tel : $('#member_tel').val(),
-				},
-			type: 'post',
-			success: function(success) {
-				if(success > 0) {
-				alert('정상적으로 확인되었습니다.');
-				pwModal.submit(); 
-				} else {
-				alert('가입한 내역이 없습니다. 입력하신 정보를 다시 확인해주세요.');				
-				pwModal.member_name.focus();
-				}
-			},
-			error : function(err) {
-				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
-			}
-	});
+		} */
 		
+		/*
+		if (pwModal.checkSMS.value == "unChecked") {
+			alert("문자 인증을 하세요");
+			pwModal.smsKey.focus();
+			return false;
+		}    
+		*/
 		
+		//아작스 추가
 		
 	});
 });
@@ -508,9 +488,6 @@ $(function() {
 								<input type="password" id="member_pwd" name="member_pwd" 
 								placeholder="PASSWORD" onkeyup=
 									"if(window.event.keyCode==13) {loginCheck()}" value="">
-								<c:if test="${errorMsg != null }">
-									<p style="color:red">${errorMsg }</p>
-								</c:if>
 								<div>
 									<br>
 									<button class="btn btn-light" type="button"
@@ -585,7 +562,7 @@ $(function() {
 				        </form>
 					</div>
 				
-					<%-- <!-- =================================== 아이디 보여주기 ======================================== -->
+					<!-- =================================== 아이디 보여주기 ======================================== -->
 					
 					<div id="idShow" class="modal" align ="center">
 				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">
@@ -615,12 +592,12 @@ $(function() {
 				               class="cancelbtn">Cancel</button>
 				            </div>
 				        </form>
-					</div> --%>
+					</div>
 				    
 				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
 				   
 				    <div id="pw01" class="modal" align ="center">
-				        <form id="pwModal" name="pwModal" class="modal-content animate" action="memberLoginPwShowModal" method="post">
+				        <form id="pwModal" name="pwModal" class="modal-content animate" action="" method="post">
 				            <div class="imgcontainer">
 				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>
@@ -639,11 +616,16 @@ $(function() {
 								name="member_name2"></td>
 							</tr>
 							<tr>
-							<th width="100">아이디</th>
-							<td width="300" colspan="2">
-	 						<input class="form-control" type="text" id="member_id2" name="member_id2">
+							<th width="100">이메일</th>
+							<td id="member_email_input2"  width="350" colspan="2">
+	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email2" name="member_email2" value="">
 	 						</td>
+	 						<td>
+	 						<button class="btn btn-light" 
+	 						type="button" value="unChecked" id="checkEmail2" name="checkEmail2">이메일 확인</button>
+							</td>
 	 						</tr>
+	 						
 						
 							<tr>
 							<th width="100">휴대폰 번호</th>
@@ -679,6 +661,40 @@ $(function() {
 				            
 				        </form>
 					</div>
+					
+					
+					<!-- =================================== 비밀번호 보여주기 ======================================== -->
+					
+					<div id="pwShow" class="modal" align ="center">
+				        <form id="pwShowModal"  name="pwShowModal" class="modal-content animate" action="memberLoginPwShowModal" method="post">
+				            <div class="imgcontainer">
+				                <span id="closeIdShow" onclick="closeModal()" class="close"
+				                    title="Close Modal">&times;</span>
+				                <h3>비밀번호 찾기</h3>
+				                <br>
+				                <h5>회원님의 아이디는 아래와 같습니다.</h5>
+				            </div>
+				            <br><br>
+				
+				            <div align="center">
+				            <table style="border:1; border-collapse:collapse;">
+				            
+							<tr>
+							<th width="150">아이디</th>
+							<td width="300" ><span class="input-group-text"
+										id="inputGroup-sizing-sm"> ${modalId} </span></td>
+							</tr>
+							
+				            </table>
+				
+				            <br><br>
+				            
+				            <button type="button" onclick="document.getElementById('idShow').style.display='none'"
+				               class="cancelbtn">Cancel</button>
+				            </div>
+				        </form>
+					</div>
+					
 		    </body>
 <script>
 /* 모달창 띄우기 */

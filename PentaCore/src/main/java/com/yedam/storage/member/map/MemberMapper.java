@@ -20,6 +20,7 @@ public interface MemberMapper {
 	
 	//아이디/비밀번호 찾기
 	public MemberVO modalEmailCheck(MemberVO vo);
+	public MemberVO modalPwCheck(MemberVO vo);
 	
 	//회원가입
 	public int memberInsert(HashMap<String, Object> hash);
