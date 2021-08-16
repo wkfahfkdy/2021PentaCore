@@ -45,6 +45,10 @@ public class MemberServiceImpl implements MemberService {
 		return sqlSession.selectOne("modalPwCheck",vo);
 	}
 	
+	//로그인(비밀번호 재설정)
+	public int memberNewPwd(HashMap<String, Object> hash) {
+		return sqlSession.update("memberNewPwd",hash);
+	}
 	
 
 	//회원가입

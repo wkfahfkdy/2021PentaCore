@@ -41,6 +41,11 @@ private String member_disable;
 		member_disable = 'N'
 </select>
 
+<!-- 로그인(비밀번호 재설정)  -->	
+<update id="memberNewPwd" parameterType="hashmap">
+		update member set member_pwd=#{member_pwd} where member_id=#{member_id}
+</update>
+
 
 <!-- 회원가입 -->	
 <insert id="memberInsert" parameterType="hashmap" >
@@ -57,7 +62,7 @@ private String member_disable;
 	</select>
 	
 <select id="idCheck" parameterType="string" resultType="com.yedam.storage.member.vo.MemberVO" >
-		select * from member where member_id = #{p} and member_disable = 'N'
+		select * from ID_ALL_CHECK where member_id = #{p} and member_disable = 'N'
 </select>	
 
 
