@@ -276,6 +276,8 @@
             			$('#offerOtherPrice').html(parseInt($('#hiddenBoxPrice').val()) + "원"); 
             		}
             	} else {
+            		$('#hiddenPickupDate').val("2999-12-31");
+            		$('#hiddenPickuptime').val("");
             		$('#offerPickup').html("신청 X");
             	}
             	
@@ -344,19 +346,16 @@
       	
       	//offer_start
       	$('#datePick').change(function(){
-      		console.log($(this).val());
       		$('#hiddenOfferStart').val($(this).val());
       	})
       	
       	// pickup_date
       	$('#pickupDate').change(function() {
-      		console.log($(this).val());
       		$('#hiddenPickupDate').val($(this).val());
       	})
       	
       	// pickup_time
       	$('#pickupTimeSelect').change(function() {
-      		console.log($(this).val());
       		$('#hiddenPickuptime').val($(this).val());
       	})
       	
@@ -415,17 +414,18 @@
 		   success: function(data){
 			   for(var i = 0; i<data.length; i++){
 				   	var store_code = '#' + data[i].store_code;
-			 	// 결과 다 Append 후 Hide 작업
-				   $(store_code).append(
-						'<li class="couponSelectList" style="margin: 10px;">'
-						+ '<h4>쿠폰 / 할인 선택</h4><p style="padding: 0"><b>쿠폰을 선택해주세요.</b></p>'
-						+ '<label class="offerLabel">일반요금<input type="radio" class="normal'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="normalPrice" value="no" onclick="discount(\''+data[i].store_code+'\')"></label>'
-						+ '<label class="offerLabel" style="margin-left: 30px;">'+data[i].coupon_name+'<input type="radio" class="discount'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="discountPrice" value="yes" onclick="discount(\''+data[i].store_code+'\')"></label>'
-						+ '<input type="hidden" id="hiddenDiscount'+ data[i].store_code +'" value="'+data[i].coupon_discount+'">'
-						+ '<input type="hidden" id="couponCode'+ data[i].store_code +'" value="'+data[i].coupon_code+'">'
-						+ '<input type="hidden" id="couponName'+data[i].store_code+'" value="'+data[i].coupon_name+'">'
-						+ '</li>'
-					);
+			 		// 결과 다 Append 후 Hide 작업
+			/* 	   $(store_code).html(
+						'<label class="offerLabel">일반요금<input type="radio" class="normal'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="normalPrice" value="no" onclick="discount(\''+data[i].store_code+'\')"></label>'
+					); */
+			 		$(store_code).append(
+			 			'<label class="offerLabel" style="margin-left: 30px;">'+data[i].coupon_name+''
+			 			+'<input type="radio" class="discount'+data[i].store_code+'" name="discount'+data[i].store_code+'" id="discountPrice" value="yes" onclick="discount(\''+data[i].coupon_code+'\')"></label>'
+						+ '<input type="hidden" id="hiddenDiscount'+ data[i].coupon_code +'" value="'+data[i].coupon_discount+'">'
+						+ '<input type="hidden" id="couponCode'+ data[i].coupon_code +'" value="'+data[i].coupon_code+'">'
+						+ '<input type="hidden" id="couponName'+data[i].coupon_code +'" value="'+data[i].coupon_name+'">'
+			 		);
+			 		
 			   }
 		 		// 전체 결과 일단 숨기고 kakao map 에서 누르면 보여줌
 			   $('.coupon').hide();
@@ -763,14 +763,17 @@
 	  $('#hiddenLaundryTotalPrice').val(totalLaundryPrice); // 히든 세탁서비스 총 가격
    }
 	// 망할 쿠폰
-  	function discount(store_code){
+  	function discount(coupon_code){
+		var store_code = $('#hiddenStoreCode').val(); // 각 스토어 코드
   		var normalPrice = parseInt($('#hiddenOfferPrice').val()); // 기존의 가격
 		var discountPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 할인율을 받는 가격 변수
-		var discount = parseFloat($('#hiddenDiscount'+store_code).val()); // 지점별 할인율
-		var coupon_code = $('#couponCode' + store_code).val(); // 지점별 쿠폰 코드
-		var coupon_name = $('#couponName' + store_code).val();
+		var discount = parseFloat($('#hiddenDiscount'+coupon_code).val()); // 지점별 할인율
+		console.log(discount)
+		var coupon_code = $('#couponCode' + coupon_code).val(); // 쿠폰코드
+		var coupon_name = $('#couponName' + coupon_code).val();
 		storageImageIndex = ($('.swiper-slide-active').data("index"));
   		$("input[name='discount"+store_code+"']").change(function(){
+  			console.log($(this).val());
 				if($(this).val() == "no"){
 			        if(storageImageIndex == "f20"){
 			        	// 라지플러스면 price 상담문의로 변경 (라지플러스인데 일반요금을 할때 바로 5000원으로 변경)
@@ -796,9 +799,9 @@
 					  	$('#fixedDiscountPrice').html("상담문의");
 					    $('#fixedPrice').html("상담문의");
 				    } else{
-				    	$('#hiddenOfferDiscountPrice').val(Math.ceil(discountPrice * discount));
+				    	$('#hiddenOfferDiscountPrice').val(Math.ceil(normalPrice * discount));
 						$('#hiddenCouponName').val(coupon_name);
-						$('#fixedDiscountPrice').html("스토리지이용가격 : " + Math.ceil(discountPrice * discount) + '원'); // 감산될 가격
+						$('#fixedDiscountPrice').html("스토리지이용가격 : " + Math.ceil(normalPrice * discount) + '원'); // 감산될 가격
 						$('#fixedPrice').html("할인전가격 : " + normalPrice + '원'); // 원래가격
 				    }
 			 	}
@@ -1245,8 +1248,14 @@ input[type='number'] {
 								</div>
 								<div style="margin-top: 30px;">
 									<c:forEach items="${couponeInfoList }" var="coupon">
-										<ul class="nav divisionBtn coupon" id="${coupon.store_code }">
+										<ul class="nav divisionBtn coupon" id="ul${coupon.store_code }">
 											<!-- Append Coupon Information -->
+											<li class="couponSelectList" style="margin: 10px;" id="${coupon.store_code }">
+												<h4>쿠폰 / 할인 선택</h4><p style="padding: 0"><b>쿠폰을 선택해주세요.</b></p>
+												<label class="offerLabel">일반요금
+													<input type="radio" class="normal${coupon.store_code }" name="discount${coupon.store_code }" id="normalPrice" value="no" onclick="discount('${coupon.coupon_code}')">
+												</label>
+											</li>
 										</ul>
 									</c:forEach>
 								</div>
@@ -1273,7 +1282,7 @@ input[type='number'] {
 									<tr>
 										<th id="pickupServiceThTag">희망날짜 / 시간</th>
 										<td>
-											<input type="date" id="pickupDate" value="">
+											<input type="date" id="pickupDate" pattern="YYYY/MM/DD">
 											<select id="pickupTimeSelect">
 												<option value="AM 08:00 ~ 12:00">AM 08:00 ~ 12:00</option>
 												<option value="PM 13:00 ~ 17:00">PM 13:00 ~ 17:00</option>
@@ -1541,7 +1550,7 @@ input[type='number'] {
 				  	// 이전에 있던 쿠폰 정보 hide 해주고
 				  	$('.coupon').hide();
 				  	// 지점 찍을때 id가 store_code인걸 보여줌
-					$('#' + store_code).show();
+					$('#ul' + store_code).show();
 				  	$('#hiddenStoreCode').val(store_code);
 				  	$('#hiddenStoreBus').val(store_bus);
 				  	$('#hiddenStoreEmail').val(store_email);
