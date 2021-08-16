@@ -286,15 +286,14 @@ $(function() {
 			alert("이메일을 입력하세요.");
 			return false;
 		}
-		/* 
+		/*  
 		if (idModal.checkEmail.value == "unChecked") {
 			alert("이메일을 인증 하세요");
 			idModal.emailCode.focus();
 			return false;
-		}
-		 */
-		//새로운 모달 띄워서 아이디 보여주기
-			        
+		} */
+		 
+		//새로운 모달 띄워서 아이디 보여주기        
 		idModal.submit(); 
 	 	
 	});	
@@ -456,7 +455,6 @@ $(function() {
 			type: 'post',
 			success: function(success) {
 				if(success > 0) {
-				alert('정상적으로 확인되었습니다.');
 				pwModal.submit(); 
 				} else {
 				alert('가입한 내역이 없습니다. 입력하신 정보를 다시 확인해주세요.');				

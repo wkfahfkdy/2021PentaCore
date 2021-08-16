@@ -475,8 +475,6 @@ $( document ).ready(function() {
 <script>
 $(function() {
 	$('#updateNewPw').click(function() {
-
-		
 		if (pwShowModal.member_pwd2.value == "") {
 			alert("새로운 비밀번호를 입력하세요.");
 			return false;
@@ -491,14 +489,16 @@ $(function() {
 			return false;
 		}
 		
+		
 		$.ajax({
 			url : 'updateNewPwd',
 			data : {
 				member_pwd : $('#member_pwd2').val()
 			},
 			type : 'post',
-			success : function(success) {
-					if (success > 0) { 
+			success : function(cnt) {
+					consol.log(cnt);
+					if (cnt > 0) { 
 						alert('비밀번호가 성공적으로 재설정되었습니다.');
 					} else {
 						alert('입력값을 재확인해주시기 바랍니다.');
@@ -508,7 +508,7 @@ $(function() {
 				alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 			}
 		});
-		pwShowModal.submit(); 
+		//pwShowModal.submit(); 
 	});
 });
 </script>

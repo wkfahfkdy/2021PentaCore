@@ -210,14 +210,15 @@ public class MemberController {
 			param.put("member_id", id);
 			param.put("member_pwd", EncodePwd);
 			
-			int cnt= 0;
 			
-			memberDAO.memberPwUpdate(param);
 			
-			if (memberDAO.memberPwUpdate(param) != 0) {
+			int cnt = 0;
+			if (memberDAO.memberNewPwd(param) != 0) {
+				memberDAO.memberNewPwd(param);
 				cnt = 1;
 			}
-
+			
+			System.out.println("fasfasfasdgasdgsadgsdagsadgsdg           " + cnt);
 			return cnt;
 			
 			
