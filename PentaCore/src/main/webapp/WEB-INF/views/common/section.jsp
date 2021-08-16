@@ -10,7 +10,7 @@
   <style>
   	/* 온/습도 스와이프 시작 */
     .swiper-container {
-      width: 100%;
+      width: 120%;
       height: 30px;
     }
 
@@ -92,7 +92,7 @@
                 <img class="" src="${pageContext.request.contextPath }/resources/main/main1.png"
 				data-src="resources/main/main1.png"
 				data-retina="resources/main/main1.png" 
-				style="width: auto; height: 100%; margin-left: px; margin-left:0;"alt="" />
+				style="height:100%; margin-left: px; margin-left:0;"alt="" />
 				
 				<!-- === slide container === -->	
 				
@@ -192,7 +192,9 @@
 		<div class="swiper-wrapper">
 			<!-- div class="swiper-slide" 를 추가하면된다 -->
 			<c:forEach items="${list}" var="list">
-				<div class="swiper-slide"><b>${list.store_name } </b> &nbsp;  &nbsp;  온도 ${list.humidity } ℃ 습도 ${list.temperature } % </div>
+				<div class="swiper-slide"><b>${list.store_name } </b> &nbsp;  &nbsp;  
+					<img style="width: 15%; "src="${pageContext.request.contextPath }/resources/main/main_1.png">&nbsp;   ${list.humidity } ℃ &nbsp;  &nbsp;  
+					<img style="width: 15%; "src="${pageContext.request.contextPath }/resources/main/main_2.png">&nbsp;   ${list.temperature } % </div>
 			</c:forEach>
 		</div>
 	</div>
@@ -202,17 +204,18 @@
 	<div >
 		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main2.png">
 		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main3.png">
+		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main4.png">
 	</div>
 	
 	<!-- 리뷰스와이프 -->
     <!-- swiper슬라이더 메인컨테이너 온/습도 -->
-	<div id="swiper-container22" class="swiper-container do" style="padding: 3%; height: auto">
+	<!-- <div id="swiper-container22" class="swiper-container do" style="padding: 3%; height: auto">
 		<h3>리뷰</h3>
 		<!-- <div class="single-post-comments" id="comments">
 			<h3>COMMENTS (5)</h3> -->
-	  		<!-- 보여지는 영역 -->
+	  		<!-- 보여지는 영역 
 			<div class="swiper-wrapper">
-				<!-- div class="swiper-slide" 를 추가하면된다 -->
+				<!-- div class="swiper-slide" 를 추가하면된다 
 				<c:forEach items="${reviewList}" var="reviewList" end="2">
 					<div class="swiper-slide" style="width: 50%">
 						<div class="media" style="width: 50%;">
@@ -242,10 +245,10 @@
 		</div>
 		
 	</div>
-    
+    -->
     
     <script>
-		<!-- swiper슬라이더 메인컨테이너 온/습도 -->
+		<!-- swiper슬라이더 메인컨테이너 온/습도
 	    var swiper = new Swiper('.swiper-container', {
 	      //기본 셋팅
 	      //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
@@ -317,6 +320,5 @@
 		      },
 		});
 </script>
-    
 </body>
 </html>
