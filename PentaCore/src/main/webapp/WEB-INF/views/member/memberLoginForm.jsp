@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -495,6 +496,9 @@ $(function() {
 								<input type="password" id="member_pwd" name="member_pwd" 
 								placeholder="PASSWORD" onkeyup=
 									"if(window.event.keyCode==13) {loginCheck()}" value="">
+								<c:if test="${errorMsg != null }">
+									<p style="color:red">${errorMsg }</p>
+								</c:if>
 								<div>
 									<br>
 									<button class="btn btn-light" type="button"

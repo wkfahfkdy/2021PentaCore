@@ -128,7 +128,7 @@ function insertCoupon() {
 	
 	if(confirm('입력하시겠습니까?')){
 		$.ajax({
-			url: 'insertCoupon',
+			url: 'store/insertCoupon',
 			type: 'POST',
 			data: { coupon_name:coupon_name,
 				store_name:store_name,
@@ -159,10 +159,10 @@ function insertCoupon() {
 	<div class="wrap">
 		<div class="box">
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='storageInfo?store_code=${employeeVO.store_code}'"><h2>스토리지 현황</h2></button>
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/storageInfo?store_code=${employeeVO.store_code}'"><h2>스토리지 현황</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='customerManage'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/customerManage'">
 					<h2>고객관리</h2></button>
 			</div>
 			<div class="btn">
@@ -173,7 +173,7 @@ function insertCoupon() {
 		<div></div>
 		<div class="box">
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='storeNotice'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/storeNotice'">
 					<h2>공지사항</h2></button>
 			</div>
 			<div class="btn">

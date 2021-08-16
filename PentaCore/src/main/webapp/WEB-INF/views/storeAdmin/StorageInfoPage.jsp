@@ -197,7 +197,7 @@
 	<input type="hidden" value="${store_code }" id="hiddenStoreCode">
 	<div class="def-section services-1">
 		<div class="container">
-			<div class="my-btn my-btn-grey" onclick="location.href='home'" align="center">
+			<div class="my-btn my-btn-grey" onclick="location.href='${pageContext.request.contextPath }/home'" align="center">
 					<div class="my-btn-bg-top"></div>
 					<div class="my-btn-bg-bottom"></div>
 					<div class="my-btn-text">

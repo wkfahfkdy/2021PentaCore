@@ -177,7 +177,7 @@
 		</div>
 	</div>
 	<div>
-		<button type="button" class="apply-btn" onclick="location.href='noticeForm'">글쓰기</button>&nbsp;&nbsp;
+		<button type="button" class="apply-btn" onclick="location.href='store/noticeForm'">글쓰기</button>&nbsp;&nbsp;
 		<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='${pageContext.request.contextPath }/home'">돌아가기</button>
 	</div>
 </div>

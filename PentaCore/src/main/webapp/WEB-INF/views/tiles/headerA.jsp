@@ -34,9 +34,9 @@
 				<div class="logo" id="main-logo">
 					<div class="logo-image">
 						<img src="resources/img/logo.png" alt="" 
-							onclick="location.href='home'"/>
+							onclick="location.href='${pageContext.request.contextPath}/home'"/>
 					</div>
-					<div class="logo-text" onclick="location.href='home'">
+					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath}/home'">
 						MY <span class="color-primary">STORAGE</span>
 					</div>
 				</div>
@@ -76,7 +76,7 @@
 						<!-- LOGIN 했을때 -->
 						<sec:authorize access="isAuthenticated()">
 							<li>
-								<a href="home">물류운송팀</a>
+								<a href="${pageContext.request.contextPath}/home">물류운송팀</a>
 							</li>
 							
 							<li class="main-menu-separator"></li>
@@ -117,7 +117,7 @@
 			
 			<!-- === SLIDE MENU ITEM === -->	
 			<li> 
-				<a href="#">Home <i class="fa fa-plus arrow"></i></a>
+				<a href="${pageContext.request.contextPath}/home">Home <i class="fa fa-plus arrow"></i></a>
 				
 				<!-- === slide menu child === -->	
 				<ul class="slide-menu-child">

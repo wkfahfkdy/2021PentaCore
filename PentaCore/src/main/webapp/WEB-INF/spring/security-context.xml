@@ -30,6 +30,7 @@
 					password-parameter="member_pwd"
 					login-processing-url="/memberLoginIdCheck"
 					authentication-success-handler-ref="customSuccessHandler"
+					authentication-failure-forward-url="/memberLoginForm?error=true"
 		
 		/>
 		<!-- 로그아웃 만들어야함 -->

@@ -34,7 +34,7 @@
 				<div class="logo" id="main-logo">
 					<div class="logo-image">
 						<img src="resources/img/logo.png" alt="" 
-							onclick="location.href='home'"/>
+							onclick="location.href='${pageContext.request.contextPath}/home'"/>
 					</div>
 					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath }/home'">
 						MY <span class="color-primary">STORAGE</span>
@@ -120,7 +120,7 @@
 			
 			<!-- === SLIDE MENU ITEM === -->	
 			<li> 
-				<a href="#">Home <i class="fa fa-plus arrow"></i></a>
+				<a href="${pageContext.request.contextPath}/home">Home <i class="fa fa-plus arrow"></i></a>
 				
 				<!-- === slide menu child === -->	
 				<ul class="slide-menu-child">

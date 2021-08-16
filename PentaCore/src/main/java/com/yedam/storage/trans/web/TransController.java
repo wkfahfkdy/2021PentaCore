@@ -88,7 +88,7 @@ public class TransController {
 	}
 
 	// 월간 캘린더 API TEST (운송관리)
-	@RequestMapping("calendarTest")
+	@RequestMapping("trans/calendarTest")
 	public String calendarTest(Model model) {
 		
 		// CONVEY_APPLY TABLE과 CONVEY_LIST TABLE를 JOIN한 SQL문에서 APPLY_END와 CONVEY_TIME을 가져오고 합쳐야한다.
@@ -110,7 +110,7 @@ public class TransController {
 		
 		for(int i = 0; i < list.size(); i++) {
 			String time =  list.get(i).getConvey_time();
-			String subStartTime = time.substring(3,8); 
+			String subStartTime = time.substring(3,8);
 			String subEndTime = time.substring(11,16); 
 			Date date = list.get(i).getApply_end();
 			SimpleDateFormat transDate = new SimpleDateFormat("yyyy-MM-dd");

@@ -38,7 +38,7 @@ public class StoreAdminController {
 	
 	// ===================== 정동영 ===================================
 	// enterStoreAdmin -> StorageInfoPage (각 지점에 대한 스토리지 현황을 위해 Store_code를 불러온다) + 현재 예약되어있는 정보 List
-	@RequestMapping("storageInfo")
+	@RequestMapping("store/storageInfo")
 	public String storageInfo(HttpServletRequest req , Model model, StoreAdminVO vo, StoreVO vo1) {
 		HttpSession session = req.getSession();
 		String store_code = (String) session.getAttribute("store_code");
@@ -54,7 +54,7 @@ public class StoreAdminController {
 	}
 	
 	// 사용중인 스토리지 정보
-	@RequestMapping("usedStorage")
+	@RequestMapping("store/usedStorage")
 	@ResponseBody
 	public StoreAdminVO usedStorage(Model model,  StoreAdminVO vo) {
 		System.out.println(vo.getOffer_code() + vo.getStore_code());
@@ -62,14 +62,14 @@ public class StoreAdminController {
 	}
 	
 	// 현재 예약되어 있는 정보 (Ajax)
-	@RequestMapping("ajaxOfferInfoList")
+	@RequestMapping("store/ajaxOfferInfoList")
 	@ResponseBody
 	public List<StoreAdminVO> offerInfoList(StoreAdminVO vo){
 		return storeService.offerInfoList(vo);
 	}
 	
 	// 미사용 스토리지 및 스토리지 예약을 한 정보 (Ajax)
-	@RequestMapping("offerInfo")
+	@RequestMapping("store/offerInfo")
 	@ResponseBody
 	public Map<String, Object> offerInfo(Model model, StoreAdminVO vo) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -79,7 +79,7 @@ public class StoreAdminController {
 	}
 	
 	// use_storage 업데이트
-	@RequestMapping("updateUseStorage")
+	@RequestMapping("store/updateUseStorage")
 	public String updateUseStorage(@RequestParam("store_code") String store_code , StoreAdminVO vo, RedirectAttributes red) {
 		storeService.useStroageUpdate(vo);
 		red.addAttribute("store_code", store_code);
@@ -87,7 +87,7 @@ public class StoreAdminController {
 	}
 	
 	// 온습도 관리 update
-	@RequestMapping("temHumUpdate")
+	@RequestMapping("store/temHumUpdate")
 	public String updateStoreTemHum(@RequestParam("store_code") String store_code , StoreVO vo, RedirectAttributes red) {
 		storeService.storeTemHumUpdate(vo);
 		red.addAttribute("store_code", store_code);
@@ -97,7 +97,7 @@ public class StoreAdminController {
 	//================= 정동영 ===================================
 	//====================== 최반야 ====================================
 	// 지점 공지사항 리스트
-	@RequestMapping("storeNotice")
+	@RequestMapping("store/storeNotice")
 	public String noticeList(HttpServletRequest req, StoreAdminVO vo, Model model) {
 		HttpSession session = req.getSession();
 		String s_code = (String) session.getAttribute("stCode");
@@ -109,13 +109,13 @@ public class StoreAdminController {
 	}
 	
 	// 지점 공지사항 등록 form 페이지 이동
-	@RequestMapping("noticeForm")
+	@RequestMapping("store/noticeForm")
 	public String noticeForm(StoreAdminVO vo) {
 		return "storeAdmin/noticeForm";
 	}
 	
 	// 지점 공지사항 등록
-	@RequestMapping("registNotice")
+	@RequestMapping("store/registNotice")
 	public String registNotice(HttpServletRequest req, StoreAdminVO vo) {
 		HttpSession session = req.getSession();
 		String s_code = (String)session.getAttribute("stCode");
@@ -126,7 +126,7 @@ public class StoreAdminController {
 	
 	// 지점 공지사항 상세 및 수정 페이지 모달로 전송
 	@ResponseBody
-	@RequestMapping(value="storeNoticeSelect/{notice_num}", method=RequestMethod.GET)
+	@RequestMapping(value="store/storeNoticeSelect/{notice_num}", method=RequestMethod.GET)
 	public StoreAdminVO storeNoticeSelect(@PathVariable int notice_num, Model model, StoreAdminVO vo) {
 		vo.setNotice_num(notice_num);
 		
@@ -135,7 +135,7 @@ public class StoreAdminController {
 	
 	// 지점 공지사항 수정
 	@ResponseBody
-	@RequestMapping("editNotice")
+	@RequestMapping("store/editNotice")
 	public String storeNoticeEdit(StoreAdminVO vo) {
 		String result = "";
 		
@@ -149,7 +149,7 @@ public class StoreAdminController {
 	
 	// 지점 공지사항 삭제
 	@ResponseBody
-	@RequestMapping(value="deleteNotice/{notice_num}", method=RequestMethod.GET)
+	@RequestMapping(value="store/deleteNotice/{notice_num}", method=RequestMethod.GET)
 	public String storeNoticeDelete(StoreAdminVO vo) {
 		String result = "";
 		
@@ -205,7 +205,7 @@ public class StoreAdminController {
 	
 	
 	// 이용중인 사용자 리스트
-	@RequestMapping("usingList")
+	@RequestMapping("store/usingList")
 	@ResponseBody
 	public List<StoreAdminVO> usingList(HttpServletRequest request, HttpServletResponse response) {
 	// Store - 지점명, 지점주소 (StoreConlloer)
@@ -217,7 +217,7 @@ public class StoreAdminController {
 	}
 	
 	// 사용종료 사용자 리스트
-		@RequestMapping("expiredList")
+		@RequestMapping("store/expiredList")
 		@ResponseBody
 		public List<StoreAdminVO> expiredList(HttpServletRequest request, HttpServletResponse response) {
 		// Store - 지점명, 지점주소 (StoreConlloer)
@@ -228,7 +228,7 @@ public class StoreAdminController {
 		return list;
 		}
 	
-	@RequestMapping("customerManage")
+	@RequestMapping("store/customerManage")
 	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		
@@ -238,7 +238,7 @@ public class StoreAdminController {
 	}
 	
 
-	@RequestMapping("storageUserDetail")
+	@RequestMapping("store/storageUserDetail")
 	public String storageUserDetail(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		String use_num = request.getParameter("use_num");
 		StoreAdminVO rvo = storeAdminDAO.storageUserDetail(use_num);
@@ -249,7 +249,7 @@ public class StoreAdminController {
 	}	
 	
 	//세탁물 위탁날짜 입력
-	@RequestMapping("laundryConsignUpdate")
+	@RequestMapping("store/laundryConsignUpdate")
 	@ResponseBody
 	public String laundryConsignUpdate(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ParseException {
 		 
@@ -271,7 +271,7 @@ public class StoreAdminController {
 	}
 	
 	//세탁물 회수날짜 입력
-		@RequestMapping("laundryCollectUpdate")
+		@RequestMapping("store/laundryCollectUpdate")
 		@ResponseBody
 		public String userLoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException, ParseException {
 			 
@@ -294,7 +294,7 @@ public class StoreAdminController {
 	
 		// 고객관리 보고서 입력
 		@ResponseBody
-		@RequestMapping("insertReport")
+		@RequestMapping("store/insertReport")
 		public String insertReport(StoreAdminVO vo) {
 			String result = "";
 
@@ -308,7 +308,7 @@ public class StoreAdminController {
 
 		// 쿠폰정보 입력
 		@ResponseBody
-		@RequestMapping("insertCoupon")
+		@RequestMapping("store/insertCoupon")
 		public String insertCoupon(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response)  {
 			
 			//int getCoupon_discount= Integer.parseInt(request.getParameter("coupon_discount"));
