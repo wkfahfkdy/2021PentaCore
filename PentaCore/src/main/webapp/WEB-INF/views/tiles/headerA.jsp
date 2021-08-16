@@ -2,7 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<style>
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+#logo {font-family:'ONE-Mobile-POP';
+  		color: grey;
+  		font-size: 18px;}
+  		
+#logo2 {font-family:'ONE-Mobile-POP';
+  		color: #478FEB;
+  		font-size: 18px;}
+</style>
 <form id="logout" action="${pageContext.request.contextPath }/logout/logout" method="POST">
 	<!-- <input name="${_csrf.parameterName }" type="hidden" value="${_csrf.token}" /> -->
 </form>
@@ -37,7 +52,8 @@
 							onclick="location.href='${pageContext.request.contextPath}/home'"/>
 					</div>
 					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath}/home'">
-						MY <span class="color-primary">STORAGE</span>
+						<!-- MY <span class="color-primary">STORAGE</span> -->
+						<span id="logo">MY</span>&nbsp;<span id="logo2">STORAGE</span>
 					</div>
 				</div>
 				 

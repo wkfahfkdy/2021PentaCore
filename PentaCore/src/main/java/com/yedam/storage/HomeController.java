@@ -291,7 +291,11 @@ public class HomeController {
 	public String goStoreSelect() {
 		return "test/goStoreAdmin";
 	}
-		
+	
+	@RequestMapping("goTrans")
+	public String goTrans() {
+		return "empty/empty/enterAdmin";
+	}
 	
 	
 	@RequestMapping("goStoreAdmin")

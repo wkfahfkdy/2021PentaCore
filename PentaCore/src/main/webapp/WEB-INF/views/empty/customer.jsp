@@ -160,14 +160,11 @@
 </head>
 <body>
 	<div class="wrap">
-		<div class="title">
+		<div class="title" style="padding-bottom: 5%">
 			<h3>물품 운송 신청 조회</h3>
 		</div>
 	
 		<div class="convey-list">
-			<div class="list-info">
-			<a>* 더블클릭으로 추가정보를 입력해주세요.</a>
-			</div>
 			<div id="customerGrid" align="center"></div>
 			<div id="my_customer" align="center">
 			    <div class="modal-body"></div>	    
