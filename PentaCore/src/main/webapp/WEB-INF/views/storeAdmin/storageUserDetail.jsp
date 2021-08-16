@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -376,11 +377,11 @@ $(function() {
 				</tr>
 				<tr>
 				<th>사용기간</th>
-				<td colspan="2">${selectUserVO.use_start }</td>
+				<td colspan="2"><fmt:formatDate value="${selectUserVO.use_start }" pattern="yyyy-MM-dd" /></td>
 				</tr>
 				<tr>
 				<th>사용종료</th>
-				<td colspan="2">${selectUserVO.use_end }</td>
+				<td colspan="2"><fmt:formatDate value="${selectUserVO.use_end }" pattern="yyyy-MM-dd" /></td>
 				</tr>
 				<tr>
 				<th>프리미엄</th>

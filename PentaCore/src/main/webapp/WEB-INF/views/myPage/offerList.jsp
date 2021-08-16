@@ -118,8 +118,6 @@
 <script>
 // 견적서 내역 그리드 생성
 $(document).ready(function() {
-	var list = '<c:out value="${offerSelectList}"/>';
-	
 	const Grid = tui.Grid;
 	
 	const offerData = [
