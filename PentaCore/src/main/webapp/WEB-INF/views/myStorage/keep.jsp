@@ -236,13 +236,13 @@
 		<!-- 서비스소개 및 QnA -->
 		<div class="scrollBtn"> 
 			<div class="quickmenu"> 
-				<button type="button" class="btn btn-primary btn-lg" > <a href="#scrollDiv">안심이사신청<br>바로가기</a></button>
+			<button type="button" href="#scrollDiv"> <img src="${pageContext.request.contextPath }/resources/img/icon.png"> </button>
 			</div>
 		</div>
 		<div align="center" style="padding-top: 5%;">
-			<h4>다락 안심보관이사</h4>
+			<h4>MY STORAGE 안심보관이사</h4>
 			<h1><b>어떤 서비스인가요?</b></h1> <br>
-			<h5>다락 안심보관이사란 다락만의 IoT기술을 기반으로 </h5>
+			<h5>안심보관이사란 다락만의 IoT기술을 기반으로 </h5>
 			<h5>항온항습 및 100% 살균 보관 환경에서 고객님의 이삿짐을 케어해드리는 프리미엄 서비스입니다.</h5>
 		</div>
 	
