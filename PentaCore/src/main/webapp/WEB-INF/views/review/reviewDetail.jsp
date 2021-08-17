@@ -65,9 +65,9 @@ p .font {
 			<br><br><br>
 			<div class="review-detail-body">
 			<p class="font">					
-				${reviewVO.review_content }				
+				${reviewVO.review_content }			
 			</p>
-			<c:if test="${imageCheck ne '<im' }">
+			<c:if test="${reviewVO.review_img eq null }">
 			<p>
 			<img
 								src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
