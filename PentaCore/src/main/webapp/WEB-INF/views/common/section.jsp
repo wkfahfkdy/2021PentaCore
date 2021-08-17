@@ -109,14 +109,38 @@
 				
 				
 				<!-- === slide image === -->	
-                <img class="sp-image" src="${pageContext.request.contextPath }/resources/main/main5.png"
-				data-src="resources/main/main5.png"
-				data-retina="resources/main/main5.png" 
-				style="height:100%; margin-left: px; margin-left:0;"alt="" />
+                <img class="sp-image" src="resources/assets/slider-pro/css/images/blank.gif"
+				data-src="resources/media/main-slider/2.jpg"
+				data-retina="resources/media/main-slider/2.jpg" alt="" />
 				
 				<!-- === slide container === -->	
 				<div class="container">
-                    <div class="main-slider-content"></div>
+                    <div class="main-slider-content">
+        				<h2 class="sp-layer"
+                            data-position="centerCenter" data-vertical="-55"
+        					data-show-transition="down" data-hide-transition="down" data-show-delay="600" data-hide-delay="600">
+        					We are your reliable partner
+        				</h2>
+        
+        				<h2 class="sp-layer color-primary"
+                            data-position="centerCenter" data-vertical="10"
+        					data-show-transition="down" data-hide-transition="down" data-show-delay="400" data-hide-delay="400">
+        					Quality services of cargo
+        				</h2>
+            
+                        <a class="sp-layer main-button-2" href="#"
+                            data-position="centerCenter" data-vertical="280"
+            				data-show-transition="down" data-hide-transition="down" data-show-delay="200" data-hide-delay="200">
+							<div class="my-btn my-btn-primary">
+								<div class="my-btn-bg-top"></div>
+								<div class="my-btn-bg-bottom"></div>
+								<div class="my-btn-text">
+									GET A FREE QUOTE
+								</div>
+							</div>
+						</a>
+                         
+                    </div>
                 </div>
 			</div>
    
@@ -125,14 +149,38 @@
 			<div class="sp-slide">
 				
 				<!-- === slide image === -->	
-                <img class="sp-image" src="${pageContext.request.contextPath }/resources/main/main6.png"
-				data-src="resources/main/main6.png"
-				data-retina="resources/main/main6.png" 
-				style="height:100%; margin-left: px; margin-left:0;"alt="" />
+                <img class="sp-image" src="resources/assets/slider-pro/css/images/blank.gif"
+				data-src="resources/media/main-slider/3.jpg"
+				data-retina="resources/media/main-slider/3.jpg" alt="" />
 				
 				<!-- === slide container === -->	
 				<div class="container">
-                    <div class="main-slider-content"> </div>
+                    <div class="main-slider-content">
+        				<h2 class="sp-layer"
+                            data-position="centerCenter" data-vertical="-55"
+        					data-show-transition="up" data-hide-transition="up" data-show-delay="200" data-hide-delay="200">
+        					We are your reliable partner
+        				</h2>
+        
+        				<h2 class="sp-layer color-primary"
+                            data-position="centerCenter" data-vertical="10"
+        					data-show-transition="up" data-hide-transition="up" data-show-delay="400" data-hide-delay="400">
+        					Quality services of cargo
+        				</h2>
+            
+                        <a class="sp-layer main-button-2" href="#"
+                            data-position="centerCenter" data-vertical="280"
+            				data-show-transition="up" data-hide-transition="up" data-show-delay="600" data-hide-delay="600">
+							<div class="my-btn my-btn-primary">
+								<div class="my-btn-bg-top"></div>
+								<div class="my-btn-bg-bottom"></div>
+								<div class="my-btn-text">
+									GET A FREE QUOTE
+								</div>
+							</div>
+							</a>
+	                       
+                    </div>
                 </div>
 			</div>
 
@@ -144,7 +192,7 @@
 	
 	
 	<!-- swiper슬라이더 메인컨테이너 온/습도 -->
-	<div class="swiper-container" style="padding: 3%">
+	<div class="swiper-container" style="padding: 2%; width: 100%">
 	  <!-- 보여지는 영역 -->
 		<div class="swiper-wrapper">
 			<!-- div class="swiper-slide" 를 추가하면된다 -->
@@ -156,6 +204,7 @@
 		</div>
 	</div>
 	<script>
+		
 	    var swiper = new Swiper('.swiper-container', {
 	      //기본 셋팅
 	      //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
@@ -196,59 +245,51 @@
 	<div >
 		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main2.png">
 		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main3.png">
-		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main4.png">
-	</div>
-    <!-- 리뷰 -->
-    <div class="swiper-container mySwiper" style="height: auto; width: 80%;">
-    	<div class="swiper-wrapper">
-			<c:forEach items="${reviewList}" var="reviewList" end="2">
-				<div class="swiper-slide" style="width: 100%">
-					<div class="media" style="width: 80%;  padding: 30px;">
-						<div class="media-body" style="width:100%; display: block; ">
-							<div class="media-body-top" style="width: 100%;">
-								<div class="media-info">
-									<h4 class="media-heading">${reviewList.review_title }</h4>
-									<span class="media-date">${reviewList.review_date }</span>
-								</div>
-							<div class="media-reply">
-								<a onclick="location.href='reviewDetail?review_num=${reviewList.review_num}'"><div class="my-btn my-btn-default">
-									<div class="my-btn-bg-top"></div>
-									<div class="my-btn-bg-bottom"></div>
-									<div class="my-btn-text">
-										자세히 보기
+		<!-- 리뷰 -->
+	    <div class="swiper-container mySwiper" style="height: auto; width: 80%; margin: 100px auto">
+	    	<div class="swiper-wrapper">
+				<c:forEach items="${reviewList}" var="reviewList" end="2">
+					<div class="swiper-slide" style="width: 100%">
+						<div class="media" style="width: 80%;  padding: 30px; border: 0">
+							<div class="media-body" style="width:100%; display: block; ">
+								<div class="media-body-top" style="width: 100%;">
+									<div class="media-info" style="width: 100%">
+										<div class="media-reply">
+										<a onclick="location.href='reviewDetail?review_num=${reviewList.review_num}'"><div class="my-btn my-btn-default">
+											<div class="my-btn-bg-top"></div>
+											<div class="my-btn-bg-bottom"></div>
+											<div class="my-btn-text">
+												자세히 보기
+												</div>
+											</div>
+										</a>
+										</div>
+										<p style="font-weight: 700; margin-top: 15px; font-size: 22px;">${reviewList.member_name } 님</p>
+										<p style="margin-top: 3px; font-size: 14px; color: #999; font-weight: 300;">${reviewList.store_name} 이용고객님</p>
+										<p style="font-weight: 300; font-size: 22px; line-height: 1.5; word-break: keep-all;">${reviewList.review_content }</p>
+										<span class="media-date">${reviewList.review_date }</span>
 									</div>
-								</div></a>
+								</div>
 							</div>
-							</div>
-								${reviewList.review_content }
 						</div>
 					</div>
-				</div>
-			</c:forEach>
+				</c:forEach>
+			</div>
 		</div>
-		<div class="swiper-button-next"></div>
-		<div class="swiper-button-prev"></div>
-		<div class="swiper-pagination"></div>
+	    <!-- Swiper JS -->
+	    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	
+	    <!-- Initialize Swiper -->
+	    <script>
+	      var swiper = new Swiper(".mySwiper", {
+	        autoplay: {
+	            delay: 3500,
+	            disableOnInteraction: false,
+	        },
+	      });
+	    </script>
+		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main4.png">
 	</div>
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    <!-- Initialize Swiper -->
-    <script>
-      var swiper = new Swiper(".mySwiper", {
-        pagination: {
-          el: ".swiper-pagination",
-          type: "progressbar",
-        },
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    </script>
 </body>
 </html>

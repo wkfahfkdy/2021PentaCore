@@ -61,10 +61,7 @@
          effect : 'cube',
          autoHeight : false,
          // 페이징 설정
-         pagination : {
-            el : '.swiper-pagination',
-            clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
-         },
+         
          // 네비게이션 설정
          navigation : {
             nextEl : '.swiper-button-next', // 다음 버튼 클래스명
@@ -343,6 +340,7 @@
             	$('#offerTotalPrice').html(storageTotalPrice + laundryTotalPrice + boxTotalPrice + '원'); // 세탁서비스 + 스토리지 이용금액
             	$('#hiddenOfferDiscountPrice').val(storageTotalPrice + laundryTotalPrice + boxTotalPrice); // DB에 들어갈거
             });
+      	// 여기는 selectBox 및 date 바뀔때 value 바뀌는 함수들
       	
       	//offer_start
       	$('#datePick').change(function(){
@@ -1092,7 +1090,7 @@ input[type='number'] {
 			               <!-- 카테고리 별 물품 리스트 나오는 Tag -->
 			               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"
 			                  style="width: 60%;">
-			                  <ul class="nav divisionBtnAppend">
+			                  <ul class="nav divisionBtnAppend" style="margin-left: 30px;">
 			                     <c:forEach items="${divisionList }" var="division">
 			                        <li class="divisionBtnliTag"><input type="button"
 			                           id="divisionBtn" style="display: inline-block;"
@@ -1102,7 +1100,7 @@ input[type='number'] {
 			                     </c:forEach>
 			                  </ul>
 			                  <!-- AJAX 처리 후 Append 되는 물품 리스트 -->
-			                  <div style="width: 100%; height:622px; overflow:auto; display: inline-block;">
+			                  <div style="width: 100%; height:622px; overflow:auto; display: inline-block; margin:30px auto;">
 			                  	<c:forEach items="${divisionList }" var="division">
 			                    	<ul class="nav divisionBtn do" id="${division.division_code }">
 			                        	<!-- Append ProductList -->
@@ -1144,7 +1142,7 @@ input[type='number'] {
 			                  <button class="btn btn-primary btn-lg" id="resetBtn">Reset</button>
 			               </div>
 			               <!-- End Storage Tag -->
-							<h5 id="nowInfo" style="width: 100%; display: block; float:left"></h5>
+							<h5 id="nowInfo" style="width: 100%; display: block; float:left; text-align: right; font-weight: bold; color: #5b87da;"></h5>
 			         </div><br />
 			         <!-- 렌탈물품 정보들 -->
 			         <section class="def-section" id="clients-section">
@@ -1462,7 +1460,7 @@ input[type='number'] {
 	  		</div>
 		</div>
   </div>
-  <div align="right" class="self-banner-bottom" style="position: fixed; bottom: 0px; width:100%; border-radius: 4px; padding: 10px 0; justify-content: space-between;">
+  <div align="right" class="self-banner-bottom" style="position: fixed; bottom: 0px; width:100%; border-radius: 4px; padding: 10px 0; justify-content: space-between; z-index: 99">
 		<div id="inner"  style="padding: 0px 20px;">
 			<div style="float: left; width: 25%; text-align: center;">
 				<h4 id="fixedStoreName" style="margin: 30px auto; font-size: 32px; font-weight: bold; ">중구점</h4> <!-- 지점이름 -->
