@@ -46,22 +46,28 @@ private String member_disable;
 
 
 	<select id="reviewListPaging" parameterType="com.yedam.storage.review.vo.ReviewVO"  resultType="com.yedam.storage.review.vo.ReviewVO">
-		      
-		      
-			Select * from (
+		   <![CDATA[
+		    Select * from (
 
 						select ROW_NUMBER() OVER (ORDER BY r.review_num desc) AS NUM, r.review_num, 
 						
 						case 
-				        when  length(substr(r.review_title,1,6)) > 5  then substr(r.review_title,1,6)||'..'
-				        else substr(r.review_title,1,6)
+				        when  length(substr(r.review_title,1,10)) > 9  then substr(r.review_title,1,10)||'..'
+				        else substr(r.review_title,1,10)
 				        end review_title,
 				        
-				        <![CDATA[
-				        case 
-				        when  length(substr(REGEXP_REPLACE(r.review_content, '<[^>]*>', ''),1,40)) > 39  then substr(REGEXP_REPLACE(r.review_content, '<[^>]*>', ''),1,40)||'..'
-				        else substr(r.review_content,1,40)
-				        end review_content]]>,
+				       
+            case 
+				        when  SUBSTR(r.review_content, 1, 4) ='<img' then SUBSTR(r.review_content, INSTR(r.review_content, 'px" />', 1, 1)+6)
+				        else r.review_content
+				        end review_content,
+                
+                
+            case 
+				        when  (INSTR(r.review_content, '<img alt=')) != 0 then
+                (SUBSTR(review_content, (INSTR(review_content, 'ckUpload')+9),INSTR(review_content, ' style=')-19 - INSTR(review_content, 'ckUpload',1,1)+9))
+				        else null
+				        end review_img, 
 				
 								'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
 							    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
@@ -71,87 +77,35 @@ private String member_disable;
 								join store s on (r.store_code = s.store_code))
                 
                 
-				        WHERE NUM BETWEEN #{firstCnt} AND #{lastCnt}		
+				        WHERE NUM BETWEEN #{firstCnt} AND #{lastCnt}
+		      
+			]]>
 						
 	</select>
 
 
 	 <select id ="selectReview" parameterType="string" resultType="com.yedam.storage.review.vo.ReviewVO">
+			<![CDATA[
 			SELECT 	r.review_num, r.review_title, r.review_content,
 
 				'20'||TO_DATE(r.review_date,'YY-MM-DD') review_date ,
 			    r.store_code, r.member_id, REPLACE(m.member_name, substr(m.member_name,2,1), '*') member_name ,
-			    s.store_name
+			    s.store_name,
+			    
+			    case 
+				        when  (INSTR(r.review_content, '<img alt=')) != 0 then
+                (SUBSTR(review_content, (INSTR(review_content, 'ckUpload')+9),INSTR(review_content, ' style=')-19 - INSTR(review_content, 'ckUpload',1,1)+9))
+				        else null
+				        end review_img
 			    
 				from review r join member m on (r.member_id = m.member_id)
 				join store s on (r.store_code = s.store_code) 
        			WHERE review_num = #{p}
 				order by r.review_num desc
-	
+			]]>
 	</select>
 
-	 
-
 	
-	
-	
-	
-			<!--
-	<select id="loanBooksCount" parameterType="string" resultType="int">
-		<![CDATA[ SELECT 	COUNT(*)
-				from users u join history h on (u.user_id = h.user_id)
-				join book b on (b.book_num = h.book_num) 
-        		where u.user_id = #{user_Id}
-       			and loan_status = '대출'
-				]]>
-	</select>
-	
-	<select id="overDueBooksCount" parameterType="string" resultType="int">
-		<![CDATA[ SELECT 	COUNT(*)
-				from users u join history h on (u.user_id = h.user_id)
-				join book b on (b.book_num = h.book_num) 
-        		where u.user_id = #{user_Id}
-       			and h.return_duedate < sysdate
-       			and loan_status = '대출'
-				]]>
-	</select>
-	
-	<select id="loanSuspensionDate" parameterType="string" resultType="string">
-		<![CDATA[ SELECT TO_CHAR((sysdate + 
-											(select max(return_delaydays) -1 from history where
-											return_delaydays > 0 and user_id= #{user_Id})) , 'YYYY/MM/DD')  from dual
-				]]>
-	</select>
-	
-	
-	
-	
-	<select id="userYeyakList" parameterType="string" resultType="com.yd.lib.users.vo.UserYeyakInfoVO">
-		SELECT 	y.user_Id, u.user_Name, b.book_Title, b.book_Aut, b.book_Location, b.book_Img,b.book_Pub, b.book_subject,y.yeyak_Num,
-       			TO_CHAR(y.yeyak_submit,'YYYY/MM/DD') yeyak_Submit, 
-       			TO_CHAR(y.yeyak_start,'YYYY/MM/DD') yeyak_Start, 
-      			TO_CHAR(y.yeyak_end,'YYYY/MM/DD') yeyak_End, 
-      			y.yeyak_Processing
-        		FROM yeyak y JOIN book b
-				ON (y.book_num = b.book_num)
-				JOIN users u
-				ON (y.user_id = u.user_id)
-       			where y.user_id = #{user_Id} and y.yeyak_Processing = '예약중' or  y.user_id = #{user_Id} and y.yeyak_Processing = '예약신청'
-	</select>
-	
-	
-	<delete id="yeyakCancel" parameterType="string">
-		delete from yeyak where yeyak_Num=#{yeyak_Num} 
-	</delete>
-	
-	
-	<select id="userWishList" parameterType="string" resultType="com.yd.lib.users.vo.UserWishInfoVO">
-		SELECT 	w.user_id ,u.user_Name, w.wish_title, w.wish_aut, w.wish_pub, w.wish_isbn, w.wish_pubdate, w.wish_date,
-        		w.wish_processing, w.wish_bigo,w.wish_coment
-       			FROM users u JOIN wish w
-				ON (u.user_id = w.user_id)
-        		where u.user_id = #{user_Id}
-	</select> -->
 	
 	<!-- 메인의 리뷰 리스트 -->
 	<select id="mainPageReviewList" resultType="com.yedam.storage.review.vo.ReviewVO">

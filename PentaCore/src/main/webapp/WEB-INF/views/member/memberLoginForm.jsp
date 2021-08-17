@@ -145,6 +145,23 @@ private String member_disable;
                 width: 100%;
             }
         }
+        
+        #member_pwd {
+		   	background-color: #478FEB;
+		    border: none;
+		   	padding: 18px 20px;
+		    font-family: Montserrat;
+		    font-size: 12px;
+		    font-weight: 400;
+		}
+		#member_id {
+		   	background-color: #478FEB;
+		    border: none;
+		   	padding: 18px 20px;
+		    font-family: Montserrat;
+		    font-size: 12px;
+		    font-weight: 400;
+		}
 </style>
 
 

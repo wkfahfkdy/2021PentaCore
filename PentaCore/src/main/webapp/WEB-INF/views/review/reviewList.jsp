@@ -156,14 +156,23 @@ ul {
 
 						<div class="service" style="border: 1px lightgray solid; border-radius: 0.3em;">
 							<div>
-								<img
+								
+							<c:if test="${reviewVO.review_img ne null}">
+							<img
+								src="${pageContext.request.contextPath }/resources/ckUpload/${reviewVO.review_img }"
+								alt="Image" width="80%">
+							</c:if>
+							<c:if test="${reviewVO.review_img eq null}">
+							<img
 									src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
 									alt="Image" width="210px" height="120px">
+							</c:if>	
+									
 							</div>
 							<div class="service-text">
 								<h5>${reviewVO.review_title }</h5>
 
-								<%-- 							<p>${reviewVO.review_content }</p> --%>
+								 							<!-- <p>${reviewVO.review_content }</p>  -->
 							</div>
 
 
@@ -206,45 +215,6 @@ ul {
 	</div>
 
 </div>
- <%--   <div class="def-section services-1">
-	<div class="container">
-	<form action="reviewDetail" id="ifrm">
-	<input type="hidden" id="review_num" name="review_num">
-		<div class="row">
-			 <c:forEach items="${reviewList }" var="reviewVO" varStatus="status">
-			<!-- === SERVICE ITEM === -->
-			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-				<div class="service-1">
-					<div class="service-1-image">
-						<img
-							src="${pageContext.request.contextPath }/resources/store_img/${reviewVO.store_code }.jpg"
-							alt="Image" width="70%">
-					</div>
-					<div class="service-1-title">
-						<h3>${reviewVO.review_title }</h3>
-					</div>
-					<div class="service-1-text" >
-						<p align="center">
-							${reviewVO.review_content }
-						</p>
-					</div>
-					<div class="service-1-button">
-						<a href="05_service_detail.html">
-							<div class="my-btn my-btn-default">
-								<div class="my-btn-bg-top"></div>
-								<div class="my-btn-bg-bottom"></div>
-								<div class="my-btn-text">
-									상세보기
-								</div>
-							</div>
-						</a>
-					</div>					
-				</div>
-			</div>
-			</c:forEach>
-		</div>
-		</form>
-	</div>
-</div>  --%>
+ 
 </body>
 </html>
