@@ -20,6 +20,7 @@ public class ReviewVO {
 	private String review_title;
 	private String review_content;
 	private String review_date;
+	private String review_img;
 	private String store_code;
 	private String member_id;
 	//join

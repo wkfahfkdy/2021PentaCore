@@ -51,9 +51,9 @@
 				<div class="logo" id="main-logo">
 					<div class="logo-image">
 						<img src="resources/img/logo.png" alt="" 
-							onclick="location.href='home'" />
+							onclick="location.href='${pageContext.request.contextPath }/home'" />
 					</div>
-					<div class="logo-text" onclick="location.href='home'">
+					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath }/home'">
 						<!-- MY <span class="color-primary">STORAGE</span> -->
 						<span id="logo">MY</span>&nbsp;<span id="logo2">STORAGE</span>
 					</div>
@@ -83,7 +83,7 @@
 						
 						<!-- === top menu item === -->
 						<li>
-							<a onclick="LoginCheckToSelfOffer('${loginId }')">셀프견적</a>
+							<a onclick="LoginCheckToSelfOffer('${loginId }')" style="cursor: pointer;">셀프견적</a>
 						</li> 
 						<li class="main-menu-separator"></li>
 						<!-- === top menu item === -->
@@ -117,22 +117,6 @@
 								</li>
 								<li>
 									<a href="faqList">FAQ</a>
-								</li>
-								<li>
-									<!-- API 테스트 용 -->
-									<a href="calendarTest">CalendarTest</a>
-								</li>
-								<li>
-									<!-- API 테스트 용 -->
-									<a href="kakaoMapTest">KakaoMapTest</a>
-								</li>
-								<li>
-									<!-- 투어 예제 -->
-									<a href="tourTest">tourTest</a>
-								</li>
-								<li>
-									<!-- 어드민-지점관리 이동 테스트 용 -->
-									<a href="goStoreSelect">goStoreAdmin</a>
 								</li>
 							</ul>
 						</li> 

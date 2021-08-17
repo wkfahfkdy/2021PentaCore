@@ -236,13 +236,13 @@
 		<!-- 서비스소개 및 QnA -->
 		<div class="scrollBtn"> 
 			<div class="quickmenu"> 
-				<button type="button" class="btn btn-primary btn-lg" > <a href="#scrollDiv">안심이사신청<br>바로가기</a></button>
+			<button type="button" href="#scrollDiv"> <img src="${pageContext.request.contextPath }/resources/img/icon.png"> </button>
 			</div>
 		</div>
 		<div align="center" style="padding-top: 5%;">
-			<h4>다락 안심보관이사</h4>
+			<h4>MY STORAGE 안심보관이사</h4>
 			<h1><b>어떤 서비스인가요?</b></h1> <br>
-			<h5>다락 안심보관이사란 다락만의 IoT기술을 기반으로 </h5>
+			<h5>안심보관이사란 다락만의 IoT기술을 기반으로 </h5>
 			<h5>항온항습 및 100% 살균 보관 환경에서 고객님의 이삿짐을 케어해드리는 프리미엄 서비스입니다.</h5>
 		</div>
 	
@@ -302,7 +302,7 @@
 	// KakaoMap
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표 (default 값)
+	        center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666), // 지도의 중심좌표 (default 값)
 	        level: 3 // 지도의 확대 레벨
 	    };  
 	
@@ -311,6 +311,18 @@
 	
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
+	
+	var iwContent2 = '<div style="padding:5px; text-align:center; width:145px;">Yedam</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    iwPosition2 = new kakao.maps.LatLng(35.869095969748685, 128.59339734624666), //인포윈도우 표시 위치입니다
+    iwRemoveable2 = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+	// 인포윈도우를 생성하고 지도에 표시합니다
+	var infowindow2 = new kakao.maps.InfoWindow({
+	    map: map, // 인포윈도우가 표시될 지도
+	    position : iwPosition2, 
+	    content : iwContent2,
+	    removable : iwRemoveable2
+	});
 	
 	$.ajax({
 		url:'storeInfo',

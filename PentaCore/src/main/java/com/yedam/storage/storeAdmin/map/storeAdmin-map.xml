@@ -180,7 +180,7 @@
 	
 	<insert id="insertCoupon" parameterType="StoreAdminVO">
 	INSERT INTO coupon VALUES( 'CP' || lpad(coupon_seq.nextval,3,0), #{coupon_name}, #{coupon_discount}, #{coupon_start}, #{coupon_end}, 
-	(select store_code from store where store_name = #{store_name} )) 
+	#{store_code}) 
 	</insert>
 	
  <!--전형민 -->

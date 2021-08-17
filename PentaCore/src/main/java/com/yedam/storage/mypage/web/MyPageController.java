@@ -29,7 +29,7 @@ public class MyPageController {
 		HttpSession session = req.getSession();
 		
 		String s_code = (String) session.getAttribute("loginStore");
-		System.out.println(s_code);
+		//System.out.println(s_code);
 		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
 	

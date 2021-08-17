@@ -18,14 +18,30 @@ private String member_disable;
 
 
 	<select id="reviewList" resultType="com.yedam.storage.review.vo.ReviewVO">
-		SELECT 	r.review_num, r.review_title, r.review_content,
+		<![CDATA[
+		SELECT 	r.review_num, r.review_title, 
+
+        case 
+				        when  SUBSTR(r.review_content, 1, 4) ='<img' then SUBSTR(r.review_content, INSTR(r.review_content, 'px" />', 1, 1)+6)
+				        else r.review_content
+				        end review_content,
+                
+                
+        case 
+				        when  (INSTR(r.review_content, '<img alt=')) != 0 then
+                (SUBSTR(review_content, (INSTR(review_content, 'ckUpload')+9),INSTR(review_content, ' style=')-19 - INSTR(review_content, 'ckUpload',1,1)+9))
+				        else null
+				        end review_img,   
+        
 				TO_DATE(r.review_date,'YYYY/MM/DD') review_date ,
 			    r.store_code, r.member_id, m.member_name,
 			    s.store_name
 			    
 				from review r join member m on (r.member_id = m.member_id)
 				join store s on (r.store_code = s.store_code) 
+        
 				order by r.review_num desc
+				]]>
 	</select>
 
 
@@ -139,7 +155,11 @@ private String member_disable;
 	
 	<!-- 메인의 리뷰 리스트 -->
 	<select id="mainPageReviewList" resultType="com.yedam.storage.review.vo.ReviewVO">
-		SELECT * 
+		SELECT REVIEW_TITLE, REVIEW_DATE, STORE_CODE, MEMBER_ID, REVIEW_NUM,
+		    CASE 
+		      WHEN REVIEW_CONTENT LIKE '%img%' THEN REPLACE(REVIEW_CONTENT, 'img', '')
+		      WHEN REVIEW_CONTENT NOT LIKE '%img%' THEN REVIEW_CONTENT
+		    END AS REVIEW_CONTENT
 		FROM REVIEW
 		ORDER BY REVIEW_DATE DESC
 	</select>

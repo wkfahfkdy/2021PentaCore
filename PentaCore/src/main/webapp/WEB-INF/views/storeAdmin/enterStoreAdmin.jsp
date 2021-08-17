@@ -89,11 +89,12 @@ function insertCoupon() {
 	//data = decodeURIComponent(data);
 	
 	var coupon_name = $('#coupon_name').val();
-	var store_name = $('#store_name').val();
+	var store_code = $('#store_code').val();
 	var coupon_discount = $('#coupon_discount').val();
 	var coupon_start = $('#coupon_start').val();
 	var coupon_end = $('#coupon_end').val();
 	
+	console.log(store_code);
 
 	
 	if ($('#coupon_name').val() == "") {
@@ -131,7 +132,7 @@ function insertCoupon() {
 			url: 'store/insertCoupon',
 			type: 'POST',
 			data: { coupon_name:coupon_name,
-				store_name:store_name,
+				store_code:store_code,
 				coupon_discount:coupon_discount,
 				coupon_start:coupon_start,
 				coupon_end:coupon_end
@@ -200,6 +201,7 @@ function insertCoupon() {
 				<div class="modal-body"></div>
 				<div class="modal-footer">
 					<button id="edit-btn" type="button" onclick="insertCoupon()">입력</button>
+				<input type="hidden" id="store_code" value='${stCode}' />
 				</div>
 			</form>
 		</div>
@@ -216,19 +218,20 @@ $(function() {
 			modal('coupon-modal');
 			
 
-			var title = '<h3 align="center">쿠폰등록</h3>';
+			var title = '<h3 align="center">${employeeVO.store_name} 쿠폰등록</h3>';
 			
 			var tbl =$('<table width="100%" align="center"/>');
 			
 			//쿠폰이름
 			var row = '<tr>';
 			row += '<th style="width: 30%;">쿠폰이름</th>';
-			row += '<td style="text-align: center;"><input type="text" name="coupon_name" id="coupon_name" value="☆☆점 오픈 프로모션 ☆% 할인" />';
+			row += '<td style="text-align: center;"><input type="text" name="coupon_name" id="coupon_name" value="${employeeVO.store_name} ☆% 할인" />';
 			row +=	'</td>';
 			row +=	'</tr>';
 			
 			row += '<br><br>';
 			
+			/*
 			//적용지점
 			row += '<tr>';
 			row += '<th style="width: 30%;">적용지점</th>';
@@ -243,6 +246,7 @@ $(function() {
 			row += '</tr>';
 			
 			row += '<br><br>';
+			*/
 			
 			//할인율
 			row += '<tr>';

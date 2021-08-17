@@ -7,6 +7,7 @@
 	<select id="SelectStoreAddr" resultType="com.yedam.storage.store.vo.StoreVO">
 		select 	*
 		from 	store
+		where 	store_code like 'ST%'
 	</select>
 	
 	<!-- 메인화면 온습도 출력 -->

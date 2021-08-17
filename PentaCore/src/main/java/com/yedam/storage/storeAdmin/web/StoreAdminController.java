@@ -176,40 +176,7 @@ public class StoreAdminController {
 	
 	//====================== 최반야 ====================================
 	
-	/*
-	//고객관리 페이지 이동
-	@RequestMapping("store/customerManage")
-	public String LoginIdCheck(Model model , StoreAdminVO vo , HttpServletRequest req) {
-				
-		
-				//이용중인 고객 리스트  
-		
-				String page = req.getParameter("page");
-				//요청받은 페이지번호
-				if(page == null) {
-					page = "1";
-				}
-				//10개씩 페이징
-				int pageCnt = Integer.parseInt(page);
-				int firstCnt = (pageCnt - 1) * 5 + 1; // 1 , 11 ,21
-				int lastCnt = (pageCnt * 5); // 10 , 20 , 30
-				vo.setFirstCnt(firstCnt);
-				vo.setLastCnt(lastCnt);
-				
-				List<StoreAdminVO> total = storeAdminDAO.usingStrorageList();//전체 검색결과
-				Paging paging = new Paging();
-				paging.setPageNo(pageCnt);//요청받은 페이지
-				paging.setPageSize(8);//한페이지에 보여줄 값
-				paging.setTotalCount(total.size());//페이지에 필요한 변수 생성
-				
-				
-				
-			    
-				model.addAttribute("paging", paging);//페이징에 필요한 값
-				model.addAttribute("usingStorageList", storeAdminDAO.usingStrorageListPaging(vo));//검색 결과중 페이지에 요청된 페이지에 띄울 결과들
-				return "storeAdmin/customerManage";
-	}
-	*/
+	
 	/////////////////////////////////전형민////////////////////////////////////////////
 	//지점관리자 홈으로 이동
 	@RequestMapping("store/enterStoreAdmin")

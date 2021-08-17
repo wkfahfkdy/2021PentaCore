@@ -30,8 +30,6 @@ import com.yedam.storage.store.service.StoreService;
 import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.tour.service.TourService;
 import com.yedam.storage.tour.vo.TourVO;
-import com.yedam.storage.trans.service.TransService;
-import com.yedam.storage.trans.vo.TransVO;
 
 @Controller
 public class HomeController {
