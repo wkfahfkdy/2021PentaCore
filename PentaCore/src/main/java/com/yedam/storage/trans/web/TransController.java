@@ -31,7 +31,7 @@ public class TransController {
 	}
 	
 	// 신청내역
-	@RequestMapping("customer")
+	@RequestMapping("trans/customer")
 	public String customer(Model model, TransVO vo) {
 
 		model.addAttribute("customerListAll", transDAO.customerListAll(vo));
@@ -41,7 +41,7 @@ public class TransController {
 	}
 	
 	// 모달창 list
-	@RequestMapping(value="myCustomer", method=RequestMethod.GET)
+	@RequestMapping(value="trans/myCustomer", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> myCustomerSelect(Model model, TransVO vo) {
 		System.out.println("123");
@@ -55,7 +55,7 @@ public class TransController {
 	}
 	
 	//추가입력
-	@RequestMapping("customerInsert")
+	@RequestMapping("trans/customerInsert")
 	public String customerInsert(TransVO vo) {
 		
 		transDAO.customerInsert(vo);
@@ -64,7 +64,7 @@ public class TransController {
 	}
 
 	// 사후관리 페이지이동
-	@RequestMapping("FileupSelect")
+	@RequestMapping("trans/FileupSelect")
 	public String FileupPage(@RequestParam("apply_code") String apply_code, Model model, TransVO vo) {
 		
 		model.addAttribute("apply_code", apply_code);
@@ -77,7 +77,7 @@ public class TransController {
 	
 	
 	// file upload
-	@RequestMapping("customerFileup")
+	@RequestMapping("trans/customerFileup")
 	public String customerFileup(TransVO vo) {
 		
 		System.out.println("123");

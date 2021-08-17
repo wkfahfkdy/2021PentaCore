@@ -72,7 +72,8 @@ var inst = mobiscroll.eventcalendar('#demo-desktop-week-view', {
     	modal('my_offer');
 		var tbl =$('<table />');
 		var row = '<tr>';
-		row += '<td>'+event.event.title+'</td></tr>';
+		row += '<td> 고객명 : '+event.event.title+'</td></tr>';
+		row += '<td> 연락처 : '+event.event.tel+'</td></tr>';
 		
 		tbl.append(row);
 		$(".modal-body").append(tbl);
@@ -83,10 +84,11 @@ var inst = mobiscroll.eventcalendar('#demo-desktop-week-view', {
 			start: '${list.start}',
 			end: '${list.end}',
 			title: '${list.member_name}',
-			color: '${bgcolor[status.index%3]}'
+			color: '${bgcolor[status.index%3]}',
 			// 아래부터는 커스텀 변수
 			// 예시 : store: '지점 : ' + '${list.store_name}',
 			// 여기 적고, 위의 modal에서 event.event.store로 추가
+			tel : '${list.tour_tel}'
 		}
 		<c:if test="${not status.last}">,
 		</c:if>

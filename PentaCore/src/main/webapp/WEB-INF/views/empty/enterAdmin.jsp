@@ -36,7 +36,7 @@
 					<h2>지점예약 스케쥴관리</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='customer'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='trans/customer'">
 					<h2>고객관리</h2></button>
 			</div>
 		</div>

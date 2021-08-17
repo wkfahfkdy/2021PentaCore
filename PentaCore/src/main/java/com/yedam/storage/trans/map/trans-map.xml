@@ -87,6 +87,7 @@
 		WHERE  	A.APPLY_CODE = L.APPLY_CODE
 		AND 	A.STORE_CODE = S.STORE_CODE
 		AND 	A.STORE_CODE = #{store_code}
+		AND     L.CONVEY_TIME IS NOT NULL
 	</select>
 	<!-- 운송 캘린더 끝 -->
 

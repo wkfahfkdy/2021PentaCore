@@ -79,8 +79,12 @@
 		padding: 0em 1em; 
     }
 </style>
+<!-- iamport -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<!-- grid -->
 <link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
 <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+<!-- kakao-map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3a66ba8e60100e68a1df7756407ad0bb&libraries=services"></script>
 </head>
 <body>
@@ -129,7 +133,9 @@ $(document).ready(function() {
 						offer_code: '${list.offer_code}',
 						offer_product: '${list.offer_product}',
 						store_name: '${list.store_name}',
-						offer_pay:'${list.offer_pay}'
+						offer_pay:'${list.offer_pay}',
+						go_pay: '<input type="button" onclick="iamport()" value="결제" />',
+						go_pay_Y: '<input type="button" onclick="" value="결제" />'
 					}
 					<c:if test="${not status.last}">,</c:if>
 					</c:forEach>
@@ -163,6 +169,18 @@ $(document).ready(function() {
 				name: 'offer_pay',
 				align: 'center',
 				width: 100
+			},
+			{
+				header: '결제하기(API)',
+				name: 'go_pay',
+				align: 'center',
+				width: 100
+			},
+			{
+				header: '결제하기(non-API)',
+				name: 'go_pay_Y',
+				align: 'center',
+				width: 130
 			}
 		],
 		
@@ -375,6 +393,41 @@ $(document).ready(function() {
 		};
 	})
 });
+
+/* iamport */
+function showPopup() { window.open("ad_popup2.jsp", "a", "width=400, height=300, left=100, top=50"); }
+
+function iamport(icode){
+    //가맹점 식별코드
+    IMP.init('imp07808434');
+    IMP.request_pay({
+        pg : 'kcp',
+        pay_method : 'card',
+        merchant_uid : 'merchant_' + new Date().getTime(),
+        name : '상품1' , //결제창에서 보여질 이름
+        amount : 100, //실제 결제되는 가격
+        buyer_email : 'iamport@siot.do',
+        buyer_name : 'admin',
+        buyer_tel : '010-1234-5678',
+        buyer_addr : 'yedam',
+        buyer_postcode : '123-456'
+    }, function(rsp) {
+       console.log(rsp);
+        if ( rsp.success ) {
+           var msg = '결제가 완료되었습니다.';
+            msg += '고유ID : ' + rsp.imp_uid;
+            msg += '상점 거래ID : ' + rsp.merchant_uid;
+            msg += '결제 금액 : ' + rsp.paid_amount;
+            msg += '카드 승인번호 : ' + rsp.apply_num;
+            window.close();
+        } else {
+            var msg = '결제에 실패하였습니다.';
+             msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+    });
+    
+ }
 </script>
 </body>
 </html>
