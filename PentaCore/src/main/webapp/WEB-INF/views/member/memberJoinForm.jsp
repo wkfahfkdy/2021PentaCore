@@ -4,16 +4,18 @@
 <head>
 
 <style>
-td {
-  width: 150px;
-}
-select {
-  width: 6em;
-}
+	select {
+	  width: 6em;
+	}
 
-input {
-  width: 150px;
-}
+	.tab1 {
+		float: left;
+	}
+
+	.tab2 {
+		float: left;
+	}
+
 </style>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -268,50 +270,52 @@ function findAddr(){
 </head>
 <body>
 			<!--회원가입 화면-->
-			
+		<div align="center">
 			<div align="center">
-					<h2><b>회원가입</b></h2>
+				<div align="center" style="padding-top: 3%;">
+					<img  style="width: 250px;" 
+					src="${pageContext.request.contextPath }/resources/img/all_logo.png">
+				</div>
+				<br>
 			<br>
 			<form id="frm" action="memberJoin" method="post">
+			<div class="tab1">
 			<table style="border:1; border-collapse:collapse;">
 					<tr>
-						<th width="150">아이디</th>
-						<td width="300">
-							<input class="form-control" type="text" id="member_id" name="member_id">
+						<td style="width: 300px; height: 60px;">
+							<input class="form-control" type="text" id="member_id" name="member_id"  placeholder ="ID" 
+									style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 						</td>
-						<td width="300">
-							<button class="btn btn-light" type="button" id="idCheck" value="unChecked">중복체크</button>
+						<td width="30px;" style="height: 60px;">
+							<button class="btn btn-default" style="margin-left: 10%; height: 65%;" 
+									type="button" id="idCheck" value="unChecked">중복체크</button>
 						</td>
 					</tr>
 					<tr>
-						<th width="150">비밀번호</th>
-						<td width="300" colspan="2">
-						<input class="form-control" type="password" id="member_pwd"
-							name="member_pwd"></td>
+						<td style="height: 60px;">
+						<input class="form-control" type="password" id="member_pwd"name="member_pwd" placeholder ="비밀번호" 
+								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 					</tr>
 					<tr>
-						<th width="150">비밀번호 재확인</th>
-						<td width="300" colspan="2">
-						<input class="form-control" type="password" id="member_pwd2"
-							name="member_pwd2"></td>
+						<td  style="height: 60px;">
+						<input class="form-control" type="password" id="member_pwd2" name="member_pwd2" placeholder ="비밀번호확인" 
+								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 					</tr>
 					<tr>
-						<th width="150">이름</th>
-						<td width="300" colspan="2">
-						<input class="form-control" type="text" id="member_name"
-							name="member_name"></td>
+						<td  style="height: 60px;">
+						<input class="form-control" type="text" id="member_name" name="member_name" placeholder ="이름" 
+								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 					</tr>
 					
 					<tr>
-						<th width="150">생년월일</th>
-							<td width="100" colspan="2" >
-							<select class="custom-select"
-								name="member_BirthYear" id="member_BirthYear" >
-										<option selected>----</option>
-										<% for (int i=2021; i>1900; i--) { %>
-											<option value= "<%=i%>"><%=i%></option>
-											<% } %>
-							</select><b>년</b> &nbsp;&nbsp;&nbsp;
+						<td  style="height: 60px;">
+						<select class="custom-select"
+							name="member_BirthYear" id="member_BirthYear" >
+									<option selected>----</option>
+									<% for (int i=2021; i>1900; i--) { %>
+										<option value= "<%=i%>"><%=i%></option>
+										<% } %>
+						</select><b>년</b> &nbsp;&nbsp;&nbsp;
 							
 							
 						<select class="custom-select" name="member_BirthMonth" id= "member_BirthMonth">
@@ -330,72 +334,80 @@ function findAddr(){
 						</select><b>일</b>
 						</td>
 					</tr>
-
+			</table>
+			</div>
+			<div class="tab2">
+			<table style="border:1; border-collapse:collapse;">
 					<tr>
-						<th>이메일</th>
-						<td width="350" colspan="2">
- 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" value="">
+						<td style="height: 60px;">
+ 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" value=""
+ 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
  						</td>
  						<td>
- 						<button class="btn btn-light" type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
+ 						<button class="btn btn-default" style="margin-left: 10%; height: 65%;" 
+ 								 type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
  						</td>
  						</tr>
  						<tr>
- 						<th></th>
- 						<td width="350" colspan="2">
- 						<input class="form-control" type="text" placeholder="이메일 인증코드" id="emailCode" value="">
+ 						<td  style="height: 60px;">
+ 						<input class="form-control" type="text" placeholder="이메일 인증코드" id="emailCode" value=""
+ 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
  						</td>
  						<td>
- 						<button class="btn btn-light" type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
+ 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;" 
+ 								 type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
+						</td>
+					</tr>
+										
+					<tr>
+						<td style="height: 60px;">
+							<input class="form-control" type="text" id="member_tel" name="member_tel" placeholder ="'-'없이 숫자만 입력" 
+									style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
+						</td>
+						<td>
+							<button class="btn btn-default" style="margin-left: 10%; height: 60%;" 
+									 type="button" id="sendSMS" value="unChecked">인증번호 전송</button>
+						</td>
+					</tr>
+					<tr>
+						<td style="height: 60px;">
+ 						<input class="form-control" type="text" placeholder="문자 인증번호" id="smsKey" value=""
+ 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
+ 						</td>
+ 						<td>
+ 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;" 
+ 								type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
 						</td>
 					</tr>
 					
-					<tr><td colspan="2">&nbsp;</td></tr>
-					
 					<tr>
-						<th width="150">휴대폰 번호</th>
-						<td width="350" colspan="2"><input class="form-control" type="text" id="member_tel"
-							name="member_tel" placeholder ="'-'없이 숫자만 입력" >
-						</td>
-						<td>
-							<button class="btn btn-light" type="button" id="sendSMS" value="unChecked">인증번호 전송</button>
+						<td style="height: 60px;">
+						<input class="form-control" id="member_post" type="text" name="memberAddressZip" placeholder="자택주소" readonly onclick="findAddr()"
+								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 						</td>
 					</tr>
 					<tr>
-						<th></th>
-						<td width="350" colspan="2">
- 						<input class="form-control" type="text" placeholder="문자 인증번호" id="smsKey" value="">
- 						</td>
- 						<td>
- 						<button class="btn btn-light" type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
-						</td>
-					</tr>
-					<tr><td colspan="2">&nbsp;</td></tr>
-					<tr>
-						<th width="150">주소
-						</th>
-						<td width="300">
-						<input class="form-control" id="member_post" type="text" name="memberAddressZip" placeholder="Zip Code" readonly onclick="findAddr()">
+						<td style="height: 60px;">
+  						<input class="form-control" id="member_addr" type="text" name="memberAddress" placeholder="" readonly
+  								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td>
-  						<input class="form-control" id="member_addr" type="text" name="memberAddress" placeholder="Address" readonly>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
- 						<input class="form-control" id="member_detailedAddr" type="text" placeholder="Detailed Address" name="memberAddressDetail">
+						<td style="height: 60px;">
+ 						<input class="form-control" id="member_detailedAddr" type="text" placeholder="상세주소" name="memberAddressDetail"
+ 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 						</td>
 					</tr>
 			</table>
+			</div>
 			</form>
-			<br>
+			</div>
+			<div style="clear: both; padding-bottom: 5%;"> </div>
+			
+			<div>
 				<button class="btn btn-light" type="button"
 					onclick="formCheck()" style="width: 110px; height: 45px; background: #89ba10; color: white;">회원가입</button>
 			</div>
-			
+		</div>
 </body>
 </html>

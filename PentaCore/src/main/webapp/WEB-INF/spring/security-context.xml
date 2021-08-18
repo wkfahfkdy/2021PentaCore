@@ -7,11 +7,14 @@
 
 	<!-- resources 아래에 css 등이 있어서 security 적용 안함 -->
 	<security:http pattern="/resources/**" security="none"/>
-	<security:http>
+	<security:http >
 	
 		<!-- 우선 모든 주소를 모든 사람들에게 허용하고, 프로젝트 마지막 쯤에 각 페이지 인가 설정 -->
+		<security:intercept-url pattern="/store/**" access="hasAnyRole('ROLE_STORE','ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/trans/**" access="hasAnyRole('ROLE_TRANS','ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="permitAll()"/>
-		
+
 		<!--  
 			default-target-url = 로그인 후 이동 페이지 /home = common/section.jsp
 			login-page = 로그인이 일어나는 페이지 /memberLoginForm = member/memberLoginForm.jsp

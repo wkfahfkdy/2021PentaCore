@@ -46,7 +46,7 @@
 </head>
 <body>
 	<div class="title-group" style="margin-top: 70px;">
-		<h2>1:1 문의</h2>
+		<h2>문의게시판</h2>
 		<div class="subtitle with-square">댓글로 빠르게 문의하세요!</div>
 	</div>
 

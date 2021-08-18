@@ -144,7 +144,8 @@
 	
 	
 	<!-- swiper슬라이더 메인컨테이너 온/습도 -->
-	<div class="swiper-container" style="padding: 2%; width: 100%">
+	<div style="padding-top: 2%;">
+	<div class="swiper-container" style="padding: 5px; width: 100%">
 	  <!-- 보여지는 영역 -->
 		<div class="swiper-wrapper">
 			<!-- div class="swiper-slide" 를 추가하면된다 -->
@@ -155,56 +156,9 @@
 			</c:forEach>
 		</div>
 	</div>
-	
-	
-	<!-- 메인img -->
-	<div >
-		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main2.png">
-		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main3.png">
-		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main4.png">
 	</div>
 	
-	<!-- 리뷰스와이프 -->
-    <!-- swiper슬라이더 메인컨테이너 온/습도 -->
-	<!-- 
-		<div id="swiper-container22" class="swiper-container do" style="padding: 3%; height: auto">
-		<h3>리뷰</h3>
-		<!-- <div class="single-post-comments" id="comments">
-			<h3>COMMENTS (5)</h3> 
-	  		<!-- 보여지는 영역 
-			<div class="swiper-wrapper">
-				<!-- div class="swiper-slide" 를 추가하면된다 
-				<c:forEach items="${reviewList}" var="reviewList" end="2">
-					<div class="swiper-slide" style="width: 50%">
-						<div class="media" style="width: 50%;">
-							<div class="media-body">
-								<div class="media-body-top">
-									<div class="media-info">
-										<h4 class="media-heading">${reviewList.review_title }</h4>
-										<span class="media-date">${reviewList.review_date }</span>
-									</div>
-								<div class="media-reply">
-									<a onclick="location.href='reviewDetail?review_num=${reviewList.review_num}'"><div class="my-btn my-btn-default">
-										<div class="my-btn-bg-top"></div>
-										<div class="my-btn-bg-bottom"></div>
-										<div class="my-btn-text">
-											자세히 보기
-										</div>
-									</div></a>
-								</div>
-								</div>
-									${reviewList.review_content }
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-			<div class="swiper-pagination2"></div>
-		</div>
-		
-	</div>-->
-    
-    
+	
     <script>
 		// swiper슬라이더 메인컨테이너 온/습도
 	    var swiper = new Swiper('.swiper-container', {
@@ -244,15 +198,18 @@
 	</script>
 	
 	<!-- 메인img -->
-	<div >
+	<div><br>
 		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main2.png">
 		<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/main3.png">
 		<!-- 리뷰 -->
+		<div align="center" style="margin: 2em 0em; background: #478FEB; padding: 1.5em 0em; color: white;">
+			<h2>Review</h2>
+		</div>
 	    <div class="swiper-container mySwiper" style="height: auto; width: 80%; margin: 100px auto">
 	    	<div class="swiper-wrapper">
-				<c:forEach items="${reviewList}" var="reviewList" end="2">
+				<c:forEach items="${reviewList}" var="reviewList" >
 					<div class="swiper-slide" style="width: 100%">
-						<div class="media" style="width: 80%;  padding: 30px; border: 0">
+						<div class="media" style="width: 80%;  padding: 30px; border:1px; ">
 							<div class="media-body" style="width:100%; display: block; ">
 								<div class="media-body-top" style="width: 100%;">
 									<div class="media-info" style="width: 100%">
@@ -267,7 +224,7 @@
 										</a>
 										</div>
 										<p style="font-weight: 700; margin-top: 15px; font-size: 22px;">${reviewList.member_name } 님</p>
-										<p style="margin-top: 3px; font-size: 14px; color: #999; font-weight: 300;">${reviewList.store_name} 이용고객님</p>
+										<p style="margin-top: 3px; font-size: 14px; color: 999; font-weight: 300;">${reviewList.store_name} 이용고객님</p>
 										<p style="font-weight: 300; font-size: 22px; line-height: 1.5; word-break: keep-all;">${reviewList.review_content }</p>
 										<span class="media-date">${reviewList.review_date }</span>
 									</div>

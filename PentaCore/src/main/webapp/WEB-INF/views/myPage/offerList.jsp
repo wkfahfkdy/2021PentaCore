@@ -134,8 +134,8 @@ $(document).ready(function() {
 						offer_product: '${list.offer_product}',
 						store_name: '${list.store_name}',
 						offer_pay:'${list.offer_pay}',
-						go_pay: '<input type="button" onclick="iamport()" value="결제" />',
-						go_pay_Y: '<input type="button" onclick="" value="결제" />'
+						go_pay: '<c:choose><c:when test="${list.offer_pay != 'Y'}"><input type="button" value="결제" class="btn btn-primary btn-lg" onclick="iamport()" /></c:when><c:otherwise>"결제 완료</c:otherwise></c:choose>',
+						go_pay_Y: '<c:choose><c:when test="${list.offer_pay != 'Y'}"><input type="button" value="결제" class="btn btn-primary btn-lg" onclick="iamport()" /></c:when><c:otherwise>"결제 완료</c:otherwise></c:choose>'
 					}
 					<c:if test="${not status.last}">,</c:if>
 					</c:forEach>
@@ -163,12 +163,6 @@ $(document).ready(function() {
 				name: 'store_name',
 				align: 'center',
 				width: 200
-			},
-			{
-				header: '결제 여부',
-				name: 'offer_pay',
-				align: 'center',
-				width: 100
 			},
 			{
 				header: '결제하기(API)',
@@ -428,6 +422,23 @@ function iamport(icode){
     });
     
  }
+ 
+/* offer_pay 값 'Y'로 update */
+function goPayY(offer_code){
+	var offer_code = offer_code;
+	$.ajax({
+		url: 'goPayY',
+		data: {offer_code : offer_code},
+		type: 'post',
+		success: function(res){
+			console.log("res: "+res);
+		},
+		error: function(err){
+			console.log("error: "+err);
+		}
+		
+	})
+}
 </script>
 </body>
 </html>

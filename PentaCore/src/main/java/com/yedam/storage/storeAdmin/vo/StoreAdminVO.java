@@ -100,6 +100,7 @@ public class StoreAdminVO {
 	//컨디션 리스트
 	//private String use_num
 	private String condition_num;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date condition_date;
 	private String condition_title;
 	private String condition_comment;

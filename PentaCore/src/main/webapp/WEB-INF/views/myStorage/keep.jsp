@@ -221,7 +221,7 @@
 </script>
 </head>
 <body>
-		<x>
+		<div>
 			<img style="width: 100%" src="${pageContext.request.contextPath }/resources/img/moving.jpg">
 		</div>
 		

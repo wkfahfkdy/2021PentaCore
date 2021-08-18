@@ -141,11 +141,11 @@ ul {
 </script>
 </head>
 <body>
-<div class="wrap">
-	<div style="margin: 3em 0em; background: #478FEB; padding: 1.5em 0em; color: white;">
+<div class="wrap" >
+	<div style="background: #478FEB; padding: 1.5em 0em; color: white;">
 		<h1>Review</h1>
 	</div>
-	<div class="container">
+	<div class="container" style="padding-top: 3em; ">
 		<form action="reviewDetail" id="ifrm">
 			<input type="hidden" id="review_num" name="review_num">
 			<div class="row">

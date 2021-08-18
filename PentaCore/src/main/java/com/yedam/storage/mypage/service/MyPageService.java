@@ -3,6 +3,7 @@ package com.yedam.storage.mypage.service;
 import java.util.List;
 
 import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.storage.offer.vo.OfferVO;
 
 public interface MyPageService {
 	// 사용자가 이용 중인 스토리지가 있는지 검증
@@ -29,6 +30,8 @@ public interface MyPageService {
 	public List<MyPageVO> offerSelectList(MyPageVO vo);
 	// 견적서 상세 조회
 	public MyPageVO myOfferSelect(MyPageVO vo);
+	// OFFER_PAY 값 'Y'로 update
+	public int goPayY(OfferVO vo);
 	
 	//--------------물품 운송 페이지-----------------
 	

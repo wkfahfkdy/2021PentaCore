@@ -72,6 +72,18 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return map.storeTemHumUpdate(vo);
 	}
 	
+	// 사후보고서 리스트 확인
+	@Override
+	public List<StoreAdminVO> premiumReportList(StoreAdminVO vo) {
+		return map.premiumReportList(vo);
+	}
+	
+	// 사후보고서 select
+	@Override
+	public StoreAdminVO premiumReportSelect(StoreAdminVO vo) {
+		return map.premiumReportSelect(vo);
+	}
+
 	// end
 	// 공지 파트 시작
 
@@ -181,9 +193,5 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return sqlSession.selectList("customerAskSelect", vo);
 	}
 	// =================================================
-
-	
-
-	
 
 }

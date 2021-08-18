@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.storage.mypage.service.MyPageService;
 import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.storage.offer.vo.OfferVO;
 
 @Controller
 public class MyPageController {
@@ -73,6 +74,16 @@ public class MyPageController {
 	public MyPageVO myOfferSelect(@PathVariable String offer_code, Model model, MyPageVO vo){	
 		vo.setOffer_code(offer_code);
 		return MyPageDAO.myOfferSelect(vo);
+	}
+	
+	// offer_pay 값 'Y'로 update
+	@RequestMapping("goPayY")
+	@ResponseBody
+	public int goPayY(OfferVO vo) {
+		int cnt = 0;
+		cnt = MyPageDAO.goPayY(vo);
+		
+		return cnt;
 	}
 	
 	//---------------------------------물품 운송 신청 페이지-----------------------------------------
