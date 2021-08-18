@@ -14,6 +14,7 @@
 
 	.tab2 {
 		float: left;
+		padding-left: 30px;
 	}
 
 </style>
@@ -271,15 +272,15 @@ function findAddr(){
 <body>
 			<!--회원가입 화면-->
 		<div align="center">
-			<div align="center">
-				<div align="center" style="padding-top: 3%;">
+			<div align="center" style="display: inline-block;">
+				<div align="center" style="padding-top: 7%;">
 					<img  style="width: 250px;" 
 					src="${pageContext.request.contextPath }/resources/img/all_logo.png">
 				</div>
 				<br>
 			<br>
 			<form id="frm" action="memberJoin" method="post">
-			<div class="tab1">
+			<div class="tab1" style="margin-top:7%;">
 			<table style="border:1; border-collapse:collapse;">
 					<tr>
 						<td style="width: 300px; height: 60px;">
@@ -336,10 +337,10 @@ function findAddr(){
 					</tr>
 			</table>
 			</div>
-			<div class="tab2">
+			<div class="tab2" style="margin-top:7%;">
 			<table style="border:1; border-collapse:collapse;">
 					<tr>
-						<td style="height: 60px;">
+						<td style="width: 300px; height: 60px;">
  						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" value=""
  								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
  						</td>
@@ -354,14 +355,14 @@ function findAddr(){
  								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
  						</td>
  						<td>
- 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;" 
+ 						<button class="btn btn-default" style="margin-left: 10%; height: 80%;" 
  								 type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
 						</td>
 					</tr>
 										
 					<tr>
 						<td style="height: 60px;">
-							<input class="form-control" type="text" id="member_tel" name="member_tel" placeholder ="'-'없이 숫자만 입력" 
+							<input class="form-control" type="text" id="member_tel" name="member_tel" placeholder ="휴대번호 '-'없이 숫자만 입력" 
 									style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 						</td>
 						<td>
@@ -380,16 +381,12 @@ function findAddr(){
 						</td>
 					</tr>
 					
-					<tr>
-						<td style="height: 60px;">
-						<input class="form-control" id="member_post" type="text" name="memberAddressZip" placeholder="자택주소" readonly onclick="findAddr()"
-								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
-						</td>
-					</tr>
-					<tr>
-						<td style="height: 60px;">
-  						<input class="form-control" id="member_addr" type="text" name="memberAddress" placeholder="" readonly
-  								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
+					<tr colspan="2">
+						<td style="display:flex; ">
+							<input class="form-control" id="member_post" type="text" name="memberAddressZip" placeholder="검색" readonly onclick="findAddr()"
+									style="width:70px; background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
+							<input class="form-control" id="member_addr" type="text" name="memberAddress" placeholder="자택주소" readonly
+	  								style="margin-left:10px; width: 220px; float: right; background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 						</td>
 					</tr>
 					<tr>
@@ -404,9 +401,9 @@ function findAddr(){
 			</div>
 			<div style="clear: both; padding-bottom: 5%;"> </div>
 			
-			<div>
-				<button class="btn btn-light" type="button"
-					onclick="formCheck()" style="width: 110px; height: 45px; background: #89ba10; color: white;">회원가입</button>
+			<div style="padding-bottom: 5%;">
+				<button class="btn btn-primary btn-lg" type="button" onclick="formCheck()" >회원가입</button> &nbsp; &nbsp;
+				<button class="btn btn-default btn-lg" type="button" onclick="location.href='${pageContext.request.contextPath }/home'" >홈으로</button>
 			</div>
 		</div>
 </body>

@@ -114,11 +114,6 @@
     	padding: 8px;
     }
     
-    .comment {	/*모달 내용 작은 코멘트*/
-    	font-size:9pt;
-    	color:#478FEB;
-    	margin: 0 0 0;
-    }
     
     .mo-tbl {	/*모달 테이블 내용*/
     	padding: 3px;

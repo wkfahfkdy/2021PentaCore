@@ -532,7 +532,7 @@ $(function() {
 							<form name="frmMember" id="frm" action="memberLoginIdCheck" method="post">
 								<div>
 								<input type="text" id="member_id" name="member_id"
-									placeholder="ID" value="ID" onfocus="this.value=''" size= "50" style="padding-bottom: 2%;"> </div><br>
+									placeholder="ID" value="ID" onfocus="this.value=''" size= "50" > </div><br>
 								<div>
 								<input type="password" id="member_pwd" name="member_pwd" value="PASSWORD" onfocus="this.value=''"
 								placeholder="PASSWORD" onkeyup=
@@ -586,7 +586,7 @@ $(function() {
 	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">	
 	 						</td>
 	 						<td>
-	 						<button class="btn btn-light" type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
+	 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
 							</td>
 	 						</tr>
 	 						
@@ -596,7 +596,7 @@ $(function() {
 	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 	 						</td>
 	 						<td>
-	 						<button class="btn btn-light" type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
+	 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
 							</td>
 							</tr>
 				            </table>
@@ -685,7 +685,7 @@ $(function() {
 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 							</td>
 							<td>
-								<button class="btn btn-light" type="button" id="sendSMS" value="unChecked">인증번호 전송</button>
+								<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="sendSMS" value="unChecked">인증번호 전송</button>
 							</td>
 							</tr>
 							<tr>
@@ -694,7 +694,7 @@ $(function() {
 	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 	 						</td>
 	 						<td>
-	 						<button class="btn btn-light" type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
+	 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
 							</td>
 							</tr>
 							

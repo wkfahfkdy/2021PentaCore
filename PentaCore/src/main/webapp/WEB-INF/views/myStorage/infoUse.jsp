@@ -95,6 +95,11 @@
 	padding-right: 15px;
 }
 
+.tab label:hover {
+	color: #478FEB;
+}
+
+
 </style>
 
 <script
@@ -223,10 +228,10 @@
 				<input type="radio" id="tab-3" name="show" />
 				<input type="radio" id="tab-4" name="show" />
 				<div class="tab">
-					<label for="tab-1">STEP 1</label>
-					<label for="tab-2">STEP 2</label>
-					<label for="tab-3">STEP 3</label>
-					<label for="tab-4">STEP 4</label>
+					<label for="tab-1"><b>STEP 1</b></label>
+					<label for="tab-2"><b>STEP 2</b></label>
+					<label for="tab-3"><b>STEP 3</b></label>
+					<label for="tab-4"><b>STEP 4</b></label>
 				</div> 
 				<div class="content" style="padding-top: 2%;" >
 					<div class="content-dis">

@@ -105,7 +105,7 @@
     }
     
     #choice-btn, .apply-btn {
-    	background-color: #00c0e2;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -114,7 +114,7 @@
     }
     
     #cancel-btn {
-  	  background-color: #00c0e2;
+  	  background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 9pt;
@@ -168,7 +168,7 @@
 			<h3>지점 투어 신청 내역 조회</h3>
 		</div>
 		<div class="tour-list">
-			<div align="right" style="margin-bottom: 1em; color: #00c0e2;">
+			<div align="right" style="margin-bottom: 1em; color: #478FEB;">
 				*투어를 취소하실 일정의 투어취소 여부를 더블 클릭하신 뒤 선택 후, 옆의 취소 버튼을 눌러주시면 취소처리가 완료됩니다.&nbsp;&nbsp;
 				<button id="cancel-btn">투어취소</button>
 			</div>
@@ -208,7 +208,7 @@
 								<option value="PM 18:00 ~ 19:00">PM 18:00 ~ 19:00</option>
 								<option value="PM 19:00 ~ 20:00">PM 19:00 ~ 20:00</option>
 							</select></div>
-						<div id="tour-data-st" style="text-align: left; height: 1em; color: #00c0e2;">아래의 지점 리스트에서 선택해주세요.</div>
+						<div id="tour-data-st" style="text-align: left; height: 1em; color: #478FEB;">아래의 지점 리스트에서 선택해주세요.</div>
 						<div class="tour-data" style="text-align: left; color: red; font-size: 9pt; margin: 0.8em 0em 0.4em;">
 										*투어를 희망하는 지점을 아래에서 선택하시면,<br>선택 된 신청 지점 이름이 나타납니다.</div>
 					</div>
@@ -225,10 +225,10 @@
 						<div id="map" style="width:100%;height:400px;"></div>
 					</div>
 				</div>
-				<div style="padding: 20px;">
+				<div style="margin-top:20px; padding: 20px;">
 					<input type="hidden" name="store_code" id="apply" value="" />
-					<button class="apply-btn" type="button" onclick="alertRegi()">신청하기</button>&nbsp;&nbsp;
-					<button class="back-btn" type="button" onclick="history.back()">돌아가기</button>
+					<button class="btn btn-primary btn-lg" type="button" onclick="alertRegi()">신청하기</button>&nbsp;&nbsp;
+					<button class="btn btn-default btn-lg" type="button" onclick="history.back()">돌아가기</button>
 				</div>
 			</form>
 		</div>
