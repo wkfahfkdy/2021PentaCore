@@ -106,7 +106,7 @@ body {
    2.3 TYPOGRAPHY   
 -----------------------------------------*/
 a {
-  color: #00c0e2;
+  color: #478FEB;
 }
 a:hover,
 a:focus {
@@ -158,7 +158,7 @@ h6,
   content: "";
   width: 10px;
   height: 10px;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   top: 4px;
   left: 0;
 }
@@ -236,15 +236,15 @@ ul {
 }
 .my-btn-primary {
   color: #ffffff;
-  border: 1px solid #00c0e2;
-  background-color: #00c0e2;
+  border: 1px solid #478FEB;
+  background-color: #478FEB;
 }
 .my-btn-primary .my-btn-bg-top,
 .my-btn-primary .my-btn-bg-bottom {
   background-color: #ffffff;
 }
 .my-btn-primary:hover {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .my-btn-default {
   color: #3e4f59;
@@ -282,8 +282,8 @@ ul {
   padding: 8px 14px;
 }
 .btn-primary {
-  background-color: #00c0e2;
-  border-color: #00c0e2;
+  background-color: #478FEB;
+  border-color: #478FEB;
 }
 .btn-primary.disabled {
   background-color: #5fd3e8;
@@ -351,13 +351,13 @@ textarea:focus {
   color: #3e4f59;
 }
 .pagination .active a {
-  background-color: #00c0e2;
-  border-color: #00c0e2;
+  background-color: #478FEB;
+  border-color: #478FEB;
 }
 .pagination .active a:hover,
 .pagination .active a:focus {
-  background-color: #00c0e2;
-  border-color: #00c0e2;
+  background-color: #478FEB;
+  border-color: #478FEB;
 }
 .pagination .disabled a {
   background-color: #eee;
@@ -456,7 +456,7 @@ blockquote footer {
   top: -23px;
 }
 .my-blockquote-quote div {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
   width: 30px;
   height: 30px;
@@ -485,10 +485,10 @@ blockquote footer {
 }
 .breadcrumb > li > a:hover,
 .breadcrumb > li > a:focus {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .breadcrumb > .active {
-  color: #00c0e2;
+  color: #478FEB;
 }
 /*---------------------------------------
    2.10 MEDIAOBJECTS   
@@ -524,7 +524,7 @@ blockquote footer {
 .media-body-top .media-info .media-date {
   font-size: 10px;
   font-style: italic;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .media-body-top .media-reply {
   float: right;
@@ -533,16 +533,16 @@ blockquote footer {
   padding: 9px 30px;
   line-height: 10px;
   font-size: 10px;
-  color: #00c0e2;
-  border-color: #00c0e2;
+  color: #478FEB;
+  border-color: #478FEB;
 }
 .media-body-top .media-reply .my-btn-default .my-btn-bg-top,
 .media-body-top .media-reply .my-btn-default .my-btn-bg-bottom {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .media-body-top .media-reply .my-btn-default:hover {
   color: #ffffff;
-  border-color: #00c0e2;
+  border-color: #478FEB;
 }
 .latest {
   border: none !important;
@@ -573,7 +573,7 @@ blockquote footer {
   top: 50%;
   left: 50%;
   border: 2px solid rgba(204, 204, 204, 0);
-  border-left-color: #00c0e2;
+  border-left-color: #478FEB;
   border-radius: 1873px;
   -o-border-radius: 1873px;
   -ms-border-radius: 1873px;
@@ -649,7 +649,7 @@ blockquote footer {
    3.1 TOP BAR  
 -----------------------------------------*/
 .top-bar {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   padding: 15px 0;
   color: #ffffff;
   font-size: 12px;
@@ -750,14 +750,14 @@ blockquote footer {
 }
 .main-menu .navbar-nav > li > a:hover,
 .main-menu .navbar-nav > li > a:focus {
-  color: #00c0e2;
+  color: #478FEB;
   background: none;
 }
 .main-menu .navbar-nav > li > a.active {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .main-menu .navbar-nav > li.active > a {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .main-menu .navbar-nav > li.open > a {
   background: none;
@@ -767,7 +767,7 @@ blockquote footer {
   display: block;
 }
 .main-menu .dropdown-menu {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   border-radius: 0;
   border: none;
 }
@@ -780,14 +780,14 @@ blockquote footer {
 }
 .main-menu .dropdown-menu > li > a:hover,
 .main-menu .dropdown-menu > li > a:focus {
-  color: #00c0e2;
+  color: #478FEB;
   background: #ffffff;
 }
 .main-menu .dropdown-menu > li > a.active {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .main-menu .dropdown-menu > li.active > a {
-  color: #00c0e2;
+  color: #478FEB;
   background-color: #ffffff;
 }
 .main-menu .dropdown-menu:after {
@@ -800,7 +800,7 @@ blockquote footer {
   position: absolute;
   pointer-events: none;
   border-color: rgba(136, 183, 213, 0);
-  border-bottom-color: #00c0e2;
+  border-bottom-color: #478FEB;
   border-width: 12px;
 }
 .main-menu-separator {
@@ -908,7 +908,7 @@ blockquote footer {
 }
 .main-slider .my-btn-default {
   color: #ffffff;
-  border-color: #00c0e2;
+  border-color: #478FEB;
   background: none;
   padding: 0;
   height: 30px;
@@ -921,7 +921,7 @@ blockquote footer {
 }
 .main-slider .my-btn-default .my-btn-bg-top,
 .main-slider .my-btn-default .my-btn-bg-bottom {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 /*---------------------------------------
    3.5 MAIN SLIDER 2
@@ -991,7 +991,7 @@ blockquote footer {
 }
 /*--- MAERK SERVICE ITEM ---*/
 .service-mark {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 .service-mark .my-btn-default {
@@ -999,11 +999,11 @@ blockquote footer {
 }
 .service-mark .my-btn-default .my-btn-bg-top,
 .service-mark .my-btn-default .my-btn-bg-bottom {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .service-mark-border-top {
   position: absolute;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   height: 3px;
   width: 100%;
   top: 0;
@@ -1012,7 +1012,7 @@ blockquote footer {
 }
 .service-mark-border-right {
   position: absolute;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 3px;
   height: 100%;
   right: 0;
@@ -1021,7 +1021,7 @@ blockquote footer {
 }
 .service-mark-border-bottom {
   position: absolute;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   height: 3px;
   width: 100%;
   bottom: 0;
@@ -1030,7 +1030,7 @@ blockquote footer {
 }
 .service-mark-border-left {
   position: absolute;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 3px;
   height: 100%;
   left: 0;
@@ -1058,7 +1058,7 @@ blockquote footer {
   top: 0;
   width: 50%;
   height: 100%;
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 /*--- ABOUT US ---*/
 .home-about {
@@ -1114,7 +1114,7 @@ blockquote footer {
 }
 /*--- GET QUOTE ---*/
 .get-quote {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
   padding: 100px 85px;
 }
@@ -1183,7 +1183,7 @@ blockquote footer {
   top: -23px;
 }
 .home-review-carousel-quote div {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
   width: 30px;
   height: 30px;
@@ -1264,7 +1264,7 @@ blockquote footer {
 }
 .stat-item-icon {
   float: left;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
   width: 44px;
   height: 44px;
@@ -1285,7 +1285,7 @@ blockquote footer {
   padding-left: 62px;
 }
 .stat-item-mark {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 .stat-item-mark .stat-item-icon {
@@ -1354,19 +1354,19 @@ blockquote footer {
 }
 .home-blog-item-desc-info .comments-icon {
   padding: 0 10px;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .home-blog-item-desc-text {
   font-weight: 300;
 }
 .home-blog-item-mark {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .home-blog-item-mark .home-blog-item-date {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .home-blog-item-mark .home-blog-item-desc {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 .home-blog-item-mark .home-blog-item-desc a {
@@ -1449,7 +1449,7 @@ blockquote footer {
    3.13 SUBSCRIBE SECTION
 -----------------------------------------*/
 .home-subscribe {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   padding: 35px 0;
 }
 .home-subscribe-text {
@@ -1592,7 +1592,7 @@ blockquote footer {
   color: #ffffff;
 }
 .bottom .color-primary a {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .bottom-1 {
   padding-top: 5px;
@@ -1687,11 +1687,11 @@ blockquote footer {
 }
 .service-menu > li > a:hover,
 .service-menu > li > a:focus {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 .service-menu > li.active > a {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 /*---------------------------------------
@@ -1730,7 +1730,7 @@ blockquote footer {
 }
 .service-detail .service-related h3 a:hover,
 .service-detail .service-related h3 a:focus {
-  color: #00c0e2;
+  color: #478FEB;
 }
 /*---------------------------------------
    4.4 ABOUT US
@@ -1748,7 +1748,7 @@ blockquote footer {
 .about-text h2:before {
   position: absolute;
   content: "";
-  color: #00c0e2;
+  color: #478FEB;
   border-top: 2px solid;
   border-bottom: 1px solid;
   width: 240px;
@@ -1774,7 +1774,7 @@ blockquote footer {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   top: -100%;
   left: 0;
   transition: all 300ms;
@@ -1811,7 +1811,7 @@ blockquote footer {
   top: 0;
 }
 .team-item:hover .team-item-name {
-  color: #00c0e2;
+  color: #478FEB;
 }
 /*---------------------------------------
    4.5 BLOG ITEMS
@@ -1857,11 +1857,11 @@ blockquote footer {
 }
 .blog-item-info .author-icon {
   padding-right: 10px;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .blog-item-info .date-icon {
   padding: 0 10px;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .blog-item-title h3 {
   font-size: 20px;
@@ -1874,7 +1874,7 @@ blockquote footer {
 .blog-item-title h3:before {
   position: absolute;
   content: "";
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 25px;
   height: 2px;
   bottom: -25px;
@@ -1884,7 +1884,7 @@ blockquote footer {
   margin-bottom: 40px;
 }
 .blog-item-mark .blog-item-date {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .blog-right-bar-item {
   position: relative;
@@ -1893,7 +1893,7 @@ blockquote footer {
 .blog-right-bar-item:before {
   position: absolute;
   content: "";
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 25px;
   height: 2px;
   bottom: -35px;
@@ -1960,7 +1960,7 @@ blockquote footer {
 }
 .recent-post-date .date-icon {
   padding-right: 10px;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .blog-categories {
   text-transform: uppercase;
@@ -1977,10 +1977,10 @@ blockquote footer {
 }
 .blog-categories li a:hover,
 .blog-categories li a:focus {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .blog-categories li.active a {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .blog-categories li.first {
   padding-top: 0;
@@ -2001,12 +2001,12 @@ blockquote footer {
   margin: 0 6px 8px 0;
 }
 .blog-tags a.active {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 .blog-tags a:hover,
 .blog-tags a:focus {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
 }
 .pagination-section {
@@ -2039,7 +2039,7 @@ blockquote footer {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 44px;
   height: 44px;
   text-align: center;
@@ -2065,11 +2065,11 @@ blockquote footer {
 }
 .single-post-info .author-icon {
   padding-right: 10px;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .single-post-info .date-icon {
   padding: 0 10px;
-  color: #00c0e2;
+  color: #478FEB;
 }
 .single-post-title h3 {
   font-size: 20px;
@@ -2082,7 +2082,7 @@ blockquote footer {
 .single-post-title h3:before {
   position: absolute;
   content: "";
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 25px;
   height: 2px;
   bottom: -25px;
@@ -2168,11 +2168,11 @@ blockquote footer {
 }
 .single-post-author-info-socials .my-btn-default .my-btn-bg-top,
 .single-post-author-info-socials .my-btn-default .my-btn-bg-bottom {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .single-post-author-info-socials .my-btn-default:hover {
   color: #ffffff;
-  border-color: #00c0e2;
+  border-color: #478FEB;
 }
 .single-post-author-info-text {
   float: left;
@@ -2191,7 +2191,7 @@ blockquote footer {
 .single-post-comments h3:before {
   position: absolute;
   content: "";
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 25px;
   height: 2px;
   bottom: -20px;
@@ -2205,7 +2205,7 @@ blockquote footer {
 .single-post-leave-comment h3:before {
   position: absolute;
   content: "";
-  background-color: #00c0e2;
+  background-color: #478FEB;
   width: 25px;
   height: 2px;
   bottom: -20px;
@@ -2252,7 +2252,7 @@ blockquote footer {
   padding-right: 60px;
 }
 .contacts-info-title {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   color: #ffffff;
   padding: 30px;
   text-transform: uppercase;
@@ -2338,7 +2338,7 @@ blockquote footer {
   margin-bottom: 0;
 }
 .contact-details {
-  background-color: #00c0e2;
+  background-color: #478FEB;
   padding: 0;
 }
 .contact-detail {
@@ -2386,10 +2386,10 @@ blockquote footer {
   background-color: #3e4f59;
 }
 .contact-detail-mark .contact-detail-icon {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .contact-detail-mark .contact-detail-title h3:before {
-  background-color: #00c0e2;
+  background-color: #478FEB;
 }
 .contact-map {
   height: 450px;
@@ -2494,7 +2494,7 @@ blockquote footer {
   transition: color 300ms;
 }
 .slide-menu .close-menu:hover {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .slide-menu .left-menu {
   list-style: none;
@@ -2514,7 +2514,7 @@ blockquote footer {
 }
 .slide-menu .left-menu > li > a:hover,
 .slide-menu .left-menu > li > a:focus {
-  color: #00c0e2;
+  color: #478FEB;
 }
 .slide-menu .left-menu > li .slide-menu-child > li {
   padding: 3px 5px;
