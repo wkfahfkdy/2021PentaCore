@@ -6,6 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- 이유는 모르겠는데 아래 5줄의 css, js 가져오는 것들 순서 바뀌면 Grid 작동 제대로 안해요 -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+<script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.js"></script>
+<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 <title>Insert title here</title>
 
 <style>
@@ -72,6 +78,9 @@
 	div.modal-body img {	/* Modal창 안에 표시되는 내용의 이미지 사이즈 강제 조정*/
 		max-width: 100%;
 		height: auto;
+	}
+	.tui-grid-rside-area {
+		width: 100%;
 	}
 </style>
 
@@ -319,13 +328,13 @@ $(function() {
 	 -->
 
 <div align="center">
-<div style="margin-right: 15%">
-<h3>이용고객 상세조회</h3>
+<div style="text-align: center">
+<h3 align="center">이용고객 상세조회</h3>
 <br>
 <br>
 </div>
 <form id="frm" action="" method="post" >
-<table>
+<table style="width: 70%">
 <tr>
 <td>
 <div class="bs-example"
@@ -352,6 +361,7 @@ $(function() {
 				</tr>
  				--%>				
 		</table>
+			
 	</div>
 	</td>
 	<td width="100em"></td>
@@ -386,9 +396,13 @@ $(function() {
 				<tr>
 				<th>프리미엄</th>
 				<td>${selectUserVO.offer_premium }</td>
-				<td><button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" id="premiumReportInsert" name="premiumReportInsert"><b>보고서 등록</b></button></td>
+				<td>
+					<c:if test="${selectUserVO.offer_premium eq 'Y' }">
+						<input type="hidden" id="hiddenMemberId" value="${selectUserVO.member_id }">
+						<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" id="premiumReportInsert" name="premiumReportInsert"><b>보고서 등록</b></button>
+					</c:if>
+				</td>
 				</tr>
-				
 				
 				<c:choose>
 				<c:when test="${selectUserVO.offer_wash eq 'Y'}">
@@ -493,21 +507,216 @@ $(function() {
 </div>
 
 
-<div id="report-modal">
+	<!-- 사후보고서 그리드 div -->
+	<div style="margin: 50px auto; text-align: center; width: 50%" id="gridTag">
+		<div id="grid"></div>
+	</div>
+	<div id="report-modal">
 			<form id="frm">
-			<input type="hidden" id="use_num" name="use_num" value="" />
+			<input type="hidden" id="hiddenConditionNum" name="condition_num" value=""/>
 				<a class="modal_close_btn">닫기</a>
 				<div class="modal-header"></div>
 				<div class="modal-body"></div>
 				<textarea id="condition_comment" name="condition_comment"></textarea>
 				<div class="modal-footer">
-					<button id="edit-btn" type="button" onclick="insertReport()">입력</button>
+					<button id="edit-btn" type="button" onclick="updateReport()">수정</button>
 				</div>
 			</form>
 		</div>
-
+	<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+	<!-- 동영 사후보고서 확인 Grid-->
+	<script>
+		
+		
+		//CK 에디터 이미지 업로드시 업로드 탭으로 바로 시작하게 하기
+			CKEDITOR.on('dialogDefinition', function (ev) {
+		            var dialogName = ev.data.name;
+		            var dialog = ev.data.definition.dialog;
+		            var dialogDefinition = ev.data.definition;
+		           
+		            if (dialogName == 'image') {
+		                dialog.on('show', function (obj) {
+		                    this.selectPage('Upload'); //업로드텝으로 시작
+		                });
+		                dialogDefinition.removeContents('advanced'); // 자세히탭 제거
+		                dialogDefinition.removeContents('Link'); // 링크탭 제거
+		            }
+			});
+		$(document).ready(function (){
+			
+			// 사후보고서 Grid 생성
+			var member_id = $('#hiddenMemberId').val();
+			$.ajax({
+				url : 'premiumReportList',
+				data : {member_id : member_id},
+				dataType : 'JSON',
+				success: function(data){
+					// ajax 결과가 하나도 없으면 그냥 저거 적어주고
+					if(data.length == 0){
+						$('#grid').html("<h4 align='center'>아직 등록 된 보고서가 없습니다</h4>");
+					} else {
+						// 보고서 하나라도 있으면 그리드 생성
+						var ReportGrid = new tui.Grid({
+							el: document.getElementById('grid'), 
+							data: data,
+							columns: [ 
+								{ 
+									header: 'NO.', 
+									name: 'condition_num', 
+									align: 'center',
+									width: 'auto',
+									filter: 'select'
+								}, 
+								{ 
+									header: 'Title', 
+									name: 'condition_title', 
+									align: 'center',
+									width: 'auto',
+									filter: 'select'
+								},
+								{ 
+									header: '날짜', 
+									name: 'condition_date', 
+									align: 'center',
+									width: 'auto',
+									filter: 'select'
+								} 
+							],
+							//페이징처리
+							pagination: true,
+							
+							pageOptions: {
+								// 무한 스크롤 혹은 페이징 처리 시 기능 사용한다는 옵션
+								useClient: true,
+								perPage: 4
+							}
+						});
+						// 리포트 리스트 클릭할때 ajax 호출 (member_id, condition_num)
+						ReportGrid.on("dblclick", function(ev) {
+							var target = ev;
+							var member_id = ReportGrid.getValue(ev.rowKey, 'member_id');
+							var condition_num = ReportGrid.getValue(ev.rowKey, 'condition_num');
+							$.ajax({
+								url : 'premiumReportSelect',
+								dataType : 'JSON',
+								type : 'GET',
+								data : {
+									member_id : member_id,
+									condition_num : condition_num
+								},
+								success : function(result){
+									// 모달 생성 함수 호출
+									showReport(result);
+								},
+								error : function(xhr,status,msg){
+									alert("상태값 : "+status+" Http 에러메시지 : "+msg);
+								}
+							});
+							// 모달 창에 ajax 결과 값 붙이기
+							function showReport(data){
+								
+								modal('report-modal');
+								var condition_num = data.condition_num;
+								var condition_title = data.condition_title;
+								var condition_text = data.condition_comment;
+								var condition_date = data.condition_date;
+								var member_id = data.member_id;
+								var modalTitle = '<input type="text" id="condition_title" name="condition_title" value="'+condition_title+'">';
+								
+								var table =$('<table width="100%" />');
+								var trTag = '<tr>';
+								trTag += '<th style="width: 10%;">'+member_id+'님의 보고서</th>';
+								table.append(trTag);
+								
+								$('.modal-header').append(modalTitle);
+								$('.modal-body').append(table);
+								// CK 에디터 기본 값 append
+								console.log(condition_num);
+								CKEDITOR.instances['condition_comment'].setData(condition_text);
+								// update 용 condition_list 테이블의 condition_num (PK)를 hidden value에 넣어줌
+								$('#hiddenConditionNum').val(condition_num);
+								
+							}
+							
+							function modal(id) {
+							    var zIndex = 9999;
+							    var modal = document.getElementById(id);
+						
+							    // 모달 div 뒤에 희끄무레한 레이어
+							    var bg = document.createElement('div');
+							    bg.setStyle({
+							        position: 'fixed',
+							        zIndex: zIndex,
+							        left: '0px',
+							        top: '0px',
+							        width: '100%',
+							        height: '100%',
+							        overflow: 'auto',
+							        // 레이어 색갈은 여기서 바꾸면 됨
+							        backgroundColor: 'rgba(0,0,0,0.4)'
+							    });
+							    document.body.append(bg);
+						
+							    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+							    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+							        bg.remove();
+							        $('.modal-header').empty();
+							        $('.modal-body').empty();
+							        modal.style.display = 'none';
+							    });
+						
+							    modal.setStyle({
+							        position: 'fixed',
+							        display: 'block',
+							        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+						
+							        // 시꺼먼 레이어 보다 한칸 위에 보이기
+							        zIndex: zIndex + 1,
+						
+							        // div center 정렬
+							        top: '50%',
+							        left: '50%',
+							        transform: 'translate(-50%, -50%)',
+							        msTransform: 'translate(-50%, -50%)',
+							        webkitTransform: 'translate(-50%, -50%)'
+							    });
+							}
+						});
+					}
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+		});
+		// 사후보고서 수정
+		function updateReport() {
+			var data = $("form[id=frm]").serialize();
+			//CK에디터 수정한 내용 받아오기...
+			var myText = CKEDITOR.instances['notice_content'].getData();
+			console.log(data+myText);
+			
+			if(confirm('수정하시겠습니까?')){
+				$.ajax({
+					url: 'editNotice',
+					type: 'POST',
+					data: data+myText,
+					success: function(result) {
+						console.log(result);
+						alert('수정이 완료되었습니다.');
+						location.reload();
+					},
+					
+					error: function(xhr, status, msg) {
+						alert('수정에 실패하였습니다. 상태값 : ' + status + '에러메시지 : ' + msg);
+					}
+				})
+			} else {
+				return false;
+			}
+		}
+	</script>
 </body>
-
 
 <!-- 보고서 모달 여는 script -->
 <script>

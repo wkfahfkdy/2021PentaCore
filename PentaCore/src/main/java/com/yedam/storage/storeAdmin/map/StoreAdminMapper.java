@@ -19,6 +19,11 @@ public interface StoreAdminMapper {
 	public int updateUseStorage(StoreAdminVO vo);
 	public StoreVO storeTemHumInfo(StoreVO vo);
 	public int storeTemHumUpdate(StoreVO vo);
+	
+	//사후보고서 리스트 확인
+	public List<StoreAdminVO> premiumReportList(StoreAdminVO vo);
+	// 사후보고서 select
+	public StoreAdminVO premiumReportSelect(StoreAdminVO vo);
 	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);
