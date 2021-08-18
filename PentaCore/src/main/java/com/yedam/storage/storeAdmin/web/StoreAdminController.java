@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -108,6 +109,19 @@ public class StoreAdminController {
 		return "redirect:storageInfo";
 	}
 	
+	// 사후보고서 리스트 ajax 호출
+	@RequestMapping("store/premiumReportList")
+	@ResponseBody
+	public List<StoreAdminVO> premiumReportList (Model model, StoreAdminVO vo){
+		return storeService.premiumReportList(vo);
+	}
+	
+	// 사후보고서 select Ajax 호출
+	@RequestMapping("store/premiumReportSelect")
+	@ResponseBody
+	public StoreAdminVO premiumReportSelect(Model model, StoreAdminVO vo) {
+		return storeService.premiumReportSelect(vo);
+	}
 	//================= 정동영 ===================================
 	//====================== 최반야 ====================================
 	// 지점 공지사항 리스트
