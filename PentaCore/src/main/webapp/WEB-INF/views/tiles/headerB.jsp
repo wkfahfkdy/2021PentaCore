@@ -51,7 +51,7 @@
 						<img src="resources/img/logo.png" alt="" 
 							onclick="location.href='${pageContext.request.contextPath}/home'"/>
 					</div>
-					<div class="logo-text" onclick="location.href='home'">
+					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath}/home'">
 						<!-- MY <span class="color-primary">STORAGE</span> -->
 						<span id="logo">MY</span>&nbsp;<span id="logo2">STORAGE</span>
 					</div>

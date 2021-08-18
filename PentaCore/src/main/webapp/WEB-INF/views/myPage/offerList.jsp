@@ -119,7 +119,7 @@
 		    </div>
 		</div>
 		<div style="margin: 1em 0em;">
-			<button class="back-btn" type="button" onclick="history.back()">돌아가기</button>
+			<button class="back-btn" type="button" onclick='location.href="myPageInfo"'>돌아가기</button>
 		</div>
 	</div>
 <script>
@@ -134,8 +134,8 @@ $(document).ready(function() {
 						offer_product: '${list.offer_product}',
 						store_name: '${list.store_name}',
 						offer_pay:'${list.offer_pay}',
-						go_pay: '<c:choose><c:when test="${list.offer_pay != 'Y'}"><input type="button" value="결제" class="btn btn-primary btn-lg" onclick="iamport()" /></c:when><c:otherwise>"결제 완료</c:otherwise></c:choose>',
-						go_pay_Y: '<c:choose><c:when test="${list.offer_pay != 'Y'}"><input type="button" value="결제" class="btn btn-primary btn-lg" onclick="iamport()" /></c:when><c:otherwise>"결제 완료</c:otherwise></c:choose>'
+						go_pay: '<c:choose><c:when test="${list.offer_pay != 'Y'}"><input type="button" value="결제" class="btn btn-primary btn-lg" onclick="iamport()" /></c:when><c:otherwise>결제 완료</c:otherwise></c:choose>',
+						go_pay_Y: '<c:choose><c:when test="${list.offer_pay != 'Y'}"><input type="button" value="결제" class="btn btn-primary btn-lg" onclick="goPayY(\'${list.offer_code}\')" /></c:when><c:otherwise>결제 완료</c:otherwise></c:choose>'
 					}
 					<c:if test="${not status.last}">,</c:if>
 					</c:forEach>
@@ -432,6 +432,7 @@ function goPayY(offer_code){
 		type: 'post',
 		success: function(res){
 			console.log("res: "+res);
+			location.reload();
 		},
 		error: function(err){
 			console.log("error: "+err);

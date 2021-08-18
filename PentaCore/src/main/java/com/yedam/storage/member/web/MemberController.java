@@ -359,12 +359,6 @@ public class MemberController {
 
 		memberDAO.memberInsert(hash);
 		
-		// 회원가입 alert
-		resp.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = resp.getWriter();
-		out.println("<script>alert('회원 가입이 완료되었습니다.'); location.href='member/memberLoginForm'</script>");
-		out.flush();
-
 		return "member/memberLoginForm";
 	}
 	
