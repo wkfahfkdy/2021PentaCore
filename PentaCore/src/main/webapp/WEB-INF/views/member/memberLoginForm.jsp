@@ -522,11 +522,11 @@ $(function() {
 						<!-- =================================== 로그인 Form ======================================== -->
 						<div align="center">
 							<div>
-								<div align="center" style="padding-top: 8%;">
-									<img  style="width: 250px;" 
-									src="${pageContext.request.contextPath }/resources/img/all_logo.png">
-								</div>
-								<br>
+							<div align="center" style="padding-top: 8%;">
+								<img  style="width: 250px;" 
+								src="${pageContext.request.contextPath }/resources/img/all_logo.png">
+							</div>
+							<br>
 							</div>
 							<div style="padding-top: 30px;">
 							<form name="frmMember" id="frm" action="memberLoginIdCheck" method="post">
