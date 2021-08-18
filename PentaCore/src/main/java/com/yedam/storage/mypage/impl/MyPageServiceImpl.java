@@ -1,7 +1,6 @@
 package com.yedam.storage.mypage.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.yedam.storage.mypage.map.MyPageMap;
 import com.yedam.storage.mypage.service.MyPageService;
 import com.yedam.storage.mypage.vo.MyPageVO;
+import com.yedam.storage.offer.vo.OfferVO;
 
 @Service("mypageDAO")
 public class MyPageServiceImpl implements MyPageService {
@@ -60,6 +60,12 @@ public class MyPageServiceImpl implements MyPageService {
 	public MyPageVO myOfferSelect(MyPageVO vo) {
 		// 견적서 상세 조회
 		return sqlSession.selectOne("myOfferSelect", vo);
+	}
+	
+	@Override
+	public int goPayY(OfferVO vo) {
+		// OFFER_PAY 값 'Y'로 update
+		return sqlSession.update("goPayY", vo);
 	}
 
 	//--------------물품 운송 페이지-----------------		

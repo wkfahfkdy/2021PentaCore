@@ -71,6 +71,13 @@
 		WHERE offer_code = #{offer_code}
 	</select>
 	
+	<!-- 셀프 견적서 결제 시 'Y'  -->
+	<update id="goPayY" parameterType="com.yedam.storage.offer.vo.OfferVO">
+		UPDATE 	OFFER 
+		SET 	OFFER_PAY = 'Y' 
+		WHERE 	OFFER_CODE = #{offer_code}
+	</update>
+	
 	<!-- 사용자가 신청한 운송 신청 내역 -->
 	<select id="conveyListAll" resultType="MyPageVO" parameterType="MyPageVO">
 		SELECT a.apply_code, a.apply_product, a.apply_start, a.apply_whether, s.store_name 
