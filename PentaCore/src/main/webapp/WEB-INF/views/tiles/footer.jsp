@@ -16,7 +16,7 @@
 					팩스 : 070-5555-9999 <br> 사업자번호 : 123-45-67890 <br>
 					통신판매업 : 제2017-대구-00050호 <br><br>
 					<span class="color-primary">
-					©Copyright my storage Inc.<span>
+					<a  style="color: #478FEB;">©Copyright my storage Inc.</a><span>
 				</div>
 				
 				<!-- === BOTTOM CENTER === -->

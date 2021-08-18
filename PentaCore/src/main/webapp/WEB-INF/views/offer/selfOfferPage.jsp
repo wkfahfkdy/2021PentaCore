@@ -1180,7 +1180,7 @@ input[type='number'] {
 				            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
 						   		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float:left; width: 100%; maring: 0 auto; ">
 						   			<h4>서비스 추가</h4>
-						   			<h5 style="display: inline-block; margin-bottom: 50px;">프리미엄 서비스	<b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b>
+						   			<h5 style="display: inline-block; margin-bottom: 50px; vertical-align: top;">프리미엄 서비스	<b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b>
 						   			<label class="offerLabel" style="margin-left: 70px;">
 							   				신청&nbsp;&nbsp;<input type="radio" name=premium value="Y">
 							   			</label>
@@ -1312,8 +1312,8 @@ input[type='number'] {
 				<c:set var="now" value="<%=new Date() %>"/>
 			      <div align="center" style="margin: 100px auto">
 			      	<div class="container">
-							  <!-- Trigger the modal with a button -->
-							<button type="button" id="offerInsertBtn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#offerModal">견적 뽑기</button>
+						    <!-- Trigger the modal with a button -->
+							<button type="button" id="offerInsertBtn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#offerModal" style="background: #478FEB; padd">견적서 출력</button>
 							<!-- Modal -->
 							<div class="modal fade" id="offerModal" role="dialog">
 								<div class="modal-dialog" style="width: 70%">

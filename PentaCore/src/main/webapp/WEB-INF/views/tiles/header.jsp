@@ -48,8 +48,8 @@
                  
 				<!-- === TOP LOGO === -->
 				 
-				<div class="logo" id="main-logo">
-					<div class="logo-image">
+				<div class="logo" id="main-logo" style="cursor: pointer;`">
+					<div class="logo-image" >
 						<img src="resources/img/logo.png" alt="" 
 							onclick="location.href='${pageContext.request.contextPath }/home'" />
 					</div>
@@ -158,7 +158,7 @@
 							<li >
 								<sec:authorize access="isAuthenticated()">
 									<form id="logout" action="logout" method="post">
-										<button style="margin:17px 30px;"><a>LOGOUT</a></button>
+										<button style="margin:17px 30px;"><a style="color: #478FEB"><b>LOGOUT</b></a></button>
 									</form>	
 								</sec:authorize>
 							</li>
