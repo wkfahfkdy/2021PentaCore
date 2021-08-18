@@ -1,6 +1,7 @@
 package com.yedam.storage.member.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.HashMap;
 
@@ -316,7 +317,7 @@ public class MemberController {
 	
 	//회원정보 DB입력
 	@RequestMapping("memberJoin")
-	public String userJoin(MemberVO vo, HttpServletRequest request) throws ParseException {
+	public String userJoin(MemberVO vo, HttpServletRequest request, HttpServletResponse resp) throws ParseException, Exception {
 		
 		// 비밀번호 암호화
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(16);
@@ -357,6 +358,12 @@ public class MemberController {
 		hash.put("member_birth", user_Birth);
 
 		memberDAO.memberInsert(hash);
+		
+		// 회원가입 alert
+		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+		out.println("<script>alert('회원 가입이 완료되었습니다.'); location.href='member/memberLoginForm'</script>");
+		out.flush();
 
 		return "member/memberLoginForm";
 	}
