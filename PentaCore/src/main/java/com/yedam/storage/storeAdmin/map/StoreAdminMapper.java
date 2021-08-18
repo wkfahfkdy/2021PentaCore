@@ -24,6 +24,8 @@ public interface StoreAdminMapper {
 	public List<StoreAdminVO> premiumReportList(StoreAdminVO vo);
 	// 사후보고서 select
 	public StoreAdminVO premiumReportSelect(StoreAdminVO vo);
+	// 사후보고서 Update
+	public int updatePremiumReport(StoreAdminVO vo);
 	// 동영
 	// 지점별 공지사항 리스트
 	public List<StoreAdminVO> storeNoticeList(StoreAdminVO vo);

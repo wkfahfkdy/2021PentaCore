@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <!-- 이유는 모르겠는데 아래 5줄의 css, js 가져오는 것들 순서 바뀌면 Grid 작동 제대로 안해요 -->
 <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
@@ -54,6 +55,25 @@
     }
     
     #report-modal .modal-body{
+    	font-size: 10pt;
+    }
+    
+    #insert-report {
+        display: none;
+        width: 60%;
+        padding: 30px 50px;
+        background-color: #fefefe;
+        border: 1px solid #888;
+        border-radius: 3px;
+    }
+
+    #insert-report .modal_close_btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    
+    #insert-report .modal-body{
     	font-size: 10pt;
     }
     
@@ -336,7 +356,7 @@ $(function() {
 <form id="frm" action="" method="post" >
 <table style="width: 70%">
 <tr>
-<td>
+<td style="padding: 100px">
 <div class="bs-example"
 		style="width: 100%; height: 100%; text-align: left;">
 		<table class="table">
@@ -371,7 +391,7 @@ $(function() {
 	
 	 
 <div class="bs-example"
-		style="width: 100%; height: 100%; text-align: left;">
+		style="width: 100%; height: 75%; text-align: left;">
 		<table class="table">
 			<tbody>
 				<tr style="background-color:#6BAAFA" >
@@ -506,42 +526,141 @@ $(function() {
 </form>
 </div>
 
-
+	<!-- 사후보고서 insert -->
+	<div id="insert-report">
+		<form id="frm">
+		<input type="hidden" id="use_num" name="use_num" value="" />
+		<a class="modal_close_btn">닫기</a>
+			<div class="modal-header"></div>
+			<div class="modal-body"></div>
+			<textarea id="condition_comment" name="condition_comment"></textarea>
+			<div class="modal-footer">
+				<button id="edit-btn" type="button" onclick="insertReport()">입력</button>
+			</div>
+		</form>
+	</div>
+	<script>
+	$(function() {
+		$('#insert-report').hide();
+		$('#premiumReportInsert').on('click', function showReport()  {
+				$('#insert-report').show();
+				modal('insert-report');
+				
+				var today = new Date();   
+				var year = today.getFullYear(); // 년도
+				var month = today.getMonth() + 1;  // 월
+				var day = today.getDate();  // 날짜
+				
+				var member_name = '${selectUserVO.member_name }';
+				var use_num = '${selectUserVO.use_num }';
+	
+				var title = '<input type="text" id="condition_title" name="condition_title" value="컨디션보고서" />';
+				var date = year + "/" + month + "/" + day;
+				
+				var tbl =$('<table width="100%" />');
+				var row = '<tr>';
+				row += '<th style="width: 10%;">작성일자</th>';
+				row += '<td style="text-align: left;">' + date + '</td></tr>';
+				tbl.append(row);
+				
+				$(".modal-header").append(title);
+				$(".modal-body").append(tbl);
+				//CK에디터용 기본 값 붙이기
+				//CKEDITOR.instances['condition_comment'].setData(noContent);
+				// input type hidden value값 붙이기
+				$('#use_num').attr('value',use_num);
+			
+				
+		})
+	
+			function modal(id) {
+			    var zIndex = 9999;
+			    var modal = document.getElementById(id);
+		
+			    // 모달 div 뒤에 희끄무레한 레이어
+			    var bg = document.createElement('div');
+			    bg.setStyle({
+			        position: 'fixed',
+			        zIndex: zIndex,
+			        left: '0px',
+			        top: '0px',
+			        width: '100%',
+			        height: '100%',
+			        overflow: 'auto',
+			        // 레이어 색갈은 여기서 바꾸면 됨
+			        backgroundColor: 'rgba(0,0,0,0.4)'
+			    });
+			    document.body.append(bg);
+		
+			    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+			    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
+			        bg.remove();
+			        $('.modal-header').empty();
+			        $('.modal-body').empty();
+			        modal.style.display = 'none';
+			    });
+		
+			    modal.setStyle({
+			        position: 'fixed',
+			        display: 'block',
+			        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+		
+			        // 시꺼먼 레이어 보다 한칸 위에 보이기
+			        zIndex: zIndex + 1,
+		
+			        // div center 정렬
+			        top: '50%',
+			        left: '50%',
+			        transform: 'translate(-50%, -50%)',
+			        msTransform: 'translate(-50%, -50%)',
+			        webkitTransform: 'translate(-50%, -50%)'
+			    });
+			}
+		
+			// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+			Element.prototype.setStyle = function(styles) {
+			    for (var k in styles) this.style[k] = styles[k];
+			    return this;
+			};
+		});
+	</script>
 	<!-- 사후보고서 그리드 div -->
 	<div style="margin: 50px auto; text-align: center; width: 50%" id="gridTag">
 		<div id="grid"></div>
 	</div>
 	<div id="report-modal">
-			<form id="frm">
-			<input type="hidden" id="hiddenConditionNum" name="condition_num" value=""/>
-				<a class="modal_close_btn">닫기</a>
-				<div class="modal-header"></div>
-				<div class="modal-body"></div>
-				<textarea id="condition_comment" name="condition_comment"></textarea>
-				<div class="modal-footer">
-					<button id="edit-btn" type="button" onclick="updateReport()">수정</button>
-				</div>
-			</form>
-		</div>
-	<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+		<form id="updateReport">
+		<input type="hidden" id="hiddenConditionNum" name="condition_num" value=""/>
+			<a class="modal_close_btn">닫기</a>
+			<div class="modal-header"></div>
+			<div class="modal-body"></div>
+			<textarea id="condition_commentCheck" name="condition_comment"></textarea>
+			<div class="modal-footer">
+				<button id="edit-btn" type="button" onclick="updateReport()">수정</button>
+			</div>
+		</form>
+	</div>
 	<!-- 동영 사후보고서 확인 Grid-->
 	<script>
-		
-		
-		//CK 에디터 이미지 업로드시 업로드 탭으로 바로 시작하게 하기
-			CKEDITOR.on('dialogDefinition', function (ev) {
-		            var dialogName = ev.data.name;
-		            var dialog = ev.data.definition.dialog;
-		            var dialogDefinition = ev.data.definition;
-		           
-		            if (dialogName == 'image') {
-		                dialog.on('show', function (obj) {
-		                    this.selectPage('Upload'); //업로드텝으로 시작
-		                });
-		                dialogDefinition.removeContents('advanced'); // 자세히탭 제거
-		                dialogDefinition.removeContents('Link'); // 링크탭 제거
-		            }
-			});
+		CKEDITOR.replace('condition_commentCheck', {
+			filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/imageUpload',
+			enterMode : CKEDITOR.ENTER_BR,
+			shiftEnterMode : CKEDITOR.ENTER_P,
+			width: '100%'
+		});
+		CKEDITOR.on('dialogDefinition', function (ev) {
+			var dialogName = ev.data.name;
+		    var dialog = ev.data.definition.dialog;
+		    var dialogDefinition = ev.data.definition;
+		          
+		    if (dialogName == 'image') {
+		    	dialog.on('show', function (obj) {
+		    		this.selectPage('Upload'); //업로드텝으로 시작
+		        });
+		       dialogDefinition.removeContents('advanced'); // 자세히탭 제거
+		       dialogDefinition.removeContents('Link'); // 링크탭 제거
+		    }
+		});
 		$(document).ready(function (){
 			
 			// 사후보고서 Grid 생성
@@ -614,15 +733,14 @@ $(function() {
 							});
 							// 모달 창에 ajax 결과 값 붙이기
 							function showReport(data){
-								
 								modal('report-modal');
 								var condition_num = data.condition_num;
 								var condition_title = data.condition_title;
 								var condition_text = data.condition_comment;
 								var condition_date = data.condition_date;
 								var member_id = data.member_id;
-								var modalTitle = '<input type="text" id="condition_title" name="condition_title" value="'+condition_title+'">';
 								
+								var modalTitle = '<input type="text" id="condition_title" name="condition_title" value="'+condition_title+'">';
 								var table =$('<table width="100%" />');
 								var trTag = '<tr>';
 								trTag += '<th style="width: 10%;">'+member_id+'님의 보고서</th>';
@@ -631,11 +749,10 @@ $(function() {
 								$('.modal-header').append(modalTitle);
 								$('.modal-body').append(table);
 								// CK 에디터 기본 값 append
-								console.log(condition_num);
-								CKEDITOR.instances['condition_comment'].setData(condition_text);
+								console.log(condition_text);
+								CKEDITOR.instances['condition_commentCheck'].setData(condition_text);
 								// update 용 condition_list 테이블의 condition_num (PK)를 hidden value에 넣어줌
 								$('#hiddenConditionNum').val(condition_num);
-								
 							}
 							
 							function modal(id) {
@@ -691,22 +808,20 @@ $(function() {
 		});
 		// 사후보고서 수정
 		function updateReport() {
-			var data = $("form[id=frm]").serialize();
+			var data = $("form[id=updateReport]").serialize();
 			//CK에디터 수정한 내용 받아오기...
-			var myText = CKEDITOR.instances['notice_content'].getData();
-			console.log(data+myText);
-			
+			var content = CKEDITOR.instances['condition_commentCheck'].getData();
+			console.log(data+content);
 			if(confirm('수정하시겠습니까?')){
 				$.ajax({
-					url: 'editNotice',
+					url: 'updatePremiumReport',
 					type: 'POST',
-					data: data+myText,
+					data: data+content,
 					success: function(result) {
 						console.log(result);
 						alert('수정이 완료되었습니다.');
 						location.reload();
 					},
-					
 					error: function(xhr, status, msg) {
 						alert('수정에 실패하였습니다. 상태값 : ' + status + '에러메시지 : ' + msg);
 					}
@@ -721,87 +836,7 @@ $(function() {
 <!-- 보고서 모달 여는 script -->
 <script>
 $(function() {
-	$('#premiumReportInsert').on('click', function showReport()  {
-			
-			
-			modal('report-modal');
-			
-			var today = new Date();   
-			var year = today.getFullYear(); // 년도
-			var month = today.getMonth() + 1;  // 월
-			var day = today.getDate();  // 날짜
-			
-			var member_name = '${selectUserVO.member_name }';
-			var use_num = '${selectUserVO.use_num }';
-
-			var title = '<input type="text" id="condition_title" name="condition_title" value="컨디션보고서" />';
-			var date = year + "/" + month + "/" + day;
-			
-			var tbl =$('<table width="100%" />');
-			var row = '<tr>';
-			row += '<th style="width: 10%;">작성일자</th>';
-			row += '<td style="text-align: left;">' + date + '</td></tr>';
-			tbl.append(row);
-			
-			$(".modal-header").append(title);
-			$(".modal-body").append(tbl);
-			//CK에디터용 기본 값 붙이기
-			//CKEDITOR.instances['condition_comment'].setData(noContent);
-			// input type hidden value값 붙이기
-			$('#use_num').attr('value',use_num);
-		
-			
-	})
-
-		function modal(id) {
-		    var zIndex = 9999;
-		    var modal = document.getElementById(id);
 	
-		    // 모달 div 뒤에 희끄무레한 레이어
-		    var bg = document.createElement('div');
-		    bg.setStyle({
-		        position: 'fixed',
-		        zIndex: zIndex,
-		        left: '0px',
-		        top: '0px',
-		        width: '100%',
-		        height: '100%',
-		        overflow: 'auto',
-		        // 레이어 색갈은 여기서 바꾸면 됨
-		        backgroundColor: 'rgba(0,0,0,0.4)'
-		    });
-		    document.body.append(bg);
-	
-		    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-		    modal.querySelector('.modal_close_btn').addEventListener('click', function() {
-		        bg.remove();
-		        $('.modal-header').empty();
-		        $('.modal-body').empty();
-		        modal.style.display = 'none';
-		    });
-	
-		    modal.setStyle({
-		        position: 'fixed',
-		        display: 'block',
-		        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-	
-		        // 시꺼먼 레이어 보다 한칸 위에 보이기
-		        zIndex: zIndex + 1,
-	
-		        // div center 정렬
-		        top: '50%',
-		        left: '50%',
-		        transform: 'translate(-50%, -50%)',
-		        msTransform: 'translate(-50%, -50%)',
-		        webkitTransform: 'translate(-50%, -50%)'
-		    });
-		}
-	
-		// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
-		Element.prototype.setStyle = function(styles) {
-		    for (var k in styles) this.style[k] = styles[k];
-		    return this;
-		};
 	});
 </script>
 </html>

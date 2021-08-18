@@ -122,6 +122,21 @@ public class StoreAdminController {
 	public StoreAdminVO premiumReportSelect(Model model, StoreAdminVO vo) {
 		return storeService.premiumReportSelect(vo);
 	}
+	
+	// 사후보고서 update
+	@RequestMapping("store/updatePremiumReport")
+	@ResponseBody
+	public String updatePremiumReport(StoreAdminVO vo) {
+		String result = "";
+		
+		int pang = storeAdminDAO.updatePremiumReport(vo);
+		
+		if(pang > 0)
+			result = "update success";
+		
+		return result;
+	}
+	
 	//================= 정동영 ===================================
 	//====================== 최반야 ====================================
 	// 지점 공지사항 리스트

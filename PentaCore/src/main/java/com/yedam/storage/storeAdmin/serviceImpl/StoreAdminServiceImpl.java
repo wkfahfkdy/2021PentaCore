@@ -83,6 +83,12 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 	public StoreAdminVO premiumReportSelect(StoreAdminVO vo) {
 		return map.premiumReportSelect(vo);
 	}
+	
+	// 사후보고서 update
+	@Override
+	public int updatePremiumReport(StoreAdminVO vo) {
+		return map.updatePremiumReport(vo);
+	}
 
 	// end
 	// 공지 파트 시작

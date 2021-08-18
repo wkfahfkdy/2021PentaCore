@@ -102,7 +102,7 @@
 	FROM CONDITION_LIST C, USE_STORAGE U
 	WHERE C.USE_NUM = U.USE_NUM
 	AND U.MEMBER_ID = #{member_id} 
-	ORDER BY C.CONDITION_NUM
+	ORDER BY C.CONDITION_NUM DESC
 </select>
 
 <select id="premiumReportSelect" parameterType="StoreAdminVO" resultType="StoreAdminVO">
@@ -112,6 +112,12 @@
 	AND U.MEMBER_ID = #{member_id}
 	AND C.CONDITION_NUM = #{condition_num}
 </select>
+
+<update id="updatePremiumReport" parameterType="StoreAdminVO">
+	UPDATE CONDITION_LIST 
+	SET CONDITION_COMMENT = #{condition_comment}, CONDITION_TITLE = #{condition_title}
+	WHERE CONDITION_NUM = #{condition_num}
+</update>
 
 <!-- ============================== 동영 ================================ -->
 
