@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <!-- fullCalendar  -->
-<link href="${pageContext.request.contextPath}/resources/full/css/mobiscroll.javascript.min.css" rel="stylesheet" />
-<script src="${pageContext.request.contextPath}/resources/full/js/mobiscroll.javascript.min.js"></script>
+<link href="${pageContext.request.contextPath}/resources/full/css/mobiscroll.jquery.min.css" rel="stylesheet" />
+<script src="${pageContext.request.contextPath}/resources/full/js/mobiscroll.jquery.min.js"></script>
 <style>
 	#my_offer {	/*모달창*/
         display: none;
@@ -56,45 +56,51 @@
 <!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar.jsp에도 같이 추가 -->
 <c:set var="bgcolor" value="<%=new String[]{\"#000080\", \"#05abf7\", \"#f70ca5\"}%>"></c:set>
 <script>
-var inst = mobiscroll.eventcalendar('#demo-desktop-week-view', {
+
+mobiscroll.setOptions({
     theme: 'ios',
     themeVariant: 'light',
-    clickToCreate: true,
+    clickToCreate: false,
     dragToCreate: false,
     dragToMove: false,
-    dragToResize: false,
-    width: '80%',
-    height:'700px',
-    view: {
-        schedule: { type: 'week' }
-    },
-    onEventClick: function (event, inst) {
-    	modal('my_offer');
-		var tbl =$('<table />');
-		var row = '<tr>';
-		row += '<td> 고객명 : '+event.event.title+'</td></tr>';
-		row += '<td> 연락처 : '+event.event.tel+'</td></tr>';
-		
-		tbl.append(row);
-		$(".modal-body").append(tbl);
-    },
-    data: [
-		<c:forEach items="${list}" var="list" varStatus="status">
-		{
-			start: '${list.start}',
-			end: '${list.end}',
-			title: '${list.member_name}',
-			color: '${bgcolor[status.index%3]}',
-			// 아래부터는 커스텀 변수
-			// 예시 : store: '지점 : ' + '${list.store_name}',
-			// 여기 적고, 위의 modal에서 event.event.store로 추가
-			tel : '${list.tour_tel}'
-		}
-		<c:if test="${not status.last}">,
-		</c:if>
-	</c:forEach>
-	]
+    dragToResize: false
 });
+
+$(function(){
+	var inst = $('#demo-desktop-week-view').mobiscroll().eventcalendar({
+	    width: '80%',
+	    height:'700px',
+	    view: {
+	        schedule: { type: 'week' }
+	    },
+	    onEventClick: function (event, inst) {
+	    	modal('my_offer');
+			var tbl =$('<table />');
+			var row = '<tr>';
+			row += '<td> 고객명 : '+event.event.title+'</td></tr>';
+			row += '<td> 연락처 : '+event.event.tel+'</td></tr>';
+			
+			tbl.append(row);
+			$(".modal-body").append(tbl);
+	    },
+	    data: [
+			<c:forEach items="${list}" var="list" varStatus="status">
+			{
+				start: '${list.start}',
+				end: '${list.end}',
+				title: '${list.member_name}',
+				color: '${bgcolor[status.index%3]}',
+				// 아래부터는 커스텀 변수
+				// 예시 : store: '지점 : ' + '${list.store_name}',
+				// 여기 적고, 위의 modal에서 event.event.store로 추가
+				tel : '${list.tour_tel}'
+			}
+			<c:if test="${not status.last}">,
+			</c:if>
+		</c:forEach>
+		]
+	});
+})
 
 
 //Modal 세부 함수			
