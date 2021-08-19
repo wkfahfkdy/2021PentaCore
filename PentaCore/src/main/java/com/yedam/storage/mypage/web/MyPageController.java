@@ -36,8 +36,13 @@ public class MyPageController {
 	
 		String notice = null;
 		String useService = null;
+		MyPageVO useStorage = null;
 		
-		if(s_code != null) {
+		useStorage = MyPageDAO.useStorage(vo);
+		System.out.println(useStorage);
+		System.out.println("1234");
+		
+		if(useStorage != null) {
 			vo.setStore_code(s_code);
 			model.addAttribute("notice", notice);
 			model.addAttribute("useService", useService);
