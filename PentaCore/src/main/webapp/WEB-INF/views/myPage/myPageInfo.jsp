@@ -128,7 +128,7 @@
 	<div class="wrap">
 		<div>
 			<h3>${loginName } 님:)</h3>
-		</div><br>ㄹ
+		</div><br>
 		<div class="using-service">
 			<c:choose>
 				<c:when test="${!empty usedStorageList }">
