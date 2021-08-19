@@ -24,7 +24,7 @@ public class SendEmail extends HttpServlet {
 			throws ServletException, IOException {
 
 //사용자에게 보낼 메시지를 기입합니다.
-		String host = "http://localhost:8085/storage/home";
+		String host = "http://13.124.174.114:8080/storage/home";
 		String from = "wjsgudals6@gmail.com";
 		String to = request.getParameter("email");
 		String subject = "My Storage 회원가입을 위한 코드 확인 메일입니다.";
