@@ -466,4 +466,13 @@ public class MemberController {
 
 		}
 		
+		// ------------------------------- 회원탈퇴 ------------------------------ //
+		
+		// 로그인 페이지 이동
+		@RequestMapping("memberSignOut")
+		public String memberSignOut(HttpServletRequest request, Model model) {
+
+			return "member/memberSignOut";
+		}
+		
 }
