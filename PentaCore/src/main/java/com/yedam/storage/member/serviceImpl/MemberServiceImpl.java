@@ -140,6 +140,19 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO tourMemberName(String p) {
 		return sqlSession.selectOne("tourMemberName", p);
 	}
+	
+	//회원탈퇴
+	
+	@Override
+	public MemberVO getPwd(MemberVO vo) {
+		return sqlSession.selectOne("getPwd", vo);
+	}
+	
+	@Override
+	public int memberSignOut(MemberVO vo) {
+		return sqlSession.update("memberSignOut",vo);
+	}
+	
 
 
 	

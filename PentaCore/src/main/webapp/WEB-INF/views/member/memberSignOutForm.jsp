@@ -63,6 +63,7 @@
 		width: 70%;
 		text-align: center;
 		vertical-align: middle;
+		align="center"
 	}
 
 	.notice{
@@ -92,12 +93,12 @@
 		border-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
-		font-size: 12pt;
+		font-size: 14pt;
 		font-family: 'Nanum Gothic', sans-serif;
 		font-weight: bold;
 		padding: 0.5em;
-		width: 120px;
-		height: 75px;
+		width: 200px;
+		height: 55px;
 		margin: 0em 0.4em;
 	}
 	
@@ -122,7 +123,7 @@
 		padding: 5px;
 	}
 	
-	#pwd {
+	#pwdtext, #member_pwd {
 		   	background-color: #fff;
 		    border: solid 1px #999;
 		    border-radius: 3px;
@@ -133,8 +134,54 @@
 		}
 	
 </style>
+
+<!-- place holder 보여주는 input 창만 보여주고 input type=password 인 폼은 숨겨놓기  -->
+<style type="text/css">
+.passhidden { display: none; } //visibility: none은 공간을 차지하기 때문에 display를 사용
+</style>
+
+<!-- 플레이스홀더 폼 클릭하면 input type=password 인 폼 보여주기 -->
+<script type="text/javascript">
+$(document).ready(function() {
+$("#pwdtext").on('focus', function() {
+$(this).css('display', 'none');
+$(this).next().css('display', 'inline-block');
+});
+});
+
+</script>
+
+<script>
+function signOut() {
+	
+	var member_id = ${loginId};
+	
+	$.ajax({
+		url : 'signOutVerifyCheck',
+		data : {
+			member_id : member_id
+		},
+		type : 'post',
+		success : function(check) {
+			if (check == 'pass') {
+				frm.submit();
+			} else {
+				alert('이용중인 서비스가 있어 탈퇴가 불가합니다. 서비스 해지를 원하실 시 관리자에게 문의해주시기 바랍니다.');
+			}
+		},
+		error : function(err) {
+			alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
+		}
+	});
+	
+		
+}
+
+</script>
+
 </head>
 <body>
+<form id="frm" action="memberSignOut" method="post">
 	<div class="wrap">
 		<div>
 			<h1>회원탈퇴</h1>
@@ -142,26 +189,37 @@
 		<div class="using-service">
 							<table>
 								<tr>
-								<td>
-									<font style="color: black; font-weight: bold; font-size: 11pt;">비밀번호</font>
+								<td width="170px">
+									<font style="color: black; font-weight: bold; font-size: 15pt;">비밀번호</font>
 								</td>
 								<td>
-									 <input type="text" id="member_id" name="member_id"
-										placeholder="ID" value="ID" onfocus="this.value=''" size= "50" >
+									<input class="pass" type="text" id="pwdtext" value="비밀번호 입력" onfocus="this.value=''" size= "50" />
+									<input class="passhidden" type="password" id="member_pwd" name="member_pwd" value="" size= "50"/>	
 								</td>
-								</tr>
-								<tr>
-									
-								</tr>
 							</table>
 						</div>
-		</div>
-		<div class="notice-btns">
+						<div class="notice-btns">
+						<ul class="list-dot">
+						
+								<li>회원 탈퇴를 위해 비밀번호를 입력해주세요.</li>
+						
+								<li>마이스토리지 서비스를 이용 중인 고객님은 서비스 이용 종료 후에 탈퇴해주세요.</li>
+									</ul>
+						
+						</div>
+						
+						
+		<div class="using-service">
+			
 			<div class="func-btns">
-				<div class="btns-range-top" align="center">
-					<button class="btns" onclick="location.href='offerList'">회원탈퇴</button>
+			<div align="center" style="display: inline-block;">
+				<div class="btns-range-top" >
+					<button class="btns" onclick="location.href='signOut()'">탈퇴</button>
+				</div>
 				</div>
 			</div>
 		</div>
+		</div>
+		</form>
 </body>
 </html>
