@@ -1180,13 +1180,14 @@ input[type='number'] {
 				            <div class="row" style="border: 1px solid #e1e1e1; border-radius: 5px; padding: 33px 40px 40px;">
 						   		<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu" style="float:left; width: 100%; maring: 0 auto; ">
 						   			<h4>서비스 추가</h4>
-						   			<h5 style="display: inline-block; margin-bottom: 50px; vertical-align: top;">프리미엄 서비스	<b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b>
-						   			<label class="offerLabel" style="margin-left: 70px;">
+						   			<h5 style="display: inline-block; margin-bottom: 50px; vertical-align: top;">프리미엄 서비스
+						   				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#premiumComment" style="margin-left: 20px;">프리미엄 서비스란?</button>
+						   				<label class="offerLabel" style="margin-left: 70px;">
 							   				신청&nbsp;&nbsp;<input type="radio" name=premium value="Y">
 							   			</label>
 							   			<label class="offerLabel" style="margin-left: 50px;">
 							   				미신청&nbsp;&nbsp;<input type="radio" name=premium value="N" checked="checked">
-							   			</label><br>
+							   			</label>
 						   			</h5>
 						   			<h5>세탁 서비스
 							   			<label class="offerLabel" style="margin-left: 70px;">
@@ -1197,7 +1198,24 @@ input[type='number'] {
 							   			</label>
 						   			</h5>
 						   		</div>
-						   		
+						   		<!-- Modal -->
+								<div class="modal fade" id="premiumComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p>매달 보관 중인 물품의 컨디션을 체크한 보고서를 받아보실 수 있다 <br> <b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b></p>
+											</div>
+											<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
 						   		<div id="laundryInfoList">
 						   			<!-- 세탁물품 담는곳 -->
 						   			<ul class="nav navbar-nav" style="width: 50%;">

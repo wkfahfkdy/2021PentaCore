@@ -29,7 +29,7 @@
 	
 	input[type="text"] {
 		background: white;
-		border: 1px solid #478FEB;
+		border: 1px solid #ADADAD;
 		border-radius: 0.3em;
 		width: 100%;
 		height: 25px;
@@ -249,7 +249,7 @@
 		<div class="convey-Reg" id="scrollDiv">
 			<div align="left">
 				<h4>보관이사 신청</h4><br>
-				<p class="comment">*더욱 자세한 상담을 위해 마이스토리지에서 고객님께 연락을 드립니다.</p>
+				<p style="color:#478FEB; ">*더욱 자세한 상담을 위해 마이스토리지에서 고객님께 연락을 드립니다.</p>
 			</div>
 			<form id="frm" action="keepInsert" method="post">
 				<div class="convey-form">

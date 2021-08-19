@@ -419,7 +419,7 @@ $(document).ready(function() {
 
 			var a_code = data.apply_code;
 			var a_start = data.apply_start;
-			var a_time = data.apply_time;
+			var a_time = data.convey_time;
 			var a_end = data.apply_end;
 			var a_whether = data.apply_whether;
 			var a_prod = data.apply_product;
@@ -427,6 +427,11 @@ $(document).ready(function() {
 			var a_store = data.store_name;
 			var a_addr = data.apply_addr;
 			var c_file = data.convey_file;
+			var c_after = data.convey_after;
+			var c_car = data.convey_car;
+			var c_driver = data.convey_driver;
+			
+			console.log(a_code,a_start, a_time, a_end, a_whether, a_prod, a_use, a_store, c_file);
 
 			var title = '<h4>운송 신청 상세내역</h4>';
 			
@@ -440,6 +445,11 @@ $(document).ready(function() {
 			} else {
 				row += '<td class="mo-tbl">' + a_start + '<br><p class="comment">*보관이사시 댁으로 방문하여 픽업하는 날짜입니다.</p></td></tr>';
 			}
+			if(a_time != null){
+				row += '<tr><th class="mo-tbl">운송 시간</th><td class="mo-tbl">' + a_time + '</td></tr>';
+			} else {
+				row += '<tr><th class="mo-tbl">운송 시간</th><td class="mo-tbl">아직 상담 전입니다.</td></tr>';
+			}
 			row += '<tr><th class="mo-tbl" style="vertical-align:top;">픽업 희망 주소</th>';
 			row += '<td class="mo-tbl">' + a_addr + '</td></tr>';
 			row += '<tr><th class="mo-tbl" style="vertical-align:top;">출고 희망 일자</th>';
@@ -448,11 +458,25 @@ $(document).ready(function() {
 			row += '<td class="mo-tbl">' + a_whether + '</td></tr>';
 			row += '<tr><th class="mo-tbl" style="vertical-align:top;">운송 물품 정보</th>';
 			row += '<td class="mo-tbl">' + a_prod + '</td></tr>';
+			if(c_car != null){
+				row += '<tr><th class="mo-tbl">운송 차량</th><td class="mo-tbl">' + c_car + '</td></tr>';
+			} else {
+				row += '<tr><th class="mo-tbl">운송 차량</th><td class="mo-tbl">차량 배정 전입니다.</td></tr>';
+			}
+			if(c_driver != null){
+				row += '<tr><th class="mo-tbl">운송 기사</th><td class="mo-tbl">' + c_driver + '</td></tr>';
+			} else {
+				row += '<tr><th class="mo-tbl">운송 기사</th><td class="mo-tbl">기사 배정 전입니다.</td></tr>';
+			}
 			row += '<tr><th class="mo-tbl" style="vertical-align:top;">이용 지점</th>';
 			row += '<td class="mo-tbl">' + a_store + '</td></tr>';
 			row += '<tr><th class="mo-tbl" style="vertical-align:top;">이용 중인 스토리지 번호</th>';
-			row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em; padding-bottom: 1em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
-			row += '<tr><th class="mo-tbl" colspan="2" style="border-top:1px lightgray solid; padding: 1em 0em;">운송 처리 결과</th></tr>';
+			if(a_use != null){
+				row += '<td class="mo-tbl">' + a_use + '<br><p class="comment" style="line-height:1.2em; padding-bottom: 1em;">*기존에 스토리지를 이용하시는 고객의 경우,<br>이용 중인 스토리지의 번호 정보입니다.</p></td></tr>';
+			} else {
+				row += '<td class="mo-tbl" style="padding-bottom: 1.5em;">이용 중인 스토리지가 없습니다.</td><tr>'
+			}
+			row += '<tr><th class="mo-tbl" colspan="2" style="border-top:1px lightgray solid; padding: 1em 3px;">운송 처리 결과</th></tr>';
 			if(c_file != null){
 				row += '<tr><td colspan="2">' + c_file + '</td></tr>';
 			} else {

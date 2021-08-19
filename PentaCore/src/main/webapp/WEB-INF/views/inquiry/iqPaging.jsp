@@ -43,11 +43,20 @@
 		location.href = "iqPaging?page=" + page;
 	}
 </script>
+<style>
+	.with-square:before {
+		background-color: #478FEB;
+	}
+	
+	a {
+		color: #478FEB;
+	}
+</style>
 </head>
 <body>
 	<div class="title-group" style="margin-top: 70px;">
 		<h2>문의게시판</h2>
-		<div class="subtitle with-square">댓글로 빠르게 문의하세요!</div>
+		<div class="subtitle with-square" style="color: #999;">댓글로 빠르게 문의하세요!</div>
 	</div>
 
 	<div style="clear: both; width: 100%; height: 20px;"></div>
