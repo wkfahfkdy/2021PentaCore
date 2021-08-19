@@ -7,6 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <style>
+	a {
+		color: #478FEB;
+	}
 	.wrap {
 		margin: auto;
 		text-align: center;
@@ -26,8 +29,10 @@
 
     #my_offer .modal_close_btn {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        color: #cecece;
     }
     
     #my_offer .modal-body{
@@ -43,13 +48,13 @@
 	  }
 
 	 #my_offer::-webkit-scrollbar-thumb {
-	    background-color: #00c0e2;
+	    background-color: #478FEB;
 	    border-radius: 10px;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	  }
 	  #my_offer::-webkit-scrollbar-track {
-	    background-color: #CEF6F5;
+	    background-color: #dddddd;
 	    border-radius: 10px;
 	    box-shadow: inset 0px 0px 5px white;
 	  }
@@ -92,14 +97,15 @@
 		<div>
 			<h3>견적서 내역 조회</h3>
 		</div>
-		<div align="right" style="margin-bottom: 1em; color: #00c0e2;">
+		<div align="right" style="margin-bottom: 1em; color: #478FEB;">
 				*확인하실 견적서를 더블 클릭하시면 팝업으로 상세내역을 조회하실 수 있습니다.
 		</div>
 		<div id="offerGrid" align="center"></div>
 		<div id="my_offer" align="center">
-		    <a class="modal_close_btn">닫기</a>
+	    	<a class="modal_close_btn"> 
+	    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a>
 		    <div class="modal-header"></div>
-		    <div style="border: 1px solid #00c0e2; border-radius: 0.3em">
+		    <div style="border: 1px solid #dddddd; border-radius: 0.3em">
 			    <div class="modal-body"></div>
 			    <div class="modal-footer">
 			    	<table style="width: 100%">
