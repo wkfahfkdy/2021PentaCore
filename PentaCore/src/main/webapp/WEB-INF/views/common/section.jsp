@@ -183,7 +183,7 @@
 	      //자동 스크를링
 	      autoplay: {
 	        //시간 1000 이 1초
-	        delay: 1000,
+	        delay: 2000,
 	        disableOnInteraction: false,
 	      },
 	
@@ -242,7 +242,7 @@
 	    <script>
 	      var swiper = new Swiper(".mySwiper", {
 	        autoplay: {
-	            delay: 3500,
+	            delay: 4000,
 	            disableOnInteraction: false,
 	        },
 	      });

@@ -41,4 +41,10 @@ public class OfferController {
 		return "redirect:offerList";
 	}
 	
+	@RequestMapping("useCountStorage")
+	@ResponseBody
+	public OfferVO useCountStorage(OfferVO vo) {
+		return offerService.useCount(vo);
+	}
+	
 }

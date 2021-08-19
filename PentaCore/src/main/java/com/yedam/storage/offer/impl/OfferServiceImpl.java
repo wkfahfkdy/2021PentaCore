@@ -17,5 +17,10 @@ public class OfferServiceImpl implements OfferService {
 	public int offerInsert(OfferVO vo) {
 		return map.insertOffer(vo);
 	}
+	// 지도 클릭 검증 (빈 스토리지 유무)
+	@Override
+	public OfferVO useCount(OfferVO vo) {
+		return map.useCount(vo);
+	}
 
 }
