@@ -25,7 +25,7 @@
 	
 	<!-- 사용자가 이용 중인 정보의 고유번호 조회 -->
 	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT use_num
+		SELECT info_num
 		FROM use_storage
 		WHERE member_id = #{member_id}
 	</select>
@@ -88,7 +88,8 @@
 	
 	<!-- 물품 운송 신청 상세 -->
 	<select id="myConveySelect" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>, c.convey_file
+		SELECT a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>, c.convey_after, 
+				c.convey_file, c.convey_time, c.convey_car, c.convey_driver
 		FROM convey_apply a JOIN store s
 		ON (a.store_code = s.store_code)
 		<if test="use_num != null and use_num != ''">

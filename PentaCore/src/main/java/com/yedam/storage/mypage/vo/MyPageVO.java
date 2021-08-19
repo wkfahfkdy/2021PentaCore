@@ -53,6 +53,8 @@ public class MyPageVO {
 	private String convey_before;
 	private String convey_after;
 	private String convey_file;
+	private String convey_car;
+	private String convey_time;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private java.sql.Date apply_start;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
