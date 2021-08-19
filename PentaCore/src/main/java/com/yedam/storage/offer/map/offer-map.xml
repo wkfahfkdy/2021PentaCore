@@ -14,4 +14,12 @@
 			#{storage_code}, #{coupon_code}, #{store_code}, #{laundry_product}, 'N', #{member_id}, #{offer_addr}, #{pickup_date}, #{pickup_time}
 		) 
 	</insert>
+	
+	<select id="useCount" parameterType="com.yedam.storage.offer.vo.OfferVO" resultType="com.yedam.storage.offer.vo.OfferVO">
+		SELECT COUNT(*) AS cnt
+		FROM STORAGE_INFO
+		WHERE STORE_CODE = #{store_code}
+		AND STORAGE_CODE = #{storage_code}
+		AND INFO_USE = 'N'
+	</select>
 </mapper>

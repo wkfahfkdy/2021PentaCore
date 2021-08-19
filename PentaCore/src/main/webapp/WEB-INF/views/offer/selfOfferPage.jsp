@@ -200,145 +200,171 @@
       	
       	// 견적서 뽑기
 		$('#offerInsertBtn').click(function () {
-            	// 이용기간 radio 체크 안되있을때
-            	if($('#hiddenOfferDate').val() == "" || $('#hiddenOfferDate').val() == " " || $('#hiddenOfferStart').val() == ""){
-            		alert("이용날짜 및 이용기간을 체크해주세요");
-            		$('#datePick').focus();
-            		return false;
-            	}
-            	
-            	// product 비어있을때
-    	        if($('#hiddenOfferProduct').val() == ""){
-    	      		alert("선택 된 물품이 없습니다.");
-    	      		$('.productName').focus();
-					return false;
-    	      	} else{
-    	      		$('#offerProduct').html($('#hiddenOfferProduct').val());
-    	      	}
-            	// 세탁서비스 Y인데 물품 없을때
-    	        if($('#hiddenOfferWash').val() == "Y"){
-    	        	// 세탁서비스가 아무것도 없거나 삭제하고 지우고 값이 공백일때
-            		if($('#hiddenOfferLaundryProduct').val() == "" || $('#hiddenOfferLaundryProduct').val() == " "){
-            			alert("세탁서비스 신청상태에서 선택 된 세탁류가 없습니다");
-            			$('.totalLaundryCount').focus();
-            			return false;
-            		}else {
-            			$('#offerLaundry').html($('#hiddenOfferLaundryProduct').val());
-            			$('#offerLaundryPrice').html($('#hiddenLaundryTotalPrice').val() + "원")// 세탁서비스 총 가격
-            		}
-            	} else{
-            		$('#offerLaundry').html("신청 X");
-            		$('#offerLaundryPrice').html("0원")// 세탁서비스 총 가격
-            	}
-            	
-            	// 지점 선택 안했을때랑 선택했는데 쿠폰 선택을 안했을 경우
-            	if($('#hiddenCouponCode').val() == "" || $('#hiddenCouponCode').val() == " "){
-            		alert("지점 선택 후 쿠폰사용 유무를 입력해주세요.");
-            		$('#normalPrice').focus();
-            		return false;
-            	} else{
-            		if(($('.swiper-slide-active').data("index")) == "f20"){
-            			$('#offerCoupon').html($('#hiddenCouponName').val()); 
-    	      			$('#offerPrice').html("상담문의");
-    	      			$('#offerFirstPrice').html("상담문의");
-    	      		} else{
-    	      			// 예상 월 이용금액
-                		$('#offerPrice').html($('#hiddenOfferPrice').val() + "원");
-                		// 예상 첫달 이용금액
-                		$('#offerFirstPrice').html($('#hiddenOfferDiscountPrice').val() + "원");
-                		// 쿠폰 이름
-                		$('#offerCoupon').html($('#hiddenCouponName').val()); 
-    	      		}
-            	}
-            	
-            	// 픽업 서비스 신청했는데 층수가 0층일때 + 희망날짜 / 시간 설정안했을때 + 박스 신청했는데 갯수가 0일때 alert
-            	if($('input:radio[name="pickupService"]:checked').val() == "Y"){
-            		if(parseInt($('#floor').val()) == 0) {
-            			alert("Error : 403 Forbidden");
-            			$('#floor').focus();
-            			return false;
-            		} else if($('#hiddenPickupDate').val() == "" || $('#hiddenPickuptime').val() == ""){
-            			alert("픽업서비스 희망날짜와 시간을 선택해주세요.");
-            			return false;
-            		} else{
-            			if($('input:radio[name="boxService"]:checked').val() == "Y"){
-            				if(parseInt($('#boxCount').val()) == 0){
-            					alert("박스 구매는 0개 이상부터 가능합니다");
-            					return false;
-            				}
-            			}
-            			pickupServiceFnc(); // 층수 + 박스value를 #hiddenOfferPickup에 Append 해줌
-            			
-            			$('#offerPickup').html('정보 및 수량 : ' + $('#hiddenOfferPickup').val() + ' / 희망날짜 : ' + $('#hiddenPickupDate').val() + ' / 희망시간 :  ' + $('#hiddenPickuptime').val());
-            			$('#offerOtherPrice').html(parseInt($('#hiddenBoxPrice').val()) + "원"); 
-            		}
-            	} else {
-            		$('#hiddenPickupDate').val("2999-12-31");
-            		$('#hiddenPickuptime').val("");
-            		$('#offerPickup').html("신청 X");
-            	}
-            	
-            	// 렌탈용품 비어있을땐 렌탈 X
-            	if($('#hiddenOfferRental').val() == "" || $('#hiddenOfferRental').val() == " "){
-            		$('#offerRental').html("신청 X");
-            	} else{
-            		$('#offerRental').html($('#hiddenOfferRental').val());
-            	}
-            	
-            	var addr = $('#hiddenStoreAddr').val();
-            	var mapContainer2 = document.getElementById('modalInMap')// 지도를 표시할 div 
-    		    mapOption2 = {
-    				center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666),
-    		        level: 4 // 지도의 확대 레벨
-    		    };  
-            	setTimeout(function() {
-	    			// 지도를 생성합니다    
-	    			var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
-	    			
-	    			// 주소-좌표 변환 객체를 생성합니다
-	    			var geocoder2 = new kakao.maps.services.Geocoder();
-	    			
-	    			// 주소로 좌표를 검색합니다
-	    			geocoder2.addressSearch(addr, function(result, status) {
-	    		
-	    			    // 정상적으로 검색이 완료됐으면 
-	    			     if (status === kakao.maps.services.Status.OK) {
-	    		
-	    			        var coords2 = new kakao.maps.LatLng(result[0].y, result[0].x);
-	    		
-	    			        // 결과값으로 받은 위치를 마커로 표시합니다
-	    			        var marker2 = new kakao.maps.Marker({
-	    			            map: map2,
-	    			            position: coords2
-	    			        });
-	    		
-	    			        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	    			        var infowindow2 = new kakao.maps.InfoWindow({
-	    			            content: '<div style="width:150px;text-align:center;padding:6px 0;">지점위치</div>'
-	    			        });
-	    			        infowindow2.open(map2, marker2);
-	    		
-	    			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	    			        map2.setCenter(coords2);
-	    			    }
-	    			});
-            	}, 500);
-            	var storageTotalPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 스토리지이용 총 금액
-            	var laundryTotalPrice = parseInt($('#hiddenLaundryTotalPrice').val()); // 세탁서비스 총 금액
-            	var boxTotalPrice = parseInt($('#hiddenBoxPrice').val()); // 박스 총 가격
-            	$('#offerPremium').html($('#hiddenOfferPremium').val()); // 프리미엄 서비스 신청 유무
-            	// 세탁서비스 총 가격 + hiddenOfferPrice에 더해주기
-            	$('#offerTotalPrice').html($('#'))
-            	$('#storeWay').html("지하철 : " + $('#hiddenStoreWay').val()); // 오시는길
-            	$('#storeBus').html("버스 : " + $('#hiddenStoreBus').val()); // 버스
-            	$('#storeEmail').html("지점 이메일 : "+$('#hiddenStoreEmail').val()); // 지점 이메일
-            	$('#storeTel').html("전화번호 : "+$('#hiddenStoreTel').val()); //지점 전화번호
-            	$('#offerStorageSize').html($('.swiper-slide-active').data("name")); // 스토리지 이름
-            	$('#offerDate').html($('input:radio[name="offerDate"]:checked').val() + '개월'); // 이용기간
-            	$('#offerStore').html($('#hiddenStoreName').val()); // 이용지점
-            	// 총가격 보여주고 DB넣을때 다 더해주기
-            	$('#offerTotalPrice').html(storageTotalPrice + laundryTotalPrice + boxTotalPrice + '원'); // 세탁서비스 + 스토리지 이용금액
-            	$('#hiddenOfferDiscountPrice').val(storageTotalPrice + laundryTotalPrice + boxTotalPrice); // DB에 들어갈거
+           	// 이용기간 radio 체크 안되있을때
+           	if($('#hiddenOfferDate').val() == "" || $('#hiddenOfferDate').val() == " " || $('#hiddenOfferStart').val() == ""){
+           		alert("이용날짜 및 이용기간을 체크해주세요");
+           		$('#datePick').focus();
+           		return false;
+           	}
+           	
+           	// product 비어있을때
+   	        if($('#hiddenOfferProduct').val() == ""){
+   	      		alert("선택 된 물품이 없습니다.");
+   	      		$('.productName').focus();
+				return false;
+   	      	} else{
+   	      		$('#offerProduct').html($('#hiddenOfferProduct').val());
+   	      	}
+           	// 세탁서비스 Y인데 물품 없을때
+   	        if($('#hiddenOfferWash').val() == "Y"){
+   	        	// 세탁서비스가 아무것도 없거나 삭제하고 지우고 값이 공백일때
+           		if($('#hiddenOfferLaundryProduct').val() == "" || $('#hiddenOfferLaundryProduct').val() == " "){
+           			alert("세탁서비스 신청상태에서 선택 된 세탁류가 없습니다");
+           			$('.totalLaundryCount').focus();
+           			return false;
+           		}else {
+           			$('#offerLaundry').html($('#hiddenOfferLaundryProduct').val());
+           			$('#offerLaundryPrice').html($('#hiddenLaundryTotalPrice').val() + "원")// 세탁서비스 총 가격
+           		}
+           	} else{
+           		$('#offerLaundry').html("신청 X");
+           		$('#offerLaundryPrice').html("0원")// 세탁서비스 총 가격
+           	}
+           	
+           	// 지점 선택 안했을때랑 선택했는데 쿠폰 선택을 안했을 경우
+           	if($('#hiddenCouponCode').val() == "" || $('#hiddenCouponCode').val() == " "){
+           		alert("지점 선택 후 쿠폰사용 유무를 입력해주세요.");
+           		$('#normalPrice').focus();
+           		return false;
+           	} else{
+           		if(($('.swiper-slide-active').data("index")) == "f20"){
+           			$('#offerCoupon').html($('#hiddenCouponName').val()); 
+   	      			$('#offerPrice').html("상담문의");
+   	      			$('#offerFirstPrice').html("상담문의");
+   	      		} else{
+   	      			// 예상 월 이용금액
+               		$('#offerPrice').html($('#hiddenOfferPrice').val() + "원");
+               		// 예상 첫달 이용금액
+               		$('#offerFirstPrice').html($('#hiddenOfferDiscountPrice').val() + "원");
+               		// 쿠폰 이름
+               		$('#offerCoupon').html($('#hiddenCouponName').val()); 
+   	      		}
+           	}
+           	
+           	// 픽업 서비스 신청했는데 층수가 0층일때 + 희망날짜 / 시간 설정안했을때 + 박스 신청했는데 갯수가 0일때 alert
+           	if($('input:radio[name="pickupService"]:checked').val() == "Y"){
+           		if(parseInt($('#floor').val()) == 0) {
+           			alert("Error : 403 Forbidden");
+           			$('#floor').focus();
+           			return false;
+           		} else if($('#hiddenPickupDate').val() == "" || $('#hiddenPickuptime').val() == ""){
+           			alert("픽업서비스 희망날짜와 시간을 선택해주세요.");
+           			return false;
+           		} else{
+           			if($('input:radio[name="boxService"]:checked').val() == "Y"){
+           				if(parseInt($('#boxCount').val()) == 0){
+           					alert("박스 구매는 0개 이상부터 가능합니다");
+           					return false;
+           				}
+           			}
+           			pickupServiceFnc(); // 층수 + 박스value를 #hiddenOfferPickup에 Append 해줌
+           			
+           			$('#offerPickup').html('정보 및 수량 : ' + $('#hiddenOfferPickup').val() + ' / 희망날짜 : ' + $('#hiddenPickupDate').val() + ' / 희망시간 :  ' + $('#hiddenPickuptime').val());
+           			$('#offerOtherPrice').html(parseInt($('#hiddenBoxPrice').val()) + "원"); 
+           		}
+           	} else {
+           		$('#hiddenPickupDate').val("2999-12-31");
+           		$('#hiddenPickuptime').val("");
+           		$('#offerPickup').html("신청 X");
+           	}
+           	
+           	// 렌탈용품 비어있을땐 렌탈 X
+           	if($('#hiddenOfferRental').val() == "" || $('#hiddenOfferRental').val() == " "){
+           		$('#offerRental').html("신청 X");
+           	} else{
+           		$('#offerRental').html($('#hiddenOfferRental').val());
+           	}
+           	
+           	var useCountStorageCode = $('#hiddenOfferStorageCode').val();
+           	var useCountStoreCode = $('#hiddenStoreCode').val();
+           	// 여기서 스토리지 비어있나 검증하기
+           	$.ajax({
+				  url : 'useCountStorage',
+				  data : {
+					  store_code : useCountStoreCode,
+					  storage_code : useCountStorageCode
+				  },
+				  dataType: "JSON",
+				  method : "POST",
+				  success : function(data){
+					  console.log(data);
+					  if(data.cnt == 0){
+						  alert("해당 지점의 빈 스토리지가 남아있지 않습니다 상담문의 해주세요.");
+						  return false;
+					  } else {
+						  	$('#offerModal').modal("show");
+						  	var addr = $('#hiddenStoreAddr').val();
+							var mapContainer2 = document.getElementById('modalInMap')// 지도를 표시할 div 
+							mapOption2 = {
+							center: new kakao.maps.LatLng(35.869095969748685, 128.59339734624666),
+							      level: 4 // 지도의 확대 레벨
+							  };  
+							setTimeout(function() {
+								// 지도를 생성합니다    
+								var map2 = new kakao.maps.Map(mapContainer2, mapOption2); 
+								
+								// 주소-좌표 변환 객체를 생성합니다
+								var geocoder2 = new kakao.maps.services.Geocoder();
+								
+								// 주소로 좌표를 검색합니다
+								geocoder2.addressSearch(addr, function(result, status) {
+								
+								    // 정상적으로 검색이 완료됐으면 
+								     if (status === kakao.maps.services.Status.OK) {
+								
+								        var coords2 = new kakao.maps.LatLng(result[0].y, result[0].x);
+								
+								        // 결과값으로 받은 위치를 마커로 표시합니다
+								        var marker2 = new kakao.maps.Marker({
+								            map: map2,
+								            position: coords2
+								        });
+								
+								        // 인포윈도우로 장소에 대한 설명을 표시합니다
+								        var infowindow2 = new kakao.maps.InfoWindow({
+								            content: '<div style="width:150px;text-align:center;padding:6px 0;">지점위치</div>'
+								        });
+								        infowindow2.open(map2, marker2);
+								
+								   	 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+								    	    map2.setCenter(coords2);
+									    }
+									});
+								}, 500);
+								var storageTotalPrice = parseInt($('#hiddenOfferDiscountPrice').val()); // 스토리지이용 총 금액
+								var laundryTotalPrice = parseInt($('#hiddenLaundryTotalPrice').val()); // 세탁서비스 총 금액
+								var boxTotalPrice = parseInt($('#hiddenBoxPrice').val()); // 박스 총 가격
+								$('#offerPremium').html($('#hiddenOfferPremium').val()); // 프리미엄 서비스 신청 유무
+								// 세탁서비스 총 가격 + hiddenOfferPrice에 더해주기
+								$('#offerTotalPrice').html($('#'))
+								$('#storeWay').html("지하철 : " + $('#hiddenStoreWay').val()); // 오시는길
+								$('#storeBus').html("버스 : " + $('#hiddenStoreBus').val()); // 버스
+								$('#storeEmail').html("지점 이메일 : "+$('#hiddenStoreEmail').val()); // 지점 이메일
+								$('#storeTel').html("전화번호 : "+$('#hiddenStoreTel').val()); //지점 전화번호
+								$('#offerStorageSize').html($('.swiper-slide-active').data("name")); // 스토리지 이름
+								$('#offerDate').html($('input:radio[name="offerDate"]:checked').val() + '개월'); // 이용기간
+								$('#offerStore').html($('#hiddenStoreName').val()); // 이용지점
+								// 총가격 보여주고 DB넣을때 다 더해주기
+								$('#offerTotalPrice').html(storageTotalPrice + laundryTotalPrice + boxTotalPrice + '원'); // 세탁서비스 + 스토리지 이용금액
+								$('#hiddenOfferDiscountPrice').val(storageTotalPrice + laundryTotalPrice + boxTotalPrice); // DB에 들어갈거
+					  }
+				  },
+				  error: function(err){
+					  console.log(err);
+				  }
+			  });
+          	
+			
             });
       	// 여기는 selectBox 및 date 바뀔때 value 바뀌는 함수들
       	
@@ -1198,17 +1224,19 @@ input[type='number'] {
 							   			</label>
 						   			</h5>
 						   		</div>
-						   		<!-- Modal -->
+						   		<!-- 프리미엄 서비스 상세보기 -->
 								<div class="modal fade" id="premiumComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
+									<div class="modal-dialog" role="document" style="width:55%">
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<div class="modal-body">
-												<p>매달 보관 중인 물품의 컨디션을 체크한 보고서를 받아보실 수 있다 <br> <b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b></p>
+											<div class="modal-body" style="text-align: center;">
+												<img style="width: 100%; "src="${pageContext.request.contextPath }/resources/main/premiumService.jpg">
+												<h5>매달 보관 중인 물품의 컨디션을 지점 관리자가 직접 체크하여 작성한 보고서를 받아보실 수 있습니다. </h5>
+												<p style="text-align: right; margin-top: 30px;"><b style="color : red;">( * 월 요금 5000원 추가금 발생 )</b></p>
 											</div>
 											<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1216,6 +1244,7 @@ input[type='number'] {
 										</div>
 									</div>
 								</div>
+								<!-- 프리미엄 서비스 상세보기 -->
 						   		<div id="laundryInfoList">
 						   			<!-- 세탁물품 담는곳 -->
 						   			<ul class="nav navbar-nav" style="width: 50%;">
@@ -1331,7 +1360,7 @@ input[type='number'] {
 			      <div align="center" style="margin: 100px auto">
 			      	<div class="container">
 						    <!-- Trigger the modal with a button -->
-							<button type="button" id="offerInsertBtn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#offerModal" style="background: #478FEB; padd">견적서 출력</button>
+							<button type="button" id="offerInsertBtn" class="btn btn-info btn-lg" data-target="#offerModal" style="background: #478FEB; padd">견적서 출력</button>
 							<!-- Modal -->
 							<div class="modal fade" id="offerModal" role="dialog">
 								<div class="modal-dialog" style="width: 70%">
@@ -1613,7 +1642,31 @@ input[type='number'] {
 					        map.setCenter(coords);
 					    } 
 					}); 
-				  
+				  // 여기서도 ajax로 스토리지 비어있나 검증하기
+				  var storage_code =  $('#hiddenOfferStorageCode').val()
+				  console.log(store_code + storage_code);
+				   $.ajax({
+					  url : 'useCountStorage',
+					  data : {
+						  store_code : store_code,
+						  storage_code : storage_code
+					  },
+					  dataType: "JSON",
+					  method : "POST",
+					  success : function(data){
+						  console.log(data);
+						  if(data.cnt == 0){
+							  $('#ul' + store_code).hide();
+							  alert("해당 지점의 빈 스토리지가 남아있지 않습니다 상담문의 해주세요.");
+							  return false;
+						  } else{
+							  alert("신청 가능한 지점입니다.");
+						  }
+					  },
+					  error: function(err){
+						  console.log(err);
+					  }
+				  });
 				});
 			}, // success 닫힘
 			error: function(err){

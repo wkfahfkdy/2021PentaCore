@@ -4,4 +4,5 @@ import com.yedam.storage.offer.vo.OfferVO;
 
 public interface OfferMap {
 	int insertOffer(OfferVO vo);
+	OfferVO useCount(OfferVO vo);
 }

@@ -22,6 +22,10 @@ MEMBER_ID                VARCHAR2(20)
 OFFER_ADDR               VARCHAR2(150) 
 PICKUP_DATE              DATE          
 PICKUP_TIME              VARCHAR2(20)  
+INFO_NUM     NOT NULL VARCHAR2(5) 
+INFO_USE              VARCHAR2(1) 
+STORAGE_CODE          VARCHAR2(5) 
+STORE_CODE            VARCHAR2(5) 
  */
 @Data
 public class OfferVO {
@@ -43,4 +47,9 @@ public class OfferVO {
 	private String offer_addr;
 	private Date pickup_date;
 	private String pickup_time;
+	
+	// storage_info
+	private String info_num;
+	private String info_use;
+	private int cnt;
 }
