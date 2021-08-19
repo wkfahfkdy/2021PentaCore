@@ -128,7 +128,7 @@
 	<div class="wrap">
 		<div>
 			<h3>${loginName } 님:)</h3>
-		</div><br>ㄹ
+		</div><br>
 		<div class="using-service">
 			<c:choose>
 				<c:when test="${!empty usedStorageList }">
@@ -194,7 +194,7 @@
 							<div class="premium-title">
 								<h3>Premium Service</h3>
 							</div>
-							<div>
+							<div class="premium-row">
 								<c:choose>
 									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'N' }">
 										<b>이용 중인 서비스가 없습니다.</b>
