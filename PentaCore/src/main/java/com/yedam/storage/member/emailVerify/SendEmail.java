@@ -40,6 +40,10 @@ public class SendEmail extends HttpServlet {
 		p.put("mail.smtp.starttls.enable", "true");
 		p.put("mail.smtp.auth", "true");
 		p.put("mail.smtp.debug", "true");
+		// EC2에서 안보내져서 추가한 내용 
+		p.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	    p.put("mail.smtp.ssl.protocols", "TLSv1.2");
+	    // EC2에서 안보내져서 추가한 내용 + 그래도 안보내질 시에는 https://annyeongworld.tistory.com/78 참고
 		p.put("mail.smtp.socketFactory.port", "465");
 		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		p.put("mail.smtp.socketFactory.fallback", "false");
