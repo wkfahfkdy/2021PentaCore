@@ -7,6 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	.with-square:before {
+		background-color: #478FEB;
+	}
+	
+	a {
+		color: #478FEB;
+	}
+</style>
 <body>
 	<div style="clear:both; width: 100%; height: 70px;"></div>
 		

@@ -33,6 +33,12 @@
 	}
 	
 </script>
+<style>
+	.with-square:before {
+		background-color: #478FEB;
+	}
+	
+</style>
 </head>
 <body>
 	<div class="title-group" style="margin-top: 70px;">
