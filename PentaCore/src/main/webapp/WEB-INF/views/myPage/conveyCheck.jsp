@@ -30,7 +30,7 @@
 	
 	input[type="text"] {
 		background: white;
-		border: 1px solid #5fd3e8;
+		border: 1px solid #dddddd;
 		border-radius: 0.3em;
 		width: 100%;
 		height: 25px;
@@ -109,21 +109,23 @@
 	}
 	
 	#my_convey::-webkit-scrollbar-thumb {
-	    background-color: #00c0e2;
+	    background-color: #478FEB;
 	    border-radius: 10px;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	}
 	#my_convey::-webkit-scrollbar-track {
-	    background-color: #CEF6F5;
+	    background-color: #dddddd;
 	    border-radius: 10px;
 	    box-shadow: inset 0px 0px 5px white;
 	}
 
     #my_convey .modal_close_btn {	/*모달창 닫기버튼*/
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
     
     #cancel {	/*모달 신청 취소 버튼*/
@@ -135,7 +137,7 @@
     
     .comment {	/*모달 내용 작은 코멘트*/
     	font-size:9pt;
-    	color:#00c0e2;
+    	color:#478FEB;
     	margin: 0 0 0;
     }
     
@@ -159,7 +161,7 @@
     }
     
     #choice-btn, .apply-btn {
-    	background-color: #00c0e2;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -175,7 +177,7 @@
     }   
     
     .modal-body {
-		border: 1px solid #00c0e2; 
+		border: 1px solid #cecece; 
 	 	border-radius: 0.3em;
 	 	width: 100%;
 	 	overflow: auto;
@@ -246,7 +248,8 @@
 			</div>
 			<div id="conveyGrid" align="center"></div>
 			<div id="my_convey" align="center">
-			    <a class="modal_close_btn">닫기</a>
+			    <a class="modal_close_btn"> 
+	    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a><br>
 			    <div class="modal-body"></div>
 		    </div>
 		</div>
@@ -288,7 +291,7 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left; color: #00c0e2">
+						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left; color: #478FEB">
 							아래의 지점 리스트에서 선택해주세요.</div>
 						<div class="mem-data"><input type="text" id="apply_addr" name="apply_addr" value="" /></div>
 						<div class="mem-data"><input type="text" id="apply_product" name="apply_product" value="" /></div>
@@ -312,7 +315,7 @@
 					</div>
 				</div>
 				<div style="text-align: left; color: red; font-size: 9pt; margin: 0.8em 0em 0.4em;">*지점 선택의 경우 이용 중인 지점이 없으신 고객이시거나, 이용 지점을 기존과 다른 곳으로 원하시는 경우에만 선택해주세요.<br>
-																									&nbsp;&nbsp;선택하신 지점은 이용 희망 지점 칸에 보여집니다.</div>
+																									&nbsp;&nbsp;선택하신 지점은 이용 희망 지점 칸에 보여집니다.</div> <br><br>
 				<div class="store-pick">
 					<div class="store-list">
 						<h4 id= "choice-store" align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
@@ -324,11 +327,11 @@
 						<h4 align="left">지점 지도</h4>
 						<div id="map" style="width:100%;height:400px;"></div>
 					</div>
-				</div>
+				</div><br><br>
 				<div style="padding: 20px;">
 					<input type="hidden" name="store_code" id="apply" value="" />
-					<button class="apply-btn" type="button" onclick="alertRegi()">신청하기</button>&nbsp;&nbsp;
-					<button class="back-btn" type="button" onclick="history.back()">뒤로가기</button>
+					<button class="btn btn-primary btn-lg" type="button" onclick="alertRegi()">신청하기</button>&nbsp;&nbsp;
+					<button class="btn btn-default btn-lg" type="button" onclick="history.back()">뒤로가기</button>
 				</div>
 			</form>
 		</div>

@@ -5,17 +5,20 @@
 <head>
 
 <style>
-td {
-	width: 150px;
-}
 
-select {
-  width: 6em;
-}
+	select {
+	  width: 6em;
+	}
 
-input {
-	width: 150px;
-}
+	.tab1 {
+		float: left;
+	}
+
+	.tab2 {
+		float: left;
+		padding-left: 30px;
+	}
+	
 </style>
 
 <!--  
@@ -237,136 +240,118 @@ private String member_disable;
 	}
 </script>
 <body>
+	<div align="center" style="margin-top: 5%;">
+		<img  style="width: 250px;" 
+				src="${pageContext.request.contextPath }/resources/img/all_logo.png"><br>
+		<h5>내정보 수정</h5>
 
 				<!--회원가입 화면-->
-					<div align="center">
+			<div align="center" style="display: inline-block;">
+				<div align="center" style="padding-top: 3%; ">
+				</div>
+						<div class="tab1">
 						<form id="frm" action="userUpdate" method="post">
 							<table style="border: 1; border-collapse: collapse;">
 								<tr>
-									<th width="150">아이디</th>
-									<td width="300">
-										<div>
-											<span class="input-group-text" id="inputGroup-sizing-sm">
-												${loginId}</span>
-										</div> <input type="hidden" id="member_id" name="member_id"
-										value="${loginId}">
+									<td width="300" style=" height: 60px;">
+									<input  class="form-control"  type="text" id="member_id" name="member_id" value="${loginId}" readonly
+											style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400; cursor:not-allowed;">
 									</td>
+									<td></td>
 								</tr>
 								<tr>
-									<th width="150">변경할 비밀번호</th>
-									<td width="300"><input class="form-control"
-										type="password" id="member_pwd" name="member_pwd"></td>
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" id="member_pwd" name="member_pwd" value="password" onfocus="this.value=''; type='password';"
+												style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
+									<td></td>
 								</tr>
 								<tr>
-									<th width="150">비밀번호 재확인</th>
-									<td width="300"><input class="form-control"
-										type="password" id="member_pwd2" name="member_pwd2"></td>
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" id="member_pwd2" name="member_pwd2" value="password 확인" onfocus="this.value=''; type='password';"
+									style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
+									<td></td>
 								</tr>
 								<tr>
-									<th width="150">이름</th>
-									<td width="300"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> <%=request.getAttribute("name") %> </span></td>
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" value="${name }" readonly
+											style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;cursor:not-allowed;"></td>
+									<td></td>
 								</tr>
 								
 								<c:if test="${birth ne null}">
-
-								<tr>
-									<th width="150">생년월일</th>
-									<td width="300"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> <%=request.getAttribute("birth") %> </span></td>
-								</tr>
+									<tr>
+										<td style=" height: 60px;">
+										<input class="form-control" type="text" value="${birth }" readonly
+												style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;cursor:not-allowed;"></td>
+									<td></td>
+									</tr>
 								</c:if>
-								
+							</table>
+							</div>
+							<div class="tab2">
+							<table style="border: 1; border-collapse: collapse;">
 								<tr>
-									<td colspan="3">&nbsp;</td>
-								</tr>
-
-								<tr>
-									<th width="150">기존 이메일</th>
-									<td width="150" colspan="2"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> <%=request.getAttribute("email") %> </span></td>
-								</tr>
-								<tr>
-									<th>변경할 이메일</th>
-									<td width="150" colspan="2"><input class="form-control"
-										type="text" id="member_email" name="member_email" value="">
-									</td>
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" placeholder="${email }" 
+												style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 									<td>
-										<button class="btn btn-light" type="button" id="sendEmail"
-											value="unChecked">인증코드 전송</button>
+										<button class="btn btn-default" style="margin-left: 10%; height: 60%;" type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
 									</td>
 								</tr>
 								<tr>
-									<th></th>
-									<td width="300"><input class="form-control" type="text"
-										placeholder="이메일 인증코드" id="emailCode" value=""></td>
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" placeholder="이메일 인증코드" id="emailCode" value=""
+											style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td></td>
 									<td>
-										<button class="btn btn-light" type="button" id="checkEmail"
+										<button class="btn btn-default" style="margin-left: 10%; height: 60%;" type="button" id="checkEmail"
 											value="unChecked">인증코드 확인</button>
 									</td>
 								</tr>
 
-								<tr>
-									<td colspan="3">&nbsp;</td>
-								</tr>
-
 
 								<tr>
-									<th width="150">기존 전화번호</th>
-									<td width="150"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> ${loginTel} </span></td>
-								</tr>
-
-								<tr>
-									<th width="150">변경할 전화번호</th>
-									<td width="150" colspan="2"><input class="form-control"
-										type="text" id="member_tel" name="member_tel"
-										placeholder="'-'없이 숫자만 입력"></td>
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" placeholder="${loginTel }" 
+											style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 									<td>
-										<button class="btn btn-light" type="button" id="sendSMS"
-											value="unChecked">인증번호 전송</button>
-									</td>
-								</tr>
-								<tr>
-									<th></th>
-									<td width="350"><input class="form-control" type="text"
-										placeholder="문자 인증번호" id="smsKey" value=""></td>
-									<td>
-										<button class="btn btn-light" type="button" id="checkSMS"
+										<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="checkSMS"
 											value="unChecked">인증번호 확인</button>
 									</td>
 								</tr>
-								<tr>
-									<td colspan="2">&nbsp;</td>
-								</tr>
 
 								<tr>
-									<th width="150">기존 주소</th>
-									<td width="150" colspan="3"><span class="input-group-text"
-										id="inputGroup-sizing-sm"> ${loginAddr } </span></td>
-								</tr>
-
-								<tr>
-									<th width="150">변경할 주소</th>
-									<td width="300"><input class="form-control" id="member_post"
-										type="text" name="memberAddressZip" placeholder="우편번호" readonly
-										onclick="findAddr()"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input class="form-control" id="member_addr" type="text"
-										name="member_addr" placeholder="주소" readonly></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input class="form-control" id="member_detailedAddr"
-										type="text" placeholder="상세주소" name="member_detailedAddr">
+									<td style=" height: 60px;">
+									<input class="form-control" type="text" placeholder="문자 인증번호" id="smsKey" value=""
+											style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
+									<td>
+									<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="sendSMS"
+											value="unChecked">인증번호 전송</button>
 									</td>
+								</tr>
+
+								<tr>
+									<td style="display:flex; ">
+									<input class="form-control" id="member_post" type="text" name="memberAddressZip" placeholder="검색" onclick="findAddr()"
+											style="width:70px; background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
+									<input class="form-control" id="member_addr" type="text" name="member_addr" placeholder="${loginAddr }" 
+											style="margin-left:10px; width: 220px; float: right; background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
+									</td>
+								</tr>
+								<tr>
+									<td style=" height: 60px;">
+									<input class="form-control" id="member_detailedAddr" type="text" placeholder="상세주소" name="member_detailedAddr"
+											style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
+									<td></td>
 								</tr>
 							</table>
 						</form>
-						<br>
-						<br>
-						<button class="btn btn-light" type="button" onclick="formCheck()">정보수정</button>
+						</div> <br> <br>
+						<div style="clear: both; padding-top:7%;"> </div>
+						
+						<div style="margin-bottom: 10%;">
+						<button class="btn btn-primary btn-lg" type="button" onclick="formCheck()">정보수정</button> &nbsp; &nbsp;
+						<button class="btn btn-default btn-lg" type="button" onclick="location.href='${pageContext.request.contextPath }/home'" >탈퇴하기</button>
+						</div>
 					</div>
+			</div>
 </body>

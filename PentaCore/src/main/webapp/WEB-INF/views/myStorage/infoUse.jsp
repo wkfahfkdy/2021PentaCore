@@ -256,7 +256,7 @@
 				</div>
 				<div><br>
 					<button class="btn btn-primary btn-lg" type="button" onclick="loginChk('${chk}')"
-						style="background-color:#58ACFA; width: 70%;"">
+						style="width: 70%;"">
 						<h4>셀프견적 바로가기</h4></button>
 				</div>
 			</div>

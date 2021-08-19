@@ -143,7 +143,7 @@
 			enterMode : CKEDITOR.ENTER_BR,
 			shiftEnterMode : CKEDITOR.ENTER_P,
 			height: '30em'
-		});
+		});	
 	})
 	
 	function formCheck() {
