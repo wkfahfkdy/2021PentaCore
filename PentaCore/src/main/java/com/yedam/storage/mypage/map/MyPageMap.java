@@ -18,6 +18,9 @@ public interface MyPageMap {
 	public List<MyPageVO> noticeSelectList();
 	public List<MyPageVO> usedStorageList();
 	
+	// 마이페이지 첫화면 중 이용중인 스토리지 모두 보기 클릭 시
+	public List<MyPageVO> TotalUseStorageListInfo(MyPageVO vo);
+	
 	//--------------견적서 내역 페이지-----------------
 	
 	// 견적서 리스트 조회

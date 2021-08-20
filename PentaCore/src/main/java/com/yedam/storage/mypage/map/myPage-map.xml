@@ -23,6 +23,20 @@
 		WHERE u.member_id = #{member_id}
 	</select>
 	
+	<!-- 이용중인 스토리지 모두 보기 클릭 시 -->
+	<select id="TotalUseStorageListInfo" parameterType="MyPageVO" resultType="MyPageVO">
+		SELECT U.*, S.STORAGE_WIDTH, S.STORAGE_HEIGHT, S.STORAGE_VERTICAL, S.STORAGE_NAME, O.OFFER_PRODUCT,
+				O.OFFER_WASH, O.OFFER_PREMIUM, T.STORE_NAME, T.HUMIDITY, T.TEMPERATURE
+		FROM STORAGE S JOIN OFFER O
+		ON (S.STORAGE_CODE = O.STORAGE_CODE)
+		JOIN USE_STORAGE U
+		ON (U.OFFER_CODE = O.OFFER_CODE)
+		JOIN STORE T
+		ON(U.STORE_CODE = T.STORE_CODE)
+		WHERE U.MEMBER_ID = #{member_id}
+	    AND U.INFO_NUM IS NOT NULL
+	    ORDER BY U.USE_END ASC
+	</select>
 	<!-- 사용자가 이용 중인 정보의 고유번호 조회 -->
 	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
 		SELECT info_num

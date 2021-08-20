@@ -59,6 +59,13 @@ public class MyPageController {
 		return "myPage/myPageInfo";
 	}
 	
+	// 마이페이지 첫화면 중 이용중인 스토리지 모두 보기 클릭 시
+	@RequestMapping("TotalUseStorageListInfo")
+	public String totalUseStorageListInfo(MyPageVO vo, Model model) {
+		model.addAttribute("totalUseStorageList", MyPageDAO.TotalUseStorageListInfo(vo));
+		return "myPage/totalUseStorageInfoPage";
+	}
+	
 	//---------------------------------견적서 내역 페이지-----------------------------------------
 	
 	//	견적서 조회 페이지 실행

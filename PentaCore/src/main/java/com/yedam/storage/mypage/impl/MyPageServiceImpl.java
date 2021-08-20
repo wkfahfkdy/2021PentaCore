@@ -48,6 +48,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return sqlSession.selectOne("userReview", vo);
 	}
 
+	// 마이페이지 중 이용중인 스토리지 모두 보기 클릭시
+	@Override
+	public List<MyPageVO> TotalUseStorageListInfo(MyPageVO vo) {
+		return mMap.TotalUseStorageListInfo(vo);
+	}
 	//--------------견적서 내역 페이지-----------------	
 	
 	@Override
