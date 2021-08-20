@@ -72,11 +72,15 @@ private String member_disable;
 		from 	id_all_check
 		where 	member_id = #{member_id}
 </select>
+
 <!-- Session 저장용 -->
 <select id="UseCodeInfo" parameterType="MyPageVO" resultType="MyPageVO">
-		select DISTINCT	store_code 
-		from 	use_storage 
-		where 	member_id = #{member_id}
+		SELECT 		STORE_CODE 
+		FROM 		USE_STORAGE 
+		WHERE 		MEMBER_ID = #{member_id}
+		AND 		ROWNUM = 1
+		AND 		INFO_NUM IS NOT NULL
+		ORDER BY 	USE_END ASC
 </select>
 
 <!-- 지점 관리자의 지점 코드 값 -->

@@ -79,8 +79,7 @@
 								 
 				<div class="collapse navbar-collapse main-menu main-menu-2" id="main-menu">
 					<ul class="nav navbar-nav">
-											
-						
+						<c:if test="${loginId != 'admin' || loginId eq null }">					
 						<!-- === top menu item === -->
 						<li>
 							<a onclick="LoginCheckToSelfOffer('${loginId }')" style="cursor: pointer;">셀프견적</a>
@@ -121,7 +120,7 @@
 							</ul>
 						</li> 
 						<li class="main-menu-separator"></li>
-						
+						</c:if>
 						
 						<!-- LOGIN 안됐을때 -->
 						<sec:authorize access="isAnonymous()"> 
@@ -132,9 +131,11 @@
 						
 						<!-- LOGIN 했을때 -->
 						<sec:authorize access="isAuthenticated()">
+						<c:if test="${loginId != 'admin' }">
 						<li>
 							<a href="myPageInfo">MYPAGE</a>
-						</li> 
+						</li>
+						</c:if>
 						
 						<!-- ADMIN LOGIN -->
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -151,7 +152,8 @@
 										<a href="goTrans">운송관리</a>
 									</li>
 							</ul>
-						</li> 
+						</li>
+							
 						</sec:authorize>
 							<li class="main-menu-separator"></li>
 							
