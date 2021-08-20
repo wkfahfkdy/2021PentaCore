@@ -208,12 +208,18 @@ function findAddr(){
 		});
 	});
 	function formCheck() {
+		
+		 var pw =  $("#member_pwd").val(); //frm.member_pwd.value
+		 var num = pw.search(/[0-9]/g);
+		 var eng = pw.search(/[a-z]/ig);
+		 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+		
 		if (frm.member_id.value == "") {
 			alert("아이디를 입력하세요.");
 			frm.member_id.focus();
 			return false;
 		}
-		if (frm.idCheck.value == 'UnChecked') {
+		if (frm.idCheck.value == 'unChecked') {
 			alert("ID 중복체크를 하세요.");
 			return false;
 		}
@@ -222,6 +228,20 @@ function findAddr(){
 			frm.member_pwd.focus();
 			return false;
 		}
+		
+		if (pw.length < 8 || pw.length > 20) {
+			alert("비밀번호는 8자리에서 20자리까지 가능합니다.");
+			pw.focus();
+			return false;
+		} else if(pw.search(/\s/) != -1){
+			  alert("비밀번호는 공백 없이 입력해주세요.");
+			  pw.focus();
+			  return false;
+			 }else if(num < 0 || eng < 0 || spe < 0 ){
+			  alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+			  pw.focus();
+			  return false;
+			 }
 
 		if (frm.member_pwd.value != frm.member_pwd2.value) {
 			alert("비밀번호를 재확인하세요.");
@@ -232,6 +252,13 @@ function findAddr(){
 			alert("이름을 입력하세요.");
 			return false;
 		}
+		
+		if (frm.member_BirthYear.value == "----" || frm.member_BirthMonth.value == "--" 
+			|| frm.member_BirthDay.value == "--") {
+			alert("생년월일을 모두 입력해주세요.");
+			return false;
+		}
+		
 		if (frm.member_email.value == "") {
 			alert("이메일을 입력하세요.");
 			return false;
@@ -250,20 +277,20 @@ function findAddr(){
 			frm.member_detailedAddr.focus();
 			return false;
 		}
-		/*
+		
 		if (frm.checkEmail.value == "unChecked") {
 			alert("이메일을 인증 하세요");
 			frm.emailCode.focus();
 			return false;
 		}
-		*/
 		/*
 		if (frm.checkSMS.value == "unChecked") {
 			alert("문자 인증을 하세요");
 			frm.smsKey.focus();
 			return false;
-		}    
+		} 
 		*/
+		
 		frm.submit();
 		alert("정상적으로 회원가입 되었습니다");
 	}
@@ -294,7 +321,7 @@ function findAddr(){
 					</tr>
 					<tr>
 						<td style="height: 60px;">
-						<input class="form-control" type="password" id="member_pwd"name="member_pwd" placeholder ="비밀번호" 
+						<input class="form-control" type="password" id="member_pwd"name="member_pwd" placeholder ="비밀번호 (영문,숫자, 특수문자 포함)" 
 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 					</tr>
 					<tr>
