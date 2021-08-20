@@ -188,7 +188,8 @@ function regPre() {
 									<td rowspan="2" style="width: 20%; text-align: center">
 										<c:choose>
 											<c:when test="${empty userReview.review_title }">
-												<button class="review-btn" onclick="location.href='reviewForm'">리뷰작성</button>
+												<button type="button" class="review-btn" onclick='location.href="reviewForm?store_code=${useInfo.store_code}&store_name=${useInfo.store_name}"'>리뷰작성</button>
+												
 											</c:when>
 											<c:otherwise>
 												<button class="review-btn" onclick="location.href='reviewList'">리뷰페이지</button>

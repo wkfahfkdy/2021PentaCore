@@ -112,7 +112,7 @@ public class MyPageController {
 		vo.setMember_id(id);
 		
 		model.addAttribute("conveyListAll", MyPageDAO.conveyListAll(vo));
-		model.addAttribute("useStore", MyPageDAO.useStore(vo));
+//		model.addAttribute("useStore", MyPageDAO.useStore(vo));
 		return "myPage/conveyCheck";
 	}
 	
@@ -219,7 +219,8 @@ public class MyPageController {
 		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
 		
-		model.addAttribute("useStore", MyPageDAO.useStore(vo));
+		model.addAttribute("useStore", vo.getStore_name());
+		model.addAttribute("sCode", vo.getStore_code());
 		return "myPage/reviewRegist";
 	}
 	

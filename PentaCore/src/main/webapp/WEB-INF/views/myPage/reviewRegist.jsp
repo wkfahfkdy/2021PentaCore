@@ -64,12 +64,12 @@
 <body>
 <div class="wrap">
 	<div>
-		<h3><font style="color: #00c0e2;">${loginName }</font>님의 <font style="color: #00c0e2;">${useStore.store_name }</font> 이용 리뷰 페이지</h3>
+		<h3><font style="color: #00c0e2;">${loginName }</font>님의 <font style="color: #00c0e2;">${useStore }</font> 이용 리뷰 페이지</h3>
 	</div>
 	<form id="frm" action="reviewRegist" method="POST" enctype="multipart/form-data">
 		<div>
 			<input type="text" name="review_title"/>
-			<input type="hidden" name="store_code" value="${loginStore }" />
+			<input type="hidden" name="store_code" value="${sCode }" />
 		</div>
 		<div align="center">
 			<textarea id="review_content" name="review_content"></textarea>

@@ -139,14 +139,10 @@
 	<insert id="conveyInsert" parameterType="MyPageVO">
 		INSERT INTO convey_apply (apply_code, member_id, 
 				apply_addr, apply_product, apply_start, 
-				apply_end, apply_whether, use_num, store_code)
+				apply_end, apply_whether, store_code)
 		VALUES('CA'||LPAD(ca_seq.nextval,3,0), #{member_id}, 
 			#{apply_addr}, #{apply_product}, #{apply_start}, 
-			#{apply_end}, #{apply_whether}, 
-			(SELECT DISTINCT use_num
-			 FROM use_storage
-			 WHERE member_id = #{member_id}), 
-			#{store_code})
+			#{apply_end}, #{apply_whether}, #{store_code})
 	</insert>
 	
 	<!-- 사용자가 신청한 투어 리스트 -->

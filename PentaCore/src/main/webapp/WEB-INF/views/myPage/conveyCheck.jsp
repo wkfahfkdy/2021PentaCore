@@ -64,7 +64,7 @@
 		width: 35%
 	}
 	
-	.form-memdata>.mem-data {
+	.form-memdata>.mem-data, #mem-data-st {
 		padding: 3px;
 		width: 100%;
 		text-align: left;
@@ -263,35 +263,13 @@
 				<div class="convey-form">
 					<div class="form-memtitle">
 						<div class="title">신청자 이름</div>
-						<div class="title">이용 중인 지점</div>
-						<div class="title">이용 스토리지 번호</div>
 						<div class="title">이용 희망 지점</div>
 						<div class="title">운송 희망 주소</div>
 						<div class="title">운송 물품 정보</div>
 					</div>
 					<div class="form-memdata">
 						<div class="mem-data">${loginName }</div>
-						<div class="mem-data" style="line-height: 2.5em;">
-							<c:choose>
-								<c:when test="${!empty loginStore }">
-									${useStore.store_name }
-								</c:when>
-								<c:otherwise>
-									<b>이용 중인 지점이 없습니다.</b>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div class="mem-data">
-							<c:choose>
-								<c:when test="${!empty useStore.info_num }">
-									${useStore.info_num }
-								</c:when>
-								<c:otherwise>
-									이용 중인 스토리지가 없습니다.
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div id="mem-data-st" style="height: 2.5em; line-height: 3em; text-align: left; color: #478FEB">
+						<div id="mem-data-st" style="height: 2.5em; line-height: 2em; text-align: left; color: #478FEB">
 							아래의 지점 리스트에서 선택해주세요.</div>
 						<div class="mem-data"><input type="text" id="apply_addr" name="apply_addr" value="" /></div>
 						<div class="mem-data"><input type="text" id="apply_product" name="apply_product" value="" /></div>
@@ -303,19 +281,17 @@
 					</div>
 					<div class="form-condata">
 						<div class="con-data"><input type="date" id="apply_start" name="apply_start" /><br>
-											<p style="color: gray; font-size: 8pt; line-height: 1em; margin: 0.4em 0em 0em; color: red;">
+											<p style="color: gray; font-size: 8pt; line-height: 1.2em; margin: 0.4em 0em 0em; color: red;">
 											*보관 이사 신청 시 픽업을 원하는 날짜를 선택해주세요.<br>
 											 단순 출고의 경우에도 꼭! 출고날짜와 동일한 날짜를 선택해주세요.</p></div>
 						<div class="con-data"><input type="date" id="apply_end" name="apply_end" /><br>
 											<p style="color: gray; font-size: 8pt;">*보관 물품을 출고할 날짜를 선택해주세요.</p></div>
-						<div class="con-data"><select id="apply_whether" name="apply_whether">
+						<div class="con-data" style="margin-top:0.5em;"><select id="apply_whether" name="apply_whether">
 							<option value="N">N</option>
 							<option value="Y">Y</option>
 						</select></div>
 					</div>
 				</div>
-				<div style="text-align: left; color: red; font-size: 9pt; margin: 0.8em 0em 0.4em;">*지점 선택의 경우 이용 중인 지점이 없으신 고객이시거나, 이용 지점을 기존과 다른 곳으로 원하시는 경우에만 선택해주세요.<br>
-																									&nbsp;&nbsp;선택하신 지점은 이용 희망 지점 칸에 보여집니다.</div> <br><br>
 				<div class="store-pick">
 					<div class="store-list">
 						<h4 id= "choice-store" align="left" style="margin-top:10px; margin-bottom:6px;">지점 리스트&nbsp;&nbsp;&nbsp;
