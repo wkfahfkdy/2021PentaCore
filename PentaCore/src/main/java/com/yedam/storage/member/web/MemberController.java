@@ -289,9 +289,11 @@ public class MemberController {
 		double rValue = Math.random();
 		String code = Double.toString(rValue);
 		String textCode = code.substring(2, 7);
-
-		String api_key = "NCSNG1P220XTIHP6";
-		String api_secret = "VMA43NXXJJYXDZVE9IHBTSIETSXHBKTO";
+		
+		
+		String api_key = ""; //NCSNG1P220XTIHP6
+		String api_secret = "";  //VMA43NXXJJYXDZVE9IHBTSIETSXHBKTO
+		
 		Message coolsms = new Message(api_key, api_secret);
 
 		HashMap<String, String> params = new HashMap<String, String>();
