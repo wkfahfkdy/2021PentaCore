@@ -95,8 +95,8 @@
 				
 				<!-- === slide image === -->	
                 <img class="" src="${pageContext.request.contextPath }/resources/main/main1.png"
-				data-src="resources/main/main1.png"
-				data-retina="resources/main/main1.png" 
+				data-src="${pageContext.request.contextPath }/resources/main/main1.png"
+				data-retina="${pageContext.request.contextPath }/resources/main/main1.png" 
 				style="height:100%; margin-left: px; margin-left:0;"alt="" />
 				
 				<!-- === slide container === -->	
@@ -110,8 +110,8 @@
 				
 				<!-- === slide image === -->	
                 <img class="sp-image" src="${pageContext.request.contextPath }/resources/main/main5.png"
-				data-src="resources/main/main5.png"
-				data-retina="resources/main/main5.png" 
+				data-src="${pageContext.request.contextPath }/resources/main/main5.png"
+				data-retina="${pageContext.request.contextPath }/resources/main/main5.png" 
 				style="height:100%; margin-left: px; margin-left:0;"alt="" />
 				
 				<!-- === slide container === -->	
@@ -126,8 +126,8 @@
 				
 				<!-- === slide image === -->	
                 <img class="sp-image" src="${pageContext.request.contextPath }/resources/main/main6.png"
-				data-src="resources/main/main6.png"
-				data-retina="resources/main/main6.png" 
+				data-src="${pageContext.request.contextPath }/resources/main/main6.png"
+				data-retina="${pageContext.request.contextPath }/resources/main/main6.png" 
 				style="height:100%; margin-left: px; margin-left:0;"alt="" />
 				
 				<!-- === slide container === -->	
