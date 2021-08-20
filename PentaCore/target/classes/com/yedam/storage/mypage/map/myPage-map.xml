@@ -60,6 +60,14 @@
 		AND store_code = #{store_code}
 	</select>
 	
+	<!-- 사용자가 프리미엄 서비스 추가 신청할 때 -->
+	<update id="regPre" parameterType="MyPageVO">
+		UPDATE offer 
+		SET offer_premium='Y', offer_price = offer_price + 5000
+		WHERE offer_code = #{offer_code}
+		
+	</update>
+	
 	<!-- 사용자가 저장한 셀프 견적서 내역 -->
 	<select id="offerSelectList" resultType="MyPageVO" parameterType="MyPageVO">
 		SELECT o.*, s.store_name
@@ -86,11 +94,13 @@
 	</select>
 	
 	<!-- 셀프 견적서 결제 시 'Y'  -->
-	<update id="goPayY" parameterType="com.yedam.storage.offer.vo.OfferVO">
-		UPDATE 	OFFER 
-		SET 	OFFER_PAY = 'Y' 
-		WHERE 	OFFER_CODE = #{offer_code}
-	</update>
+	<select id="goPayY" parameterType="com.yedam.storage.offer.vo.OfferVO" statementType="CALLABLE">
+		{
+			CALL add_use_storage (
+				#{offer_code}
+			)
+		}
+	</select>
 	
 	<!-- 사용자가 신청한 운송 신청 내역 -->
 	<select id="conveyListAll" resultType="MyPageVO" parameterType="MyPageVO">

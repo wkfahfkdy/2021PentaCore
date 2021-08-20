@@ -17,6 +17,7 @@ public interface StoreAdminMapper {
 	public List<StoreAdminVO> selectOfferInfo(StoreAdminVO vo);
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo);
 	public int updateUseStorage(StoreAdminVO vo);
+	public void updateUseProcedure(StoreAdminVO vo);
 	public StoreVO storeTemHumInfo(StoreVO vo);
 	public int storeTemHumUpdate(StoreVO vo);
 	

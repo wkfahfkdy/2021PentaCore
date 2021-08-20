@@ -67,6 +67,12 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return map.updateUseStorage(vo);
 	}
 	
+	// 위엣놈 실행되면 돌아가는 놈
+	@Override
+	public void updateUseProcedure(StoreAdminVO vo) {
+		map.updateUseProcedure(vo);
+	}
+	
 	@Override
 	public int storeTemHumUpdate(StoreVO vo) {
 		return map.storeTemHumUpdate(vo);

@@ -65,6 +65,7 @@
 	AND U.STORE_CODE = #{store_code}
 	AND O.STORAGE_CODE = #{storage_code}
 	AND U.INFO_NUM IS NULL
+	AND U.USE_END > TRUNC(SYSDATE)
 	ORDER BY U.USE_NUM ASC
 </select>
 
@@ -83,6 +84,15 @@
 	SET INFO_NUM = #{info_num} 
 	WHERE OFFER_CODE = #{offer_code}
 </update>
+
+<!-- updateUseStorage 실행 후 동작될 프로시저  -->
+<select id="updateUseProcedure" parameterType="StoreAdminVO" statementType="CALLABLE">
+	{
+		CALL update_use_storage (
+			#{info_num}
+		)
+	}
+</select>
 
 <select id="storeTemHumInfo" parameterType="com.yedam.storage.store.vo.StoreVO" resultType="com.yedam.storage.store.vo.StoreVO">
 	SELECT HUMIDITY, TEMPERATURE, STORE_NAME

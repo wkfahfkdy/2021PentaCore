@@ -17,6 +17,8 @@ public interface MyPageMap {
 	
 	public List<MyPageVO> noticeSelectList();
 	public List<MyPageVO> usedStorageList();
+	// 프리미엄 서비스 추가 신청
+	public void regPre(MyPageVO vo);
 	
 	// 마이페이지 첫화면 중 이용중인 스토리지 모두 보기 클릭 시
 	public List<MyPageVO> TotalUseStorageListInfo(MyPageVO vo);
@@ -28,7 +30,7 @@ public interface MyPageMap {
 	// 견적서 상세 조회
 	public List<MyPageVO> myOfferSelect(MyPageVO vo);
 	// OFFER_PAY 값 'Y'로 update
-	public int goPayY(OfferVO vo);
+	public void goPayY(OfferVO vo);
 	
 	//--------------물품 운송 페이지-----------------
 	

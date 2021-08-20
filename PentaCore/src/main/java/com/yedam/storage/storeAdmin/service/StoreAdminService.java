@@ -22,6 +22,8 @@ public interface StoreAdminService {
 	public List<StoreAdminVO> unUseStorageList(StoreAdminVO vo);
 	// use_storage update 작업
 	public int useStroageUpdate(StoreAdminVO vo);
+	// 위에꺼 실행 후 동작 되는 프로시저
+	public void updateUseProcedure(StoreAdminVO vo);
 	// 온습도 정보 select
 	public StoreVO storeTemHumInfo(StoreVO vo);
 	// 온습도 정보 update

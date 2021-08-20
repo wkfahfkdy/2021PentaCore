@@ -96,7 +96,9 @@ public class StoreAdminController {
 	// use_storage 업데이트
 	@RequestMapping("store/updateUseStorage")
 	public String updateUseStorage(@RequestParam("store_code") String store_code , StoreAdminVO vo, RedirectAttributes red) {
+		System.out.println("fdsfsdf====" + vo.getInfo_num());
 		storeService.useStroageUpdate(vo);
+		storeService.updateUseProcedure(vo);
 		red.addAttribute("store_code", store_code);
 		return "redirect:storageInfo";
 	}

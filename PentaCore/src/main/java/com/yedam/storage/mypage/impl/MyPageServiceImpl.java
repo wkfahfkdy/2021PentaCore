@@ -47,6 +47,12 @@ public class MyPageServiceImpl implements MyPageService {
 		// 사용자가 이용 중인 지점에 대한 리뷰를 작성했는지 체크
 		return sqlSession.selectOne("userReview", vo);
 	}
+	
+	@Override
+	public void regPre(MyPageVO vo) {
+		// 프리미엄 서비스 추가 신청
+		sqlSession.update("regPre", vo);
+	}
 
 	// 마이페이지 중 이용중인 스토리지 모두 보기 클릭시
 	@Override
@@ -68,9 +74,9 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	@Override
-	public int goPayY(OfferVO vo) {
+	public void goPayY(OfferVO vo) {
 		// OFFER_PAY 값 'Y'로 update
-		return sqlSession.update("goPayY", vo);
+		sqlSession.selectOne("goPayY", vo);
 	}
 
 	//--------------물품 운송 페이지-----------------		
@@ -199,5 +205,4 @@ public class MyPageServiceImpl implements MyPageService {
 		// 세탁 처리 내역 상세
 		return sqlSession.selectOne("myLaundrySelect", vo);
 	}
-
 }
