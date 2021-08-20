@@ -40,7 +40,6 @@ public class MyPageController {
 		
 		useStorage = MyPageDAO.useStorage(vo);
 		System.out.println(useStorage);
-		System.out.println("1234");
 		
 		if(useStorage != null) {
 			vo.setStore_code(s_code);
@@ -57,6 +56,13 @@ public class MyPageController {
 			model.addAttribute("useService", useService);
 		}
 		return "myPage/myPageInfo";
+	}
+	
+	// 프리미엄 서비스 추가 신청
+	@ResponseBody
+	@RequestMapping("regPre")
+	public void regPre(MyPageVO vo) {
+		MyPageDAO.regPre(vo);
 	}
 	
 	//---------------------------------견적서 내역 페이지-----------------------------------------
@@ -84,11 +90,8 @@ public class MyPageController {
 	// offer_pay 값 'Y'로 update
 	@RequestMapping("goPayY")
 	@ResponseBody
-	public int goPayY(OfferVO vo) {
-		int cnt = 0;
-		cnt = MyPageDAO.goPayY(vo);
-		
-		return cnt;
+	public void goPayY(OfferVO vo) {
+		MyPageDAO.goPayY(vo);
 	}
 	
 	//---------------------------------물품 운송 신청 페이지-----------------------------------------

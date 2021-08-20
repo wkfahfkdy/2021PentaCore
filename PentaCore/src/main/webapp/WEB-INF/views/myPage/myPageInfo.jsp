@@ -77,7 +77,7 @@
 		display: flex;
 	}
 
-	.review-btn{
+	.review-btn, #reg-Pre {
 		background-color: #478FEB;
 		border-color: #478FEB;
 		border-radius: 0.3em;
@@ -123,6 +123,29 @@
 	}
 	
 </style>
+<script>
+function regPre() {
+	var offer_code = $('form[id=frm]').serialize();
+	console.log(offer_code);
+	
+	if(confirm('프리미엄 서비스를 신청하시겠습니까? 해당 서비스는 월 5,000원의 이용료가 추가되며, 신청 시 익월 이용요금에 추가되어 결제됩니다.')) {
+		$.ajax({
+			url: 'regPre',
+			type: 'POST',
+			data: offer_code,
+			success: function() {
+				alert('신청이 완료되었습니다.');
+				location.reload();
+			},
+			error: function(xhr, status, msg) {
+				alert('신청에 실패하였습니다. 반복될 시 관리자에게 문의 바랍니다. 상태값 : ' + status + '에러 메시지 : ' + msg);
+			}
+		})
+	}else {
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 	<div class="wrap">
@@ -198,12 +221,28 @@
 								<c:choose>
 									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'N' }">
 										<b>이용 중인 서비스가 없습니다.</b>
+										<br>
+										<hr>
+										<p style="color: gray;">보관 중인 내 물건,<br>
+										잘 있는지 궁금하다면?</p>
+										<form id="frm">
+											<input type="hidden" name="offer_code" id="offer_code" value="${useInfo.offer_code }" />
+											<button type="button" id="reg-Pre" onclick="regPre()">프리미엄 서비스 신청</button>
+										</form>
 									</c:when>
 									<c:when test="${useInfo.offer_wash eq 'N' and useInfo.offer_premium eq 'Y' }">
 										<a href="conditionReport" style="font-size: 12pt;">물품 컨디션 보고서 조회</a><br>
 									</c:when>
 									<c:when test="${useInfo.offer_wash eq 'Y' and useInfo.offer_premium eq 'N' }">
-										<a href="myLaundry" style="font-size: 12pt;">세탁 물품 처리 현황</a>
+										<a href="myLaundry" style="font-size: 12pt;">세탁 물품 처리 현황</a><br>
+										<br>
+										<hr>
+										<p style="color: gray;">보관 중인 내 물건,<br>
+										잘 있는지 궁금하다면?</p>
+										<form id="frm">
+											<input type="hidden" name="offer_code" id="offer_code" value="${useInfo.offer_code }" />
+											<button type="button" id="reg-Pre" onclick="regPre()">프리미엄 서비스 신청</button>
+										</form>
 									</c:when>
 									<c:otherwise>
 										<div class="premium-row">
