@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -219,7 +221,6 @@ public class MemberController {
 				cnt = 1;
 			}
 			
-			System.out.println("fasfasfasdgasdgsadgsdagsadgsdg           " + cnt);
 			return cnt;
 			
 			
@@ -469,10 +470,57 @@ public class MemberController {
 		// ------------------------------- 회원탈퇴 ------------------------------ //
 		
 		// 로그인 페이지 이동
-		@RequestMapping("memberSignOut")
+		@RequestMapping("memberSignOutForm")
 		public String memberSignOut(HttpServletRequest request, Model model) {
-
-			return "member/memberSignOut";
+			
+			return "member/memberSignOutForm";
 		}
 		
+		//회원탈퇴해도 되는지 체크
+		@RequestMapping("signOutVerifyCheck")
+		@ResponseBody
+		public String signOutVerifyCheck(HttpServletRequest request) {
+			
+			
+			String member_id = request.getParameter("member_id");
+			String check = "";
+			
+			
+			/*if () {
+				
+				
+				check ="pass";
+				
+			}
+			*/
+			
+
+			return "check";
+		}
+		
+		//회원탈퇴
+		@RequestMapping("memberSignOut")
+		public String memberSignOut(MemberVO vo, HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+		    //아이디 가져오기
+			String id = (String) session.getAttribute("loginId");
+			vo.setMember_id(id);
+			
+			
+			MemberVO rvo = memberDAO.getPwd(vo);
+			String getEncodedPwd = rvo.getMember_pwd();
+			
+			
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			
+			if( encoder.matches(vo.getMember_pwd(),getEncodedPwd) ) {
+				
+				memberDAO.memberSignOut(vo);
+				SecurityContextHolder.clearContext();
+			}
+			
+			return "redirect:home";
+		} 
+			
 }

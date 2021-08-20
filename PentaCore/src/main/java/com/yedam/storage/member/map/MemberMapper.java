@@ -44,4 +44,8 @@ public interface MemberMapper {
 	public String empStoreCode(String p);
 	//tour member_id값
 	public MemberVO tourMemberName(String p);
+	
+	//회원탈퇴
+	public MemberVO getPwd(MemberVO vo);
+	public int memberSignOut(MemberVO vo);
 }

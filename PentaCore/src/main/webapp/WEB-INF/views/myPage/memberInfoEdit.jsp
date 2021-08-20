@@ -350,7 +350,7 @@ private String member_disable;
 						
 						<div style="margin-bottom: 10%;">
 						<button class="btn btn-primary btn-lg" type="button" onclick="formCheck()">정보수정</button> &nbsp; &nbsp;
-						<button class="btn btn-default btn-lg" type="button" onclick="location.href='${pageContext.request.contextPath }/home'" >탈퇴하기</button>
+						<button class="btn btn-default btn-lg" type="button" onclick="location.href='memberSignOutForm'" >탈퇴하기</button>
 						</div>
 					</div>
 			</div>
