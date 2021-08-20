@@ -128,6 +128,7 @@
 	<div class="wrap">
 		<div>
 			<h3>${loginName } 님:)</h3>
+			<a href="TotalUseStorageListInfo?member_id=${loginId }" style="font-size: 9pt;">이용중인 스토리지 모두 보기</a>
 		</div><br>
 		<div class="using-service">
 			<c:choose>

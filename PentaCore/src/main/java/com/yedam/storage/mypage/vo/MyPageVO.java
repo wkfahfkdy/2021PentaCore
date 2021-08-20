@@ -116,6 +116,9 @@ public class MyPageVO {
 	private String condition_title;
 	private String condition_comment;
 	
+	// 온습도 추가
+	private int humidity;
+	private int temperature;
 	// 투어 취소에 필요: Grid Api
 	private List<MyPageVO> updatedRows;
 }
