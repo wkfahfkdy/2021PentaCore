@@ -137,20 +137,24 @@ private String member_disable;
 	
 	<!-- 회원탈퇴 -->
 	<select id="getPwd" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
-	select member_pwd from member where member_id=#{member_id}
+		select member_pwd from member where member_id=#{member_id}
 	</select>
 	
-	<!-- 
-	값 나오면 탈퇴못함 
-	select * from use_storage where member_id = 'user8' and use_end >= sysdate;
-	값 나오면 탈퇴못함
-	select * from tour where member_id = 'dongdong' and tour_date >= sysdate;
+	<!-- 값 나오면 탈퇴불가 -->
+	<select id="signOutStorageCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
+		select * from use_storage where member_id = #{member_id} and use_end >= sysdate
+	</select>
 	
+	<!-- 값 나오면 탈퇴불가 -->
+	<select id="signOutTourCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
+		select * from tour where member_id = #{member_id} and tour_date >= sysdate
+	</select>
 	
-	값 나오면 탈퇴못함
-	select member_id,apply_end from convey_apply a join convey_list l on a.apply_code = l.apply_code
-	where member_id = 'user7' and apply_end >= sysdate ;
-	 -->
+	<!-- 값 나오면 탈퇴불가 -->
+	<select id="signOutConveyCheck" parameterType="com.yedam.storage.member.vo.MemberVO" resultType="com.yedam.storage.member.vo.MemberVO">
+		select member_id,apply_end from convey_apply a join convey_list l on a.apply_code = l.apply_code
+		where member_id = #{member_id} and apply_end >= sysdate
+	</select>
 	
 	<update id="memberSignOut" parameterType="com.yedam.storage.member.vo.MemberVO"> 
 		update member set member_disable='Y' where member_id=#{member_id}

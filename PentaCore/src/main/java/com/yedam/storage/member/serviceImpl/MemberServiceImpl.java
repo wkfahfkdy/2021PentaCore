@@ -1,6 +1,7 @@
 package com.yedam.storage.member.serviceImpl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
@@ -147,14 +148,22 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getPwd(MemberVO vo) {
 		return sqlSession.selectOne("getPwd", vo);
 	}
+	@Override
+	public List<MemberVO> signOutStorageCheck(MemberVO vo) {
+		return sqlSession.selectList("signOutStorageCheck", vo);
+	};
+	@Override
+	public List<MemberVO> signOutTourCheck(MemberVO vo) { 
+		return sqlSession.selectList("signOutTourCheck", vo);
+	};
+	@Override
+	public List<MemberVO> signOutConveyCheck(MemberVO vo) {
+		return sqlSession.selectList("signOutConveyCheck", vo);
+	};
 	
 	@Override
 	public int memberSignOut(MemberVO vo) {
 		return sqlSession.update("memberSignOut",vo);
 	}
 	
-
-
-	
-
 }
