@@ -77,8 +77,8 @@
 		<div>
 			<h3>${loginName } 님의 이용중인 스토리지 리스트</h3>
 		</div><br>
-		<div class="using-service">
-			<c:forEach items="${totalUseStorageList }" var="totalList">
+		<c:forEach items="${totalUseStorageList }" var="totalList">
+			<div class="using-service">
 				<div class="using-storage">
 					<table>
 						<tr>
@@ -160,8 +160,8 @@
 						</c:choose>
 					</div>
 				</div>
-			</c:forEach>
-		</div>
+			</div>
+		</c:forEach>
 	</div>
 </body>
 </html>

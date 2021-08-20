@@ -39,9 +39,12 @@
 	</select>
 	<!-- 사용자가 이용 중인 정보의 고유번호 조회 -->
 	<select id="useStorage" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT info_num
-		FROM use_storage
-		WHERE member_id = #{member_id}
+		SELECT 		info_num
+		FROM 		USE_STORAGE 
+		WHERE 		MEMBER_ID = #{member_id}
+		AND 		ROWNUM = 1
+		AND 		INFO_NUM IS NOT NULL
+		ORDER BY 	USE_END ASC
 	</select>
 	
 	<!-- 사용자가 이용 중인 지점명 및 이용 중인 스토리지 고유넘버 조회 -->

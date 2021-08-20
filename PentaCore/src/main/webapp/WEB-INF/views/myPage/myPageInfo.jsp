@@ -156,7 +156,7 @@ function regPre() {
 		<div class="using-service">
 			<c:choose>
 				<c:when test="${!empty usedStorageList }">
-					<c:forEach items="${usedStorageList }" var="useInfo">
+					<c:forEach items="${usedStorageList }" var="useInfo" end="0">
 						<div class="using-storage">
 							<table>
 								<tr>
