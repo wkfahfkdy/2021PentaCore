@@ -151,38 +151,40 @@ $(this).next().css('display', 'inline-block');
 
 </script>
 
+<!-- 회원탈퇴 버튼 클릭 -->
 <script>
 function signOut() {
 	
-	var member_id = ${loginId};
+	var id = '${loginId}';
 	
 	$.ajax({
 		url : 'signOutVerifyCheck',
 		data : {
-			member_id : member_id
+			member_id : id
 		},
 		type : 'post',
 		success : function(check) {
+			console.log(check);
 			if (check == 'pass') {
+				alert('정상적으로 탈퇴되었습니다.');
 				frm.submit();
 			} else {
-				alert('이용중인 서비스가 있어 탈퇴가 불가합니다. 서비스 해지를 원하실 시 관리자에게 문의해주시기 바랍니다.');
-			}
+				alert('이용중인 서비스가 있어 탈퇴가 불가합니다. 서비스 해지를 원하실 시 관리자에게 문의해주시기 바랍니다.');		
+		}
 		},
 		error : function(err) {
 			alert('에러가 발생했습니다. 관리자에게 문의해주세요.');
 		}
-	});
-	
-		
+	})
 }
 
 </script>
 
 </head>
 <body>
-<form id="frm" action="memberSignOut" method="post">
+
 	<div class="wrap">
+		<form id="frm" action="memberSignOut" method="post">
 		<div>
 			<h1>회원탈퇴</h1>
 		</div><br>
@@ -207,19 +209,18 @@ function signOut() {
 									</ul>
 						
 						</div>
-						
-						
+				</form>		
 		<div class="using-service">
 			
 			<div class="func-btns">
 			<div align="center" style="display: inline-block;">
 				<div class="btns-range-top" >
-					<button class="btns" onclick="location.href='signOut()'">탈퇴</button>
+					<button class="btns" onclick='signOut()'>탈퇴</button>
 				</div>
 				</div>
 			</div>
 		</div>
 		</div>
-		</form>
+		
 </body>
 </html>

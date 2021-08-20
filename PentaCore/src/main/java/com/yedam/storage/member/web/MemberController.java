@@ -290,16 +290,16 @@ public class MemberController {
 		String code = Double.toString(rValue);
 		String textCode = code.substring(2, 7);
 
-		String api_key = "";
-		String api_secret = "";
+		String api_key = "NCSNG1P220XTIHP6";
+		String api_secret = "VMA43NXXJJYXDZVE9IHBTSIETSXHBKTO";
 		Message coolsms = new Message(api_key, api_secret);
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("to", targetNum);
 		params.put("from", "01029532154");
 		params.put("type", "SMS");
-		params.put("text", "인증번호를 입력해주세요: " + textCode);
-		params.put("yedamLib", "yedamLib v1.0"); // application name and version
+		params.put("text", "[My Storage 휴대폰 인증코드] 입력하실 코드는 " + textCode + " 입니다.");
+		params.put("myStorage", "myStorage v1.0"); // application name and version
 
 		System.out.println(params.get("text"));
 
@@ -479,23 +479,23 @@ public class MemberController {
 		//회원탈퇴해도 되는지 체크
 		@RequestMapping("signOutVerifyCheck")
 		@ResponseBody
-		public String signOutVerifyCheck(HttpServletRequest request) {
+		public String signOutVerifyCheck(MemberVO vo, HttpServletRequest request) {
 			
 			
 			String member_id = request.getParameter("member_id");
+			vo.setMember_id(member_id);
+			
 			String check = "";
 			
 			
-			/*if () {
-				
+			if (memberDAO.signOutStorageCheck(vo) != null || 
+					memberDAO.signOutTourCheck(vo) != null ||
+					memberDAO.signOutConveyCheck(vo) != null) {
 				
 				check ="pass";
-				
 			}
-			*/
-			
 
-			return "check";
+			return check;
 		}
 		
 		//회원탈퇴

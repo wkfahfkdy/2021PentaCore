@@ -26,8 +26,8 @@ public class SendEmail extends HttpServlet {
 //사용자에게 보낼 메시지를 기입합니다.
 		String host = "http://13.124.174.114:8080/storage/home";
 		String from = "wjsgudals6@gmail.com";
-		String to = request.getParameter("email");
-		String subject = "My Storage 회원가입을 위한 코드 확인 메일입니다.";
+		String to = request.getParameter("MS"+"email");
+		String subject = "[My Storage] 이메일 인증 코드";
 		String code = new SHA256().getSHA256(to);
 		String content = "입력하실 코드는 " + code + " 입니다.";
 

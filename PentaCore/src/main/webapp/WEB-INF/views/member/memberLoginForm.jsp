@@ -658,8 +658,8 @@ $(function() {
 									src="${pageContext.request.contextPath }/resources/img/all_logo.png">
 								</div>
 				            
-				                <span onclick="document.getElementById('id01').style.display='none'" class="close"
-				                    title="Close Modal">&times;</span>
+				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
+				                    title="Close Modal">&times;</span>   
 				                <h5>비밀번호 찾기 · 휴대전화 인증</h5>
 				            </div>
 				            <br><br>

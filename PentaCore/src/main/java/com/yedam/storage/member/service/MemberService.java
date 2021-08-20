@@ -2,6 +2,7 @@ package com.yedam.storage.member.service;
 
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.yedam.storage.member.vo.MemberVO;
 import com.yedam.storage.mypage.vo.MyPageVO;
@@ -46,5 +47,8 @@ public interface MemberService {
 		
 		//회원탈퇴
 		public MemberVO getPwd(MemberVO vo);
+		public List<MemberVO> signOutStorageCheck(MemberVO vo);
+		public List<MemberVO> signOutTourCheck(MemberVO vo);
+		public List<MemberVO> signOutConveyCheck(MemberVO vo);
 		public int memberSignOut(MemberVO vo);
 }

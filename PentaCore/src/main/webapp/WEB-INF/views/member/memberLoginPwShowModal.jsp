@@ -144,6 +144,43 @@ private String member_disable;
                 width: 100%;
             }
         }
+        
+        #member_pwd, #member_pwd2, #member_pwd3 {
+		   	background-color: #fff;
+		    border: solid 1px #999;
+		    border-radius: 3px;
+		   	padding: 18px 19px;
+		    font-family: Montserrat;
+		    font-size: 13px;
+		    font-weight: 400;
+		}
+		#member_id {
+		   	background-color: #fff;
+		    border: solid 1px #999;
+		    border-radius: 3px;
+		   	padding: 18px 19px;
+		    font-family: Montserrat;
+		    font-size: 13px;
+		    font-weight: 400;
+		}
+		
+		.btnLogin  {
+			width: 400px;
+			background: #478FEB; 
+			color: white;
+		    border-radius: 3px;
+		   	padding: 18px 20px;
+		}
+		
+		.form-control {
+		   	background-color: #fff;
+		    border: solid 1px #999;
+		    border-radius: 3px;
+		   	padding: 18px 19px;
+		    font-family: Montserrat;
+		    font-size: 13px;
+		    font-weight: 400;
+		}
 </style>
 
 
@@ -534,132 +571,114 @@ $(function() {
 						<!-- =================================== 로그인 Form ======================================== -->
 						<div align="center">
 							<div>
-								<h2>
-									<b>로그인</b>
-								</h2>
-								<br>
+							<div align="center" style="padding-top: 8%;">
+								<img  style="width: 250px;" 
+								src="${pageContext.request.contextPath }/resources/img/all_logo.png">
 							</div>
+							<br>
+							</div>
+							<div style="padding-top: 30px;">
 							<form name="frmMember" id="frm" action="memberLoginIdCheck" method="post">
-								<input type="text" id="member_id" name="member_id"
-									placeholder="ID" value=""> 
-								<input type="password" id="member_pwd" name="member_pwd" 
-								placeholder="PASSWORD" onkeyup=
-									"if(window.event.keyCode==13) {loginCheck()}" value="">
 								<div>
-									<br>
-									<button class="btn btn-light" type="button"
-										onclick="loginCheck()"
-										style="width: 370px; background: #89ba10; color: white;">로그인</button>
-									<br> <br>
-									<br> <br>
-								</div>
+								<input type="text" id="member_id" name="member_id"
+									placeholder="ID" value="ID" onfocus="this.value=''" size= "50" > </div><br>
+								<div>
+								<input type="password" id="member_pwd" name="member_pwd" value="PASSWORD" onfocus="this.value=''"
+								placeholder="PASSWORD" onkeyup=
+									"if(window.event.keyCode==13) {loginCheck()}" 
+									size= "50"></div>
+								<c:if test="${errorMsg != null }">
+									<p style="color:red">${errorMsg }</p>
+								</c:if>
+								<div>
+									<br><br>
+									<button class="btnLogin" type="button" onclick="loginCheck()">로그인</button>
+								
 							</form>
-									<span onclick="document.getElementById('id01').style.display='block'" style="width:auto;">아이디 찾기 | </span> 
-									<span onclick="document.getElementById('pw01').style.display='block'" style="width:auto;">비밀번호 찾기 | </span> 
-									<span onclick="location.href='memberJoinForm'">회원가입 </span>
-									<br> <br>
-									<br> <br>
+							</div> <br>
+									<span onclick="document.getElementById('id01').style.display='block'" style="width:auto; cursor:pointer;">아이디 찾기 · </span> 
+									<span onclick="document.getElementById('pw01').style.display='block'" style="width:auto; cursor:pointer;">비밀번호 찾기 </span> 
+									<span>　　　　　　　　　　　　　　</span>
+									<span onclick="location.href='memberJoinForm'" style="cursor:pointer;"> <b>회원가입</b> </span>
 						</div>
+						<div style="padding-bottom: 12%"></div>
 						
 						<!-- =================================== 아이디 찾기 모달 ======================================== -->
 						<div id="id01" class="modal" align ="center">
 				        <form id="idModal"  name="idModal" class="modal-content animate" action="memberLoginIdShowModal" method="post">
 				            <div class="imgcontainer">
+   								<div align="center" style="padding-top: 6%;">
+									<img  style="width: 250px;" 
+									src="${pageContext.request.contextPath }/resources/img/all_logo.png">
+								</div>
+				            
 				                <span onclick="document.getElementById('id01').style.display='none'" class="close"
 				                    title="Close Modal">&times;</span>
-				                <h3>아이디 찾기</h3>
-				                <h5>회원정보에 등록한 이메일로 인증</h5>
+				                <h5>아이디 찾기 · 이메일 인증</h5>
+				                
 				            </div>
-				            <br><br>
+				            <br>
 				
 				            <div align="center">
 				            <table style="border:1; border-collapse:collapse;">
 				            
 				            <tr>
-							<th width="100">이름</th>
-							<td width="100">
-							<input class="form-control" type="text" id="member_name"
-								name="member_name"></td>
+							<td width="300" style=" height: 60px;">
+							<input class="form-control" type="text" id="member_name" placeholder="이름" value="" onfocus="this.value=''" name="member_name"
+									style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 							<td></td>
 							</tr>
 							
 							<tr>
-							<th width="100">이메일</th>
-							<td id="member_email_input"  width="300" >
-	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" value="">
+							<td id="member_email_input"  style="width: 100px; height: 60px;">
+	 						<input class="form-control" type="text" placeholder="user@mystorage.com" id="member_email" name="member_email" 
+	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">	
 	 						</td>
 	 						<td>
-	 						<button class="btn btn-light" type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
+	 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="sendEmail" value="unChecked">인증코드 전송</button>
 							</td>
 	 						</tr>
 	 						
 	 						<tr>
-	 						<th></th>
-	 						<td width="300">
-	 						<input class="form-control" type="text" placeholder="이메일 인증코드" id="emailCode" value="">
+	 						<td width="300" style="width: 100px; height: 60px;">
+	 						<input class="form-control" type="text" placeholder="이메일 인증코드" id="emailCode" value=""
+	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 	 						</td>
 	 						<td>
-	 						<button class="btn btn-light" type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
+	 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="checkEmail" value="unChecked">인증코드 확인</button>
 							</td>
 							</tr>
 				            </table>
 				            
-				            <br><br><br>
+				            <br><br>
 				            
 				            </div>
 				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm" id="findId" >아이디 찾기</button>
+							<button class="btn btn-primary btn-lg" id="findId" >아이디 찾기</button> &nbsp;&nbsp;
+				            <button class="btn btn-default btn-lg" type="button" onclick="document.getElementById('id01').style.display='none'"
+				               class="cancelbtn">닫기</button>
 							</div>
 				
-				            <br><br>
+				            <br><br><br>
 				            
-				            <button type="button" onclick="document.getElementById('id01').style.display='none'"
-				               class="cancelbtn">Cancel</button>
 				            
 				        </form>
 					</div>
 				
-					<%-- <!-- =================================== 아이디 보여주기 ======================================== -->
-					
-					<div id="idShow" class="modal" align ="center">
-				        <form id="idShowModal"  name="idShowModal" class="modal-content animate" action="" method="post">
-				            <div class="imgcontainer">
-				                <span id="closeIdShow" onclick="closeModal()" class="close"
-				                    title="Close Modal">&times;</span>
-				                <h3>아이디 찾기</h3>
-				                <br>
-				                <h5>회원님의 아이디는 아래와 같습니다.</h5>
-				            </div>
-				            <br><br>
-				
-				            <div align="center">
-				            <table style="border:1; border-collapse:collapse;">
-				            
-							<tr>
-							<th width="150">아이디</th>
-							<td width="300" ><span class="input-group-text"
-										id="inputGroup-sizing-sm"> ${modalId} </span></td>
-							</tr>
-							
-				            </table>
-				
-				            <br><br>
-				            
-				            <button type="button" onclick="document.getElementById('idShow').style.display='none'"
-				               class="cancelbtn">Cancel</button>
-				            </div>
-				        </form>
-					</div> --%>
 				    
 				   <!-- =================================== 패스워드 찾기 모달 ======================================== -->
 				   
 				    <div id="pw01" class="modal" align ="center">
 				        <form id="pwModal" name="pwModal" class="modal-content animate" action="memberLoginPwShowModal" method="post">
 				            <div class="imgcontainer">
+   								<div align="center" style="padding-top: 3%;">
+									<img  style="width: 250px;" 
+									src="${pageContext.request.contextPath }/resources/img/all_logo.png">
+								</div>
+				            
 				                <span onclick="document.getElementById('pw01').style.display='none'" class="close"
-				                    title="Close Modal">&times;</span>
-				                <h3>비밀번호 찾기</h3>
-				                <h5>회원정보에 등록한 휴대전화로 인증</h5>
+				                    title="Close Modal">&times;</span>   
+				                <h5>비밀번호 찾기 · 휴대전화 인증</h5>
 				            </div>
 				            <br><br>
 				
@@ -667,34 +686,33 @@ $(function() {
 				            <table style="border:1; border-collapse:collapse;">
 				            
 				            <tr>
-							<th width="100">이름</th>
-							<td width="300" colspan="2">
-							<input class="form-control" type="text" id="member_name2"
-								name="member_name2"></td>
+							<td width="300" colspan="2" style="width: 100px; height: 60px;">
+							<input class="form-control" type="text" id="member_name2"name="member_name2" placeholder ="이름" 
+									style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;"></td>
 							</tr>
 							<tr>
-							<th width="100">아이디</th>
-							<td width="300" colspan="2">
-	 						<input class="form-control" type="text" id="member_id2" name="member_id2">
+							<td width="300" colspan="2" style=" height: 60px;">
+	 						<input class="form-control" type="text" id="member_id2" name="member_id2" placeholder ="ID" 
+	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 	 						</td>
 	 						</tr>
 						
 							<tr>
-							<th width="100">휴대폰 번호</th>
-							<td width="350" colspan="2"><input class="form-control" type="text" id="member_tel"
-								name="member_tel" placeholder ="'-'없이 숫자만 입력" >
+							<td width="350" colspan="2" style=" height: 60px;"><input class="form-control" type="text" id="member_tel"
+								name="member_tel" placeholder ="휴대폰번호 '-'없이 숫자만 입력" 
+								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 							</td>
 							<td>
-								<button class="btn btn-light" type="button" id="sendSMS" value="unChecked">인증번호 전송</button>
+								<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="sendSMS" value="unChecked">인증번호 전송</button>
 							</td>
 							</tr>
 							<tr>
-							<th></th>
-							<td width="350" colspan="2">
-	 						<input class="form-control" type="text" placeholder="문자 인증번호" id="smsKey" value="">
+							<td width="350" colspan="2" style="height: 60px;">
+	 						<input class="form-control" type="text" placeholder="문자 인증번호" id="smsKey" value=""
+	 								style="background-color: #fff; border: solid 1px #999; border-radius: 3px; padding: 18px 19px; font-family: Montserrat; font-size: 13px; font-weight: 400;">
 	 						</td>
 	 						<td>
-	 						<button class="btn btn-light" type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
+	 						<button class="btn btn-default" style="margin-left: 10%; height: 60%;"  type="button" id="checkSMS" value="unChecked">인증번호 확인</button>
 							</td>
 							</tr>
 							
@@ -703,13 +721,14 @@ $(function() {
 				            <br><br>
 				            </div>
 				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm" id="findPw">비밀번호 찾기</button>
+							<button class="btn btn-primary btn-lg" id="findPw">비밀번호 찾기</button>&nbsp;&nbsp;
+							<button type="button" onclick="document.getElementById('pw01').style.display='none'"
+				               class="btn btn-default btn-lg">닫기</button>
 							</div>
 				
 				            <br><br>
 				            
-				            <button type="button" onclick="document.getElementById('pw01').style.display='none'"
-				               class="cancelbtn">Cancel</button>
+				            
 				            
 				        </form>
 					</div>
@@ -720,42 +739,48 @@ $(function() {
 					<div id="pwShow" class="modal" align ="center">
 				        <form id="pwShowModal"  name="pwShowModal" class="modal-content animate" action="memberLoginForm" method="post">
 				            <div class="imgcontainer">
+				           		<div align="center" style="padding-top: 6%;">
+								<img  style="width: 250px;" 
+									src="${pageContext.request.contextPath }/resources/img/all_logo.png">
+								</div>
 				                <span id="closePwShow" onclick="pwCloseModal()" class="close"
 				                    title="Close Modal">&times;</span>
-				                <h3>비밀번호 재설정</h3>
-				                <br>
+				                <h5>비밀번호 재설정</h5>
+				                <br><br>
 				            </div>
-				            <br><br>
 				
 				            <div align="center">
 				            <table style="border:1; border-collapse:collapse;">
 				            
 				            <tr>
-							<th width="100">새 비밀번호</th>
-							<td width="300">
+							<th style="width: 130px;">새 비밀번호</th>
+							<td width="170">
 							<input class="form-control" type="password" id="member_pwd2"
 								name="member_pwd2"></td>
 							</tr>
 							
-							<tr>
-							<th width="100">새 비밀번호 확인</th>
-							<td width="300">
+							<tr height="20">
+							<td colspan="2">
+							</td>
+							</tr>
+							
+							<tr >
+							<th style="width: 130px; ">새 비밀번호 확인</th>
+							<td width="170">
 							<input class="form-control" type="password" id="member_pwd3"
 								name="member_pwd3"></td>
 							</tr>
 							
 				            </table>
 				
-				            <br><br>
+				            <br><br><br>
 				            </div>
 				            <div style = "margin-top :'20px';">
-							<button class="btn-confirm" id="updateNewPw">확인</button>
+							<button class="btn btn-primary btn-lg" style="width:150px" id="updateNewPw">확인</button>
 							</div>
 				
 				            <br><br>
-				            
-				            <button type="button" onclick="document.getElementById('pwShow').style.display='none'"
-				               class="cancelbtn">Cancel</button>
+				          	
 				            </form>
 				            </div>
 		    </body>
