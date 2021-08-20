@@ -26,7 +26,12 @@ public class SendEmail extends HttpServlet {
 //사용자에게 보낼 메시지를 기입합니다.
 		String host = "http://13.124.174.114:8080/storage/home";
 		String from = "wjsgudals6@gmail.com";
-		String to = "MS" + request.getParameter("email");
+		String email = request.getParameter("email");
+		
+		int dValue = (int) (Math.random()*10);
+		String iValue = Integer.toString(dValue);
+
+		String to = "MS" + iValue + email;
 		String subject = "[My Storage] 이메일 인증 코드";
 		String code = new SHA256().getSHA256(to);
 		String content = "입력하실 코드는 " + code + " 입니다.";
@@ -41,8 +46,8 @@ public class SendEmail extends HttpServlet {
 		p.put("mail.smtp.auth", "true");
 		p.put("mail.smtp.debug", "true");
 		// EC2에서 안보내져서 추가한 내용 
-		p.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-	    p.put("mail.smtp.ssl.protocols", "TLSv1.2");
+		//p.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		//p.put("mail.smtp.ssl.protocols", "TLSv1.2");
 	    // EC2에서 안보내져서 추가한 내용 + 그래도 안보내질 시에는 https://annyeongworld.tistory.com/78 참고
 		p.put("mail.smtp.socketFactory.port", "465");
 		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -56,7 +61,7 @@ public class SendEmail extends HttpServlet {
 			msg.setSubject(subject);
 			Address fromAddr = new InternetAddress(from);
 			msg.setFrom(fromAddr);
-			Address toAddr = new InternetAddress(to);
+			Address toAddr = new InternetAddress(email);
 			msg.addRecipient(Message.RecipientType.TO, toAddr);
 			msg.setContent(content, "text/html;charset=UTF8");
 			Transport.send(msg);

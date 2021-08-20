@@ -9,10 +9,14 @@
 <link href="${pageContext.request.contextPath}/resources/full/css/mobiscroll.jquery.min.css" rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/resources/full/js/mobiscroll.jquery.min.js"></script>
 <style>
+	td {
+		height: 30px;
+	}
+
 	#my_offer {	/*모달창*/
         display: none;
-        width: 50%;
-        padding: 30px 50px;
+        width: 30%;
+        padding: 30px 20px;
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
@@ -20,8 +24,10 @@
 
     #my_offer .modal_close_btn {	/*모달창 닫기버튼*/
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        color: #cecece;
     }
     
     #cancel {	/*모달 신청 취소 버튼*/
@@ -48,13 +54,14 @@
 	<div id="demo-desktop-month-view"></div>
 </div>
 <div id="my_offer" align="center">
-    <a class="modal_close_btn">닫기</a>
+  	<a class="modal_close_btn"> 
+  		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a>
     <div class="modal-header"></div>
     <div class="modal-body"></div>
 </div>
 <!-- jstl 추가하기 -->
 <!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar2.jsp에도 같이 추가 -->
-<c:set var="bgcolor" value="<%=new String[]{\"#000080\", \"#05abf7\", \"#f70ca5\"}%>"></c:set>
+<c:set var="bgcolor" value="<%=new String[]{\"#fdec94\", \"#bde5fe\", \"#f9bdbd\" }%>"></c:set>
 <script>
 
 mobiscroll.setOptions({

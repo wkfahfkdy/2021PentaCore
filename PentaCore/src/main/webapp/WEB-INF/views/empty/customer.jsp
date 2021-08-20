@@ -31,7 +31,7 @@
 	
 	input[type="text"] {
 		background: white;
-		border: 1px solid #5fd3e8;
+		border: 1px solid #478FEB;;
 		border-radius: 0.3em;
 		width: 100%;
 		height: 25px;
@@ -105,20 +105,28 @@
     }
 
     #my_customer #btn1 {	/*모달창 신청버튼*/
+    	width: 75px;
         position: absolute;
+        background-color: #478FEB;
+        color: #fff;
         top: 460px;
         right: 420px;
     }
     
     #my_customer #btn2 {	/*모달창 신청버튼*/
+    	width: 75px;
         position: absolute;
         top: 460px;
         right: 340px;
     }
     
+    #my_customer #btn2 a {
+    	color: #9b9b9b;
+    }
+    
     .comment {	/*모달 내용 작은 코멘트*/
     	font-size:9pt;
-    	color:#00c0e2;
+    	color:#478FEB;
     	margin: 0 0 0;
     }
     
@@ -142,7 +150,7 @@
     }
     
     #choice-btn, .apply-btn {
-    	background-color: #00c0e2;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -150,7 +158,7 @@
     }
     
     .back-btn {
-    	background-color: #006DFC;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -335,14 +343,14 @@
    				var frm = $('<form id="frm" name="frm" action="customerInsert" method="POST">');
    				var tbl =$('<table />');
    				var row = '<tr>';
-   				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '고객 기본정보' + '</h5>' + '</th>';
-   				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h5>'+ '상담원 추가입력' + '<h5>' + '</th>';
+   				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h4>'+ '고객 기본정보' + '</h4>' + '</th>';
+   				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h4>'+ '상담원 추가입력' + '</h4>' + '</th>';
    				row += '<tr><th class="mo-tbl" style="width: 10%; vertical-align:top;">' + "이름" + '</th>';
    				row += '<td class="mo-tbl">' + a_name + '</td>';
-   				row += '<input type="hidden" name="member_name" value="'+a_name+'">';
+   				row += '< type="hidden" name="member_name" value="'+a_name+'">';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "신청코드" + '</th>';
    				row += '<td class="mo-tbl">' + a_code + '</td>';
-   				row += '<input type="hidden" name="apply_code" value="'+a_code+'">';
+   				row += '< type="hidden" name="apply_code" value="'+a_code+'">';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
    				row += '<td class="mo-tbl">' + a_tel + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
