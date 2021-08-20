@@ -61,8 +61,8 @@
 			</div>
 		</div>
 		<div class="bts">
-			<button type="button" class="apply-btn" onclick="formCheck()">등록</button>&nbsp;&nbsp;
-			<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='customer'">돌아가기</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="formCheck()">등록</button>&nbsp;&nbsp;
+			<button type="button" class="btn btn-default btn-lg" style="margin: 1em 0em;" onclick="location.href='customer'">돌아가기</button>
 		</div>
 	</form>
 	</div>

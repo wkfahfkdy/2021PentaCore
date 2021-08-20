@@ -103,7 +103,7 @@
 							<li >
 								<sec:authorize access="isAuthenticated()">
 									<form id="logout" action="${pageContext.request.contextPath }/logout" method="post">
-										<button style="margin:17px 30px;"><a>LOGOUT</a></button>
+										<button style="margin:17px 30px;"><a style="color: #478FEB;"><b>LOGOUT</b></a></button>
 									</form>	
 								</sec:authorize>
 							</li>

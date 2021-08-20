@@ -259,6 +259,7 @@
 					src="${pageContext.request.contextPath }/resources/img/cs_center.png">
 	</div>
 	<div style="clear: both; margin-bottom: 5%;"></div>
+	</div>
 <script>
 // 문의 내역 그리드 생성
 $(document).ready(function() {

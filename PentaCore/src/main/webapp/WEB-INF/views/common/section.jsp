@@ -151,8 +151,8 @@
 			<!-- div class="swiper-slide" 를 추가하면된다 -->
 			<c:forEach items="${list}" var="list">
 				<div class="swiper-slide"><b>${list.store_name } </b> &nbsp;  &nbsp;  
-					<img style="width: 15%; "src="${pageContext.request.contextPath }/resources/main/main_1.png">&nbsp;   ${list.humidity } ℃ &nbsp;  &nbsp;  
-					<img style="width: 15%; "src="${pageContext.request.contextPath }/resources/main/main_2.png">&nbsp;   ${list.temperature } % </div>
+					<img style="width: 15%; "src="${pageContext.request.contextPath }/resources/main/main_1.png">&nbsp;   ${list.temperature } %&nbsp;  &nbsp;  
+					<img style="width: 15%; "src="${pageContext.request.contextPath }/resources/main/main_2.png">&nbsp;   ${list.humidity } ℃ </div>
 			</c:forEach>
 		</div>
 	</div>
