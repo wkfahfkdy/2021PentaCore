@@ -27,8 +27,10 @@
 
     #my-ask .modal_close_btn {	/*모달창 닫기버튼*/
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
     
      #my-ask::-webkit-scrollbar {
@@ -36,13 +38,13 @@
 	  }
 
 	 #my-ask::-webkit-scrollbar-thumb {
-	    background-color: #00c0e2;
+	    background-color: #478FEB;
 	    border-radius: 10px;
 	    background-clip: padding-box;
 	    border: 2px solid transparent;
 	  }
 	  #my-ask::-webkit-scrollbar-track {
-	    background-color: #CEF6F5;
+	    background-color: #dddddd;
 	    border-radius: 10px;
 	    box-shadow: inset 0px 0px 5px white;
 	  }
@@ -51,7 +53,7 @@
     	display: table;
     	width: 100%;
     	margin-top: 2em;
-    	border-top: 1px solid #00c0e2;
+    	border-top: 1px solid #478FEB;
     }
     
     .ask-row1, .ask-row2, .ask-row3 {
@@ -72,7 +74,7 @@
     }
     
     .apply-btn {
-    	background-color: #00c0e2;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -85,7 +87,7 @@
     }
     
     .cs-call {
-    	background-color: #00c0e2;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-weight: bold;
@@ -106,12 +108,11 @@
     
     input[type="text"] {
 		background: white;
-		border: 1px solid #5fd3e8;
+		border: 1px solid #dddddd;
 		border-radius: 0.3em;
-		width: 42%;
 		height: 2.5em;
 		padding: 5px;
-		margin: 2em 0em;
+		margin: 1em 0em;
 	}
 	
 	#cke_editor1 {	/* 시도때도 없이 나오는 CK에디터 머리 참수 */
@@ -124,11 +125,23 @@
 	}
 	
 	.modal-body {
-		border: 1px solid #00c0e2; 
+		border: 1px solid #dddddd; 
 	 	border-radius: 0.3em;
 	 	overflow: auto;
 	 	word-break: break-word;
       	min-height: 200px;
+	}
+	
+	.tab1 {
+		float: left;
+		width: 60%;
+	}
+
+	.tab2 {
+		float: right;
+		display: flex;
+		width: 470px;
+		margin-top: 130px;
 	}
 	
 </style>
@@ -163,49 +176,64 @@
 <body>
 <div class="wrap">
 	<div>
-		<h3><font style="color: #00c0e2;">${loginName }</font>
+		<h3><font style="color: #478FEB">${loginName }</font>
 			님의 1:1문의 내역</h3>
 	</div>
 	<div class="ask-list">
 		<div id="askGrid"></div>
 		<div id="my-ask" align="center">
-		    <a class="modal_close_btn">닫기</a>
+  			<a class="modal_close_btn"> 
+    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a><br>
 		    <div class="modal-header"></div>
 		    <div class="modal-body"></div>
 	    </div>
 	</div>
+</div>
+<div align="center">
+<div class="ask-table" style="width: 90%; display: inline-block;"></div></div>
+<div class="wrap">
+	<div class="tab1">
 	<form id="frm" action="registAsk" method="POST">
-		<div class="ask-table">
+		<div class="">
 			<div class="ask-row1">
 				<div class="form-title">
-					<h3 align="left">1:1 문의하기</h3>
+					<h3 align="left">1:1 문의하기</h3> <br><br>
 				</div>
+				<!-- dam : CSS 수정관련
 				<div class="ct-title">
 					<h3 align="left" style="margin-left: 1em;">무엇이든 물어보세요!</h3>
-				</div>
+				</div> 
+				-->
 			</div>
 			<div class="ask-row2">
 				<div class="choice-store" style="width:60%;">
-					제목&nbsp;&nbsp;<input type="text" id="question_title" name="question_title" />
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<font style="color: #00c0e2;">
-						*문의를 원하시는 지점을 선택해주세요&nbsp;&nbsp;
-					</font>
-					<select id="store_code" name="store_code">
-						<c:forEach items="${storeList }" var="st">
-							<option value="${st.store_code }">${st.store_name }</option>
-						</c:forEach>
-					</select>
+					<div style="float: left;">
+						<select id="store_code" name="store_code">
+							<c:forEach items="${storeList }" var="st">
+								<option value="${st.store_code }">${st.store_name }</option>
+							</c:forEach>
+						</select>
+						<font style="color: #478FEB;">
+							&nbsp;&nbsp;*문의를 원하시는 지점을 선택해주세요
+						</font>
+					</div>
+					<div style="clear:both;"></div>
+					<div style="float: left;">
+						<input style="width: 800px;" type="text" id="question_title" name="question_title" value="제목을 입력하세요" onfocus="this.value=''"/>
+					</div>
 				</div>
+				<!-- dam : CSS 수정관련
 				<div class="ct-content" align="left" style="padding-left: 2em;">
 					법인, 특수목적 등 별도 문의가 필요한 경우는<br>
 					대표 고객센터로 연락하시거나 메일로 문의사항을 제출해주세요.
 				</div>
+				 -->
 			</div>
 			<div class="ask-row3">
 				<div class="form-area" align="center">
 					<textarea id="question_content" name="question_content"></textarea>
 				</div>
+				<!-- dam : CSS 수정관련
 				<div class="ct-content2" style="vertical-align: top;">
 					<div style="padding:1em 0em;">
 						<button class="cs-call" type="button">1661-5959</button><br>
@@ -217,14 +245,20 @@
 						<button class="cs-mail" type="button">cs_center@mystorage.kr</button>
 					</div>
 				</div>
+				 -->
 			</div>
-			<div class="bts">
-				<button type="button" class="apply-btn" onclick="formCheck()">등록</button>&nbsp;&nbsp;
-				<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='myPageInfo'">돌아가기</button>
+			<div class="bts"><br><br>
+				<button type="button" class="btn btn-primary btn-lg" onclick="formCheck()">등록</button>&nbsp;&nbsp;
+				<button type="button" class="btn btn-default btn-lg" style="margin: 1em 0em;" onclick="location.href='myPageInfo'">돌아가기</button>
 			</div>
 		</div>
 	</form>
 </div>
+	<div class="tab2">
+		<img  style="width: 100%" 
+					src="${pageContext.request.contextPath }/resources/img/cs_center.png">
+	</div>
+	<div style="clear: both; margin-bottom: 5%;"></div>
 <script>
 // 문의 내역 그리드 생성
 $(document).ready(function() {
