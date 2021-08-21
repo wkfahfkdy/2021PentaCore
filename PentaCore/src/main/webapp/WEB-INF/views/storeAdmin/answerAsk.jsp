@@ -19,7 +19,7 @@
 	}
 	
 	.back-btn {
-    	background-color: #006DFC;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -32,7 +32,7 @@
     }
     
     .apply-btn {
-    	background-color: #00c0e2;
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 10pt;
@@ -47,7 +47,7 @@
     	height: 10em;
     	resize: none;
     	background: white;
-    	border: 1px solid #5fd3e8;
+    	border: 1px solid #dddddd;
     	border-radius: 0.3em;
     }
 </style>
@@ -58,7 +58,7 @@
 <div class="wrap">
 	<h3>1:1문의 관리</h3>
 	<div style="padding-bottom: 1em;" align="right">
-		<button type="button" class="back-btn" onclick="location.href='${pageContext.request.contextPath }/home'">뒤로가기</button>
+		<button type="button" class="btn btn-primary btn-lg" onclick="location.href='${pageContext.request.contextPath }/home'">돌아가기</button>
 	</div>
 	<div id="gridArea">
 		<!-- 그리드 호출 -->

@@ -14,8 +14,8 @@
 			width: 80%;
 		}
 		
-   .apply-btn, #edit-btn {
-    	background-color: #00c0e2;
+   .apply-btn {
+    	background-color: #478FEB;
 		border-radius: 0.3em;
 		color: white;
 		font-size: 12pt;
@@ -23,14 +23,6 @@
 		padding: 0.4em;
     }
 		
-	.back-btn, #del-btn {
-    	background-color: #006DFC;
-		border-radius: 0.3em;
-		color: white;
-		font-size: 12pt;
-		font-weight: bold;
-		padding: 0.4em;
-    }
     
     #storeNt-modal {
         display: none;
@@ -43,8 +35,10 @@
 
     #storeNt-modal .modal_close_btn {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
     
     #storeNt-modal .modal-body{
@@ -57,9 +51,9 @@
     
    	input[type="text"] {
 		background: white;
-		border: 1px solid #5fd3e8;
+		border: 1px solid #dddddd;
 		border-radius: 0.3em;
-		width: 80%;
+		width:100%;
 		height: 2.5em;
 		padding: 5px;
 		margin: 1em 0em;
@@ -165,20 +159,21 @@
 		<div id="storeNt-modal">
 			<form id="frm">
 			<input type="hidden" id="notice_num" name="notice_num" value="" />
-				<a class="modal_close_btn">닫기</a>
+	  			<a class="modal_close_btn"> 
+	    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a><br>
 				<div class="modal-header"></div>
 				<div class="modal-body"></div>
 				<textarea id="notice_content" name="notice_content"></textarea>
 				<div class="modal-footer">
-					<button id="edit-btn" type="button" onclick="editNotice()">수정</button>&nbsp;
-					<button id="del-btn" type="button" onclick="deleteNotice()">삭제</button>
+					<button id="edit-btn" type="button" class="btn btn-primary btn-lg" onclick="editNotice()">수정</button>&nbsp;
+					<button id="del-btn" type="button" class="btn btn-default btn-lg" style="color: #999;" onclick="deleteNotice()">삭제</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	<div>
-		<button type="button" class="apply-btn" onclick="location.href='noticeForm'">글쓰기</button>&nbsp;&nbsp;
-		<button type="button" class="back-btn" style="margin: 1em 0em;" onclick="location.href='${pageContext.request.contextPath }/home'">돌아가기</button>
+		<button type="button" class="btn btn-primary btn-lg" onclick="location.href='noticeForm'">글쓰기</button>&nbsp;&nbsp;
+		<button type="button" class="btn btn-default btn-lg" style="margin: 1em 0em;" onclick="location.href='${pageContext.request.contextPath }/home'">돌아가기</button>
 	</div>
 </div>
 <script>

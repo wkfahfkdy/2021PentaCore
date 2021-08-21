@@ -8,12 +8,13 @@
 	.wrap {
 		width: 100%;
 		text-align: center;
+		margin-top: 6%;
 	}
 	
 	.box {
 		margin: 0 auto;
 		display: inline-block;
-		padding-top: 2%;
+		padding-top: 1%;
 	}
 	
 	.btn {
@@ -45,7 +46,7 @@
     #coupon-modal {
         display: none;
         width: 25%;
-        padding: 30px 50px;
+        padding: 30px 30px;
         background-color: #fefefe;
         border: 1px solid #888;
         border-radius: 3px;
@@ -53,8 +54,10 @@
 
     #coupon-modal .modal_close_btn {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
     
     #coupon-modal .modal-body{
@@ -73,9 +76,9 @@
     
     input[type="text"] {
       background: white;
-      border: 1px solid #5fd3e8;
+      border: 1px solid #dddddd;
       border-radius: 0.3em;
-      width: 100%;
+      width: 88%;
       height: 25px;
       padding: 5px;
    }
@@ -171,7 +174,6 @@ function insertCoupon() {
 					<h2>투어관리</h2></button>
 			</div>
 		</div>
-		<div></div>
 		<div class="box">
 			<div class="btn">
 				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/storeNotice'">
@@ -196,7 +198,8 @@ function insertCoupon() {
 		
 		<div id="coupon-modal">
 			<form id="frm">
-				<a class="modal_close_btn">닫기</a>
+  			<a class="modal_close_btn"> 
+    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a><br>
 				<div class="modal-header"></div>
 				<div class="modal-body"></div>
 				<div class="modal-footer">
@@ -218,14 +221,14 @@ $(function() {
 			modal('coupon-modal');
 			
 
-			var title = '<h3 align="center">${employeeVO.store_name} 쿠폰등록</h3>';
+			var title = '<h4 align="center">${employeeVO.store_name} 쿠폰등록</h4>';
 			
 			var tbl =$('<table width="100%" align="center"/>');
 			
 			//쿠폰이름
-			var row = '<tr>';
+			var row = '<tr style="height: 30px;">';
 			row += '<th style="width: 30%;">쿠폰이름</th>';
-			row += '<td style="text-align: center;"><input type="text" name="coupon_name" id="coupon_name" value="${employeeVO.store_name} ☆% 할인" />';
+			row += '<td style="text-align: center;"><input type="text" name="coupon_name" id="coupon_name" placeholder="${employeeVO.store_name} ☆% 할인" />';
 			row +=	'</td>';
 			row +=	'</tr>';
 			
@@ -249,8 +252,8 @@ $(function() {
 			*/
 			
 			//할인율
-			row += '<tr>';
-			row += '<th style="width: 30%;">할인율</th>';
+			row += '<tr style="height: 30px;">';
+			row += '<th style="width: 30%;">할 인 율</th>';
 			row += '<td style="text-align: center;"><select class="custom-select" name="coupon_discount" id="coupon_discount">';
 			row +='<option selected>할인율을 선택하세요</option>';
 			row += '<option value="0.95">5프로 할인</option>';
@@ -269,7 +272,7 @@ $(function() {
 			row += '<br><br>';
 			
 			//시작날짜
-			row += '<tr>';
+			row += '<tr style="height: 30px;">';
 			row += '<th style="width: 30%;">시작날짜</th>';
 			row += '<td style="text-align: center;"><div class="con-data"><input type="date" id="coupon_start" name="coupon_start" /></div>';
 			row +=	'</td>';
@@ -278,7 +281,7 @@ $(function() {
 			row += '<br><br>';
 			
 			//종료날짜
-			row += '<tr>';
+			row += '<tr style="height: 30px;">';
 			row += '<th style="width: 40%;">종료날짜</th>';
 			row += '<td style="text-align: center;"><div class="con-data"><input type="date" id="coupon_end" name="coupon_end" /></div>';
 			row +=	'</td>';

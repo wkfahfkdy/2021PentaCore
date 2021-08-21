@@ -15,9 +15,9 @@
 
 	input[type="text"] {
 		background: white;
-		border: 1px solid #5fd3e8;
+		border: 1px solid #dddddd;
 		border-radius: 0.3em;
-		width: 75%;
+		width: 80%;
 		height: 2.5em;
 		padding: 5px;
 		margin: 2em 0em;
@@ -73,14 +73,14 @@
 	</div>
 	<form id="frm" action="registNotice" method="POST" enctype="multipart/form-data">
 		<div>
-			<b>제목</b>&nbsp;&nbsp;<input type="text" name="notice_title" />
+			<input type="text" name="notice_title" value="제목을 입력하세요" onfocus="this.value=''"/>
 		</div>
 		<div align="center">
 			<textarea id="notice_content" name="notice_content"></textarea>
 		</div>
 		<div style="margin: 1em 0em;">
-			<button class="apply-btn" type="button" onclick="formCheck()">등록</button>&nbsp;&nbsp;
-			<button class="back-btn" type="button" onclick="location.href='storeNotice'">돌아가기</button>
+			<button class="btn btn-primary btn-lg" type="button" onclick="formCheck()">등록</button>&nbsp;&nbsp;
+			<button class="btn btn-default btn-lg" type="button" onclick="location.href='storeNotice'">돌아가기</button>
 		</div>
 	</form>
 </div>

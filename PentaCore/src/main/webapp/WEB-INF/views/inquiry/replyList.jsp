@@ -27,7 +27,7 @@
 		if(delCheck === undefined) {
 			$('#del').submit();
 		} else {
-			alert("답글이 있어 삭제가 불가능 합니다.");
+			alert("해당문의에 답변이 있어 삭제가 불가능합니다!");
 			return false;
 		}
 	}

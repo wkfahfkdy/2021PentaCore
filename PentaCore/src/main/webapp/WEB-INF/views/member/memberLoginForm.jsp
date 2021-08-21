@@ -534,7 +534,7 @@ $(function() {
 								<input type="text" id="member_id" name="member_id"
 									placeholder="ID" value="ID" onfocus="this.value=''" size= "50" > </div><br>
 								<div>
-								<input type="password" id="member_pwd" name="member_pwd" value="PASSWORD" onfocus="this.value=''"
+								<input type="text" id="member_pwd" name="member_pwd" value="PASSWORD" onfocus="this.value=''; type='password'"
 								placeholder="PASSWORD" onkeyup=
 									"if(window.event.keyCode==13) {loginCheck()}" 
 									size= "50"></div>

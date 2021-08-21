@@ -290,7 +290,7 @@
 				<div align="center" style="padding-top:3%;">
 					<input type="hidden" name="store_code" id="apply" value="" />
 					<button class="btn btn-primary btn-lg" type="button" onclick="alertRegi('${chk}')">신청하기</button>&nbsp;&nbsp;&nbsp;
-					<button class="btn btn-default btn-lg" type="button" onclick="history.back()">뒤로가기</button>
+					<button class="btn btn-default btn-lg" type="button" onclick="history.back()">돌아가기</button>
 				</div>
 			</form>
 		</div>

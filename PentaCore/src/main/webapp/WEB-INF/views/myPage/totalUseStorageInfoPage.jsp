@@ -14,8 +14,8 @@
 	
 	.wrap{
 		margin: auto;
-		margin-top: 20px;
-		margin-bottom: 50px;
+		margin-top: 50px;
+		margin-bottom: 120px;
 		width: 70%;
 		min-height: 100%;
 	}
