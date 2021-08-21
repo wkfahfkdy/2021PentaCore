@@ -138,10 +138,11 @@
 	}
 
 	.tab2 {
-		float: right;
+		float: left;
 		display: flex;
 		width: 470px;
 		margin-top: 130px;
+		margin-left: 30px;
 	}
 	
 </style>
