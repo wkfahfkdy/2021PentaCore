@@ -175,7 +175,10 @@ public class HomeController {
 	} 
 	
 	@RequestMapping("goStoreSelect")
-	public String goStoreSelect() {
+	public String goStoreSelect(Model model, StoreVO vo) {
+
+		model.addAttribute("list", storeDAO.htSelect(vo));
+		
 		return "test/goStoreAdmin";
 	}
 	

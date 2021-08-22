@@ -193,7 +193,7 @@
     
     $(document).ready(function(){
     	
-    	var list = '<c:out value="${customerListAll}"/>'
+    	var list = '<c:out value="${customerListAll}"/>';
     	
     	const Grid = tui.Grid;
 
