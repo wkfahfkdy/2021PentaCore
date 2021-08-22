@@ -193,8 +193,6 @@
     
     $(document).ready(function(){
     	
-    	var list = '<c:out value="${customerListAll}"/>'
-    	
     	const Grid = tui.Grid;
 
     	const customerData = [
@@ -207,7 +205,6 @@
     			apply_end: '<fmt:formatDate value="${list.apply_end}" pattern="yyyy-MM-dd" />',
     			store_name: '${list.store_name}',
     			store_code: '${list.store_code}',
-    			convey_file: '${list.convey_file}',
     			convey_after: '${list.convey_after}',
    				fileBtn: '<button type="button" onclick="location.href=\'FileupSelect?apply_code=${list.apply_code}\'"> <c:choose> <c:when test = "${list.convey_file eq null}"> 사진등록 </c:when> <c:when test = "${list.convey_file ne null}"> 완료 </c:when> </c:choose> </button>',
  				insertBtn: '<button type="button"> <c:choose> <c:when test = "${list.convey_after eq null}"> 추가입력 </c:when> <c:when test = "${list.convey_after ne null}"> 완료 </c:when> </c:choose> </button>'
