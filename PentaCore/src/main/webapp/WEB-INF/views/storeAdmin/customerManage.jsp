@@ -26,9 +26,9 @@
 	private String member_name;
 	 -->
 
+
 </head>
 <body>
-
 	
 <script>
 //스토리지 이용중인 고객
@@ -172,9 +172,9 @@ $.ajax({
 	</script>
 
 
-	<div class="title-group" style="margin-top: 70px; align:center;">
+	<div class="title-group" style="margin-top: 40px; align:center;">
 		
-		<div class="subtitle with-square"><h5>이용중인 고객 리스트</h5></div>
+		<div align="center"><h5>이용중인 고객 리스트</h5></div>
 		
 		<form id="frm" name="frm"  action="storageUserDetail">
 		<input type="hidden" id="use_num" name="use_num">
@@ -185,7 +185,7 @@ $.ajax({
 		</form>
 		
 		<form id="frm2" name="frm2"  action="storageUserDetail">
-		<div class="subtitle with-square"><h5>사용종료 고객 리스트</h5></div>
+		<div align="center" style="margin-top: 70px;"><h5>사용종료 고객 리스트</h5></div>
 		<div class="bs-example" style="align:center; width: 60%; height:20%; margin-left: 20%; text-align: left;">
 		<!-- 지점명, 지점주소 - TOAST GRID / 무한스크롤, 클릭 시 지도 위치 변경되도록, 지점명 및 주소 검색 가능하도록 filter 추가 -->
 		<div id="grid2" style="width:100;height:50%;"></div>

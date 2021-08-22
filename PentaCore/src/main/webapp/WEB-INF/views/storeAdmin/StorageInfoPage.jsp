@@ -179,11 +179,11 @@
 		color:  rgb(52, 152, 219);
 		font-weight: bold;
 	}
-	
+		
 	.storageList {
-		width: 30%; 
+		width: 14%; 
 		border-radius: 5px;
-		background-color: rgb(224, 224, 224);
+		background-color: #f4f4f4;
 		margin: 10px 10px;
 	}
 	#useMember {
@@ -202,34 +202,22 @@
 	<input type="hidden" value="${store_code }" id="hiddenStoreCode">
 	<div class="def-section services-1" style="padding: 1em;">
 		<div class="container">
-			<div class="my-btn my-btn-grey" onclick="location.href='${pageContext.request.contextPath }/home'" align="center">
-					<div class="my-btn-bg-top"></div>
-					<div class="my-btn-bg-bottom"></div>
-					<div class="my-btn-text">
-						돌아가기
-					</div>	
-			</div>
-			<div class="row" style="margin-top : 30px;">
+
+			<div class="row" style="margin-top : 10px;">
 				<div style="display: table; width: 100%">
-					<div style="display:table-cell; width: 45%;">
-						<h4 style=" margin-left: 50px;">${stroeTemHumInfo.store_name } 스토리지 현황 (온도 : ${stroeTemHumInfo.humidity }°C / 습도 : ${stroeTemHumInfo.temperature }%)</h4>
+					<div style="display:table-cell; width: 100%;">
+						<h4 style=" margin-left: 10px;">${stroeTemHumInfo.store_name } 스토리지 현황 </h4>
+						<h5 style=" margin-left: 10px;">온도 <input type="number" id="humidityValue" style="margin: 0; color: black; width: 40px;" value="${stroeTemHumInfo.humidity }"> °C / 
+														습도 <input type="number" id="temperatureValue" style="margin: 0; color: black; width: 40px;" value="${stroeTemHumInfo.temperature }" > %  &nbsp;&nbsp;
+						<div class="my-btn my-btn-primary" style="background-color: #478FEB; border-radius: 0.3em; color: white; font-size: 8pt; padding: 0.4em;" id="temHumUpdateBtn" >SAVE</div> </h5>
 					</div>
 				
 					<div style="display: table-cell; width: 30%">
-						온도 = <input type="number" id="humidityValue" style="margin: 0; color: black;" placeholder="온도">
-						습도 = <input type="number" id="temperatureValue">
 						<form action="temHumUpdate" id="temHumUpdate">
 							<input type="hidden" name="store_code" value="${store_code }">
 							<input type="hidden" name="humidity" id="hiddenHumidiry" value="">
 							<input type="hidden" name="temperature" id="hiddenTemperature" value="">	
 						</form>
-					</div>
-					<div class="my-btn my-btn-primary" id="temHumUpdateBtn" style="display: table-cell; width: 3%; margin-right: 100px;">
-						<div class="my-btn-bg-top"></div>
-						<div class="my-btn-bg-bottom"></div>
-						<div class="my-btn-text">
-							SAVE
-						</div>	
 					</div>
 				</div>
 				<c:forEach items="${storageName}" var="storageName">
@@ -244,7 +232,7 @@
 											<c:choose>
 												<c:when test="${storageInfoList.info_use eq '미사용'}">
 													<p>
-														<a id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }')" data-toggle="modal" data-target="#unUsedStorage">
+														<a style="color: #2b2b2b;" id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }')" data-toggle="modal" data-target="#unUsedStorage">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
 													</p>	
@@ -271,9 +259,12 @@
 			<div class="row">
 				<h4>스토리지 미할당 대기 고객</h4>
 				<!-- 스토리지 할당 대기자 그리드 -->
-				<div id="bookingGrid"></div>
+				<div id="bookingGrid"></div> <br><br>
 			</div>
-		</div>
+			<div align="center">
+			<div class="btn btn-primary btn-lg" onclick="location.href='${pageContext.request.contextPath }/home'"style="display: inline-block;"> 돌아가기
+			</div></div>
+		</div> <br><br>
 	</div>
 	
 	<!-- 이용중인 회원 정보 Modal -->

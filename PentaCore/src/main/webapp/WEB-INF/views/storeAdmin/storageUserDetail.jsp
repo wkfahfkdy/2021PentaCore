@@ -22,15 +22,7 @@
 			padding: 50px 10px;
 			width: 80%;
 		}
-		
-   .apply-btn, #edit-btn {
-    	background-color: #00c0e2;
-		border-radius: 0.3em;
-		color: white;
-		font-size: 12pt;
-		padding: 0.4em;
-    }
-		
+				
 	.back-btn, #del-btn {
     	background-color: #006DFC;
 		border-radius: 0.3em;
@@ -50,9 +42,12 @@
 
     #report-modal .modal_close_btn {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
+    
     
     #report-modal .modal-body{
     	font-size: 10pt;
@@ -69,8 +64,10 @@
 
     #insert-report .modal_close_btn {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
     
     #insert-report .modal-body{
@@ -83,9 +80,9 @@
     
    	input[type="text"] {
 		background: white;
-		border: 1px solid #5fd3e8;
+		border: 1px solid #dddddd;
 		border-radius: 0.3em;
-		width: 80%;
+		width: 100%;
 		height: 2.5em;
 		padding: 5px;
 		margin: 1em 0em;
@@ -102,6 +99,8 @@
 	.tui-grid-rside-area {
 		width: 100%;
 	}
+	
+	
 </style>
 
 <!-- 게시판 오픈소스 : ckEditor4 -->
@@ -356,9 +355,11 @@ $(function() {
 <form id="frm" action="" method="post" >
 <table style="width: 70%">
 <tr>
-<td style="padding: 100px">
-<div class="bs-example"
-		style="width: 100%; height: 100%; text-align: left;">
+<td style="margin-top:20px;">
+	<div align="center">
+	<div class="bs-all" style="width: 80%; display: inline-block;">
+	<div class="bs-example"
+		style="width: 35%; height: 100%; float: left; margin-right: 5%;">
 		<table class="table">
 				<tr style="background-color:#6BAAFA">
 				<th colspan="2" style="color:white ; text-align:center">고객정보</th>
@@ -383,22 +384,17 @@ $(function() {
 		</table>
 			
 	</div>
-	</td>
-	<td width="100em"></td>
-	
-	
-	<td>
 	
 	 
-<div class="bs-example"
-		style="width: 100%; height: 75%; text-align: left;">
+	<div class="bs-example"
+		style="width: 60%; height: 75%; text-align: left; float: left;">
 		<table class="table">
 			<tbody>
 				<tr style="background-color:#6BAAFA" >
 				<th colspan="3" style="color:white ; text-align:center">사용중인 서비스</th>
 				</tr>
 				<tr>
-				<th>스토리지</th>
+				<th style="width: 100px;">스토리지</th>
 				<td colspan="2">${selectUserVO.info_num }</td>
 				</tr>
 				<tr>
@@ -419,7 +415,7 @@ $(function() {
 				<td>
 					<c:if test="${selectUserVO.offer_premium eq 'Y' }">
 						<input type="hidden" id="hiddenMemberId" value="${selectUserVO.member_id }">
-						<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" id="premiumReportInsert" name="premiumReportInsert"><b>보고서 등록</b></button>
+						<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;" id="premiumReportInsert" name="premiumReportInsert"><b>보고서 등록</b></button>
 					</c:if>
 				</td>
 				</tr>
@@ -444,8 +440,7 @@ $(function() {
 					<div class="con-data"><input type="date" id="apply_start" name="apply_start" /></div>
 				</td>
 				<td>
-				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryConsignChange" name="laundryConsignChange" value=""><b>수정</b></button>				    
+				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;" id="laundryConsignChange" name="laundryConsignChange" value=""><b>수정</b></button>				    
 				 </td>
 				</c:when>
 				
@@ -457,8 +452,7 @@ $(function() {
 					</div>
 					</td>
 					<td>
-					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryConsign" name="laundryConsign" value=""><b>입력</b></button>
+					<button type="button" class="btn btn-primary btn-lg" id="laundryConsign" name="laundryConsign" value=""><b>입력</b></button>
 					</td>
 				</c:otherwise>
 				</c:choose>
@@ -479,7 +473,7 @@ $(function() {
 					<div class="con-data"><input type="date" id="apply_end" name="apply_end" /></div>
 				</td>
 				<td>
-				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
+				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;"
 				id="laundryCollectChange" name="laundryCollectChange" value=""><b>수정</b></button>				    
 				 </td>
 				</c:when>
@@ -493,8 +487,7 @@ $(function() {
 					</div>
 					</td>
 					<td>
-					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white;" 
-				id="laundryCollect" name="laundryCollect" value=""><b>입력</b></button>
+					<button type="button" class="btn btn-primary btn-lg" id="laundryCollect" name="laundryCollect" value=""><b>입력</b></button>
 					</td>
 					</c:if>
 				</c:otherwise>
@@ -518,6 +511,8 @@ $(function() {
 				</c:choose>	
 		</table>
 	</div>
+	</div>
+	</div>
 	</td>
 	
 	
@@ -530,12 +525,13 @@ $(function() {
 	<div id="insert-report">
 		<form id="frm">
 		<input type="hidden" id="use_num" name="use_num" value="" />
-		<a class="modal_close_btn">닫기</a>
+  			<a class="modal_close_btn" style="color: #ddddd;"> 
+    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>&nbsp;&nbsp;X</b></div></a><br>
 			<div class="modal-header"></div>
 			<div class="modal-body"></div>
 			<textarea id="condition_comment" name="condition_comment"></textarea>
 			<div class="modal-footer">
-				<button id="edit-btn" type="button" onclick="insertReport()">입력</button>
+				<button id="edit-btn" class="btn btn-primary btn-lg" type="button" onclick="insertReport()">입력</button>
 			</div>
 		</form>
 	</div>
@@ -554,7 +550,7 @@ $(function() {
 				var member_name = '${selectUserVO.member_name }';
 				var use_num = '${selectUserVO.use_num }';
 	
-				var title = '<input type="text" id="condition_title" name="condition_title" value="컨디션보고서" />';
+				var title = '<input type="text" id="condition_title" name="condition_title" value="컨디션보고서" onfocus="this.value=\'\'" />';
 				var date = year + "/" + month + "/" + day;
 				
 				var tbl =$('<table width="100%" />');
@@ -625,18 +621,19 @@ $(function() {
 		});
 	</script>
 	<!-- 사후보고서 그리드 div -->
-	<div style="margin: 50px auto; text-align: center; width: 50%" id="gridTag">
+	<div style="margin: 50px auto; text-align: center; width: 60%" id="gridTag">
 		<div id="grid"></div>
 	</div>
 	<div id="report-modal">
 		<form id="updateReport">
 		<input type="hidden" id="hiddenConditionNum" name="condition_num" value=""/>
-			<a class="modal_close_btn">닫기</a>
+			<a class="modal_close_btn"> 
+    		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>&nbsp;&nbsp;X</b></div></a><br>
 			<div class="modal-header"></div>
 			<div class="modal-body"></div>
 			<textarea id="condition_commentCheck" name="condition_comment"></textarea>
 			<div class="modal-footer">
-				<button id="edit-btn" type="button" onclick="updateReport()">수정</button>
+				<button id="edit-btn" class="btn btn-primary btn-lg" type="button" onclick="updateReport()">수정</button>
 			</div>
 		</form>
 	</div>
