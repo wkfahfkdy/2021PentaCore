@@ -160,7 +160,6 @@
       		}else { // N 도중에 누르면 다 초기화
       			$('#hiddenFloorValue').removeAttr("value");
       			$('#hiddenBoxCount').removeAttr("value");
-      			$("#hiddenPickupDate").val("");
       			$("#hiddenPickuptime").val("AM 08:00 ~ 12:00");
       			parseInt($('#floor').val(0));
       			parseInt($('#boxCount').val(0));
@@ -257,7 +256,7 @@
            			alert("Error : 403 Forbidden");
            			$('#floor').focus();
            			return false;
-           		} else if($('#hiddenPickupDate').val() == "" || $('#hiddenPickuptime').val() == ""){
+           		} else if($('#hiddenPickuptime').val() == ""){
            			alert("픽업서비스 희망날짜와 시간을 선택해주세요.");
            			return false;
            		} else{
@@ -371,10 +370,6 @@
       	//offer_start
       	$('#datePick').change(function(){
       		$('#hiddenOfferStart').val($(this).val());
-      	})
-      	
-      	// pickup_date
-      	$('#pickupDate').change(function() {
       		$('#hiddenPickupDate').val($(this).val());
       	})
       	
@@ -426,7 +421,6 @@
 	   var floor = $('#hiddenFloorValue').val();
 	   var box = $('#hiddenBoxCount').val();
 	   $('#hiddenOfferPickup').val(floor + box);
-	   $('#hiddenPickupDate').val($('#pickupDate').val());
 	   $('#hiddenPickuptime').val($('#pickupTimeSelect').val());
    }
    
@@ -1325,9 +1319,8 @@ input[type='number'] {
 										<th id="pickupServiceThTag">층수</th><td><input type="number" id="floor" value="0">&nbsp;&nbsp;<b>층</b></td>
 									</tr>
 									<tr>
-										<th id="pickupServiceThTag">희망날짜 / 시간</th>
+										<th id="pickupServiceThTag">희망시간</th>
 										<td>
-											<input type="date" id="pickupDate" pattern="YYYY/MM/DD">
 											<select id="pickupTimeSelect">
 												<option value="AM 08:00 ~ 12:00">AM 08:00 ~ 12:00</option>
 												<option value="PM 13:00 ~ 17:00">PM 13:00 ~ 17:00</option>
