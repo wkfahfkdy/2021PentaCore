@@ -38,55 +38,7 @@
     padding-left: 0;
   }
 }
-@media screen and (max-width: 992px) {
-  .main-menu .navbar-nav > li {
-    display: none !important;
-  }
-  .show-menu-control {
-    display: block;
-  }
-  .main-slider .container {
-    margin-left: -375px;
-  }
-  .title-group h2 {
-    font-size: 20px;
-  }
-  .subtitle {
-    font-size: 10px;
-  }
-  .get-quote-form-left {
-    padding: 0;
-  }
-  .stat-item {
-    margin-bottom: 30px;
-  }
-  .home-clients p {
-    padding: 0 15px;
-  }
-  .home-clients-carousel-vline1,
-  .home-clients-carousel-vline2,
-  .home-clients-carousel-hline {
-    display: none;
-  }
-  .home-subscribe-text {
-    padding-top: 0;
-  }
-  .home-subscribe-icon {
-    line-height: 15px;
-    top: 17px;
-  }
-  .home-subscribe-form-input {
-    width: 228px;
-  }
-  .single-post-author-info-name {
-    margin: 15px 0 15px;
-  }
-  .single-post-author-info-socials {
-    float: left;
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-}
+
 @media screen and (max-width: 768px) {
   .main-navbar-1 {
     padding-top: 15px;
