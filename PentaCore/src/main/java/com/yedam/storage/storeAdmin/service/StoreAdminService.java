@@ -24,6 +24,8 @@ public interface StoreAdminService {
 	public int useStroageUpdate(StoreAdminVO vo);
 	// 위에꺼 실행 후 동작 되는 프로시저
 	public void updateUseProcedure(StoreAdminVO vo);
+	// 보관이사 고객 스토리지 할당 후 실행되는 프로시저 : convey_apply 테이블에 use_num 업데이트
+	public void copyUseNum(StoreAdminVO vo);
 	// 온습도 정보 select
 	public StoreVO storeTemHumInfo(StoreVO vo);
 	// 온습도 정보 update

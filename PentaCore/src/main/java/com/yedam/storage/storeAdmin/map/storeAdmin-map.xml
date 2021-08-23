@@ -36,7 +36,7 @@
 
 <select id="selectStorageInfo" parameterType="StoreAdminVO" resultType="StoreAdminVO">
 	SELECT M.MEMBER_NAME , O.OFFER_PRODUCT, U.USE_START, U.USE_END, U.STORE_CODE
-	FROM MEMBER M, ((SELECT OFFER_CODE, OFFER_PRODUCT FROM OFFER) UNION (SELECT APPLY_CODE, APPLY_PRODUCT FROM CONVEY_APPLY where apply_whether = 'Y' and store_code = #{store_code})) O, USE_STORAGE U
+	FROM MEMBER M, OFFER O, USE_STORAGE U
 	WHERE M.MEMBER_ID = U.MEMBER_ID
 	AND O.OFFER_CODE = U.OFFER_CODE
 	AND U.STORE_CODE = #{store_code}
@@ -69,6 +69,15 @@
 	AND U.INFO_NUM IS NULL
 	AND U.USE_END > TRUNC(SYSDATE)
 	ORDER BY U.USE_NUM ASC
+</select>
+
+<!-- 보관이사 신청 고객 스토리지 할당 후 convey_apply 테이블에 use_num 업데이트 하는 프로시저 -->
+<select id="copyUseNum" parameterType="StoreAdminVO" statementType="CALLABLE">
+	{
+		CALL copy_use_num (
+			#{offer_code}
+		)
+	}
 </select>
 
 <select id="unUseStorageList" parameterType="StoreAdminVO" resultType="StoreAdminVO">
