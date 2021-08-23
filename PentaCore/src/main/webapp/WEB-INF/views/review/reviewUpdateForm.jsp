@@ -42,6 +42,7 @@
 <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 <script>
 	$(function() {
+		
 		CKEDITOR.replace('review_content', {
 			filebrowserUploadUrl:'${pageContext.request.contextPath }/fileUpload/imageUpload',
 			enterMode : CKEDITOR.ENTER_BR,
@@ -51,7 +52,10 @@
 		});
 	})
 	
+	
 	function formCheck() {
+	
+		
 		if (frm.review_title.value == "") {
 			alert("제목을 입력하세요.");
 			frm.review_title.focus();
@@ -60,22 +64,25 @@
 		frm.submit();
 	}
 </script>
+
+<script>
+</script>
 </head>
 <body>
 <div class="wrap">
 	<div>
 		<h3><font style="color: #00c0e2;">${loginName }</font>님의 <font style="color: #00c0e2;">${useStore }</font> 이용 리뷰 페이지</h3>
 	</div>
-	<form id="frm" action="reviewRegist" method="POST" enctype="multipart/form-data">
+	<form id="frm" action="reviewUpdate" method="POST" enctype="multipart/form-data">
 		<div>
-			<input type="text" name="review_title"/>
-			<input type="hidden" name="store_code" value="${sCode }" />
+			<input type="text" id="review_title" name="review_title" value='${review_title }'/>
+			<input type="hidden" id="" name="review_num" value='${review_num }' />
 		</div>
 		<div align="center">
 			<textarea id="review_content" name="review_content"></textarea>
 		</div>
 		<div style="margin: 1em 0em;">
-			<button class="apply-btn" type="button" onclick="formCheck()">등록</button>&nbsp;&nbsp;
+			<button class="apply-btn" type="button" onclick="formCheck()">수정</button>&nbsp;&nbsp;
 			<button class="back-btn" type="button" onclick="history.back();">돌아가기</button>
 		</div>
 	</form>

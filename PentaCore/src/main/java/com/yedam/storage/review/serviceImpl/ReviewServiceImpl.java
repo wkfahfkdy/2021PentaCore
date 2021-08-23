@@ -43,6 +43,17 @@ public class ReviewServiceImpl implements ReviewService {
 		return map.mainPageReviewList();
 	}
 	
+	//리뷰 수정
+	public int reviewUpdate(ReviewVO vo) {
+			
+		return sqlSession.update("reviewUpdate", vo);
+	};
+	
+	//리뷰 수정
+	public int reviewDelete(ReviewVO vo) {
+				
+		return sqlSession.delete("reviewDelete", vo);
+		};
 	
 	
 	/*

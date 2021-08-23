@@ -44,6 +44,7 @@
 </style>
 </head>
 <body>
+
 <!-- jstl 추가하기 -->
 <!-- fullCalendar -->
 <div align="center" style=" padding-bottom:100px"> 
