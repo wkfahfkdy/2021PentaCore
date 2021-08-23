@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yedam.storage.mypage.service.MyPageService;
+import com.yedam.storage.mypage.vo.MyPageVO;
 import com.yedam.storage.mystorage.service.MyStorageService;
 import com.yedam.storage.mystorage.vo.MyStorageVO;
 import com.yedam.storage.storage.service.StorageService;
@@ -20,6 +22,9 @@ public class MyStorageController {
 
 	@Autowired
 	private StorageService storageDAO;
+	
+	@Autowired
+	private MyPageService myPageDAO;
 
 	// 이용안내 페이지
 	@RequestMapping("useForm")
@@ -52,13 +57,16 @@ public class MyStorageController {
 	
 	// 안심보관이사 신청
 	@RequestMapping("keepInsert")
-	public String keepInsert(HttpServletRequest req, MyStorageVO vo) {
+	public String keepInsert(HttpServletRequest req, MyStorageVO vo, MyPageVO pvo) {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("loginId");
 		vo.setMember_id(id);
 		System.out.println(vo);
 		
 		myStorageDAO.keepInsert(vo);
+		
+		pvo.setMember_id(id);
+		myPageDAO.conservation(pvo);
 		
 		return "redirect:keep";
 	}

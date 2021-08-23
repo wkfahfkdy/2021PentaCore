@@ -141,6 +141,15 @@
 			#{apply_end}, #{apply_whether}, #{store_code})
 	</insert>
 	
+	<!-- 보관이사인 경우 실행되는 프로시저 -->
+	<select id="conservation" parameterType="MyPageVO" statementType="CALLABLE">
+		{
+			CALL conservation (
+				#{member_id}
+			)
+		}
+	</select>
+	
 	<!-- 사용자가 신청한 투어 리스트 -->
 	<select id="storeTourListAll" resultType="MyPageVO" parameterType="MyPageVO">
 		SELECT t.*, s.store_name

@@ -166,6 +166,14 @@ public class MyPageController {
 		System.out.println("값 체크 : "+ vo.toString());
 		
 		int regConvey = MyPageDAO.conveyInsert(vo);
+		
+		String a_whether = vo.getApply_whether();
+		
+		if(a_whether.equals("Y")) {
+			// 보관 이사인 경우 프로시저 실행
+			System.out.println("실행여부 체크");
+			MyPageDAO.conservation(vo);
+		}
 		System.out.println(regConvey);
 		
 		return "redirect:conveyList";

@@ -46,6 +46,8 @@ public interface MyPageMap {
 	public int conveyInsert(MyPageVO vo);
 	// 운송 신청 취소
 //	public int conveyDelete(MyPageVO vo);
+	// 보관이사 신청 시 실행 될 프로시저
+	public void conservation(MyPageVO vo);
 	
 	//--------------지점 투어 페이지-----------------
 	

@@ -110,6 +110,12 @@ public class MyPageServiceImpl implements MyPageService {
 		// 운송 신청 등록
 		return sqlSession.insert("conveyInsert", vo);
 	}
+	
+	@Override
+	public void conservation(MyPageVO vo) {
+		// 보관이사 신청 시 실행될 프로시저....
+		sqlSession.selectOne("conservation", vo);
+	}
 
 	//--------------지점 투어 페이지-----------------	
 	
