@@ -39,7 +39,6 @@
 	<update id="customerInsert" parameterType="com.yedam.storage.trans.vo.TransVO">
 		UPDATE convey_list SET
 		convey_after = #{convey_after} ,
-		info_num = substr(#{info_num},1,5), 
 		member_name = #{member_name}, 
 		convey_memo = #{convey_memo}, 
 		convey_car = #{convey_car}, 
