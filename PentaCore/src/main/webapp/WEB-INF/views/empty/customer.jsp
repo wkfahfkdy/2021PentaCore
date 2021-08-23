@@ -322,6 +322,7 @@
    				var b_after = data.cus.convey_after;
    				var b_info = data.cus.info_num;
    				var b_time = data.cus.convey_time;
+   				var a_storage = data.cus.info_num;
    				var option ="";
    				// 이것들이 null일때는 공백으로 표시하는거니까 이때는 select option을 만들어뿌고
    				if(b_memo == null && b_car == null && b_driver == null && b_after == null){
@@ -331,9 +332,9 @@
    					b_after = "";
    				}
    				
-   				for(let i = 0; i<data.list.length; i++){
-		   			option += '<option value='+data.list[i]+'>'+ data.list[i] + '</option>'
-		   		}
+//    				for(let i = 0; i<data.list.length; i++){
+// 		   			option += '<option value='+data.list[i]+'>'+ data.list[i] + '</option>'
+// 		   		}
    				
    				var title = '<h4>운송정보</h4>';
    				
@@ -344,10 +345,10 @@
    				row += '<th class="mo-tbl" style="width: 40%; padding-top: 30px; padding-bottom: 3%;" colspan="2">' + '<h4>'+ '상담원 추가입력' + '</h4>' + '</th>';
    				row += '<tr><th class="mo-tbl" style="width: 10%; vertical-align:top;">' + "이름" + '</th>';
    				row += '<td class="mo-tbl">' + a_name + '</td>';
-   				row += '< type="hidden" name="member_name" value="'+a_name+'">';
+   				row += '<input type="hidden" name="member_name" value="'+a_name+'" />';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "신청코드" + '</th>';
    				row += '<td class="mo-tbl">' + a_code + '</td>';
-   				row += '< type="hidden" name="apply_code" value="'+a_code+'">';
+   				row += '<input type="hidden" name="apply_code" value="'+a_code+'" />';
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "연락처" + '</th>';
    				row += '<td class="mo-tbl">' + a_tel + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "특이사항" + '</th>';
@@ -368,10 +369,11 @@
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "지점명" + '</th>';
    				row += '<td class="mo-tbl">' + a_store + '</td>';
    				row += '<th class="mo-tbl" style="vertical-align:top;">' + "스토리지" + '</th>';
-   				row += '<td class="mo-tbl">' + 
-   						'<select id="cuStorage" name="info_num">'
-	   						+option+
-   						'</select></td></tr>';
+   				if(a_storage != null){
+	   				row += '<td class="mo-tbl">' + a_storage + '</td></tr>';
+   				} else {
+   					row += '<td class="mo-tbl">할당 된 스토리지가 없습니다. 지점에 문의하세요.</td></tr>';
+   				}
    				row += '<tr><th class="mo-tbl" style="vertical-align:top;">' + "이사규모" + '</th>';
    				row += '<td class="mo-tbl">' + a_product + '</td>';
    				row += '<th class="mo-tbl"style="vertical-align:top;">' + "배송시간" + '</th>';

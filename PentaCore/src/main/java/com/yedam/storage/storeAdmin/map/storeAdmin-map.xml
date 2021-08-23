@@ -46,15 +46,17 @@
 
 <!-- 현재 그 지점의 예약 되어있는 리스트 (수정 INFO_NUM 이 NULL인 사람들만 Select 하게 만듬 == 이미 예약되어있는데 클릭하면 그 정보가 떠서)-->
 <select id="offerInfoList"  parameterType="StoreAdminVO" resultType="StoreAdminVO">
-	SELECT M.MEMBER_ID, O.OFFER_PRODUCT, NVL(O.OFFER_RENTAL, 'X')AS OFFER_RENTAL, O.STORAGE_CODE, U.USE_START, U.USE_END, U.STORE_CODE, O.OFFER_CODE, T.STORAGE_NAME
-	FROM MEMBER M, OFFER O, USE_STORAGE U, STORAGE T
-	WHERE M.MEMBER_ID = U.MEMBER_ID
-	AND O.OFFER_CODE = U.OFFER_CODE
-	AND U.STORE_CODE = #{store_code}
-	AND U.INFO_NUM IS NULL
-	AND U.USE_END > TRUNC(SYSDATE)
-	AND O.STORAGE_CODE = T.STORAGE_CODE
-	ORDER BY U.USE_NUM ASC
+	 (SELECT M.MEMBER_ID, O.OFFER_PRODUCT, NVL(O.OFFER_RENTAL, 'X')AS OFFER_RENTAL, O.STORAGE_CODE, U.USE_START, U.USE_END, U.STORE_CODE, O.OFFER_CODE, T.STORAGE_NAME
+   FROM MEMBER M, OFFER O, USE_STORAGE U, STORAGE T
+   WHERE M.MEMBER_ID = U.MEMBER_ID
+   AND O.OFFER_CODE = U.OFFER_CODE
+   AND U.STORE_CODE = #{store_code}
+   AND U.INFO_NUM IS NULL
+   AND U.USE_END > TRUNC(SYSDATE)
+   AND O.STORAGE_CODE = T.STORAGE_CODE
+   )
+   union
+   (select member_id, apply_product, null, 'f20', apply_start, apply_end, store_code, apply_code, '라지플러스' from convey_apply where apply_whether = 'Y' and store_code = #{store_code})
 </select>
 
 <select id="selectOfferInfo" parameterType="StoreAdminVO" resultType="StoreAdminVO">
