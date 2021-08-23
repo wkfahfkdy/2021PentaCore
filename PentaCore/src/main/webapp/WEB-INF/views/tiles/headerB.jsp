@@ -46,16 +46,16 @@
                  
 				<!-- === TOP LOGO === -->
 				 
-				<div class="logo" id="main-logo">
-					<div class="logo-image">
+				<div class="logo" id="main-logo" >
+					<div class="logo-image" style="cursor: pointer;"style="cursor: pointer;">
 						<img src="resources/img/logo.png" alt="" 
 							onclick="location.href='${pageContext.request.contextPath}/home'"/>
 					</div>
-					<div class="logo-text" onclick="location.href='${pageContext.request.contextPath}/home'">
+					<div style="cursor: pointer;" class="logo-text" onclick="location.href='${pageContext.request.contextPath}/home'">
 						<!-- MY <span class="color-primary">STORAGE</span> -->
 						<span id="logo">MY</span>&nbsp;<span id="logo2">STORAGE</span>
 					</div>
-					<div class="logo-text">
+					<div class="logo-text" style="cursor: default;">
 						<span><B>${employeeVO.store_name }</B></span>
 					</div>
 				</div>
@@ -95,7 +95,7 @@
 						<!-- LOGIN 했을때 -->
 						<sec:authorize access="isAuthenticated()">
 							<li>
-								<a onclick="location.href='${pageContext.request.contextPath }/home'">지점관리자</a>
+								<a style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath }/home'">지점관리자</a>
 							</li>
 							
 							<li class="main-menu-separator"></li>

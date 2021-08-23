@@ -11,17 +11,18 @@
 <style>
 	#my_offer {	/*모달창*/
         display: none;
-        width: 50%;
+        width: 280px;
         padding: 30px 50px;
         background-color: #fefefe;
-        border: 1px solid #888;
         border-radius: 3px;
     }
 
     #my_offer .modal_close_btn {	/*모달창 닫기버튼*/
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 20px;
+        right: 20px;
+        color: #cecece;
+        cursor: pointer;
     }
     
     #cancel {	/*모달 신청 취소 버튼*/
@@ -32,7 +33,7 @@
     }
     
     .comment {	/*모달 내용 작은 코멘트*/
-    	font-size:9pt;
+    	font-size:11pt;
     	color:#00c0e2;
     	margin: 0 0 0;
     }
@@ -48,13 +49,14 @@
 <div align="center" style=" padding-bottom:100px"> 
 	<div id="demo-desktop-week-view""></div>
 </div>
-<div id="my_offer" align="center">
-    <a class="modal_close_btn">닫기</a>
-    <div class="modal-header"></div>
+<div id="my_offer" align="center" >			   
+	<a class="modal_close_btn"> 
+	<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a>
+    <div class="modal-header" ></div>
     <div class="modal-body"></div>
 </div>
 <!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar.jsp에도 같이 추가 -->
-<c:set var="bgcolor" value="<%=new String[]{\"#000080\", \"#05abf7\", \"#f70ca5\"}%>"></c:set>
+<c:set var="bgcolor" value="<%=new String[]{\"#fdec94\", \"#bde5fe\", \"#f9bdbd\"}%>"></c:set>
 <script>
 
 mobiscroll.setOptions({
@@ -78,6 +80,7 @@ $(function(){
 			var tbl =$('<table />');
 			var row = '<tr>';
 			row += '<td> 고객명 : '+event.event.title+'</td></tr>';
+			row += '<tr><td style="height:10px;"></td></tr>'
 			row += '<td> 연락처 : '+event.event.tel+'</td></tr>';
 			
 			tbl.append(row);
