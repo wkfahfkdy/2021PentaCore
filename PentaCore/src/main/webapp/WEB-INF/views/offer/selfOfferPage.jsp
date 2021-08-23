@@ -252,6 +252,8 @@
            	
            	// 픽업 서비스 신청했는데 층수가 0층일때 + 희망날짜 / 시간 설정안했을때 + 박스 신청했는데 갯수가 0일때 alert
            	if($('input:radio[name="pickupService"]:checked').val() == "Y"){
+           		$('#hiddenPickupDate').val($('#hiddenOfferStart').val());
+           		$('#hiddenPickuptime').val("AM 08:00 ~ 12:00");
            		if(parseInt($('#floor').val()) == 0) {
            			alert("Error : 403 Forbidden");
            			$('#floor').focus();
