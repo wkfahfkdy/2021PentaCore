@@ -174,6 +174,7 @@ function insertCoupon() {
 					<h2>투어관리</h2></button>
 			</div>
 		</div>
+		<div style="clear: both;"></div>
 		<div class="box">
 			<div class="btn">
 				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/storeNotice'">

@@ -1071,7 +1071,8 @@ input[type='number'] {
 			            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"
 			               style="width: 100%;">
 			               <div class="home-clients">
-			                  <h4>얼마나 오래 사용하실 계획이세요? <input type="date" id="datePick" pattern="YYYY/MM/DD"></h4>
+							  <c:set var="now" value="<%=new java.util.Date()%>" />
+			                  <h4>얼마나 오래 사용하실 계획이세요? <input type="date" id="datePick" pattern="YYYY/MM/DD" min="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />"></h4>
 			                  <div class="collapse navbar-collapse main-menu main-menu-2"
 			                     id="main-menu">
 			                     <ul class="nav navbar-nav">

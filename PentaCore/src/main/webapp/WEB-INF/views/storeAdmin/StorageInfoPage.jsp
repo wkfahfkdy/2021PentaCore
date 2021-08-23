@@ -182,6 +182,7 @@
 		
 	.storageList {
 		width: 14%; 
+		height: 240px;
 		border-radius: 5px;
 		background-color: #f4f4f4;
 		margin: 10px 10px;
@@ -196,6 +197,13 @@
 	#useMember:hover {
 		color:  rgb(52, 152, 219);
 	}
+	
+	.service-1 p {
+	    text-align: left;
+	    padding-left: 10%;
+	}
+
+
 </style>
 </head>
 <body>
@@ -224,28 +232,24 @@
 					<div id="${storageName.storage_code}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12 storageList">
 						<div class="service-1">
 							<div class="service-1-title">
-								<h3>${storageName.storage_name}</h3>
+								<h3 style="cursor: default;">${storageName.storage_name}</h3>
 							</div>
 								<c:forEach items="${StorageInfoList}" var="storageInfoList">
 									<c:if test="${storageInfoList.storage_name == storageName.storage_name}">
-										<div class="service-1-text">
+										<div class="service-1-text" style="cursor: pointer;">
 											<c:choose>
 												<c:when test="${storageInfoList.info_use eq '미사용'}">
-													<p>
 														<a style="color: #2b2b2b;" id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }')" data-toggle="modal" data-target="#unUsedStorage">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
-													</p>	
 												</c:when>
 												<c:otherwise>
-													<p>
 														<a id="useMember" onclick="useStorageInfo('${storageInfoList.offer_code}','${store_code }')" data-toggle="modal" data-target="#storageInfo">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
-													</p>
 												</c:otherwise>
 											</c:choose>
-										</div>
+										</div><br>
 									</c:if>
 								</c:forEach>
 						</div>
@@ -270,31 +274,30 @@
 	<!-- 이용중인 회원 정보 Modal -->
 	<div class="modal fade" id="storageInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
+	    <div class="modal-content" style="top: 250px;">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLongTitle">스토리지 정보</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
 	      </div>
-	      <div class="modal-body">
+	      <div class="modal-body"  style="padding: 30px 0px;">
 	        	<table id="infoStorage">
-	        		<tr>
-	        			<th style="width: 33%; font-size: 16pt; padding:30px;">고객명</th>
-	        			<td id="memberId"></td>
+	        		<tr style=" margin-bottom:10px">
+	        			<th style="padding-left: 50px;">고객명</th>
+	        			<td  id="memberId"></td>
 	        		</tr>
-	        		<tr>
-	        			<th style="width: 33%; font-size: 16pt; padding:30px;">사용기간</th>
-	        			<td id="memberUseDate"></td>
-	        		</tr>
-	        		<tr>
-	        			<th style="width: 33%; font-size: 16pt; padding:30px;">보관물품</th>
-	        			<td id='memberStorageInfo'></td>
-	        		</tr>
+					<tr><td style="height: 20px;"></td></tr>
+	        		<tr  style="height: 5px;">
+	        			<th style="width: 33%; padding-left:50px;">사용기간</th>
+	        			<td style="padding-right: 50px;" id="memberUseDate"></td>
+	        		</tr> 
+     				<tr><td style="height: 20px;"></td></tr>
+	        		<tr style="height: 5px;">
+	        			<th style="width: 33%; padding-left:50px;">보관물품</th>
+	        			<td style="padding-right: 50px;" id='memberStorageInfo'></td>
+	        		</tr> 
 	        	</table>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border: 1px solid #dddddd;">Close</button>
 	      </div>
 	    </div>
 	  </div>
@@ -303,38 +306,36 @@
 	<!-- 사용안하고 있는 스토리지 할당 Modal -->
 	<div class="modal fade bd-example-modal-lg" id="unUsedStorage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
+			<div class="modal-content" style="padding: 0 auto; top: 220px;">
+				<div class="modal-header" >
+					<h4 style="padding-left: 43px;">STORAGE 할당</h4>
 				</div>
-				<div class="modal-body">
-					<table style="width: 100%; text-align: ceneter">
+				<div class="modal-body" style="margin-bottom: 30px;">
+					<table style="width: 100%; text-align: left;">
 						<tr>
-							<td style="font-size: 16pt; padding:30px; text-align: center">
-								<h4>회원 ID</h4>
+							<td style=" padding-left:50px; text-align: left;">
+								<h5>회원 ID &nbsp;
 								<select name="member_id" id="memberIdSelect">
 									<option>현재 비어있는 스토리지</option>
-								</select>
+								</select></h5>
 							</td>
-						</tr>
+						</tr><br>
 						<tr>
-						<c:forEach items="${offerInfoList }" var="offerInfoList">
-							<td style="font-size: 16pt; padding:30px; text-align: center" id="${offerInfoList.offer_code }${offerInfoList.storage_code}" class="do">
-									
-							</td>
-						</c:forEach>
-						</tr>
-						<tr>
-							<td style="width: 100%; font-size: 16pt; padding:30px; text-align: center">
-							
-								<h4>현재 비어있는 스토리지</h4>
+							<td style="width: 100%;  padding-left:50px; text-align: left">
+								<h5>현재 비어있는 스토리지
 								<input type="hidden" class="offerCode">
 								<select name="info_num" id="unUseStorageList">
 										<option>현재 비어있는 스토리지</option>
-								</select>
+								</select> </h5>
 							</td>
+						</tr>
+						<tr><td style="height: 20px;"></td></tr>
+						<tr>
+						<c:forEach items="${offerInfoList }" var="offerInfoList">
+							<td style="padding-left:50px; text-align: left" id="${offerInfoList.offer_code }${offerInfoList.storage_code}" class="do">
+									
+							</td>
+						</c:forEach>
 						</tr>
 						<tr>
 							<td id="hiddenTr">
@@ -344,8 +345,8 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" id="modal_close_btn" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
 					<button type="button" class="btn btn-primary" id="storageSaveBtn">SAVE</button>
+					<button type="button" id="modal_close_btn" class="btn btn-secondary" data-dismiss="modal" style="border:1px solid #dddddd;">CLOSE</button>
 				</div>
 			</div>
 		 </div>

@@ -206,10 +206,10 @@
 			<h2>Review</h2>
 		</div>
 	    <div class="swiper-container mySwiper" style="height: auto; width: 80%; margin: 100px auto">
-	    	<div class="swiper-wrapper">
+	    	<div class="swiper-wrapper" style="width: 100%;  border:10px; border-radius: 100px;">
 				<c:forEach items="${reviewList}" var="reviewList" >
-					<div class="swiper-slide" style="width: 100%">
-						<div class="media" style="width: 80%;  padding: 30px; border:1px; ">
+					<div class="swiper-slide" style="width: 100%;">
+						<div class="media" style="width: 80%;  padding: 30px; ">
 							<div class="media-body" style="width:100%; display: block; ">
 								<div class="media-body-top" style="width: 100%;">
 									<div class="media-info" style="width: 100%">
@@ -217,7 +217,7 @@
 										<a onclick="location.href='reviewDetail?review_num=${reviewList.review_num}'"><div class="my-btn my-btn-default">
 											<div class="my-btn-bg-top"></div>
 											<div class="my-btn-bg-bottom"></div>
-											<div class="my-btn-text">
+											<div class="my-btn-text" style="cursor: pointer;">
 												자세히 보기
 												</div>
 											</div>
