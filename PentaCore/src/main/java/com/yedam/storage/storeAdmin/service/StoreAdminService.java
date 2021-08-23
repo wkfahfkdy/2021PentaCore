@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.yedam.storage.mypage.vo.MyPageVO;
 import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
@@ -72,6 +73,10 @@ public interface StoreAdminService {
 	public int insertReport(StoreAdminVO vo);
 	// 쿠폰 입력
 	public int insertCoupon(StoreAdminVO vo);
+	
+	//투어관리
+	public List<MyPageVO> storeTourList(MyPageVO vo);
+	public int updateTour(MyPageVO vo);
 	// ==============형민====================
 
 	// ==============반야====================

@@ -170,7 +170,7 @@ function insertCoupon() {
 					<h2>고객관리</h2></button>
 			</div>
 			<div class="btn">
-				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/tourCalendar'">
+				<button type="button" id="btn" class="btn btn-primary btn-lg" onclick="location.href='store/tourConfirm'">
 					<h2>투어관리</h2></button>
 			</div>
 		</div>

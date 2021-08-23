@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
+import com.yedam.storage.mypage.vo.MyPageVO;
 import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.vo.StoreAdminVO;
 
@@ -55,6 +56,10 @@ public interface StoreAdminMapper {
 	public int updateLaundryCollect(StoreAdminVO vo);
 	public int insertReport(StoreAdminVO vo);
 	public int insertCoupon(StoreAdminVO vo);
+	
+	//투어관리
+	public List<MyPageVO> storeTourList(MyPageVO vo);
+	public int updateTour(MyPageVO vo);
 	
 	// ==============형민====================
 	

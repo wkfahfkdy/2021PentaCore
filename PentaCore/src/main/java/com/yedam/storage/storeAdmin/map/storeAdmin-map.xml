@@ -198,6 +198,8 @@
 	
 	</select> 
 	
+	
+	
 	<insert id="insertReport" parameterType="StoreAdminVO">
 	insert into CONDITION_LIST 
 	values(#{condition_title},sysdate,'CD' || lpad(cd_seq.nextval,3,0),#{use_num},#{condition_comment})  
@@ -215,6 +217,22 @@
 	INSERT INTO coupon VALUES( 'CP' || lpad(coupon_seq.nextval,3,0), #{coupon_name}, #{coupon_discount}, #{coupon_start}, #{coupon_end}, 
 	#{store_code}) 
 	</insert>
+	
+	<!-- 사용자가 신청한 지점투어 리스트 -->
+	<select id="storeTourList" resultType="MyPageVO" parameterType="MyPageVO">
+		SELECT t.*, s.store_name, m.member_name
+		FROM (tour t join store s 
+		on t.store_code = s.store_code) join member m on
+   		m.member_id= t.member_id
+    	where s.store_code = #{store_code}
+	</select>
+	
+	<!-- 투어 신청 확정 -->
+	<update id="updateTour" parameterType="MyPageVO">
+		UPDATE tour 
+		SET tour_complete = #{tour_complete}
+		WHERE tour_code = #{tour_code}
+	</update>
 	
  <!--전형민 -->
  

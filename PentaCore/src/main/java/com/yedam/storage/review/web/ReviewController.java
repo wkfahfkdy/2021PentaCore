@@ -4,6 +4,8 @@ package com.yedam.storage.review.web;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +63,16 @@ public class ReviewController {
 			String review_num = req.getParameter("review_num");
 			ReviewVO rvo = reviewDAO.selectReview(review_num);
 			
-			String content = rvo.getReview_content().substring(0,3);
+			String content="";
+			
+			if(rvo.getReview_content() == null) {
+				rvo.setReview_content("   ");
+				content = rvo.getReview_content().substring(0,3);
+			}
+			
+			if(rvo.getReview_content().length() >=3) {
+				content = rvo.getReview_content().substring(0,3);
+			}
 			
 			
 			model.addAttribute("imageCheck",content); //사용자가 이미지 파일 첨부했으면 상세보기에 지점사진 안들어가게하기.
@@ -73,5 +84,43 @@ public class ReviewController {
 			return "review/reviewDetail";
 			}
 		
+		
+		// 리뷰 업데이트 페이지 이동
+			@RequestMapping("reviewUpdateForm")
+			public String reviewUpdateForm(Model model, HttpServletRequest req, ReviewVO vo) {
+				
+				String review_title = req.getParameter("review_title");
+				String review_content = req.getParameter("review_content");
+				String review_num = req.getParameter("review_num");
+				
+				model.addAttribute("review_title",review_title);
+				model.addAttribute("review_content",review_content);
+				model.addAttribute("review_num",review_num);
+				
+				return "review/reviewUpdateForm";
+			}
+
+			
+		// 리뷰 업데이트
+		@RequestMapping("reviewUpdate")
+		public String reviewRegist(HttpServletRequest req, ReviewVO vo) {
+			
+			if(vo.getReview_content() == null) {
+				vo.setReview_content("");
+			}
+			
+			reviewDAO.reviewUpdate(vo);
+			return "redirect:reviewList";
+		}
+		
+		// 리뷰 삭제
+		@RequestMapping("reviewDelete")
+		public String reviewDelete(HttpServletRequest req, ReviewVO vo) {
+			String review_num = req.getParameter("review_num");
+			vo.setReview_num(Integer.parseInt(review_num));	
+					
+			reviewDAO.reviewDelete(vo);
+			return "redirect:reviewList";
+			}
 	
 }

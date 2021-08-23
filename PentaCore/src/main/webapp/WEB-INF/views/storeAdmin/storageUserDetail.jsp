@@ -420,21 +420,24 @@ $(function() {
 				</td>
 				</tr>
 				
-				<c:choose>
-				<c:when test="${selectUserVO.offer_wash eq 'Y'}">
-				
 				<tr>
 				<th>세탁관리</th>
 				<td>${selectUserVO.offer_wash }</td>
 				<td></td>
 				</tr>
 				
-				<tr>
-				<th>위탁날짜</th>
+				<c:choose>
+				<c:when test="${selectUserVO.offer_wash eq 'Y'}">
+				
+				
+				
+				
 				
 				<c:choose>
 				
 				<c:when test="${!empty selectUserVO.laundry_consign }">
+				<tr>
+				<th>위탁날짜</th>
 				<td>
 					<p>${selectUserVO.laundry_consign }</p>
 					<div class="con-data"><input type="date" id="apply_start" name="apply_start" /></div>
@@ -442,32 +445,38 @@ $(function() {
 				<td>
 				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;" id="laundryConsignChange" name="laundryConsignChange" value=""><b>수정</b></button>				    
 				 </td>
+				 </tr>
 				</c:when>
 				
 				
 				<c:otherwise>
+				<tr>
+				<th>위탁날짜</th>
 				<td>
 				<div class="form-condata">
 					<div class="con-data"><input type="date" id="apply_start2" name="apply_start2" /></div>	
 					</div>
 					</td>
 					<td>
-					<button type="button" class="btn btn-primary btn-lg" id="laundryConsign" name="laundryConsign" value=""><b>입력</b></button>
+					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;"
+					id="laundryConsign" name="laundryConsign" value=""><b>입력</b></button>
 					</td>
+					 </tr>
 				</c:otherwise>
 				</c:choose>
 				
 				
 				
-				</tr>
 				
-				<tr>
-				<th>회수날짜</th>
+				
+				
 				
 				
 				
 				<c:choose>
 				<c:when test="${!empty selectUserVO.laundry_collect}">
+				<tr>
+				<th>회수날짜</th>
 				<td>
 					<p>${selectUserVO.laundry_collect }</p>
 					<div class="con-data"><input type="date" id="apply_end" name="apply_end" /></div>
@@ -476,37 +485,33 @@ $(function() {
 				<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;"
 				id="laundryCollectChange" name="laundryCollectChange" value=""><b>수정</b></button>				    
 				 </td>
+				 </tr>	
 				</c:when>
 				
 				
 				<c:otherwise>
 				<c:if test="${!empty selectUserVO.laundry_consign}">
+				<tr>
+				<th>회수날짜</th>
 				<td>
 				<div class="form-condata">
 					<div class="con-data"><input type="date" id="apply_end2" name="apply_end2" /></div>	
 					</div>
 					</td>
 					<td>
-					<button type="button" class="btn btn-primary btn-lg" id="laundryCollect" name="laundryCollect" value=""><b>입력</b></button>
+					<button type="button" class="btn btn-light" style="background-color:#6BAAFA; color:white; float: right;"
+					 id="laundryCollect" name="laundryCollect" value=""><b>입력</b></button>
 					</td>
+					</tr>	
 					</c:if>
 				</c:otherwise>
 				</c:choose>
 				
-				</tr>	
+				
 				
 				</c:when>	
 				
-				
-				
-				<c:otherwise>
-				
-				<tr>
-				<th>세탁관리</th>
-				<td colspan="2">${selectUserVO.offer_wash }</td>
-				</tr>
-				
-				</c:otherwise>
+			
 				
 				</c:choose>	
 		</table>
@@ -828,6 +833,12 @@ $(function() {
 			}
 		}
 	</script>
+	
+	<div align="center">
+			<div class="btn btn-primary btn-lg" onclick="location.href='${pageContext.request.contextPath }/home'"style="display: inline-block;"> 돌아가기
+	</div></div>
+	<br>
+	<br>
 </body>
 
 <!-- 보고서 모달 여는 script -->

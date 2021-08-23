@@ -193,7 +193,11 @@ $.ajax({
 		</form>
 		</div>
 	
-	
+	<div align="center">
+			<div class="btn btn-primary btn-lg" onclick="location.href='${pageContext.request.contextPath }/home'"style="display: inline-block;"> 돌아가기
+	</div></div>
+	<br>
+	<br>
 	
 
 </body>

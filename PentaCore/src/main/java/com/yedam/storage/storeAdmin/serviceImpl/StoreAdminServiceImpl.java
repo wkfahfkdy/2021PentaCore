@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.storage.mypage.vo.MyPageVO;
 import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.map.StoreAdminMapper;
 import com.yedam.storage.storeAdmin.service.StoreAdminService;
@@ -205,5 +206,15 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return sqlSession.selectList("customerAskSelect", vo);
 	}
 	// =================================================
+
+	@Override
+	public List<MyPageVO> storeTourList(MyPageVO vo) {
+		return sqlSession.selectList("storeTourList", vo);
+	}
+
+	@Override
+	public int updateTour(MyPageVO vo) {
+		return sqlSession.update("updateTour", vo);
+	}
 
 }

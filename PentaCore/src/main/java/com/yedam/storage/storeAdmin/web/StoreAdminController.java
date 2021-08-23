@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.storage.member.serviceImpl.MemberServiceImpl;
 import com.yedam.storage.member.vo.MemberVO;
+import com.yedam.storage.mypage.vo.MyPageVO;
 import com.yedam.storage.review.common.Paging;
 import com.yedam.storage.store.vo.StoreVO;
 import com.yedam.storage.storeAdmin.service.StoreAdminService;
@@ -244,8 +246,6 @@ public class StoreAdminController {
 	public String LoginIdCheck(StoreAdminVO vo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		
 		
-		
-		
 	return "storeAdmin/customerManage";
 	}
 	
@@ -389,6 +389,33 @@ public class StoreAdminController {
 	
 	
 	//==============최반야 > 1:1 문의 관리 끝 ==========================
+	
+	// 투어 신청 페이지 실행
+		@RequestMapping("store/tourConfirm")
+		public String storeTour(HttpServletRequest req, Model model, MyPageVO vo) {
+			HttpSession session = req.getSession();
+
+			String id = (String) session.getAttribute("loginId");
+			String store_code = (String) session.getAttribute("store_code");
+			
+			vo.setStore_code(store_code);
+			vo.setMember_id(id);
+			
+			if(id != null) {
+				vo.setMember_id(id);
+				model.addAttribute("storeTourList", storeAdminDAO.storeTourList(vo));
+			}
+			return "storeAdmin/tourConfirm";
+		}
+	
+	// 투어 승인
+		@ResponseBody
+		@RequestMapping(value = "store/tourChange", method=RequestMethod.PUT)
+		public int updateTour(@RequestBody MyPageVO vo) {
+			System.out.println("sadddddddddddddddddddddddddddddddddddddddddddddddddddd"+vo.getTour_complete());
+			storeAdminDAO.updateTour(vo);
+			return 0;
+		}		
 	
 	// 주간 캘린더 API TEST
 	@RequestMapping("store/tourCalendar")

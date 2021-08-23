@@ -117,4 +117,16 @@ private String member_disable;
 		AND REVIEW_CONTENT NOT LIKE '%img%'
 	</select>
 	
+	
+	
+	<!-- 리뷰 수정 -->
+	<insert id="reviewUpdate" parameterType="com.yedam.storage.review.vo.ReviewVO">
+		UPDATE review set review_title = #{review_title}, review_content = #{review_content}, review_date = sysdate where review_num = #{review_num}
+	</insert>
+	
+	<!-- 리뷰 삭제 -->
+	<insert id="reviewDelete" parameterType="com.yedam.storage.review.vo.ReviewVO">
+		delete review where review_num = #{review_num}
+	</insert>
+	
 </mapper>
