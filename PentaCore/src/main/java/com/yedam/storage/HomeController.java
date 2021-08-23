@@ -178,6 +178,7 @@ public class HomeController {
 	public String goStoreSelect(Model model, StoreVO vo) {
 
 		model.addAttribute("list", storeDAO.htSelect(vo));
+		System.out.println("hhfgsdfdsfsfds : " +vo.getStore_code());
 		
 		return "test/goStoreAdmin";
 	}
@@ -189,7 +190,7 @@ public class HomeController {
 	
 	
 	@RequestMapping("goStoreAdmin")
-	public String goStoreAdmin(HttpServletRequest req) {
+	public String goStoreAdmin(HttpServletRequest req,StoreVO vo) {
 		
 		String store_code = req.getParameter("store_code");
 		HttpSession session = req.getSession();

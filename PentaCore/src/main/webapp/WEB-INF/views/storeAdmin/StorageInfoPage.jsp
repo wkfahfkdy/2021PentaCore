@@ -182,6 +182,7 @@
 		
 	.storageList {
 		width: 14%; 
+		height: 240px;
 		border-radius: 5px;
 		background-color: #f4f4f4;
 		margin: 10px 10px;
@@ -238,21 +239,17 @@
 										<div class="service-1-text" style="cursor: pointer;">
 											<c:choose>
 												<c:when test="${storageInfoList.info_use eq '미사용'}">
-													<p>
 														<a style="color: #2b2b2b;" id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }')" data-toggle="modal" data-target="#unUsedStorage">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
-													</p>	
 												</c:when>
 												<c:otherwise>
-													<p>
 														<a id="useMember" onclick="useStorageInfo('${storageInfoList.offer_code}','${store_code }')" data-toggle="modal" data-target="#storageInfo">
 															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
 														</a>
-													</p>
 												</c:otherwise>
 											</c:choose>
-										</div>
+										</div><br>
 									</c:if>
 								</c:forEach>
 						</div>
