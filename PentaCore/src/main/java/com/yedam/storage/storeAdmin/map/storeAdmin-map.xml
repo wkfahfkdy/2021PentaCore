@@ -55,13 +55,13 @@
    AND U.USE_END > TRUNC(SYSDATE)
    AND O.STORAGE_CODE = T.STORAGE_CODE
    )
-   union
-   (select member_id, apply_product, null, 'f20', apply_start, apply_end, store_code, apply_code, '라지플러스' from convey_apply where apply_whether = 'Y' and store_code = #{store_code})
+   UNION
+   (SELECT MEMBER_ID, APPLY_PRODUCT, NULL, 'f20', APPLY_START, APPLY_END, STORE_CODE, APPLY_CODE, '라지플러스' FROM CONVEY_APPLY WHERE APPLY_WHETHER = 'Y' AND STORE_CODE = #{store_code} AND USE_NUM IS NULL)
 </select>
 
 <select id="selectOfferInfo" parameterType="StoreAdminVO" resultType="StoreAdminVO">
 	SELECT M.MEMBER_ID , O.OFFER_PRODUCT, nvl(O.OFFER_RENTAL, 'X'), O.STORAGE_CODE,U.USE_START, U.USE_END, U.STORE_CODE, O.OFFER_CODE
-	FROM MEMBER M, OFFER O, USE_STORAGE U
+	FROM MEMBER M, ((SELECT OFFER_CODE, OFFER_PRODUCT, store_code, storage_code, offer_rental FROM OFFER) UNION (SELECT APPLY_CODE, APPLY_PRODUCT, STORE_CODE, 'f20', NULL FROM CONVEY_APPLY WHERE APPLY_WHETHER = 'Y' AND STORE_CODE = #{store_code})) O, USE_STORAGE U
 	WHERE M.MEMBER_ID = U.MEMBER_ID
 	AND O.OFFER_CODE = U.OFFER_CODE
 	AND U.STORE_CODE = #{store_code}
