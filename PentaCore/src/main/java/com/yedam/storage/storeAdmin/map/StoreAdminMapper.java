@@ -20,6 +20,8 @@ public interface StoreAdminMapper {
 	public void updateUseProcedure(StoreAdminVO vo);
 	public StoreVO storeTemHumInfo(StoreVO vo);
 	public int storeTemHumUpdate(StoreVO vo);
+	// 보관이사 고객 스토리지 할당 후 실행되는 프로시저 : convey_apply 테이블에 use_num 업데이트
+	public void copyUseNum(StoreAdminVO vo);
 	
 	//사후보고서 리스트 확인
 	public List<StoreAdminVO> premiumReportList(StoreAdminVO vo);

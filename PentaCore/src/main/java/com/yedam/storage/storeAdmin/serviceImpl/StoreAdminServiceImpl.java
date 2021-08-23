@@ -78,6 +78,13 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return map.storeTemHumUpdate(vo);
 	}
 	
+
+	@Override
+	public void copyUseNum(StoreAdminVO vo) {
+		// 보관이사 스토리지 할당 후 실행되는 프로시저 : convey_apply 테이블에 use_num 업데이트
+		map.copyUseNum(vo);
+	}
+	
 	// 사후보고서 리스트 확인
 	@Override
 	public List<StoreAdminVO> premiumReportList(StoreAdminVO vo) {
@@ -205,5 +212,6 @@ public class StoreAdminServiceImpl implements StoreAdminService {
 		return sqlSession.selectList("customerAskSelect", vo);
 	}
 	// =================================================
+
 
 }

@@ -87,9 +87,12 @@ public class StoreAdminController {
 	@RequestMapping("store/offerInfo")
 	@ResponseBody
 	public Map<String, Object> offerInfo(Model model, StoreAdminVO vo) {
+		storeAdminDAO.copyUseNum(vo);
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("selectOfferInfo", storeService.selectOfferInfo(vo));
 		map.put("unUseStorage", storeService.unUseStorageList(vo));
+		
 		return map;
 	}
 	
