@@ -247,7 +247,6 @@ $(document).ready(function() {
 			store_name: '${list.store_name}',
 			tour_date: '<fmt:formatDate value="${list.tour_date}" pattern="yyyy-MM-dd" />',
 			tour_time:'${list.tour_time}',
-			tour_complete: '${list.tour_complete}',
 			tour_cancel: '${list.tour_cancel}'
 		}
 			<c:if test="${not status.last}">,</c:if>
@@ -293,11 +292,6 @@ $(document).ready(function() {
 			{
 				header: '투어 희망 시간',
 				name: 'tour_time',
-				align: 'center',
-			},
-			{
-				header: '투어 신청 확정 여부',
-				name: 'tour_complete',
 				align: 'center',
 			},
 			{

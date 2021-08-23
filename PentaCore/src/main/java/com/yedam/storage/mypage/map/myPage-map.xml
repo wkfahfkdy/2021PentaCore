@@ -115,14 +115,10 @@
 	
 	<!-- 물품 운송 신청 상세 -->
 	<select id="myConveySelect" resultType="MyPageVO" parameterType="MyPageVO">
-		SELECT a.*, s.store_name<if test="use_num !=null and use_num != ''">, u.info_num </if>, c.convey_after, 
+		SELECT a.*, s.store_name, c.convey_after, 
 				c.convey_file, c.convey_time, c.convey_car, c.convey_driver
 		FROM convey_apply a JOIN store s
 		ON (a.store_code = s.store_code)
-		<if test="use_num != null and use_num != ''">
-			JOIN use_storage u
-			ON (a.use_num = u.use_num)
-		</if> 
 		JOIN convey_list c
 		ON (a.apply_code = c.apply_code)
 		WHERE a.apply_code = #{apply_code}

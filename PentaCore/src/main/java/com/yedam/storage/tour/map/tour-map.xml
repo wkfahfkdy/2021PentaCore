@@ -6,6 +6,7 @@
 			select 	*
 			from 	tour
 			where 	store_code = #{store_code}
+			AND tour_cancel = 'N'
 	</select>
 
 </mapper>
