@@ -138,7 +138,7 @@
 <body>
 	<div class="wrap">
 		<div>
-			<h3>지점 투어 신청 내역 조회</h3>
+			<h3>${employeeVO.store_name} 투어 신청 내역 조회</h3>
 		</div>
 		<div class="tour-list">
 			<div align="right" style="margin-bottom: 1em; color: #478FEB;">	
@@ -146,10 +146,20 @@
 				&nbsp;&nbsp;*승인상태 변경 후 클릭
 			</div>
 			<div id="tourGrid" align="center"></div>
+			<br>
+			<div align="right" style="margin-bottom: 1em; color: #478FEB;">	
+				<button onclick="location.href='tourCalendar'">투어 캘린더 확인</button>
+			</div>
+		</div>
+		
+		
+		<div align="center">
+			<div class="btn btn-primary btn-lg" onclick="location.href='${pageContext.request.contextPath }/home'"style="display: inline-block;"><b>돌아가기</b>
 		</div>
 		
 	</div>
 </body>
+
 <script>
 $(document).ready(function() {
 	var list = '<c:out value="${storeTourList}"/>';
@@ -164,6 +174,7 @@ $(document).ready(function() {
 			store_name: '${list.store_name}',
 			tour_date: '<fmt:formatDate value="${list.tour_date}" pattern="yyyy-MM-dd" />',
 			tour_time:'${list.tour_time}',
+			tour_cancel:'${list.tour_cancel}',
 			tour_complete: '${list.tour_complete}'
 		}
 			<c:if test="${not status.last}">,</c:if>
@@ -180,7 +191,7 @@ $(document).ready(function() {
 			api: {
 				readData: {},
 				updateData: {
-					url: 'store/tourChange',	// 업데이트가 실행 될 controller url
+					url: 'tourChange',	// 업데이트가 실행 될 controller url
 					method: 'PUT'
 				}
 			}
@@ -202,11 +213,6 @@ $(document).ready(function() {
 				align: 'center',
 			},
 			{
-				header: '투어 희망 지점',
-				name: 'store_name',
-				align: 'center',
-			},
-			{
 				header:  '투어 희망 날짜',
 				name: 'tour_date',
 				align: 'center',
@@ -215,6 +221,11 @@ $(document).ready(function() {
 				header: '투어 희망 시간',
 				name: 'tour_time',
 				align: 'center',
+			},
+			{
+				header: '신청자 취소 여부',
+				name: 'tour_cancel',
+				align: 'center'
 			},
 			{
 				header: '투어 확정',
@@ -226,12 +237,12 @@ $(document).ready(function() {
 					options: {
 						listItems: [
 							{
-								text: 'N',
-								value: 'N'
+								text: '확정',
+								value: 'Y'
 							},
 							{
-								text: 'Y',
-								value: 'Y'
+								text: '확정보류',
+								value: 'N'
 							},
 						]
 					}
@@ -267,13 +278,13 @@ $(document).ready(function() {
 	}
 	
 	// 업데이트 실행 이벤트
-	/* tourGrid.on('response', ev => {
+	tourGrid.on('response', ev => {
 		var {response} = ev.xhr;
 		var responseObj = JSON.parse(response);
 		
 		console.log('result : ', responseObj.result);
 		console.log('data : ', responseObj.data);
-	}); */
+	});  
 })
 </script>
 </html>

@@ -348,7 +348,7 @@ $(function() {
 
 <div align="center">
 <div style="text-align: center">
-<h3 align="center">이용고객 상세조회</h3>
+<h3 align="center">고객 상세조회</h3>
 <br>
 <br>
 </div>

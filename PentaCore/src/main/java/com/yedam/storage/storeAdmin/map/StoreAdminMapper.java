@@ -60,8 +60,8 @@ public interface StoreAdminMapper {
 	public int insertCoupon(StoreAdminVO vo);
 	
 	//투어관리
-	public List<MyPageVO> storeTourList(MyPageVO vo);
-	public int updateTour(MyPageVO vo);
+	public List<MyPageVO> storeTourList(StoreAdminVO vo);
+	public int updateTour(StoreAdminVO vo);
 	
 	// ==============형민====================
 	

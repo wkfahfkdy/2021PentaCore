@@ -157,5 +157,11 @@ Element.prototype.setStyle = function(styles) {
     return this;
 };
 </script>
+
+		<div align="center">
+			<div class="btn btn-primary btn-lg" onclick="window.history.back()" style="display: inline-block;"><b>돌아가기</b>
+		</div>
+		</div>
+		<br><br><br><br>
 </body>
 </html>

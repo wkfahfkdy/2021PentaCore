@@ -54,6 +54,7 @@
  		<div style="border: 2px solid #cecece; border-radius:3px; width: 22px;"><b>X</b></div></a>
     <div class="modal-header"></div>
     <div class="modal-body"></div>
+  
 </div>
 <!-- jstl 추가하기 -->
 <!-- 색상 추가해야함. 3개 너무 적음 // 추가할 시 calendar2.jsp에도 같이 추가 -->
@@ -163,5 +164,9 @@ Element.prototype.setStyle = function(styles) {
     return this;
 };
 </script>
+	<div align="center">
+			<div class="btn btn-primary btn-lg" onclick="location.href='${pageContext.request.contextPath }/home'"style="display: inline-block;"><b>돌아가기</b>
+	</div>
+	<br><br><br><br>
 </body>
 </html>
