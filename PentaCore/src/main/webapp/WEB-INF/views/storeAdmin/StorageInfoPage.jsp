@@ -78,7 +78,7 @@
 					);
 				}
 				$('.do').hide();
-				$('#' + data[0].offer_code + data[0].storage_code).show();
+				//$('#' + data[0].offer_code + data[0].storage_code).show();
 			},
 			error: function(err){
 				console.log(err);
@@ -108,17 +108,20 @@
 		})
 	};
 	// 미사용 중인 스토리지 할당 FUNCTION
-	function unUseStorage(storage_code, store_code){
+	function unUseStorage(storage_code, store_code, offer_code){
+		console.log("왜 안나옴 : " + offer_code);
 		$.ajax({
 			url: 'offerInfo',
 			dataType : 'JSON',
 			data: {
 				storage_code : storage_code,
-				store_code : store_code
+				store_code : store_code,
+				offer_code : offer_code
 			},
 			contentType: 'application/json; charset = UTF-8',
 			success: function(data){
 				// 눌렀을때 예약정보 조회가 없으면 modal숨기고 alert 창 띄우고
+				console.log("길이 : " + data.selectOfferInfo.length)
 				if(data.selectOfferInfo.length == 0){
 					$("#unUsedStorage").modal("hide");
 					alert("이 스토리지에 해당하는 예약이 없습니다");
@@ -146,6 +149,7 @@
 			unUseStorageSelectOption += '<option selected="selected" value='+data.unUseStorage[i].info_num+'>'+ data.unUseStorage[i].storage_name + '</option>'
 		}
 		// memberId Select Option
+		memberSelectOprion += '<option>ID를 선택하세요</option>'
 		for(var j = 0; j<data.selectOfferInfo.length; j++){
 			// member option 만들어주고
 			memberSelectOprion += '<option value='+data.selectOfferInfo[j].offer_code + data.selectOfferInfo[j].storage_code+'>'+ data.selectOfferInfo[j].member_id + '</option>'
@@ -239,8 +243,8 @@
 										<div class="service-1-text" style="cursor: pointer;">
 											<c:choose>
 												<c:when test="${storageInfoList.info_use eq '미사용'}">
-														<a style="color: #2b2b2b;" id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }')" data-toggle="modal" data-target="#unUsedStorage">
-															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use}
+														<a style="color: #2b2b2b;" id="unUsedMember" onclick="unUseStorage('${storageInfoList.storage_code}','${store_code }','${storageInfoList.offer_code }')" data-toggle="modal" data-target="#unUsedStorage">
+															${storageInfoList.storage_code}-${storageInfoList.info_num } ${storageInfoList.info_use},${storageInfoList.offer_code }
 														</a>
 												</c:when>
 												<c:otherwise>

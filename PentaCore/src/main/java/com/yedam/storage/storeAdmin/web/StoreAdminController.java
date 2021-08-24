@@ -89,8 +89,7 @@ public class StoreAdminController {
 	@RequestMapping("store/offerInfo")
 	@ResponseBody
 	public Map<String, Object> offerInfo(Model model, StoreAdminVO vo) {
-		storeAdminDAO.copyUseNum(vo);
-
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("selectOfferInfo", storeService.selectOfferInfo(vo));
 		map.put("unUseStorage", storeService.unUseStorageList(vo));
@@ -101,7 +100,10 @@ public class StoreAdminController {
 	// use_storage 업데이트
 	@RequestMapping("store/updateUseStorage")
 	public String updateUseStorage(@RequestParam("store_code") String store_code , StoreAdminVO vo, RedirectAttributes red) {
-		System.out.println("fdsfsdf====" + vo.getInfo_num());
+		System.out.println("fdsfsdf====" + vo.getOffer_code());
+		// 프로시저
+		storeAdminDAO.copyUseNum(vo);
+		
 		storeService.useStroageUpdate(vo);
 		storeService.updateUseProcedure(vo);
 		red.addAttribute("store_code", store_code);
