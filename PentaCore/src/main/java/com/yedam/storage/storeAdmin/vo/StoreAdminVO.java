@@ -1,6 +1,7 @@
 package com.yedam.storage.storeAdmin.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -8,30 +9,7 @@ import lombok.Data;
 
 @Data
 public class StoreAdminVO {
-	
-	/*
-	USE_START	DATE	Yes		1	시작일
-	USE_END	DATE	Yes		2	만료일
-	INFO_NUM	VARCHAR2(5 BYTE)	Yes		3	매장 스토리지 고유 번호
-	STORE_CODE	VARCHAR2(5 BYTE)	Yes		4	지점코드
-	OFFER_CODE	VARCHAR2(5 BYTE)	Yes		5	견적서 코드
-	USE_NUM	VARCHAR2(5 BYTE)	No		6	리스트 넘버
-	MEMBER_ID	VARCHAR2(20 BYTE)	Yes		7	고객ID
-	
-	=== Storage_Info (스토리지현황)===
-	INFO_NUM     NOT NULL VARCHAR2(5) 
-	INFO_USE              VARCHAR2(1) 
-	STORAGE_CODE          VARCHAR2(5) 
-	STORE_CODE            VARCHAR2(5) 
-	
-	=== 컨디션 리스트 ===
-			CONDITION_TITLE	VARCHAR2(2000 BYTE)	Yes		1	제목
-			CONDITION_DATE	DATE	Yes		2	작성일자
-			CONDITION_NUM	VARCHAR2(5 BYTE)	No		3	컨디션 리스트 넘버
-			USE_NUM	VARCHAR2(5 BYTE)	Yes		4	리스트 넘버
-			CONDITION_COMMENT	VARCHAR2(2000 BYTE)	Yes		5	사진 및 코멘트
-	
-	 */
+
 
 	
 	//고객관리부분
@@ -71,14 +49,16 @@ public class StoreAdminVO {
 	private String laundry_consign;
 	private String laundry_collect;
 	
-	/*
-	 * 	COUPON_CODE	VARCHAR2(5 BYTE)	No		1	쿠폰코드
-		COUPON_NAME	VARCHAR2(60 BYTE)	Yes		2	쿠폰이름
-		COUPON_DISCOUNT	NUMBER(3,2)	Yes		3	쿠폰할인률
-		COUPON_START	DATE	Yes		4	쿠폰발급일자
-		COUPON_END	DATE	Yes		5	쿠폰유효기간
-		STORE_CODE	VARCHAR2(5 BYTE)	Yes		6	지점코드
-	 */
+	//투어부분
+	private String tour_code;
+	private java.sql.Date tour_date;
+	private String tour_time;
+	private String tour_complete;
+	private String tour_cancel;
+	
+	// 투어 취소에 필요: Grid Api
+	private List<StoreAdminVO> updatedRows;
+	
 	//coupon
 	private String coupon_code;
 	private String coupon_name;

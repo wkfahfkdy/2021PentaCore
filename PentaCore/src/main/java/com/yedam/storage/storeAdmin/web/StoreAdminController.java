@@ -397,7 +397,7 @@ public class StoreAdminController {
 	
 	// 투어 신청 페이지 실행
 		@RequestMapping("store/tourConfirm")
-		public String storeTour(HttpServletRequest req, Model model, MyPageVO vo) {
+		public String storeTour(HttpServletRequest req, Model model, StoreAdminVO vo) {
 			HttpSession session = req.getSession();
 
 			String id = (String) session.getAttribute("loginId");
@@ -416,8 +416,7 @@ public class StoreAdminController {
 	// 투어 승인
 		@ResponseBody
 		@RequestMapping(value = "store/tourChange", method=RequestMethod.PUT)
-		public int updateTour(@RequestBody MyPageVO vo) {
-			System.out.println("sadddddddddddddddddddddddddddddddddddddddddddddddddddd"+vo.getTour_complete());
+		public int tourChange(@RequestBody StoreAdminVO vo) {	
 			storeAdminDAO.updateTour(vo);
 			return 0;
 		}		

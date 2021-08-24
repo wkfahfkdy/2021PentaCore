@@ -230,7 +230,7 @@
 	</insert>
 	
 	<!-- 사용자가 신청한 지점투어 리스트 -->
-	<select id="storeTourList" resultType="MyPageVO" parameterType="MyPageVO">
+	<select id="storeTourList" resultType="StoreAdminVO" parameterType="StoreAdminVO">
 		SELECT t.*, s.store_name, m.member_name
 		FROM (tour t join store s 
 		on t.store_code = s.store_code) join member m on
@@ -239,7 +239,7 @@
 	</select>
 	
 	<!-- 투어 신청 확정 -->
-	<update id="updateTour" parameterType="MyPageVO">
+	<update id="updateTour" parameterType="StoreAdminVO">
 		UPDATE tour 
 		SET tour_complete = #{tour_complete}
 		WHERE tour_code = #{tour_code}
